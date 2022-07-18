@@ -1,0 +1,60 @@
+﻿@model StudentsAffairsDashboard.Models.Subject
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="col-lg-12">
+        <div class="card card-primary">
+            <div class="form-horizontal">
+                <div class="card-header">
+                    <h3 class="card-title">Add Subject Data</h3>
+                </div>
+                <br />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="row px-3">
+
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.SubjectCode, "Subject Code", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.SubjectCode, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SubjectCode, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.SubjectName, "Subject Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.SubjectName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SubjectName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.SubjectFees, "Subject Fees", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.SubjectFees, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SubjectFees, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="row">
+
+                        </div>
+                        <div class="row col-md-3">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Add New Subject" class="btn btn-primary" style="margin-top: 12px;"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+}
+<div class="col-6">
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

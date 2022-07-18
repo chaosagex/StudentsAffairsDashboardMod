@@ -1,0 +1,1489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Student_Affairs_DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clothes">
+          <Key>
+            <PropertyRef Name="ClothesID" />
+          </Key>
+          <Property Name="ClothesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClothesName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ClothesQuantity" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ClothesSize" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ClothesPrice" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Grade">
+          <Key>
+            <PropertyRef Name="GradeID" />
+          </Key>
+          <Property Name="GradeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GradeName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="invoice_item">
+          <Key>
+            <PropertyRef Name="invoice" />
+            <PropertyRef Name="payment_item" />
+          </Key>
+          <Property Name="invoice" Type="int" Nullable="false" />
+          <Property Name="payment_item" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="invoice_payment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="student" Type="int" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="total_cost" Type="money" Nullable="false" />
+          <Property Name="paid" Type="money" Nullable="false" />
+          <Property Name="remaining" Type="money" Nullable="false" />
+          <Property Name="previous_payment" Type="int" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Times" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="LogContent" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NESSchools">
+          <Key>
+            <PropertyRef Name="SchoolID" />
+          </Key>
+          <Property Name="SchoolID" Type="int" Nullable="false" />
+          <Property Name="SchoolName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SchooleAbbreviation" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="payment_details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="type" Type="int" Nullable="false" />
+          <Property Name="amount" Type="money" Nullable="false" />
+          <Property Name="school" Type="int" Nullable="false" />
+          <Property Name="year" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="student_type" Type="smallint" Nullable="false" />
+          <Property Name="Grade" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudentAccounts">
+          <Key>
+            <PropertyRef Name="StdCode" />
+          </Key>
+          <Property Name="StdCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StdEmail" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdPassword" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdStatus" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudentClothes">
+          <Key>
+            <PropertyRef Name="SCID" />
+          </Key>
+          <Property Name="SCID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StdCode" Type="int" Nullable="false" />
+          <Property Name="ClothesID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Price" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ReceivingStatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PaymentStatus" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="StudentGradesHistory">
+          <Key>
+            <PropertyRef Name="SGID" />
+          </Key>
+          <Property Name="SGID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StdCode" Type="int" Nullable="false" />
+          <Property Name="GradeID" Type="int" Nullable="false" />
+          <Property Name="StudyYear" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="KindBatch" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="StudentsMain">
+          <Key>
+            <PropertyRef Name="StdCode" />
+          </Key>
+          <Property Name="StdCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StdArabicFristName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdArabicMiddleName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdArabicLastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdArabicFamilyName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdEnglishFristName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdEnglishMiddleName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdEnglishLastName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdEnglishFamilyName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdMotherArabicName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdMotherEnglishName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdFatherMobilePhone" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdMotherMobilePhone" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdFatherEmail" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdMotherEmail" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdFatherNationality" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdMotherNationality" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdFatherSpokenLanguage" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdMotherSpokenLanguage" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdFatherJob" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdMotherJob" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdFatherQualification" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdMotherQualification" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdStudentsAffairs1" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdStudentsAffairs2" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdBirthCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="StdAddressGov" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdEmergencyContact" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdEmergencyPhone" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdBOD" Type="date" />
+          <Property Name="StdBirthPlace" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdGender" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdReligion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdFatherNID" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="StdMotherNID" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="StdCity" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdNID" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="StdSchoolID" Type="int" Nullable="false" />
+          <Property Name="StdClassID" Type="int" Nullable="false" />
+          <Property Name="StdNationality" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdStatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdJoinYear" Type="date" />
+          <Property Name="StdStaffSon" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdLegalGuardianship" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdParentsSeparated" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudentSubjectEnroll">
+          <Key>
+            <PropertyRef Name="SSID" />
+          </Key>
+          <Property Name="SSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StdCode" Type="int" Nullable="false" />
+          <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="StudyYear" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subjects">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectCode" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SubjectName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SubjectFees" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_class_main">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="StudentsMain" Type="Self.StudentsMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="StudentsMain">
+              <PropertyRef Name="StdClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_clothes_student">
+          <End Role="Clothes" Type="Self.Clothes" Multiplicity="1" />
+          <End Role="StudentClothes" Type="Self.StudentClothes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clothes">
+              <PropertyRef Name="ClothesID" />
+            </Principal>
+            <Dependent Role="StudentClothes">
+              <PropertyRef Name="ClothesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_grade_history">
+          <End Role="Grade" Type="Self.Grade" Multiplicity="1" />
+          <End Role="StudentGradesHistory" Type="Self.StudentGradesHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="StudentGradesHistory">
+              <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_invoice_item_invoice_payment">
+          <End Role="invoice_payment" Type="Self.invoice_payment" Multiplicity="1" />
+          <End Role="invoice_item" Type="Self.invoice_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="invoice_payment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="invoice_item">
+              <PropertyRef Name="invoice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_invoice_item_payment_details">
+          <End Role="payment_details" Type="Self.payment_details" Multiplicity="1" />
+          <End Role="invoice_item" Type="Self.invoice_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payment_details">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="invoice_item">
+              <PropertyRef Name="payment_item" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_invoice_payment_invoice_payment">
+          <End Role="invoice_payment" Type="Self.invoice_payment" Multiplicity="0..1" />
+          <End Role="invoice_payment1" Type="Self.invoice_payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="invoice_payment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="invoice_payment1">
+              <PropertyRef Name="previous_payment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_invoice_payment_student">
+          <End Role="StudentsMain" Type="Self.StudentsMain" Multiplicity="1" />
+          <End Role="invoice_payment" Type="Self.invoice_payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentsMain">
+              <PropertyRef Name="StdCode" />
+            </Principal>
+            <Dependent Role="invoice_payment">
+              <PropertyRef Name="student" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_payment_details_school">
+          <End Role="NESSchools" Type="Self.NESSchools" Multiplicity="1" />
+          <End Role="payment_details" Type="Self.payment_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NESSchools">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="payment_details">
+              <PropertyRef Name="school" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_school_main">
+          <End Role="NESSchools" Type="Self.NESSchools" Multiplicity="1" />
+          <End Role="StudentsMain" Type="Self.StudentsMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NESSchools">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="StudentsMain">
+              <PropertyRef Name="StdSchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_stu_clothes">
+          <End Role="StudentsMain" Type="Self.StudentsMain" Multiplicity="1" />
+          <End Role="StudentClothes" Type="Self.StudentClothes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentsMain">
+              <PropertyRef Name="StdCode" />
+            </Principal>
+            <Dependent Role="StudentClothes">
+              <PropertyRef Name="StdCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_stu_Enroll">
+          <End Role="StudentsMain" Type="Self.StudentsMain" Multiplicity="1" />
+          <End Role="StudentSubjectEnroll" Type="Self.StudentSubjectEnroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentsMain">
+              <PropertyRef Name="StdCode" />
+            </Principal>
+            <Dependent Role="StudentSubjectEnroll">
+              <PropertyRef Name="StdCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_stu_history">
+          <End Role="StudentsMain" Type="Self.StudentsMain" Multiplicity="1" />
+          <End Role="StudentGradesHistory" Type="Self.StudentGradesHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentsMain">
+              <PropertyRef Name="StdCode" />
+            </Principal>
+            <Dependent Role="StudentGradesHistory">
+              <PropertyRef Name="StdCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_subject_Enroll">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
+          <End Role="StudentSubjectEnroll" Type="Self.StudentSubjectEnroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="StudentSubjectEnroll">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkStd_account_data">
+          <End Role="StudentsMain" Type="Self.StudentsMain" Multiplicity="1" />
+          <End Role="StudentAccounts" Type="Self.StudentAccounts" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="StudentsMain">
+              <PropertyRef Name="StdCode" />
+            </Principal>
+            <Dependent Role="StudentAccounts">
+              <PropertyRef Name="StdCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="deleteInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="invoiceID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="deleteInvoiceItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="itemID" Type="int" Mode="In" />
+          <Parameter Name="invoiceID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="deletePayment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="paymentID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="getInvoiceById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="invoiceId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getInvoiceItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="itemID" Type="int" Mode="In" />
+          <Parameter Name="invoiceID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getInvoicesById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="invoiceId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getPayment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="paymentSchool" Type="varchar" Mode="In" />
+          <Parameter Name="paymentYear" Type="date" Mode="In" />
+          <Parameter Name="paymentStudentType" Type="smallint" Mode="In" />
+        </Function>
+        <Function Name="getPaymentById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="paymentID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getPaymentItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="school" Type="int" Mode="In" />
+          <Parameter Name="student_type" Type="smallint" Mode="In" />
+          <Parameter Name="grade" Type="smallint" Mode="In" />
+        </Function>
+        <Function Name="getPreviousPayment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="student" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insertInvoiceItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="itemID" Type="int" Mode="In" />
+          <Parameter Name="invoiceID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insertPaymentDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="paymentName" Type="varchar" Mode="In" />
+          <Parameter Name="paymentType" Type="int" Mode="In" />
+          <Parameter Name="paymentAmount" Type="money" Mode="In" />
+          <Parameter Name="paymentSchool" Type="varchar" Mode="In" />
+          <Parameter Name="paymentYear" Type="date" Mode="In" />
+          <Parameter Name="paymentStudentType" Type="smallint" Mode="In" />
+        </Function>
+        <Function Name="insertStudentFees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="feeActivity" Type="int" Mode="In" />
+          <Parameter Name="feeResources" Type="int" Mode="In" />
+          <Parameter Name="feeFirstInstallment" Type="int" Mode="In" />
+          <Parameter Name="feeSecondInstallment" Type="int" Mode="In" />
+          <Parameter Name="feeUniform" Type="int" Mode="In" />
+          <Parameter Name="feeTotalFees" Type="int" Mode="In" />
+          <Parameter Name="feeYear" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="updatePaymentDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="paymentId" Type="int" Mode="In" />
+          <Parameter Name="paymentName" Type="varchar" Mode="In" />
+          <Parameter Name="paymentType" Type="int" Mode="In" />
+          <Parameter Name="paymentAmount" Type="money" Mode="In" />
+          <Parameter Name="paymentSchool" Type="varchar" Mode="In" />
+          <Parameter Name="paymentYear" Type="date" Mode="In" />
+          <Parameter Name="paymentStudentType" Type="smallint" Mode="In" />
+        </Function>
+        <EntityContainer Name="Student_Affairs_DatabaseModelStoreContainer">
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clothes" EntityType="Self.Clothes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grade" EntityType="Self.Grade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="invoice_item" EntityType="Self.invoice_item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="invoice_payment" EntityType="Self.invoice_payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NESSchools" EntityType="Self.NESSchools" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="payment_details" EntityType="Self.payment_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentAccounts" EntityType="Self.StudentAccounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentClothes" EntityType="Self.StudentClothes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentGradesHistory" EntityType="Self.StudentGradesHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentsMain" EntityType="Self.StudentsMain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentSubjectEnroll" EntityType="Self.StudentSubjectEnroll" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_class_main" Association="Self.fk_class_main">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="StudentsMain" EntitySet="StudentsMain" />
+          </AssociationSet>
+          <AssociationSet Name="fk_clothes_student" Association="Self.fk_clothes_student">
+            <End Role="Clothes" EntitySet="Clothes" />
+            <End Role="StudentClothes" EntitySet="StudentClothes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_grade_history" Association="Self.fk_grade_history">
+            <End Role="Grade" EntitySet="Grade" />
+            <End Role="StudentGradesHistory" EntitySet="StudentGradesHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_invoice_item_invoice_payment" Association="Self.FK_invoice_item_invoice_payment">
+            <End Role="invoice_payment" EntitySet="invoice_payment" />
+            <End Role="invoice_item" EntitySet="invoice_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_invoice_item_payment_details" Association="Self.FK_invoice_item_payment_details">
+            <End Role="payment_details" EntitySet="payment_details" />
+            <End Role="invoice_item" EntitySet="invoice_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_invoice_payment_invoice_payment" Association="Self.FK_invoice_payment_invoice_payment">
+            <End Role="invoice_payment" EntitySet="invoice_payment" />
+            <End Role="invoice_payment1" EntitySet="invoice_payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_invoice_payment_student" Association="Self.FK_invoice_payment_student">
+            <End Role="StudentsMain" EntitySet="StudentsMain" />
+            <End Role="invoice_payment" EntitySet="invoice_payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_payment_details_school" Association="Self.FK_payment_details_school">
+            <End Role="NESSchools" EntitySet="NESSchools" />
+            <End Role="payment_details" EntitySet="payment_details" />
+          </AssociationSet>
+          <AssociationSet Name="fk_school_main" Association="Self.fk_school_main">
+            <End Role="NESSchools" EntitySet="NESSchools" />
+            <End Role="StudentsMain" EntitySet="StudentsMain" />
+          </AssociationSet>
+          <AssociationSet Name="fk_stu_clothes" Association="Self.fk_stu_clothes">
+            <End Role="StudentsMain" EntitySet="StudentsMain" />
+            <End Role="StudentClothes" EntitySet="StudentClothes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_stu_Enroll" Association="Self.fk_stu_Enroll">
+            <End Role="StudentsMain" EntitySet="StudentsMain" />
+            <End Role="StudentSubjectEnroll" EntitySet="StudentSubjectEnroll" />
+          </AssociationSet>
+          <AssociationSet Name="fk_stu_history" Association="Self.fk_stu_history">
+            <End Role="StudentsMain" EntitySet="StudentsMain" />
+            <End Role="StudentGradesHistory" EntitySet="StudentGradesHistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk_subject_Enroll" Association="Self.fk_subject_Enroll">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="StudentSubjectEnroll" EntitySet="StudentSubjectEnroll" />
+          </AssociationSet>
+          <AssociationSet Name="fkStd_account_data" Association="Self.fkStd_account_data">
+            <End Role="StudentsMain" EntitySet="StudentsMain" />
+            <End Role="StudentAccounts" EntitySet="StudentAccounts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Student_Affairs_DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="StudentsMains" Relationship="Self.fk_class_main" FromRole="Class" ToRole="StudentsMain" />
+        </EntityType>
+        <EntityType Name="Grade">
+          <Key>
+            <PropertyRef Name="GradeID" />
+          </Key>
+          <Property Name="GradeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GradeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="StudentGradesHistories" Relationship="Self.fk_grade_history" FromRole="Grade" ToRole="StudentGradesHistory" />
+        </EntityType>
+        <EntityType Name="NESSchool">
+          <Key>
+            <PropertyRef Name="SchoolID" />
+          </Key>
+          <Property Name="SchoolID" Type="Int32" Nullable="false" />
+          <Property Name="SchoolName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SchooleAbbreviation" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="StudentsMains" Relationship="Self.fk_school_main" FromRole="NESSchools" ToRole="StudentsMain" />
+          <NavigationProperty Name="payment_details" Relationship="Student_Affairs_DatabaseModel.FK_payment_details_school" FromRole="NESSchool" ToRole="payment_details" />
+        </EntityType>
+        <EntityType Name="StudentAccount">
+          <Key>
+            <PropertyRef Name="StdCode" />
+          </Key>
+          <Property Name="StdCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StdEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="StudentsMain" Relationship="Self.fkStd_account_data" FromRole="StudentAccounts" ToRole="StudentsMain" />
+        </EntityType>
+        <EntityType Name="StudentGradesHistory">
+          <Key>
+            <PropertyRef Name="SGID" />
+          </Key>
+          <Property Name="SGID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StdCode" Type="Int32" Nullable="false" />
+          <Property Name="GradeID" Type="Int32" Nullable="false" />
+          <Property Name="StudyYear" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Grade" Relationship="Self.fk_grade_history" FromRole="StudentGradesHistory" ToRole="Grade" />
+          <NavigationProperty Name="StudentsMain" Relationship="Self.fk_stu_history" FromRole="StudentGradesHistory" ToRole="StudentsMain" />
+          <Property Name="KindBatch" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="StudentsMain">
+          <Key>
+            <PropertyRef Name="StdCode" />
+          </Key>
+          <Property Name="StdCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StdArabicFristName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StdArabicMiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StdArabicLastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StdArabicFamilyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StdEnglishFristName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdEnglishMiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdEnglishLastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdEnglishFamilyName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdMotherArabicName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StdMotherEnglishName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdFatherMobilePhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdMotherMobilePhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdFatherEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdMotherEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdFatherNationality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdMotherNationality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdFatherSpokenLanguage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdMotherSpokenLanguage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdFatherJob" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdMotherJob" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdFatherQualification" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdMotherQualification" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdStudentsAffairs1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdStudentsAffairs2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdBirthCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdAddressGov" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdEmergencyContact" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdEmergencyPhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdBOD" Type="DateTime" Precision="0" />
+          <Property Name="StdBirthPlace" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdGender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdReligion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdFatherNID" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdMotherNID" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdCity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StdNID" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdSchoolID" Type="Int32" Nullable="false" />
+          <Property Name="StdClassID" Type="Int32" Nullable="false" />
+          <Property Name="StdNationality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdJoinYear" Type="DateTime" Precision="0" />
+          <Property Name="StdStaffSon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdLegalGuardianship" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdParentsSeparated" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Class" Relationship="Self.fk_class_main" FromRole="StudentsMain" ToRole="Class" />
+          <NavigationProperty Name="NESSchool" Relationship="Self.fk_school_main" FromRole="StudentsMain" ToRole="NESSchools" />
+          <NavigationProperty Name="StudentAccount" Relationship="Self.fkStd_account_data" FromRole="StudentsMain" ToRole="StudentAccounts" />
+          <NavigationProperty Name="StudentGradesHistories" Relationship="Self.fk_stu_history" FromRole="StudentsMain" ToRole="StudentGradesHistory" />
+          <NavigationProperty Name="StudentSubjectEnrolls" Relationship="Self.fk_stu_Enroll" FromRole="StudentsMain" ToRole="StudentSubjectEnroll" />
+          <NavigationProperty Name="StudentClothes" Relationship="Student_Affairs_DatabaseModel.fk_stu_clothes" FromRole="StudentsMain" ToRole="StudentClothe" />
+          <NavigationProperty Name="invoice_payment" Relationship="Student_Affairs_DatabaseModel.FK_invoice_payment_student" FromRole="StudentsMain" ToRole="invoice_payment" />
+        </EntityType>
+        <EntityType Name="StudentSubjectEnroll">
+          <Key>
+            <PropertyRef Name="SSID" />
+          </Key>
+          <Property Name="SSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StdCode" Type="Int32" Nullable="false" />
+          <Property Name="SubjectID" Type="Int32" Nullable="false" />
+          <Property Name="StudyYear" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="StudentsMain" Relationship="Self.fk_stu_Enroll" FromRole="StudentSubjectEnroll" ToRole="StudentsMain" />
+          <NavigationProperty Name="Subject" Relationship="Self.fk_subject_Enroll" FromRole="StudentSubjectEnroll" ToRole="Subjects" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SubjectName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SubjectFees" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="StudentSubjectEnrolls" Relationship="Self.fk_subject_Enroll" FromRole="Subjects" ToRole="StudentSubjectEnroll" />
+        </EntityType>
+        <Association Name="fk_class_main">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="StudentsMain" Type="Self.StudentsMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="StudentsMain">
+              <PropertyRef Name="StdClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_grade_history">
+          <End Role="Grade" Type="Self.Grade" Multiplicity="1" />
+          <End Role="StudentGradesHistory" Type="Self.StudentGradesHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="StudentGradesHistory">
+              <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_school_main">
+          <End Role="NESSchools" Type="Self.NESSchool" Multiplicity="1" />
+          <End Role="StudentsMain" Type="Self.StudentsMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NESSchools">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="StudentsMain">
+              <PropertyRef Name="StdSchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkStd_account_data">
+          <End Role="StudentsMain" Type="Self.StudentsMain" Multiplicity="1" />
+          <End Role="StudentAccounts" Type="Self.StudentAccount" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="StudentsMain">
+              <PropertyRef Name="StdCode" />
+            </Principal>
+            <Dependent Role="StudentAccounts">
+              <PropertyRef Name="StdCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_stu_history">
+          <End Role="StudentsMain" Type="Self.StudentsMain" Multiplicity="1" />
+          <End Role="StudentGradesHistory" Type="Self.StudentGradesHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentsMain">
+              <PropertyRef Name="StdCode" />
+            </Principal>
+            <Dependent Role="StudentGradesHistory">
+              <PropertyRef Name="StdCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_stu_Enroll">
+          <End Role="StudentsMain" Type="Self.StudentsMain" Multiplicity="1" />
+          <End Role="StudentSubjectEnroll" Type="Self.StudentSubjectEnroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentsMain">
+              <PropertyRef Name="StdCode" />
+            </Principal>
+            <Dependent Role="StudentSubjectEnroll">
+              <PropertyRef Name="StdCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_subject_Enroll">
+          <End Role="Subjects" Type="Self.Subject" Multiplicity="1" />
+          <End Role="StudentSubjectEnroll" Type="Self.StudentSubjectEnroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="StudentSubjectEnroll">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StudentAffairsDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="Classes" EntityType="Self.Class" />
+          <EntitySet Name="Grades" EntityType="Self.Grade" />
+          <EntitySet Name="NESSchools" EntityType="Self.NESSchool" />
+          <EntitySet Name="StudentAccounts" EntityType="Self.StudentAccount" />
+          <EntitySet Name="StudentGradesHistories" EntityType="Self.StudentGradesHistory" />
+          <EntitySet Name="StudentsMains" EntityType="Self.StudentsMain" />
+          <EntitySet Name="StudentSubjectEnrolls" EntityType="Self.StudentSubjectEnroll" />
+          <EntitySet Name="Subjects" EntityType="Self.Subject" />
+          <AssociationSet Name="fk_class_main" Association="Self.fk_class_main">
+            <End Role="Class" EntitySet="Classes" />
+            <End Role="StudentsMain" EntitySet="StudentsMains" />
+          </AssociationSet>
+          <AssociationSet Name="fk_grade_history" Association="Self.fk_grade_history">
+            <End Role="Grade" EntitySet="Grades" />
+            <End Role="StudentGradesHistory" EntitySet="StudentGradesHistories" />
+          </AssociationSet>
+          <AssociationSet Name="fk_school_main" Association="Self.fk_school_main">
+            <End Role="NESSchools" EntitySet="NESSchools" />
+            <End Role="StudentsMain" EntitySet="StudentsMains" />
+          </AssociationSet>
+          <AssociationSet Name="fkStd_account_data" Association="Self.fkStd_account_data">
+            <End Role="StudentsMain" EntitySet="StudentsMains" />
+            <End Role="StudentAccounts" EntitySet="StudentAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_stu_history" Association="Self.fk_stu_history">
+            <End Role="StudentsMain" EntitySet="StudentsMains" />
+            <End Role="StudentGradesHistory" EntitySet="StudentGradesHistories" />
+          </AssociationSet>
+          <AssociationSet Name="fk_stu_Enroll" Association="Self.fk_stu_Enroll">
+            <End Role="StudentsMain" EntitySet="StudentsMains" />
+            <End Role="StudentSubjectEnroll" EntitySet="StudentSubjectEnrolls" />
+          </AssociationSet>
+          <AssociationSet Name="fk_subject_Enroll" Association="Self.fk_subject_Enroll">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="StudentSubjectEnroll" EntitySet="StudentSubjectEnrolls" />
+          </AssociationSet>
+          <EntitySet Name="Logs" EntityType="Student_Affairs_DatabaseModel.Log" />
+          <EntitySet Name="Clothes" EntityType="Student_Affairs_DatabaseModel.Cloth" />
+          <EntitySet Name="StudentClothes" EntityType="Student_Affairs_DatabaseModel.StudentClothe" />
+          <AssociationSet Name="fk_clothes_student" Association="Student_Affairs_DatabaseModel.fk_clothes_student">
+            <End Role="Cloth" EntitySet="Clothes" />
+            <End Role="StudentClothe" EntitySet="StudentClothes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_stu_clothes" Association="Student_Affairs_DatabaseModel.fk_stu_clothes">
+            <End Role="StudentsMain" EntitySet="StudentsMains" />
+            <End Role="StudentClothe" EntitySet="StudentClothes" />
+          </AssociationSet>
+          <EntitySet Name="invoice_payment" EntityType="Student_Affairs_DatabaseModel.invoice_payment" />
+          <EntitySet Name="payment_details" EntityType="Student_Affairs_DatabaseModel.payment_details" />
+          <AssociationSet Name="FK_invoice_payment_invoice_payment" Association="Student_Affairs_DatabaseModel.FK_invoice_payment_invoice_payment">
+            <End Role="invoice_payment" EntitySet="invoice_payment" />
+            <End Role="invoice_payment1" EntitySet="invoice_payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_invoice_payment_student" Association="Student_Affairs_DatabaseModel.FK_invoice_payment_student">
+            <End Role="StudentsMain" EntitySet="StudentsMains" />
+            <End Role="invoice_payment" EntitySet="invoice_payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_payment_details_school" Association="Student_Affairs_DatabaseModel.FK_payment_details_school">
+            <End Role="NESSchool" EntitySet="NESSchools" />
+            <End Role="payment_details" EntitySet="payment_details" />
+          </AssociationSet>
+          <AssociationSet Name="invoice_item" Association="Student_Affairs_DatabaseModel.invoice_item">
+            <End Role="invoice_payment" EntitySet="invoice_payment" />
+            <End Role="payment_details" EntitySet="payment_details" />
+          </AssociationSet>
+          <FunctionImport Name="deleteInvoice">
+            <Parameter Name="invoiceID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="deleteInvoiceItem">
+            <Parameter Name="itemID" Mode="In" Type="Int32" />
+            <Parameter Name="invoiceID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="deletePayment">
+            <Parameter Name="paymentID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getInvoiceById" ReturnType="Collection(Student_Affairs_DatabaseModel.getInvoiceById_Result)">
+            <Parameter Name="invoiceId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getInvoiceItem" ReturnType="Collection(Student_Affairs_DatabaseModel.getInvoiceItem_Result)">
+            <Parameter Name="itemID" Mode="In" Type="Int32" />
+            <Parameter Name="invoiceID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getInvoicesById" ReturnType="Collection(Student_Affairs_DatabaseModel.getInvoicesById_Result)">
+            <Parameter Name="invoiceId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getPayment" ReturnType="Collection(Student_Affairs_DatabaseModel.getPayment_Result)">
+            <Parameter Name="paymentSchool" Mode="In" Type="String" />
+            <Parameter Name="paymentYear" Mode="In" Type="DateTime" />
+            <Parameter Name="paymentStudentType" Mode="In" Type="Int16" />
+          </FunctionImport>
+          <FunctionImport Name="getPaymentById" ReturnType="Collection(Student_Affairs_DatabaseModel.getPaymentById_Result)">
+            <Parameter Name="paymentID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getPaymentItems" ReturnType="Collection(Student_Affairs_DatabaseModel.getPaymentItems_Result)">
+            <Parameter Name="school" Mode="In" Type="Int32" />
+            <Parameter Name="student_type" Mode="In" Type="Int16" />
+            <Parameter Name="grade" Mode="In" Type="Int16" />
+          </FunctionImport>
+          <FunctionImport Name="getPreviousPayment" ReturnType="Collection(Student_Affairs_DatabaseModel.getPreviousPayment_Result)">
+            <Parameter Name="student" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertInvoiceItem">
+            <Parameter Name="itemID" Mode="In" Type="Int32" />
+            <Parameter Name="invoiceID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertPaymentDetail">
+            <Parameter Name="paymentName" Mode="In" Type="String" />
+            <Parameter Name="paymentType" Mode="In" Type="Int32" />
+            <Parameter Name="paymentAmount" Mode="In" Type="Decimal" />
+            <Parameter Name="paymentSchool" Mode="In" Type="String" />
+            <Parameter Name="paymentYear" Mode="In" Type="DateTime" />
+            <Parameter Name="paymentStudentType" Mode="In" Type="Int16" />
+          </FunctionImport>
+          <FunctionImport Name="insertStudentFees">
+            <Parameter Name="feeActivity" Mode="In" Type="Int32" />
+            <Parameter Name="feeResources" Mode="In" Type="Int32" />
+            <Parameter Name="feeFirstInstallment" Mode="In" Type="Int32" />
+            <Parameter Name="feeSecondInstallment" Mode="In" Type="Int32" />
+            <Parameter Name="feeUniform" Mode="In" Type="Int32" />
+            <Parameter Name="feeTotalFees" Mode="In" Type="Int32" />
+            <Parameter Name="feeYear" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Student_Affairs_DatabaseModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Student_Affairs_DatabaseModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="updatePaymentDetail">
+            <Parameter Name="paymentId" Mode="In" Type="Int32" />
+            <Parameter Name="paymentName" Mode="In" Type="String" />
+            <Parameter Name="paymentType" Mode="In" Type="Int32" />
+            <Parameter Name="paymentAmount" Mode="In" Type="Decimal" />
+            <Parameter Name="paymentSchool" Mode="In" Type="String" />
+            <Parameter Name="paymentYear" Mode="In" Type="DateTime" />
+            <Parameter Name="paymentStudentType" Mode="In" Type="Int16" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Times" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LogContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Cloth">
+          <Key>
+            <PropertyRef Name="ClothesID" />
+          </Key>
+          <Property Name="ClothesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClothesName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ClothesQuantity" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ClothesSize" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ClothesPrice" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="StudentClothes" Relationship="Student_Affairs_DatabaseModel.fk_clothes_student" FromRole="Cloth" ToRole="StudentClothe" />
+        </EntityType>
+        <EntityType Name="StudentClothe">
+          <Key>
+            <PropertyRef Name="SCID" />
+          </Key>
+          <Property Name="SCID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StdCode" Type="Int32" Nullable="false" />
+          <Property Name="ClothesID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ReceivingStatus" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cloth" Relationship="Student_Affairs_DatabaseModel.fk_clothes_student" FromRole="StudentClothe" ToRole="Cloth" />
+          <NavigationProperty Name="StudentsMain" Relationship="Student_Affairs_DatabaseModel.fk_stu_clothes" FromRole="StudentClothe" ToRole="StudentsMain" />
+        </EntityType>
+        <Association Name="fk_clothes_student">
+          <End Type="Student_Affairs_DatabaseModel.Cloth" Role="Cloth" Multiplicity="1" />
+          <End Type="Student_Affairs_DatabaseModel.StudentClothe" Role="StudentClothe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cloth">
+              <PropertyRef Name="ClothesID" />
+            </Principal>
+            <Dependent Role="StudentClothe">
+              <PropertyRef Name="ClothesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_stu_clothes">
+          <End Type="Student_Affairs_DatabaseModel.StudentsMain" Role="StudentsMain" Multiplicity="1" />
+          <End Type="Student_Affairs_DatabaseModel.StudentClothe" Role="StudentClothe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentsMain">
+              <PropertyRef Name="StdCode" />
+            </Principal>
+            <Dependent Role="StudentClothe">
+              <PropertyRef Name="StdCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="invoice_payment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="student" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="total_cost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="paid" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="remaining" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="previous_payment" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="invoice_payment1" Relationship="Student_Affairs_DatabaseModel.FK_invoice_payment_invoice_payment" FromRole="invoice_payment" ToRole="invoice_payment1" />
+          <NavigationProperty Name="invoice_payment2" Relationship="Student_Affairs_DatabaseModel.FK_invoice_payment_invoice_payment" FromRole="invoice_payment1" ToRole="invoice_payment" />
+          <NavigationProperty Name="StudentsMain" Relationship="Student_Affairs_DatabaseModel.FK_invoice_payment_student" FromRole="invoice_payment" ToRole="StudentsMain" />
+          <NavigationProperty Name="payment_details" Relationship="Student_Affairs_DatabaseModel.invoice_item" FromRole="invoice_payment" ToRole="payment_details" />
+        </EntityType>
+        <EntityType Name="payment_details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="school" Type="Int32" Nullable="false" />
+          <Property Name="year" Type="String" Nullable="false" MaxLength="9" FixedLength="true" Unicode="false" />
+          <Property Name="student_type" Type="Int16" Nullable="false" />
+          <Property Name="Grade" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="NESSchool" Relationship="Student_Affairs_DatabaseModel.FK_payment_details_school" FromRole="payment_details" ToRole="NESSchool" />
+          <NavigationProperty Name="invoice_payment" Relationship="Student_Affairs_DatabaseModel.invoice_item" FromRole="payment_details" ToRole="invoice_payment" />
+        </EntityType>
+        <Association Name="FK_invoice_payment_invoice_payment">
+          <End Type="Student_Affairs_DatabaseModel.invoice_payment" Role="invoice_payment" Multiplicity="0..1" />
+          <End Type="Student_Affairs_DatabaseModel.invoice_payment" Role="invoice_payment1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="invoice_payment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="invoice_payment1">
+              <PropertyRef Name="previous_payment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_invoice_payment_student">
+          <End Type="Student_Affairs_DatabaseModel.StudentsMain" Role="StudentsMain" Multiplicity="1" />
+          <End Type="Student_Affairs_DatabaseModel.invoice_payment" Role="invoice_payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentsMain">
+              <PropertyRef Name="StdCode" />
+            </Principal>
+            <Dependent Role="invoice_payment">
+              <PropertyRef Name="student" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_payment_details_school">
+          <End Type="Student_Affairs_DatabaseModel.NESSchool" Role="NESSchool" Multiplicity="1" />
+          <End Type="Student_Affairs_DatabaseModel.payment_details" Role="payment_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NESSchool">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="payment_details">
+              <PropertyRef Name="school" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="invoice_item">
+          <End Type="Student_Affairs_DatabaseModel.invoice_payment" Role="invoice_payment" Multiplicity="*" />
+          <End Type="Student_Affairs_DatabaseModel.payment_details" Role="payment_details" Multiplicity="*" />
+        </Association>
+        <ComplexType Name="getInvoiceById_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="student" Nullable="false" />
+          <Property Type="DateTime" Name="date" Nullable="false" />
+          <Property Type="Decimal" Name="total_cost" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="paid" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="remaining" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="previous_payment" Nullable="true" />
+          <Property Type="String" Name="Notes" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="getInvoiceItem_Result">
+          <Property Type="Int32" Name="invoice" Nullable="false" />
+          <Property Type="Int32" Name="payment_item" Nullable="false" />
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="type" Nullable="false" />
+          <Property Type="Decimal" Name="amount" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="school" Nullable="false" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="9" />
+          <Property Type="Int16" Name="student_type" Nullable="false" />
+          <Property Type="Int16" Name="Grade" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getInvoicesById_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="Int32" Name="student" Nullable="true" />
+          <Property Type="DateTime" Name="date" Nullable="true" />
+          <Property Type="Decimal" Name="total_cost" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="paid" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="remaining" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="previous_payment" Nullable="true" />
+          <Property Type="String" Name="Notes" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="getPayment_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="type" Nullable="false" />
+          <Property Type="Decimal" Name="amount" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="school" Nullable="false" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="9" />
+          <Property Type="Int16" Name="student_type" Nullable="false" />
+          <Property Type="Int16" Name="Grade" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getPaymentById_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="type" Nullable="false" />
+          <Property Type="Decimal" Name="amount" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="school" Nullable="false" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="9" />
+          <Property Type="Int16" Name="student_type" Nullable="false" />
+          <Property Type="Int16" Name="Grade" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getPaymentItems_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="type" Nullable="false" />
+          <Property Type="Decimal" Name="amount" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="school" Nullable="false" />
+          <Property Type="String" Name="year" Nullable="false" MaxLength="9" />
+          <Property Type="Int16" Name="student_type" Nullable="false" />
+          <Property Type="Int16" Name="Grade" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getPreviousPayment_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="student" Nullable="false" />
+          <Property Type="DateTime" Name="date" Nullable="false" />
+          <Property Type="Decimal" Name="total_cost" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="paid" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="remaining" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="previous_payment" Nullable="true" />
+          <Property Type="String" Name="Notes" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Student_Affairs_DatabaseModelStoreContainer" CdmEntityContainer="StudentAffairsDatabaseEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Account">
+              <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Classes">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Class">
+              <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grades">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Grade">
+              <MappingFragment StoreEntitySet="Grade">
+                <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+                <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NESSchools">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.NESSchool">
+              <MappingFragment StoreEntitySet="NESSchools">
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="SchooleAbbreviation" ColumnName="SchooleAbbreviation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentAccounts">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentAccount">
+              <MappingFragment StoreEntitySet="StudentAccounts">
+                <ScalarProperty Name="StdCode" ColumnName="StdCode" />
+                <ScalarProperty Name="StdEmail" ColumnName="StdEmail" />
+                <ScalarProperty Name="StdPassword" ColumnName="StdPassword" />
+                <ScalarProperty Name="StdStatus" ColumnName="StdStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentGradesHistories">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentGradesHistory">
+              <MappingFragment StoreEntitySet="StudentGradesHistory">
+                <ScalarProperty Name="KindBatch" ColumnName="KindBatch" />
+                <ScalarProperty Name="SGID" ColumnName="SGID" />
+                <ScalarProperty Name="StdCode" ColumnName="StdCode" />
+                <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+                <ScalarProperty Name="StudyYear" ColumnName="StudyYear" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentsMains">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentsMain">
+              <MappingFragment StoreEntitySet="StudentsMain">
+                <ScalarProperty Name="StdCode" ColumnName="StdCode" />
+                <ScalarProperty Name="StdArabicFristName" ColumnName="StdArabicFristName" />
+                <ScalarProperty Name="StdArabicMiddleName" ColumnName="StdArabicMiddleName" />
+                <ScalarProperty Name="StdArabicLastName" ColumnName="StdArabicLastName" />
+                <ScalarProperty Name="StdArabicFamilyName" ColumnName="StdArabicFamilyName" />
+                <ScalarProperty Name="StdEnglishFristName" ColumnName="StdEnglishFristName" />
+                <ScalarProperty Name="StdEnglishMiddleName" ColumnName="StdEnglishMiddleName" />
+                <ScalarProperty Name="StdEnglishLastName" ColumnName="StdEnglishLastName" />
+                <ScalarProperty Name="StdEnglishFamilyName" ColumnName="StdEnglishFamilyName" />
+                <ScalarProperty Name="StdMotherArabicName" ColumnName="StdMotherArabicName" />
+                <ScalarProperty Name="StdMotherEnglishName" ColumnName="StdMotherEnglishName" />
+                <ScalarProperty Name="StdFatherMobilePhone" ColumnName="StdFatherMobilePhone" />
+                <ScalarProperty Name="StdMotherMobilePhone" ColumnName="StdMotherMobilePhone" />
+                <ScalarProperty Name="StdFatherEmail" ColumnName="StdFatherEmail" />
+                <ScalarProperty Name="StdMotherEmail" ColumnName="StdMotherEmail" />
+                <ScalarProperty Name="StdFatherNationality" ColumnName="StdFatherNationality" />
+                <ScalarProperty Name="StdMotherNationality" ColumnName="StdMotherNationality" />
+                <ScalarProperty Name="StdFatherSpokenLanguage" ColumnName="StdFatherSpokenLanguage" />
+                <ScalarProperty Name="StdMotherSpokenLanguage" ColumnName="StdMotherSpokenLanguage" />
+                <ScalarProperty Name="StdFatherJob" ColumnName="StdFatherJob" />
+                <ScalarProperty Name="StdMotherJob" ColumnName="StdMotherJob" />
+                <ScalarProperty Name="StdFatherQualification" ColumnName="StdFatherQualification" />
+                <ScalarProperty Name="StdMotherQualification" ColumnName="StdMotherQualification" />
+                <ScalarProperty Name="StdStudentsAffairs1" ColumnName="StdStudentsAffairs1" />
+                <ScalarProperty Name="StdStudentsAffairs2" ColumnName="StdStudentsAffairs2" />
+                <ScalarProperty Name="StdBirthCode" ColumnName="StdBirthCode" />
+                <ScalarProperty Name="StdAddressGov" ColumnName="StdAddressGov" />
+                <ScalarProperty Name="StdEmergencyContact" ColumnName="StdEmergencyContact" />
+                <ScalarProperty Name="StdEmergencyPhone" ColumnName="StdEmergencyPhone" />
+                <ScalarProperty Name="StdBOD" ColumnName="StdBOD" />
+                <ScalarProperty Name="StdBirthPlace" ColumnName="StdBirthPlace" />
+                <ScalarProperty Name="StdGender" ColumnName="StdGender" />
+                <ScalarProperty Name="StdReligion" ColumnName="StdReligion" />
+                <ScalarProperty Name="StdFatherNID" ColumnName="StdFatherNID" />
+                <ScalarProperty Name="StdMotherNID" ColumnName="StdMotherNID" />
+                <ScalarProperty Name="StdCity" ColumnName="StdCity" />
+                <ScalarProperty Name="StdAddress" ColumnName="StdAddress" />
+                <ScalarProperty Name="StdNID" ColumnName="StdNID" />
+                <ScalarProperty Name="StdSchoolID" ColumnName="StdSchoolID" />
+                <ScalarProperty Name="StdClassID" ColumnName="StdClassID" />
+                <ScalarProperty Name="StdNationality" ColumnName="StdNationality" />
+                <ScalarProperty Name="StdStatus" ColumnName="StdStatus" />
+                <ScalarProperty Name="StdJoinYear" ColumnName="StdJoinYear" />
+                <ScalarProperty Name="StdStaffSon" ColumnName="StdStaffSon" />
+                <ScalarProperty Name="StdLegalGuardianship" ColumnName="StdLegalGuardianship" />
+                <ScalarProperty Name="StdParentsSeparated" ColumnName="StdParentsSeparated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentSubjectEnrolls">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentSubjectEnroll">
+              <MappingFragment StoreEntitySet="StudentSubjectEnroll">
+                <ScalarProperty Name="SSID" ColumnName="SSID" />
+                <ScalarProperty Name="StdCode" ColumnName="StdCode" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="StudyYear" ColumnName="StudyYear" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Subject">
+              <MappingFragment StoreEntitySet="Subjects">
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="SubjectCode" ColumnName="SubjectCode" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="SubjectFees" ColumnName="SubjectFees" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Log">
+              <MappingFragment StoreEntitySet="Logs">
+                <ScalarProperty Name="LogContent" ColumnName="LogContent" />
+                <ScalarProperty Name="Times" ColumnName="Times" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clothes">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Cloth">
+              <MappingFragment StoreEntitySet="Clothes">
+                <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
+                <ScalarProperty Name="ClothesSize" ColumnName="ClothesSize" />
+                <ScalarProperty Name="ClothesQuantity" ColumnName="ClothesQuantity" />
+                <ScalarProperty Name="ClothesName" ColumnName="ClothesName" />
+                <ScalarProperty Name="ClothesID" ColumnName="ClothesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentClothes">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentClothe">
+              <MappingFragment StoreEntitySet="StudentClothes">
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="ReceivingStatus" ColumnName="ReceivingStatus" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ClothesID" ColumnName="ClothesID" />
+                <ScalarProperty Name="StdCode" ColumnName="StdCode" />
+                <ScalarProperty Name="SCID" ColumnName="SCID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="invoice_payment">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.invoice_payment">
+              <MappingFragment StoreEntitySet="invoice_payment">
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="previous_payment" ColumnName="previous_payment" />
+                <ScalarProperty Name="remaining" ColumnName="remaining" />
+                <ScalarProperty Name="paid" ColumnName="paid" />
+                <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="student" ColumnName="student" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="payment_details">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.payment_details">
+              <MappingFragment StoreEntitySet="payment_details">
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="student_type" ColumnName="student_type" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="school" ColumnName="school" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="invoice_item" TypeName="Student_Affairs_DatabaseModel.invoice_item" StoreEntitySet="invoice_item">
+            <EndProperty Name="payment_details">
+              <ScalarProperty Name="id" ColumnName="payment_item" />
+            </EndProperty>
+            <EndProperty Name="invoice_payment">
+              <ScalarProperty Name="id" ColumnName="invoice" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="deleteInvoice" FunctionName="Student_Affairs_DatabaseModel.Store.deleteInvoice" />
+          <FunctionImportMapping FunctionImportName="deleteInvoiceItem" FunctionName="Student_Affairs_DatabaseModel.Store.deleteInvoiceItem" />
+          <FunctionImportMapping FunctionImportName="deletePayment" FunctionName="Student_Affairs_DatabaseModel.Store.deletePayment" />
+          <FunctionImportMapping FunctionImportName="getInvoiceById" FunctionName="Student_Affairs_DatabaseModel.Store.getInvoiceById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getInvoiceById_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="student" ColumnName="student" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+                <ScalarProperty Name="paid" ColumnName="paid" />
+                <ScalarProperty Name="remaining" ColumnName="remaining" />
+                <ScalarProperty Name="previous_payment" ColumnName="previous_payment" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getInvoiceItem" FunctionName="Student_Affairs_DatabaseModel.Store.getInvoiceItem">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getInvoiceItem_Result">
+                <ScalarProperty Name="invoice" ColumnName="invoice" />
+                <ScalarProperty Name="payment_item" ColumnName="payment_item" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="school" ColumnName="school" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="student_type" ColumnName="student_type" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getInvoicesById" FunctionName="Student_Affairs_DatabaseModel.Store.getInvoicesById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getInvoicesById_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="student" ColumnName="student" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+                <ScalarProperty Name="paid" ColumnName="paid" />
+                <ScalarProperty Name="remaining" ColumnName="remaining" />
+                <ScalarProperty Name="previous_payment" ColumnName="previous_payment" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getPayment" FunctionName="Student_Affairs_DatabaseModel.Store.getPayment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getPayment_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="school" ColumnName="school" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="student_type" ColumnName="student_type" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getPaymentById" FunctionName="Student_Affairs_DatabaseModel.Store.getPaymentById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getPaymentById_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="school" ColumnName="school" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="student_type" ColumnName="student_type" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getPaymentItems" FunctionName="Student_Affairs_DatabaseModel.Store.getPaymentItems">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getPaymentItems_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="school" ColumnName="school" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="student_type" ColumnName="student_type" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getPreviousPayment" FunctionName="Student_Affairs_DatabaseModel.Store.getPreviousPayment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getPreviousPayment_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="student" ColumnName="student" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+                <ScalarProperty Name="paid" ColumnName="paid" />
+                <ScalarProperty Name="remaining" ColumnName="remaining" />
+                <ScalarProperty Name="previous_payment" ColumnName="previous_payment" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="insertInvoiceItem" FunctionName="Student_Affairs_DatabaseModel.Store.insertInvoiceItem" />
+          <FunctionImportMapping FunctionImportName="insertPaymentDetail" FunctionName="Student_Affairs_DatabaseModel.Store.insertPaymentDetail" />
+          <FunctionImportMapping FunctionImportName="insertStudentFees" FunctionName="Student_Affairs_DatabaseModel.Store.insertStudentFees" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Student_Affairs_DatabaseModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Student_Affairs_DatabaseModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Student_Affairs_DatabaseModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Student_Affairs_DatabaseModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Student_Affairs_DatabaseModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Student_Affairs_DatabaseModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Student_Affairs_DatabaseModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="updatePaymentDetail" FunctionName="Student_Affairs_DatabaseModel.Store.updatePaymentDetail" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

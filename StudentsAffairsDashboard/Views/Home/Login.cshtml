@@ -1,0 +1,81 @@
+﻿@model StudentsAffairsDashboard.Models.Account
+
+@{
+    ViewBag.Title = "Login";
+}
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Students Affairs Dashboard v1.0</title>
+    <link href="@Url.Content("~/Content/AdminLTE/adminlte.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Plugins/fontawesome-free/css/all.min.css")" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .login-box, .register-box {
+            width: 450px;
+        }
+    </style>
+</head>
+
+
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href=""><b>NES</b> System</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <div class="card-body login-card-body">
+                    <p class="login-box-msg">Sign in to start your session</p>
+                    <div class="input-group mb-lg-3">
+                            @Html.LabelFor(a => a.Email, "Email", htmlAttributes: new { @class = "control-label col-md-4 " } )
+                            @Html.EditorFor(a => a.Email, new { htmlAttributes = new { type = "email", @class = "form-control col-md-10", placeholder = "Entre Email" } })
+                            @Html.ValidationMessageFor(a => a.Email, "", new { @class = "text-danger" })
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="input-group mb-lg-3">
+                        @Html.LabelFor(a => a.Password, "Password", htmlAttributes: new {@class = "control-label col-md-4" })
+                        @Html.EditorFor(a => a.Password, new { htmlAttributes = new { type = "password", @class = "form-control col-md-10", placeholder = "Entre Password" } })
+                        @Html.ValidationMessageFor(a => a.Password, "", new { @class = "text-danger" })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-end">
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <input type="submit" class="btn btn-primary btn-block" value="Sign In"/>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </div>
+            }
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+
+        <!-- /.login-box -->
+        @Scripts.Render("~/bundles/jquery")
+        <script src="@Url.Content("~/Plugins/bootstrap/js/bootstrap.bundle.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/AdminLTE/adminlte.min.js")"></script>
+</body>
+</html>

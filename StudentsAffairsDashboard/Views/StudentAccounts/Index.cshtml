@@ -1,0 +1,51 @@
+﻿@model IEnumerable<StudentsAffairsDashboard.Models.StudentAccount>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StdEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdPassword)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentsMain.StdNID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StdEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StdPassword)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StdStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentsMain.StdNID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.StdCode }) |
+            @Html.ActionLink("Details", "Details", new { id=item.StdCode }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.StdCode })
+        </td>
+    </tr>
+}
+
+</table>

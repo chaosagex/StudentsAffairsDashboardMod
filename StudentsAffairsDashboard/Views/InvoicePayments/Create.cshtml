@@ -1,0 +1,194 @@
+﻿@model IEnumerable<StudentsAffairsDashboard.Models.invoice_payment>
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>invoice_payment</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.student, "student", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("student", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.student, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.total_cost, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.total_cost, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.total_cost, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.paid, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.paid, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.paid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.remaining, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.remaining, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.remaining, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.previous_payment, "previous_payment", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("previous_payment", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.previous_payment, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+
+
+
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>InvoicePayment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" id="create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="invoice.Student" class="control-label"></label>
+                <select asp-for="invoice.Student" id="student" onchange="updateStudent()" class="form-control" asp-items="ViewBag.Student"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="invoice.Date" class="control-label"></label>
+                <input asp-for="invoice.Date" class="form-control" />
+
+                <span asp-validation-for="invoice.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="invoice.TotalCost" class="control-label"></label>
+                <input asp-for="invoice.TotalCost" id="cost" class="form-control" disabled />
+                <span asp-validation-for="invoice.TotalCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="invoice.Paid" class="control-label"></label>
+                <input asp-for="invoice.Paid" id="paid" class="form-control" onchange="getRemaining()" />
+
+                <span class="text-danger">@ViewBag.Message</span>
+
+                <span asp-validation-for="invoice.Paid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="invoice.Remaining" class="control-label"></label>
+                <input asp-for="invoice.Remaining" id="rem" class="form-control" disabled />
+                <span asp-validation-for="invoice.Remaining" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="invoice.PreviousPayment" class="control-label"></label>
+                <input asp-for="invoice.PreviousPayment" value="@Model.invoice.PreviousPayment" class="form-control " disabled />
+            </div>
+
+            <table>
+                @foreach (var a in Model.Where(a=>a.StudentsMain.StdCode == 1).ToList())
+                {
+                    int j = i + 1;
+                    <input type="checkbox" id=@String.Format("{0}{1}","cb",i) asp-for="@a." onclick="update(@i)" />
+                    <label asp-for="@Model.items[i].selected">@Model.items[i].Name</label>
+                    <input type="hidden" asp-for="@Model.items[i].Id" />
+                    <input type="hidden" asp-for="@Model.items[i].Name" />
+                    <input type="hidden" asp-for="@Model.items[i].Year" />
+                    <input type="hidden" id=@String.Format("{0}{1}","am",i) asp-for="@Model.items[i].Amount" />
+                    <br />
+                }
+            </table>
+            <input type="hidden" asp-for="invoice.PreviousPayment" />
+            <input type="hidden" asp-for="invoice.Remaining" />
+            <div class="form-group">
+                <label asp-for="invoice.Notes" class="control-label"></label>
+                <textarea asp-for="invoice.Notes" class="form-control" disabled></textarea>
+                <span asp-validation-for="invoice.Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @*@{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }*@
+    @*<script>
+        function updateStudent() {
+    var data = $("#create").serialize()
+    $.ajax({
+        type: 'POST',
+        url: '/InvoicePayments/Create',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+        data: data,
+        success: function (result) {
+            document.open();
+            document.write(result);
+            document.close();
+        }
+    })
+}
+    </script>*@
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

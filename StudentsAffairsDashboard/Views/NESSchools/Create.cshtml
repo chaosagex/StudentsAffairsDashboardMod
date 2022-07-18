@@ -1,0 +1,57 @@
+﻿@model StudentsAffairsDashboard.Models.NESSchool
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="col-lg-12">
+        <div class="card card-primary">
+            <div class="form-horizontal">
+                <div class="card-header">
+                    <h3 class="card-title">Add School Data</h3>
+                </div>
+                <br />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="row px-3">
+
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.SchoolID, "School ID", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.SchoolID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SchoolID, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.SchoolName, "School Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.SchoolName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SchoolName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.SchooleAbbreviation, "School Abbreviation", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.SchooleAbbreviation, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SchooleAbbreviation, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="row col-md-3">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Add New School" class="btn btn-primary" style="margin-top: 12px;"/>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+
+                    </div>
+                </div>
+            </div>
+}
+<div class="col-6">
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

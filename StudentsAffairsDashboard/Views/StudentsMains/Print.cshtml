@@ -1,0 +1,197 @@
+﻿@model StudentsAffairsDashboard.Models.StudentsMain
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Students Affairs Dashboard v1.0</title>
+        <link href="@Url.Content("~/Content/AdminLTE/adminlte.min.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/Plugins/fontawesome-free/css/all.min.css")" rel="stylesheet" />
+        <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+        <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+
+        <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+        @Scripts.Render("~/bundles/modernizr")
+    </head>
+</head>
+<body>
+    <div class="card card-solid">
+        <div class="card-body pb-0">
+            <div class="row">
+                <div class="col-12 p-3 text-center">
+                    <img src="~/Content/Images/logo1.png" alt="AdminLTE Logo" class="brand-image elevation-3"
+                         style="opacity: .8">
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 d-flex align-items-stretch flex-column">
+                    <div class="card bg-light d-flex flex-fill">
+                        <div class="card-header text-muted border-bottom-0">
+                            <h2>NES @Html.DisplayFor(modelItem => Model.NESSchool.SchoolName) Branch</h2>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div class="col-4">
+                                    <p class="text-muted text-sm">
+                                        <b>Name(English): </b>@Html.DisplayFor(Model => Model.StdEnglishFristName)
+                                    </p>
+                                    <p class="text-muted text-sm">
+                                        <b>Name(Arabic): </b>@Html.DisplayFor(Model => Model.StdArabicFristName)
+                                    </p>
+                                    <p class="text-muted text-sm">
+                                        <b>Father Name(English): </b>@Html.DisplayFor(modelItem => Model.StdEnglishMiddleName) @Html.DisplayFor(Model => Model.StdEnglishLastName) @Html.DisplayFor(modelItem => Model.StdEnglishFamilyName)
+                                    </p>
+                                    <p class="text-muted text-sm">
+                                        <b>Father Name(Arabic): </b>@Html.DisplayFor(modelItem => Model.StdArabicMiddleName) @Html.DisplayFor(Model => Model.StdArabicLastName) @Html.DisplayFor(modelItem => Model.StdArabicFamilyName)
+                                    </p>
+                                    <p class="text-muted text-sm">
+                                        <b>Mother Name(English): </b>@Html.DisplayFor(Model => Model.StdMotherEnglishName)
+                                    </p>
+                                    <p class="text-muted text-sm">
+                                        <b>Mother Name(Arabic): </b>@Html.DisplayFor(Model => Model.StdMotherArabicName)
+                                    </p>
+                                    <p class="text-muted text-sm"><b>Gender: </b> @Html.DisplayFor(modelItem => Model.StdGender)</p>
+                                    <p class="text-muted text-sm"><b>Religion: </b> @Html.DisplayFor(modelItem => Model.StdReligion)</p>
+                                    <p class="text-muted text-sm"><b>@Html.DisplayFor(modelItem => Model.StudentGradesHistories.OrderByDescending(a => a.GradeID).FirstOrDefault().Grade.GradeName) </b> @Html.DisplayFor(modelItem => Model.Class.ClassName)</p>
+
+
+                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                        <li class="small">
+                                            <span class="fa-li">
+                                                <i class="fas fa-lg fa-building"></i>
+                                            </span> Address: @Html.DisplayFor(modelItem => Model.StdCity) - @Html.DisplayFor(modelItem => Model.StdAddressGov) - @Html.DisplayFor(modelItem => Model.StdAddress)
+                                        </li>
+                                        <li><br /></li>
+                                        <li class="small">
+                                            <span class="fa-li">
+                                                <i class="fas fa-lg fa-phone"></i>
+                                            </span> Father Phone: +@Html.DisplayFor(modelItem => Model.StdFatherMobilePhone)
+                                        </li>
+                                        <li class="small">
+                                            <span class="fa-li">
+                                                <i class="fas fa-lg fa-envelope"></i>
+                                            </span> Father Email: @Html.DisplayFor(modelItem => Model.StdFatherEmail)
+                                        </li>
+                                        <li><br /></li>
+                                        <li class="small">
+                                            <span class="fa-li">
+                                                <i class="fas fa-lg fa-phone"></i>
+                                            </span> Mother Phone: +@Html.DisplayFor(modelItem => Model.StdMotherMobilePhone)
+                                        </li>
+                                        <li class="small">
+                                            <span class="fa-li">
+                                                <i class="fas fa-lg fa-envelope"></i>
+                                            </span> Mother Email: @Html.DisplayFor(modelItem => Model.StdMotherEmail)
+                                        </li>
+                                        <li><br /></li>
+                                        <li class="small">
+                                            <span class="fa-li">
+                                                <i class="fas fa-lg fa-user"></i>
+                                            </span> Emergency Contact: @Html.DisplayFor(modelItem => Model.StdEmergencyContact)
+                                        </li>
+                                        <li class="small">
+                                            <span class="fa-li">
+                                                <i class="fas fa-lg fa-phone"></i>
+                                            </span> Emergency Phone: +@Html.DisplayFor(modelItem => Model.StdEmergencyPhone)
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-4">
+                                    <p class="text-muted text-sm"><b>Student NID: </b> @Html.DisplayFor(modelItem => Model.StdNID)</p>
+                                    <p class="text-muted text-sm"><b>Student Birthday: </b> @Html.DisplayFor(modelItem => Model.StdBOD) in @Html.DisplayFor(modelItem => Model.StdBirthPlace)</p>
+
+                                    <p class="text-muted text-sm"><b>Status: </b> @Html.DisplayFor(modelItem => Model.StdStatus)</p>
+                                    <p class="text-muted text-sm"><b>Join Year: </b> @Html.DisplayFor(modelItem => Model.StudentGradesHistories.OrderByDescending(a => a.GradeID).FirstOrDefault().StudyYear)</p>
+                                    <p class="text-muted text-sm"><b>Staff Son: </b> @Html.DisplayFor(modelItem => Model.StdStaffSon)</p>
+                                    <p class="text-muted text-sm"><b>Legal Guardianship: </b> @Html.DisplayFor(modelItem => Model.StdLegalGuardianship)</p>
+                                    <p class="text-muted text-sm"><b>Parents Separated: </b> @Html.DisplayFor(modelItem => Model.StdParentsSeparated)</p>
+
+
+
+                                    <div class="card-body p-0 col-8">
+                                        <table class="table text-center">
+                                            <tr>
+                                                <th>
+                                                    Grade Name
+                                                </th>
+                                                <th>
+                                                    Study Year
+                                                </th>
+                                            </tr>
+
+                                            @foreach (var item in Model.StudentGradesHistories.ToList())
+                                            {
+                                                <tr>
+
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Grade.GradeName)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.StudyYear)
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </div>
+
+                                </div>
+                                <div class="col-4 text-center">
+                                    <img src="~/Content/Images/user1-128x128.jpg" alt="user-avatar" class="img-circle img-fluid">
+                                    <br />
+                                    <br />
+                                    <div class="text-left">
+                                        <p class="text-muted text-sm"><b>Student NaNationality: </b> @Html.DisplayFor(modelItem => Model.StdNationality)</p>
+                                        <p class="text-muted text-sm"><b>Father NaNationality: </b> @Html.DisplayFor(modelItem => Model.StdFatherNationality)</p>
+                                        <p class="text-muted text-sm"><b>Mother NaNationality: </b> @Html.DisplayFor(modelItem => Model.StdMotherNationality)</p>
+                                        <br />
+                                        <p class="text-muted text-sm"><b>Father Data: </b></p>
+                                        <p class="text-muted text-sm"><b>Father NID: </b> @Html.DisplayFor(modelItem => Model.StdFatherNID)</p>
+                                        <p class="text-muted text-sm"><b>Father Spoken Language: </b> @Html.DisplayFor(modelItem => Model.StdFatherSpokenLanguage)</p>
+                                        <p class="text-muted text-sm"><b>Father Qualification: </b> @Html.DisplayFor(modelItem => Model.StdFatherQualification)</p>
+                                        <p class="text-muted text-sm"><b>Father Job: </b> @Html.DisplayFor(modelItem => Model.StdMotherJob)</p>
+                                        <br />
+                                        <p class="text-muted text-sm"><b>Mother Data: </b></p>
+                                        <p class="text-muted text-sm"><b>Mother NID: </b> @Html.DisplayFor(modelItem => Model.StdMotherNID)</p>
+                                        <p class="text-muted text-sm"><b>Mother Spoken Language: </b> @Html.DisplayFor(modelItem => Model.StdMotherSpokenLanguage)</p>
+                                        <p class="text-muted text-sm"><b>Mother Qualification: </b> @Html.DisplayFor(modelItem => Model.StdMotherQualification)</p>
+                                        <p class="text-muted text-sm"><b>Mother Job: </b> @Html.DisplayFor(modelItem => Model.StdMotherJob)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row no-print">
+                                <div class="col-12">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+        <!-- /.card-footer -->
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="@Url.Content("~/Plugins/bootstrap/js/bootstrap.bundle.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/AdminLTE/adminlte.min.js")"></script>
+    <script>
+        window.addEventListener("load", window.print());
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿@model StudentsAffairsDashboard.Models.StudentAccount
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StudentAccount</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StdEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StdEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StdPassword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StdPassword)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StdStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StdStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentsMain.StdNID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentsMain.StdNID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StdCode }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

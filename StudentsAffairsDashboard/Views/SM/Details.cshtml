@@ -1,0 +1,114 @@
+﻿@model StudentsAffairsDashboard.Models.StudentsMain
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StudentsMain</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StdNID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StdNID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StdNationality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StdNationality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StdStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StdStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StdJoinYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StdJoinYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StdStaffSon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StdStaffSon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StdLegalGuardianship)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StdLegalGuardianship)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StdParentsSeparated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StdParentsSeparated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Class.ClassName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Class.ClassName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NESSchool.SchoolName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NESSchool.SchoolName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentAccount.StdEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentAccount.StdEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentsAffair.StdFatherMobilePhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentsAffair.StdFatherMobilePhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentsData.StdArabicFristName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentsData.StdArabicFristName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StdCode }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

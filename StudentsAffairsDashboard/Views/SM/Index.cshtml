@@ -1,0 +1,109 @@
+﻿@model IEnumerable<StudentsAffairsDashboard.Models.StudentsMain>
+
+@{
+    ViewBag.Title = "Index";
+}
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Students</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0 " style="overflow-x:auto;">
+            <table class="table">
+                <tr>
+                    <th>
+                        NID
+                    </th>
+                    <th>
+                        Nationality
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        JoinYear
+                    </th>
+                    <th>
+                        StaffSon
+                    </th>
+                    <th>
+                        Legal Guardianship
+                    </th>
+                    <th>
+                        ParentsSeparated
+                    </th>
+                    <th>
+                        Class Name
+                    </th>
+                    <th>
+                        SchoolName
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    @*<th>
+            @Html.DisplayNameFor(model => model.StudentsAffair.StdFatherMobilePhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentsData.StdArabicFristName)
+        </th>*@
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StdNID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StdNationality)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StdStatus)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StdJoinYear)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StdStaffSon)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StdLegalGuardianship)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StdParentsSeparated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Class.ClassName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NESSchool.SchoolName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentAccount.StdEmail)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Details", "Details", new { id = item.StdCode }, new { @class = "btn btn-primary btn-sm" })
+
+                            @Html.ActionLink("Edit", "Edit", new { id = item.StdCode }, new { @class = "btn btn-info btn-sm" })
+
+                            @Html.ActionLink("Delete", "Delete", new { id = item.StdCode }, new { @class = "btn btn-danger btn-sm" })
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->

@@ -1,0 +1,42 @@
+﻿@model StudentsAffairsDashboard.Models.StudentGradesHistory
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StudentGradesHistory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StudyYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudyYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Grade.GradeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Grade.GradeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentsMain.StdNID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentsMain.StdNID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SGID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

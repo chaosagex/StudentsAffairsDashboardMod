@@ -1,0 +1,56 @@
+﻿@model StudentsAffairsDashboard.Models.Cloth
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Cloth</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ClothesName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClothesName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClothesQuantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClothesQuantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClothesSize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClothesSize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClothesPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClothesPrice)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

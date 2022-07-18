@@ -1,0 +1,141 @@
+﻿@model IEnumerable<StudentsAffairsDashboard.Models.StudentsMain>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="card card-solid">
+    <div class="card-body pb-0">
+        @using (Html.BeginForm("Indexx", "Home", FormMethod.Post))
+        {
+            <div class="col-lg-12">
+                <div class="card card-primary">
+                    <div class="form-horizontal">
+                        <div class="card-header">
+                            <h3 class="card-title">Filter</h3>
+                        </div>
+                        <br />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="row px-3">
+                                <div class="col-md-1 d-flex align-items-center justify-content-center">
+                                    School
+                                </div>
+                                <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                    @Html.DropDownList("SchoolID", null, htmlAttributes: new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-1 d-flex align-items-center justify-content-center">
+                                    Grade
+                                </div>
+                                <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                    @Html.DropDownList("GradeID", null, htmlAttributes: new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-1 d-flex align-items-center justify-content-center">
+                                    Class
+                                </div>
+                                <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                    @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Search" class="btn btn-primary" />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch flex-column">
+                    <div class="card bg-light d-flex flex-fill">
+                        <div class="card-header text-muted">
+                            NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @Html.ActionLink("Update Grade", "Update", new { id = item.StdCode }, new { @class = "btn btn-primary btn-sm float-right" })
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h2 class="lead"><b>@Html.DisplayFor(modelItem => item.StdEnglishFristName) @Html.DisplayFor(modelItem => item.StdEnglishMiddleName) @Html.DisplayFor(modelItem => item.StdEnglishLastName) @Html.DisplayFor(modelItem => item.StdEnglishFamilyName)</b></h2>
+                                    <p class="text-muted text-sm"> @Html.DisplayFor(modelItem => item.StdGender)</p>
+                                    <p class="text-muted text-sm"><b>@item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault() </b> @Html.DisplayFor(modelItem => item.Class.ClassName) (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())</p>
+
+                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Father Phone: +@Html.DisplayFor(modelItem => item.StdFatherMobilePhone)</li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Mother Phone: +@Html.DisplayFor(modelItem => item.StdMotherMobilePhone)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="text-right">
+                                @Html.ActionLink("View Profile", "Details", new { id = item.StdCode }, new { @class = "btn btn-primary btn-sm" })
+
+                                @Html.ActionLink("Edit", "Edit", new { id = item.StdCode }, new { @class = "btn btn-info btn-sm" })
+
+                                <a href="#" class="btn btn-danger btn-sm" onclick="ConfirmDelete(@item.StdCode)"><i class="glyphicon glyphicon-trash"></i>Delete</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+        <nav aria-label="Contacts Page Navigation">
+            <ul class="pagination justify-content-center m-0">
+                @*<li class="page-item active"><a class="page-link" href="#">1</a></li>*@
+                @*<li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item"><a class="page-link" href="#">6</a></li>
+                    <li class="page-item"><a class="page-link" href="#">7</a></li>
+                    <li class="page-item"><a class="page-link" href="#">8</a></li>*@
+            </ul>
+        </nav>
+    </div>
+    <!-- /.card-footer -->
+</div>
+
+<div class="modal fade" id="modal-danger">
+    @using (Html.BeginForm("DeleteStudent", "StudentsMains", FormMethod.Post))
+    {
+        <div class="modal-dialog">
+            <div class="modal-content bg-danger">
+                <div class="modal-header">
+                    <h4 class="modal-title">Danger Modal</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are You Sure To Delete This Student</p>
+                    @*hidden field for storing current employeeId*@
+                    <input type="hidden" id="hiddenId" name="hiddenId" />
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Delete</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    <!-- /.modal-dialog -->
+    }
+</div>
+
+@section scripts{
+    <script>
+        var ConfirmDelete = function (EmployeeId) {
+            $("#hiddenId").val(EmployeeId);
+            $("#modal-danger").modal('show');
+        }
+    </script>
+}

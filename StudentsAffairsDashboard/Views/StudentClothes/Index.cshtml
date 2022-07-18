@@ -1,0 +1,172 @@
+﻿@model IEnumerable<StudentsAffairsDashboard.Models.StudentsMain>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+
+        @*<div class="card-body p-0">
+            <table id="example11" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Student ID
+                        </th>
+                        <th>
+                            Student Name
+                        </th>
+                        <th>
+                            Pieces
+                        </th>
+                        <th>
+                            Receiving Status
+                        </th>
+                        <th>
+                            Payment Status
+                        </th>
+                        <th>
+                            Report
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StdNID)
+                            </td>
+                            <td>
+                                <a>
+                                    @Html.DisplayFor(modelItem => item.StdEnglishFristName) @Html.DisplayFor(modelItem => item.StdEnglishMiddleName) @Html.DisplayFor(modelItem => item.StdEnglishLastName) @Html.DisplayFor(modelItem => item.StdEnglishFamilyName)
+                                </a>
+                                <br />
+                                <small>
+                                    NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault()  @Html.DisplayFor(modelItem => item.Class.ClassName) (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
+                                </small>
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td class="project_progress">
+                                <ul class="list">
+                                    @foreach (var iteme in item.StudentClothes.ToList())
+                                    {
+                                        <li class="list-item" style="list-style-type:none">
+
+                                            @if (@Html.DisplayFor(modelItem => iteme.ReceivingStatus).ToString() == "True")
+                                            {
+                                                <span class="badge badge-success">Receiving</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-danger">NOT Receiving</span>
+                                            }
+                                        </li>
+                                    }
+                                </ul>
+                            </td>
+                            <td class="project-state">
+                                <ul class="list">
+                                    @foreach (var iteme in item.StudentClothes.ToList())
+                                    {
+                                        <li class="list-item" style="list-style-type:none">
+
+                                            @if (@Html.DisplayFor(modelItem => iteme.PaymentStatus).ToString() == "True")
+                                            {
+                                                <span class="badge badge-success">Paid</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-danger">NOT Paid</span>
+                                            }
+                                        </li>
+                                    }
+                                </ul>
+                            </td>
+                            <td>
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Receiving Report" class="btn btn-success" />
+                                </div>
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Payment Report" class="btn btn-primary" />
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>*@
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Uniform</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 10%">ID</th>
+                        <th style="width: 25%">Full Name</th>
+                        <th>Cloth(es)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.StdNID)</td>
+                        <td>
+                            <a>
+                                @Html.DisplayFor(modelItem => item.StdEnglishFristName) @Html.DisplayFor(modelItem => item.StdEnglishMiddleName) @Html.DisplayFor(modelItem => item.StdEnglishLastName) @Html.DisplayFor(modelItem => item.StdEnglishFamilyName)
+                            </a>
+                            <br />
+                            <small>
+                                NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault()  @Html.DisplayFor(modelItem => item.Class.ClassName) (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
+                            </small>
+                        </td>
+                        <td>
+                            @Html.ActionLink("Uniform", "Create", new { id = item.StdCode }, new { @class = "btn btn-primary btn-sm" })
+                        </td>
+                       
+                    </tr>
+                    }                    
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th style="width: 10%">ID</th>
+                        <th style="width: 25%">Full Name</th>
+                        <th>Cloth(es)</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->
+ @section scripts{
+    <script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+}

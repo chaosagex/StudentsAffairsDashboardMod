@@ -1,0 +1,66 @@
+﻿@model StudentsAffairsDashboard.Models.StudentClothe
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StudentClothe</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceivingStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceivingStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cloth.ClothesName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cloth.ClothesName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentsMain.StdArabicFristName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentsMain.StdArabicFristName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SCID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

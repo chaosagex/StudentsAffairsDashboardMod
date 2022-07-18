@@ -1,0 +1,166 @@
+﻿@model IEnumerable<StudentsAffairsDashboard.Models.Cloth>
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@*@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>StudentClothe</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.StdCode, "StdCode", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("StdCode", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.StdCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClothesID, "ClothesID", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("ClothesID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ClothesID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ReceivingStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ReceivingStatus, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ReceivingStatus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PaymentStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PaymentStatus, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PaymentStatus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }*@
+
+<section>
+    <div class="container">
+        <div class="row w-100">
+            <div class="col-lg-12 col-md-12 col-12">
+                <div class="custom-control custom-checkbox pb-3">
+                    <input type="checkbox" id="customCheckbox" name="customCheck" class="custom-control-input">
+                    <label class="custom-control-label" for="customCheckbox"><b>Full Packge</b></label>
+                </div>
+
+                <table id="shoppingCart" class="table table-condensed table-responsive">
+                    <thead>
+                        <tr>
+                            <th style="width:60%">Item</th>
+                            <th style="width:12%">Price</th>
+                            <th style="width:10%">Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td data-th="Product">
+                                    <div class="row">
+                                        <div class="col-md-2 text-left">
+                                            <img src="https://via.placeholder.com/150x150/5fa9f8/ffffff"
+                                                 class="img-fluid d-none d-md-block rounded mb-1 shadow w-75 ">
+                                        </div>
+                                        <div class="col-md-9 text-left mt-sm-2">
+                                            <h4>@Html.DisplayFor(modelItem => item.ClothesName)</h4>
+
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-th="Price"> <span id="itemPrice${@Html.DisplayFor(modelItem => item.ClothesID)}">@Html.DisplayFor(modelItem => item.ClothesPrice)</span> EGP</td>
+                                <td data-th="Quantity">
+                                    <input type="number" id="item @item.ClothesID"
+                                           class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="Confirm(@item.ClothesPrice)">
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                <div class="float-right text-right">
+                    <p class="h2">Total <br> <b id="total"><input type="text" id="hiddenId" name="hiddenId" /></b> EGP</p>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4 d-flex align-items-center">
+            <div class="col-sm-6 order-md-2 text-right">
+                <a href="catalog.html" class="btn btn-primary mb-4 pl-5 pr-5">Continue</a>
+            </div>
+            <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+                <a href="catalog.html">
+                    <i class="fas fa-arrow-left mr-2"></i> @Html.ActionLink("Back to List", "Index")
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        var total = 0
+        $('#total').text(total)
+
+        $(".c-item").change(function () {
+            calcTotal();
+        })
+        $("#customCheckbox").change(function () {
+            if ($('#customCheckbox').is(":checked")) {
+                $('.c-item').val(1)
+
+            } else {
+                $('.c-item').val(0)
+            }
+        });
+        //var calcTotal = function (i) {
+        //    //total = total + i
+        //    //console.log(i)
+        //    $('#total').text(100)
+
+        //}
+
+    })
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+        var Confirm = function (EmployeeId) {
+            $("#total").val(EmployeeId);
+            console.log(EmployeeId)
+            //$("#modal-danger").modal('show');
+        }
+</script>
+}

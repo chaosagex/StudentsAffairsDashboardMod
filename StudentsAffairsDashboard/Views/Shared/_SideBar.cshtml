@@ -1,0 +1,213 @@
+﻿
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="@Url.Action("Index","Home")" class="brand-link">
+        <img src="~/Content/Images/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+             style="opacity: .8">
+        <span class="brand-text font-weight-light">Students Admin</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel my-3 row">
+            <div class="image col-12 text-center">
+                <img src="~/Content/Images/avatar.png" class="img-circle elevation-2 w-50" alt="User Image">
+            </div>
+            <div class="col-12 text-center">
+                <fieldset>
+                    @if (Session["Email"] != null)
+                    {
+                    <a href="#" class="d-block brand-text font-weight-light">@Session["UserName"].ToString() </a>
+                    <a href="#" class="d-block brand-text font-weight-bold text-white">@Session["Email"].ToString() </a>   
+                    }
+                </fieldset>  
+                
+            </div>
+            <div class="col-12 text-center">
+                <a href="@Url.Action("Index","Logs")" class="btn btn-outline-secondary rounded mb-3" style="border-radius: 100px !important;">Manage Account</a>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                 with font-awesome or any other icon font library -->
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            NES Schools
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","NESSchools")" class="nav-link active">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    NES Schools
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Create","NESSchools")" class="nav-link active">
+                                <i class="fa fa-plus nav-icon"></i>
+                                <p>
+                                    Add New NES School
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Grades
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","Grades")" class="nav-link active">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    NES Grades
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Create","Grades")" class="nav-link active">
+                                <i class="fa fa-plus nav-icon"></i>
+                                <p>
+                                    Add New Grade
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Classes
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","Classes")" class="nav-link active">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    NES Classes
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Create","Classes")" class="nav-link active">                                
+                                <i class="fa fa-plus nav-icon"></i>
+                                <p>
+                                    Add New Class
+                                </p>                                
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Subjects
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","Subjects")" class="nav-link active">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    NES Subjects
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Create","Subjects")" class="nav-link active">
+                                <i class="fa fa-plus nav-icon"></i>
+                                <p>
+                                    Add New Subject
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link active">
+                        <i herf="#" class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Uniform
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","StudentClothes")" class="nav-link active">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    NES Uniform
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Create","StudentClothes")" class="nav-link active">
+                                <i class="fa fa-plus nav-icon"></i>
+                                <p>
+                                    Uniform
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link active">
+                        <i herf="#" class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Students
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","StudentsMains")" class="nav-link active">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    NES Students
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Create","StudentsMains")" class="nav-link active">
+                                <i class="fa fa-plus nav-icon"></i>
+                                <p>
+                                    Add New Student
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @*<li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Simple Link
+                            <span class="nav-icon fas fa-th">New</span>
+                        </p>
+                    </a>
+                </li>*@
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

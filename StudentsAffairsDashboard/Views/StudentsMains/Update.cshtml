@@ -1,0 +1,138 @@
+﻿@model IEnumerable<StudentsAffairsDashboard.Models.StudentGradesHistory>
+
+@{
+    ViewBag.Title = "Update";
+}
+
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Grades - @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().StudentsMain.StdEnglishFristName) @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().StudentsMain.StdEnglishMiddleName) @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().StudentsMain.StdEnglishLastName) @Html.DisplayFor(modelItem => modelItem.FirstOrDefault().StudentsMain.StdEnglishFamilyName)</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <table class="table">
+                <tr>
+                    <th>
+                        Grade Name
+                    </th>
+                    <th>
+                        Study Year
+                    </th>
+                    <th>
+                        Kind Batch
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Grade.GradeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudyYear)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.KindBatch)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "StudentGradesHistories", new { id = item.SGID }, new { @class = "btn btn-info btn-sm" })
+                        </td>
+
+                    </tr>
+                }
+                <tr >
+                    <td colspan="4" >
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.FirstOrDefault().StdCode)
+                            <div class="col-lg-12">
+                                <div class="card card-primary">
+                                    <div class="form-horizontal">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Add Grade History</h3>
+                                        </div>
+                                        <br />
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            <div class="row px-3">                
+                                                <div class="col-md-4">
+                                                    @Html.Label("Grade", htmlAttributes: new { @class = "control-label" })
+                                                    @Html.DropDownList("GradeID", null, htmlAttributes: new { @class = "form-control" })
+                                                    @Html.ValidationMessage("", "", new { @class = "text-danger" })
+                                                </div>                                                
+                                                <div class="col-md-4">
+                                                    @Html.Label("Study Year", htmlAttributes: new { @class = "control-label" })
+                                                    @Html.DropDownList("StudyYear", new List<SelectListItem>()
+                                                            {
+                                                                new SelectListItem {  Text = "2014",Value = "2014"},
+                                                                new SelectListItem {  Text = "2015",Value = "2014"},
+                                                                new SelectListItem {  Text = "2016",Value = "2016"},
+                                                                new SelectListItem {  Text = "2017",Value = "2017"},
+                                                                new SelectListItem {  Text = "2018",Value = "2018"},
+                                                                new SelectListItem {  Text = "2019",Value = "2019"},
+                                                                new SelectListItem {  Text = "2020",Value = "2020"},
+                                                                new SelectListItem {  Text = "2021",Value = "2021"},
+                                                                new SelectListItem {  Text = "2022",Value = "2022"},
+                                                                new SelectListItem {  Text = "2023",Value = "2023"},
+                                                                new SelectListItem {  Text = "2024",Value = "2024"},
+                                                                new SelectListItem {  Text = "2025",Value = "2025"},
+                                                                new SelectListItem {  Text = "2026",Value = "2026"},
+                                                                new SelectListItem {  Text = "2027",Value = "2027"},
+                                                                new SelectListItem {  Text = "2028",Value = "2028"},
+                                                                new SelectListItem {  Text = "2029",Value = "2029"},
+                                                                new SelectListItem {  Text = "2030",Value = "2030"},
+                                                            }, htmlAttributes: new { @class = "form-control" })
+                                                    @Html.ValidationMessage("", "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    @Html.Label("Kind Batch", htmlAttributes: new { @class = "control-label" })
+                                                    @Html.DropDownList("KindBatch", new List<SelectListItem>()
+                                                            {
+                                                                new SelectListItem {  Text = "Gold",Value = "Gold"},
+                                                                new SelectListItem {  Text = "Normal",Value = "Normal"},                                                                
+                                                            }, htmlAttributes: new { @class = "form-control" })
+                                                    @Html.ValidationMessage("", "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="row px-3">
+                                                <div class="col-md-offset-2 col-md-10">
+                                                    <input type="submit" value="Add New Grade" class="btn btn-primary" style="margin-top: 12px;" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="col-12">
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary float-right" })
+                        </div>
+                    </td>
+                    
+
+                </tr>
+            </table>
+           
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

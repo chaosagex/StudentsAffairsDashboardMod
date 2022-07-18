@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9babbf2e97d54b639cf3fc1492a62b27" Name="Diagram1">
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Account" Width="1.5" PointX="1" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Class" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Grade" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.NESSchool" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.StudentAccount" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.StudentGradesHistory" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.StudentsMain" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.StudentSubjectEnroll" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Subject" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.fk_class_main" ManuallyRouted="false" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.fk_grade_history" ManuallyRouted="false" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.fk_school_main" ManuallyRouted="false" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.fkStd_account_data" ManuallyRouted="false" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.fk_stu_history" ManuallyRouted="false" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.fk_stu_Enroll" ManuallyRouted="false" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.fk_subject_Enroll" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Log" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Cloth" Width="2.625" PointX="6" PointY="11.75" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.StudentClothe" Width="2.625" PointX="8.25" PointY="5.5" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.fk_clothes_student" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.fk_stu_clothes" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.invoice_payment" Width="1.5" PointX="5.25" PointY="15.375" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.payment_details" Width="1.5" PointX="9.5" PointY="9.25" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_invoice_payment_invoice_payment" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_invoice_payment_student" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_payment_details_school" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.invoice_item" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
