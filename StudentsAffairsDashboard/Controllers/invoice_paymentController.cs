@@ -292,7 +292,7 @@ namespace StudentsAffairsDashboard.Controllers
                     List<payment_details> pds = new List<payment_details>();
                     foreach (payment_details pd in invoice_payment.payment_details)
                     {
-                        if (pd.selected)
+                        if (pd.selected||pd.type==5)
                         {
                             if (pd.type == 1)
                             {
