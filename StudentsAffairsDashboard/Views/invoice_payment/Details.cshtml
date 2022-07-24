@@ -37,7 +37,8 @@
                     <div class="col-6">
                         <label>@Model.payment_details[i].amount</label>
                     </div>
-                    <br />
+                    <div class="col-3"><br /></div>
+                    
                 }
             </div>
         </dd>
@@ -97,29 +98,32 @@
             </div>
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.deposit_date)
-        </dt>
+        @if (Model.type == 2)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.deposit_date)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.deposit_date)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.deposit_date)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.reference_code)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.reference_code)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.reference_code)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.reference_code)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.depositer)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.depositer)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.depositer)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.depositer)
+            </dd>
+        }
 
 
 

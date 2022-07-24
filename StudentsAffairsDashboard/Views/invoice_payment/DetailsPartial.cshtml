@@ -5,6 +5,13 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            Student
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentsMain.StdEnglishFristName)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.date)
         </dt>
 
@@ -22,6 +29,7 @@
                     <div class="col-6">
                         <label>@Model.payment_details[i].amount</label>
                     </div>
+                    <div class="col-3"><br /></div>
                     <br />
                 }
             </div>
@@ -56,13 +64,7 @@
             @Html.DisplayFor(model => model.previous_payment)
         </dd>
 
-        <dt>
-            Student
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.StudentsMain.StdEnglishFristName)
-        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Notes)
         </dt>
@@ -87,9 +89,12 @@
                         }
                     }
 
+
+
                 }
             </div>
         </dd>
+        @if (Model.type == 2) {
         <dt>
             @Html.DisplayNameFor(model => model.deposit_date)
         </dt>
@@ -113,6 +118,8 @@
         <dd>
             @Html.DisplayFor(model => model.depositer)
         </dd>
+        }
+
     </dl>
 </div>
 <p>

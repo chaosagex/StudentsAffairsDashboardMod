@@ -12,10 +12,7 @@
 
 @foreach (var item in Model)
 {
-    Html.Partial("DetailsPartial", new ViewDataDictionary { { "id", item.id } });
-
-
-    Html.Action("DetailsPartial", "invoice_payment", new { id = ViewData["id"] });
+    Html.RenderAction("DetailsPartial", new { id = item.id });
 
 }
 
