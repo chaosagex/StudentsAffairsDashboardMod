@@ -21,8 +21,9 @@ namespace StudentsAffairsDashboard.Models
         public string Price { get; set; }
         public string ReceivingStatus { get; set; }
         public string PaymentStatus { get; set; }
+        public string ReceivingQuantity { get; set; }
     
-        public virtual Cloth Cloth { get; set; }
         public virtual StudentsMain StudentsMain { get; set; }
+        public virtual Cloth Cloth { get; set; }
     }
 }

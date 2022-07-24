@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\Devolop Work\Visual Studio 2015\Projects\StudentsAffairsDashboard\StudentsAffairsDashboard\Models\AffairsModel.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\repoisitiries\visual studio\New folder\New folder\StudentsAffairsDashboard\StudentsAffairsDashboard\Models\AffairsModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

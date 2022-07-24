@@ -27,8 +27,6 @@
           </Key>
           <Property Name="ClothesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClothesName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="ClothesQuantity" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="ClothesSize" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ClothesPrice" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Grade">
@@ -109,6 +107,7 @@
           <Property Name="Price" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ReceivingStatus" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="PaymentStatus" Type="varchar" MaxLength="100" />
+          <Property Name="ReceivingQuantity" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="StudentGradesHistory">
           <Key>
@@ -367,7 +366,6 @@
         <Function Name="deletePayment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="paymentID" Type="int" Mode="In" />
         </Function>
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="getInvoiceById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="invoiceId" Type="int" Mode="In" />
         </Function>
@@ -415,36 +413,6 @@
           <Parameter Name="feeTotalFees" Type="int" Mode="In" />
           <Parameter Name="feeYear" Type="date" Mode="In" />
         </Function>
-        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="updatePaymentDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="paymentId" Type="int" Mode="In" />
           <Parameter Name="paymentName" Type="varchar" Mode="In" />
@@ -790,12 +758,7 @@
             <End Role="StudentSubjectEnroll" EntitySet="StudentSubjectEnrolls" />
           </AssociationSet>
           <EntitySet Name="Logs" EntityType="Student_Affairs_DatabaseModel.Log" />
-          <EntitySet Name="Clothes" EntityType="Student_Affairs_DatabaseModel.Cloth" />
           <EntitySet Name="StudentClothes" EntityType="Student_Affairs_DatabaseModel.StudentClothe" />
-          <AssociationSet Name="fk_clothes_student" Association="Student_Affairs_DatabaseModel.fk_clothes_student">
-            <End Role="Cloth" EntitySet="Clothes" />
-            <End Role="StudentClothe" EntitySet="StudentClothes" />
-          </AssociationSet>
           <AssociationSet Name="fk_stu_clothes" Association="Student_Affairs_DatabaseModel.fk_stu_clothes">
             <End Role="StudentsMain" EntitySet="StudentsMains" />
             <End Role="StudentClothe" EntitySet="StudentClothes" />
@@ -819,24 +782,24 @@
             <End Role="payment_details" EntitySet="payment_details" />
           </AssociationSet>
           <FunctionImport Name="deleteInvoice">
-            <Parameter Name="invoiceID" Mode="In" Type="Int32" />
+          <Parameter Name="invoiceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="deleteInvoiceItem">
             <Parameter Name="itemID" Mode="In" Type="Int32" />
             <Parameter Name="invoiceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="deletePayment">
-            <Parameter Name="paymentID" Mode="In" Type="Int32" />
+          <Parameter Name="paymentID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="getInvoiceById" ReturnType="Collection(Student_Affairs_DatabaseModel.getInvoiceById_Result)">
-            <Parameter Name="invoiceId" Mode="In" Type="Int32" />
+          <Parameter Name="invoiceId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="getInvoiceItem" ReturnType="Collection(Student_Affairs_DatabaseModel.getInvoiceItem_Result)">
             <Parameter Name="itemID" Mode="In" Type="Int32" />
             <Parameter Name="invoiceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="getInvoicesById" ReturnType="Collection(Student_Affairs_DatabaseModel.getInvoicesById_Result)">
-            <Parameter Name="invoiceId" Mode="In" Type="Int32" />
+          <Parameter Name="invoiceId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="getPayment" ReturnType="Collection(Student_Affairs_DatabaseModel.getPayment_Result)">
             <Parameter Name="paymentSchool" Mode="In" Type="String" />
@@ -844,7 +807,7 @@
             <Parameter Name="paymentStudentType" Mode="In" Type="Int16" />
           </FunctionImport>
           <FunctionImport Name="getPaymentById" ReturnType="Collection(Student_Affairs_DatabaseModel.getPaymentById_Result)">
-            <Parameter Name="paymentID" Mode="In" Type="Int32" />
+          <Parameter Name="paymentID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="getPaymentItems" ReturnType="Collection(Student_Affairs_DatabaseModel.getPaymentItems_Result)">
             <Parameter Name="school" Mode="In" Type="Int32" />
@@ -852,7 +815,7 @@
             <Parameter Name="grade" Mode="In" Type="Int16" />
           </FunctionImport>
           <FunctionImport Name="getPreviousPayment" ReturnType="Collection(Student_Affairs_DatabaseModel.getPreviousPayment_Result)">
-            <Parameter Name="student" Mode="In" Type="Int32" />
+          <Parameter Name="student" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="insertInvoiceItem">
             <Parameter Name="itemID" Mode="In" Type="Int32" />
@@ -914,6 +877,11 @@
             <Parameter Name="paymentYear" Mode="In" Type="DateTime" />
             <Parameter Name="paymentStudentType" Mode="In" Type="Int16" />
           </FunctionImport>
+          <EntitySet Name="Clothes" EntityType="Student_Affairs_DatabaseModel.Cloth" />
+          <AssociationSet Name="fk_clothes_student" Association="Student_Affairs_DatabaseModel.fk_clothes_student">
+            <End Role="Cloth" EntitySet="Clothes" />
+            <End Role="StudentClothe" EntitySet="StudentClothes" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Log">
           <Key>
@@ -923,17 +891,6 @@
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Times" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="LogContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Cloth">
-          <Key>
-            <PropertyRef Name="ClothesID" />
-          </Key>
-          <Property Name="ClothesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClothesName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ClothesQuantity" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ClothesSize" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ClothesPrice" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="StudentClothes" Relationship="Student_Affairs_DatabaseModel.fk_clothes_student" FromRole="Cloth" ToRole="StudentClothe" />
         </EntityType>
         <EntityType Name="StudentClothe">
           <Key>
@@ -946,21 +903,10 @@
           <Property Name="Price" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ReceivingStatus" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="PaymentStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Cloth" Relationship="Student_Affairs_DatabaseModel.fk_clothes_student" FromRole="StudentClothe" ToRole="Cloth" />
           <NavigationProperty Name="StudentsMain" Relationship="Student_Affairs_DatabaseModel.fk_stu_clothes" FromRole="StudentClothe" ToRole="StudentsMain" />
+          <NavigationProperty Name="Cloth" Relationship="Student_Affairs_DatabaseModel.fk_clothes_student" FromRole="StudentClothe" ToRole="Cloth" />
+          <Property Name="ReceivingQuantity" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
-        <Association Name="fk_clothes_student">
-          <End Type="Student_Affairs_DatabaseModel.Cloth" Role="Cloth" Multiplicity="1" />
-          <End Type="Student_Affairs_DatabaseModel.StudentClothe" Role="StudentClothe" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cloth">
-              <PropertyRef Name="ClothesID" />
-            </Principal>
-            <Dependent Role="StudentClothe">
-              <PropertyRef Name="ClothesID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_stu_clothes">
           <End Type="Student_Affairs_DatabaseModel.StudentsMain" Role="StudentsMain" Multiplicity="1" />
           <End Type="Student_Affairs_DatabaseModel.StudentClothe" Role="StudentClothe" Multiplicity="*" />
@@ -1128,6 +1074,27 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Cloth">
+          <Key>
+            <PropertyRef Name="ClothesID" />
+          </Key>
+          <Property Name="ClothesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClothesName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ClothesPrice" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="StudentClothes" Relationship="Student_Affairs_DatabaseModel.fk_clothes_student" FromRole="Cloth" ToRole="StudentClothe" />
+        </EntityType>
+        <Association Name="fk_clothes_student">
+          <End Type="Student_Affairs_DatabaseModel.Cloth" Role="Cloth" Multiplicity="1" />
+          <End Type="Student_Affairs_DatabaseModel.StudentClothe" Role="StudentClothe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cloth">
+              <PropertyRef Name="ClothesID" />
+            </Principal>
+            <Dependent Role="StudentClothe">
+              <PropertyRef Name="ClothesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1272,20 +1239,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Clothes">
-            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Cloth">
-              <MappingFragment StoreEntitySet="Clothes">
-                <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
-                <ScalarProperty Name="ClothesSize" ColumnName="ClothesSize" />
-                <ScalarProperty Name="ClothesQuantity" ColumnName="ClothesQuantity" />
-                <ScalarProperty Name="ClothesName" ColumnName="ClothesName" />
-                <ScalarProperty Name="ClothesID" ColumnName="ClothesID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="StudentClothes">
             <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentClothe">
               <MappingFragment StoreEntitySet="StudentClothes">
+                <ScalarProperty Name="ReceivingQuantity" ColumnName="ReceivingQuantity" />
                 <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
                 <ScalarProperty Name="ReceivingStatus" ColumnName="ReceivingStatus" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
@@ -1438,31 +1395,16 @@
           <FunctionImportMapping FunctionImportName="insertInvoiceItem" FunctionName="Student_Affairs_DatabaseModel.Store.insertInvoiceItem" />
           <FunctionImportMapping FunctionImportName="insertPaymentDetail" FunctionName="Student_Affairs_DatabaseModel.Store.insertPaymentDetail" />
           <FunctionImportMapping FunctionImportName="insertStudentFees" FunctionName="Student_Affairs_DatabaseModel.Store.insertStudentFees" />
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Student_Affairs_DatabaseModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Student_Affairs_DatabaseModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Student_Affairs_DatabaseModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Student_Affairs_DatabaseModel.Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Student_Affairs_DatabaseModel.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Student_Affairs_DatabaseModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Student_Affairs_DatabaseModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="updatePaymentDetail" FunctionName="Student_Affairs_DatabaseModel.Store.updatePaymentDetail" />
+          <EntitySetMapping Name="Clothes">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Cloth">
+              <MappingFragment StoreEntitySet="Clothes">
+                <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
+                <ScalarProperty Name="ClothesName" ColumnName="ClothesName" />
+                <ScalarProperty Name="ClothesID" ColumnName="ClothesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -1,0 +1,216 @@
+﻿@model StudentsAffairsDashboard.Models.invoice_payment
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "edit" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>invoice_payment</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.id)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.student, "student", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("student", null, htmlAttributes: new { @class = "form-control", onchange = "updateStudent()", id = "student" })
+            @Html.ValidationMessageFor(model => model.student, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.date, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.date, "{yyyy-mm-dd}", new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = Model.date.ToString("yyyy-MM-dd") } })
+            @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.total_cost, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.total_cost, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", id = "cost" } })
+            @Html.ValidationMessageFor(model => model.total_cost, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.paid, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.paid, new { htmlAttributes = new { @class = "form-control", id = "paid", onchange = "getRemaining()" } })
+            @Html.ValidationMessageFor(model => model.paid, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.remaining, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.remaining, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", id = "rem" } })
+            @Html.ValidationMessageFor(model => model.remaining, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.previous_payment, "previous_payment", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.previous_payment, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+            @Html.ValidationMessageFor(model => model.previous_payment, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Notes, new { @class = "form-control", disabled = "disabled" })
+            @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @for (int i = 0; i < this.Model.payment_details.Count; i++)
+    {
+        int j = i + 1;
+        if (Model.payment_details[i].type == 5)//it's a uniform hence making it unremovable
+        {@Html.CheckBoxFor(model => model.payment_details[i].selected, new { id = "uniform", disabled = "disabled" })
+        @Html.HiddenFor(model => model.payment_details[i].amount, new { id = "uniformAmount" })}
+    else if (Model.payment_details[i].type == 1)
+    { @Html.CheckBoxFor(model => model.payment_details[i].selected, new { id = "first_installment", onclick = "updateFirst()" })
+    @Html.HiddenFor(model => model.payment_details[i].amount, new { id = "FirstAmount" })}
+else if (Model.payment_details[i].type == 2)
+{ @Html.CheckBoxFor(model => model.payment_details[i].selected, new { id = "second_installment", onclick = "updateSecond()" })
+@Html.HiddenFor(model => model.payment_details[i].amount, new { id = "SecondAmount" })}
+else if (Model.payment_details[i].type == 3)
+{ @Html.CheckBoxFor(model => model.payment_details[i].selected, new { id = "activity", disabled = "disabled" })
+@Html.HiddenFor(model => model.payment_details[i].amount, new { id = "actAmount" })}
+
+else if (Model.payment_details[i].type == 4)
+{ @Html.CheckBoxFor(model => model.payment_details[i].selected, new { id = "resources", disabled = "disabled" })
+@Html.HiddenFor(model => model.payment_details[i].amount, new { id = "resAmount" })}
+<label asp-for="@Model.payment_details[i].selected">@Model.payment_details[i].name</label>
+@Html.HiddenFor(model => model.payment_details[i].id)
+@Html.HiddenFor(model => model.payment_details[i].name)
+@Html.HiddenFor(model => model.payment_details[i].year)
+
+<br />
+}
+
+    @Html.HiddenFor(model => model.previous_payment)
+    @Html.HiddenFor(model => model.remaining)
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script>
+        function getRemaining() {
+            var cost = Number(document.getElementById("cost").value);
+        var rem = document.getElementById("rem");
+        var remaining = Number(rem.value)
+            var paid = Number(document.getElementById("paid").value);
+            var oldRem=@Model.remaining+@Model.paid-@Model.total_cost;
+            var current = 0;
+            if (cost == 0 && paid == 0 && @Model.remaining+@Model.paid>@Model.total_cost)
+                rem.value =oldRem;
+            else if (cost == 0 && paid == 0 && @Model.remaining+@Model.paid<=@Model.total_cost)
+                rem.value = 0;
+            if (paid == 0) {
+                current = oldRem;
+            rem.value = current;
+        }
+        else if (cost == 0)
+            {
+                current =  oldRem-paid;
+            rem.value = current;
+        }
+        else {
+            current = @Model.remaining+@Model.paid-@Model.total_cost+cost - paid;
+            rem.value = current;
+        }
+        }
+    function updateFirst() {
+
+        var cb = document.getElementById("first_installment");
+        var activity = document.getElementById("activity");
+        var resources = document.getElementById("resources");
+        var costBox = document.getElementById("cost");
+        var am = Number(document.getElementById("FirstAmount").value) + Number(document.getElementById("actAmount").value) + Number(document.getElementById("resAmount").value);
+        var current = Number(costBox.value);
+        var rem = document.getElementById("rem");
+        var remaining = Number(rem.value)
+        var paid = Number(document.getElementById("paid").value);
+        if (cb.checked) {
+            resources.checked = true;
+            activity.checked = true;
+            remaining = remaining - current
+            current += am;
+            costBox.value = current;
+            var currentRemaining = current + remaining;
+            rem.value = currentRemaining;
+        }
+        else {
+            resources.checked = false;
+            activity.checked = false;
+            current -= am;
+            costBox.value = current;
+            var currentRemaining = remaining - am;
+            rem.value = currentRemaining;
+        }
+
+    }
+    function updateSecond() {
+
+        var cb = document.getElementById("second_installment");
+        var costBox = document.getElementById("cost");
+        var am = Number(document.getElementById("SecondAmount").value);
+        var current = Number(costBox.value);
+        var rem = document.getElementById("rem");
+        var remaining = Number(rem.value)
+        var paid = Number(document.getElementById("paid").value);
+        if (cb.checked) {
+            remaining = remaining - current
+            current += am;
+            costBox.value = current;
+            var currentRemaining = current + remaining;
+            rem.value = currentRemaining;
+        }
+        else {
+            current -= am;
+            costBox.value = current;
+            var currentRemaining = remaining - am;
+            rem.value = currentRemaining;
+        }
+
+    }
+
+
+function updateStudent() {
+    var data = $("#edit").serialize()
+    console.log(data);
+    $.ajax({
+        type: 'POST',
+        url: '/invoice_payment/Edit',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+        data: data,
+        success: function (result) {
+            document.open();
+            document.write(result);
+            document.close();
+        },
+         error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert("Status: " + textStatus); alert("Error: " + errorThrown);
+    }
+    })
+}
+</script>

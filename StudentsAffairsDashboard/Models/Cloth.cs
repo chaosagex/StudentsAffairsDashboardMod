@@ -22,8 +22,6 @@ namespace StudentsAffairsDashboard.Models
     
         public int ClothesID { get; set; }
         public string ClothesName { get; set; }
-        public string ClothesQuantity { get; set; }
-        public string ClothesSize { get; set; }
         public string ClothesPrice { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

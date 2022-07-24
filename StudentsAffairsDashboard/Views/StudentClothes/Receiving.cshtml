@@ -1,0 +1,102 @@
+﻿@model IEnumerable<StudentsAffairsDashboard.Models.StudentsMain>
+
+<!-- Main content -->
+<section class="content">
+
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Uniform Receiving</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 10%">ID</th>
+                        <th style="width: 25%">Full Name</th>
+                        <th>Uniform</th>
+                        <th>Payment Status</th>
+                        <th>Receiving Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.StdNID)</td>
+                            <td>
+                                <a>
+                                    @Html.DisplayFor(modelItem => item.StdEnglishFristName) @Html.DisplayFor(modelItem => item.StdEnglishMiddleName) @Html.DisplayFor(modelItem => item.StdEnglishLastName) @Html.DisplayFor(modelItem => item.StdEnglishFamilyName)
+                                </a>
+                                <br />
+                                <small>
+                                    NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault()  @Html.DisplayFor(modelItem => item.Class.ClassName) (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
+                                </small>
+                            </td>
+                            <td>
+                                @Html.ActionLink("Reservation Uniform", "Received", new { id = item.StdCode }, new { @class = "btn btn-primary btn-sm" })
+                            </td>
+                            <td>
+
+                                @if (item.StudentClothes.Where(a => a.StudentsMain.StdCode == item.StdCode).ToList().Count != 0 && item.StudentClothes.Where(a => a.StudentsMain.StdCode == item.StdCode).ToList().All(a => a.PaymentStatus == "True"))
+                                {
+
+                                    <span class="badge badge-success">Paid</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">NOT Paid</span>
+                                }
+
+                            </td>
+                            <td>
+                                @if (item.StudentClothes.Where(a => a.StudentsMain.StdCode == item.StdCode).ToList().Count != 0 && item.StudentClothes.Where(a => a.StudentsMain.StdCode == item.StdCode).ToList().All(a => a.ReceivingStatus == "True"))
+                                {
+                                    <span class="badge badge-success">Received</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">NOT Received</span>
+                                }
+
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th style="width: 10%">ID</th>
+                        <th style="width: 25%">Full Name</th>
+                        <th>Uniform</th>
+                        <th>Payment Status</th>
+                        <th>Receiving Status</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->
+@section scripts{
+    <script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+    </script>
+}

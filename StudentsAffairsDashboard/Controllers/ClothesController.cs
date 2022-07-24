@@ -46,7 +46,7 @@ namespace StudentsAffairsDashboard.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClothesID,ClothesName,ClothesQuantity,ClothesSize,ClothesPrice")] Cloth cloth)
+        public ActionResult Create([Bind(Include = "ClothesID,ClothesName,ClothesPrice")] Cloth cloth)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace StudentsAffairsDashboard.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ClothesID,ClothesName,ClothesQuantity,ClothesSize,ClothesPrice")] Cloth cloth)
+        public ActionResult Edit([Bind(Include = "ClothesID,ClothesName,ClothesPrice")] Cloth cloth)
         {
             if (ModelState.IsValid)
             {

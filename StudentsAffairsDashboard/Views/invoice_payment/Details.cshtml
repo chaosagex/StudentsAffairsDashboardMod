@@ -1,0 +1,98 @@
+﻿@model StudentsAffairsDashboard.Models.invoice_payment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>InvoicePayment</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.date)
+        </dd>
+        <dt class="col-sm-2">
+            Items
+        </dt>
+        <dd class="col-sm-10">
+            <div class="row">
+                @for (int i = 0; i < this.Model.payment_details.Count; i++)
+                {
+
+                    <div class="col-3">
+                        <label>@Model.payment_details[i].name</label>
+                    </div>
+                    <div class="col-6">
+                        <label>@Model.payment_details[i].amount</label>
+                    </div>
+                    <br />
+                }
+            </div>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.total_cost)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.total_cost)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.paid)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.paid)
+        </dd>
+        <dt class="col-sm-2">
+            Total Debt
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.remaining)
+        </dd>
+        <dt class="col-sm-2">
+            Previous Payment
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.previous_payment)
+        </dd>
+        <dt class="col-sm-2">
+            Student
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StudentsMain.StdEnglishFristName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+        <dd class="col-sm-10">
+            <div class="row">
+                @{
+                    if (Model.Notes == null)
+                    {
+                        @Html.DisplayFor(model => model.Notes)
+                    }
+                    else
+                    {
+                        List<string> notes = Model.Notes.Split('\r', '\n').ToList();
+                        notes.RemoveAll(str => String.IsNullOrEmpty(str));
+                        foreach (string note in notes)
+                        {
+                            <div class="col-12">
+                                <label>@note</label>
+                            </div>
+                            <br />
+                        }
+                    }
+
+                }
+            </div>
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

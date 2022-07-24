@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9babbf2e97d54b639cf3fc1492a62b27" Name="Diagram1">
-        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Account" Width="1.5" PointX="1" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Account" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Class" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Grade" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.NESSchool" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
@@ -21,10 +21,8 @@
         <AssociationConnector Association="Student_Affairs_DatabaseModel.fk_stu_history" ManuallyRouted="false" />
         <AssociationConnector Association="Student_Affairs_DatabaseModel.fk_stu_Enroll" ManuallyRouted="false" />
         <AssociationConnector Association="Student_Affairs_DatabaseModel.fk_subject_Enroll" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Log" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Cloth" Width="2.625" PointX="6" PointY="11.75" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Log" Width="1.5" PointX="5.25" PointY="0.625" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.StudentClothe" Width="2.625" PointX="8.25" PointY="5.5" />
-        <AssociationConnector Association="Student_Affairs_DatabaseModel.fk_clothes_student" />
         <AssociationConnector Association="Student_Affairs_DatabaseModel.fk_stu_clothes" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.invoice_payment" Width="1.5" PointX="5.25" PointY="15.375" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.payment_details" Width="1.5" PointX="9.5" PointY="9.25" />
@@ -32,6 +30,8 @@
         <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_invoice_payment_student" />
         <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_payment_details_school" />
         <AssociationConnector Association="Student_Affairs_DatabaseModel.invoice_item" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Cloth" Width="1.5" PointX="7.375" PointY="0.875" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.fk_clothes_student" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
