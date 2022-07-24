@@ -11,6 +11,7 @@ using StudentsAffairsDashboard.Models;
 
 namespace StudentsAffairsDashboard.Controllers
 {
+    
     public class invoice_paymentController : Controller
     {
         private StudentAffairsDatabaseEntities db = new StudentAffairsDatabaseEntities();
@@ -23,7 +24,11 @@ namespace StudentsAffairsDashboard.Controllers
             var invoice_payment = db.invoice_payment.Include(i => i.invoice_payment2).Include(i => i.StudentsMain);
             return View(await invoice_payment.ToListAsync());
         }
-
+        public ActionResult AllInvoices()
+        {
+            var invoice_payment = db.invoice_payment.Include(i => i.invoice_payment2).Include(i => i.StudentsMain);
+            return View(invoice_payment.ToList());
+        }
         // GET: invoice_payment/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -38,7 +43,20 @@ namespace StudentsAffairsDashboard.Controllers
             }
             return View(invoice_payment);
         }
-
+        [ChildActionOnly]
+        public ActionResult DetailsPartial(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            invoice_payment invoice_payment = db.invoice_payment.Include(i => i.payment_details).FirstOrDefault(i => i.id == id);
+            if (invoice_payment == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(invoice_payment);
+        }
         // GET: invoice_payment/Create
         public ActionResult Create()
         {

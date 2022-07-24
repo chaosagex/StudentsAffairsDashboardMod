@@ -563,16 +563,18 @@
     <Content Include="Views\Clothes\Details.cshtml" />
     <Content Include="Views\Clothes\Edit.cshtml" />
     <Content Include="Views\Clothes\Index.cshtml" />
-    <Content Include="Views\invoice_payment\Create.cshtml" />
-    <Content Include="Views\invoice_payment\Delete.cshtml" />
-    <Content Include="Views\invoice_payment\Details.cshtml" />
-    <Content Include="Views\invoice_payment\Edit.cshtml" />
-    <Content Include="Views\invoice_payment\Index.cshtml" />
     <Content Include="Views\payment_details\Create.cshtml" />
     <Content Include="Views\payment_details\Delete.cshtml" />
     <Content Include="Views\payment_details\Details.cshtml" />
     <Content Include="Views\payment_details\Edit.cshtml" />
     <Content Include="Views\payment_details\Index.cshtml" />
+    <Content Include="Views\invoice_payment\Create.cshtml" />
+    <Content Include="Views\invoice_payment\Delete.cshtml" />
+    <Content Include="Views\invoice_payment\Details.cshtml" />
+    <Content Include="Views\invoice_payment\Edit.cshtml" />
+    <Content Include="Views\invoice_payment\Index.cshtml" />
+    <Content Include="Views\invoice_payment\AllInvoices.cshtml" />
+    <Content Include="Views\invoice_payment\DetailsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -56,6 +56,10 @@
           <Property Name="remaining" Type="money" Nullable="false" />
           <Property Name="previous_payment" Type="int" />
           <Property Name="Notes" Type="nvarchar" MaxLength="500" />
+          <Property Name="deposit_date" Type="date" />
+          <Property Name="reference_code" Type="varchar" MaxLength="20" />
+          <Property Name="depositer" Type="nvarchar" MaxLength="100" />
+          <Property Name="type" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Logs">
           <Key>
@@ -935,6 +939,10 @@
           <NavigationProperty Name="invoice_payment2" Relationship="Student_Affairs_DatabaseModel.FK_invoice_payment_invoice_payment" FromRole="invoice_payment1" ToRole="invoice_payment" />
           <NavigationProperty Name="StudentsMain" Relationship="Student_Affairs_DatabaseModel.FK_invoice_payment_student" FromRole="invoice_payment" ToRole="StudentsMain" />
           <NavigationProperty Name="payment_details" Relationship="Student_Affairs_DatabaseModel.invoice_item" FromRole="invoice_payment" ToRole="payment_details" />
+          <Property Name="deposit_date" Type="DateTime" Precision="0" />
+          <Property Name="reference_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="depositer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="Int16" Nullable="false" />
         </EntityType>
         <EntityType Name="payment_details">
           <Key>
@@ -1256,6 +1264,10 @@
           <EntitySetMapping Name="invoice_payment">
             <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.invoice_payment">
               <MappingFragment StoreEntitySet="invoice_payment">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="depositer" ColumnName="depositer" />
+                <ScalarProperty Name="reference_code" ColumnName="reference_code" />
+                <ScalarProperty Name="deposit_date" ColumnName="deposit_date" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="previous_payment" ColumnName="previous_payment" />
                 <ScalarProperty Name="remaining" ColumnName="remaining" />

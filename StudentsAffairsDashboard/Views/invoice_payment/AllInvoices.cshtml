@@ -1,0 +1,21 @@
+﻿@model IEnumerable<StudentsAffairsDashboard.Models.invoice_payment>
+
+@{
+    ViewBag.Title = "Invoices";
+}
+
+<h2>Invoices</h2>
+
+<p>
+
+</p>
+
+@foreach (var item in Model)
+{
+    Html.Partial("DetailsPartial", new ViewDataDictionary { { "id", item.id } });
+
+
+    Html.Action("DetailsPartial", "invoice_payment", new { id = ViewData["id"] });
+
+}
+
