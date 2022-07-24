@@ -10,12 +10,20 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>invoice_payment</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.id)
-
+<div class="form-horizontal">
+    <h4>invoice_payment</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.id)
+    <div class="form-group">
+    @Html.DropDownListFor(m => m.type,
+        new List<SelectListItem>
+{
+   new SelectListItem{ Text="POS", Value = "1" },
+   new SelectListItem{ Text="Bank", Value = "2" },
+   }, htmlAttributes: new { @class = "form-control", onchange = "updatePayment()", id = "PaymentType" })
+    <br />
+</div>
     <div class="row">
         <div class="col-6">
             <div class="form-group">
@@ -105,7 +113,7 @@ else if (Model.payment_details[i].type == 4)
             @Html.HiddenFor(model => model.remaining)
 
         </div>
-        <div class="col-6">
+        <div class="col-6" id="Bank" style="display: none;">
             <div class="form-group">
                 @Html.LabelFor(model => model.deposit_date, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -142,3 +150,107 @@ else if (Model.payment_details[i].type == 4)
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<script type="text/javascript">
+    function updateStudent() {
+        var data = $("#create").serialize();
+        $.ajax({
+            type: 'POST',
+            url: '/invoice_payment/Create',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+            data: data,
+            success: function (result) {
+                document.open();
+                document.write(result);
+                document.close();
+            }
+        })
+    }
+    function updateFirst() {
+
+        var cb = document.getElementById("first_installment");
+        var activity = document.getElementById("activity");
+        var resources = document.getElementById("resources");
+        var costBox = document.getElementById("cost");
+        var am = Number(document.getElementById("FirstAmount").value) + Number(document.getElementById("actAmount").value) + Number(document.getElementById("resAmount").value);
+        var current = Number(costBox.value);
+        var rem = document.getElementById("rem");
+        var remaining = Number(rem.value)
+        var paid = Number(document.getElementById("paid").value);
+        if (cb.checked) {
+            resources.checked = true;
+            activity.checked = true;
+            remaining = remaining - current
+            current += am;
+            costBox.value = current;
+            var currentRemaining = current + remaining;
+            rem.value = currentRemaining;
+        }
+        else {
+            resources.checked = false;
+            activity.checked = false;
+            current -= am;
+            costBox.value = current;
+            var currentRemaining = remaining - am;
+            rem.value = currentRemaining;
+        }
+
+    }
+    function updateSecond() {
+
+        var cb = document.getElementById("second_installment");
+        var costBox = document.getElementById("cost");
+        var am = Number(document.getElementById("SecondAmount").value);
+        var current = Number(costBox.value);
+        var rem = document.getElementById("rem");
+        var remaining = Number(rem.value)
+        var paid = Number(document.getElementById("paid").value);
+        if (cb.checked) {
+            remaining = remaining - current
+            current += am;
+            costBox.value = current;
+            var currentRemaining = current + remaining;
+            rem.value = currentRemaining;
+        }
+        else {
+            current -= am;
+            costBox.value = current;
+            var currentRemaining = remaining - am;
+            rem.value = currentRemaining;
+        }
+
+    }
+    function getRemaining() {
+        var cost = Number(document.getElementById("cost").value);
+        var rem = document.getElementById("rem");
+        var remaining = Number(rem.value)
+        var paid = Number(document.getElementById("paid").value);
+        var current = 0;
+        if (paid == 0) {
+            current = cost + @Model.remaining;
+            rem.value = current;
+        }
+        else if (cost == 0)
+        {
+            current =  @Model.remaining-paid;
+            rem.value = current;
+        }
+        else {
+            current = cost - paid+@Model.remaining;
+            rem.value = current;
+        }
+
+
+    }
+    function updatePayment() {
+        var payment = Number(document.getElementById("PaymentType").value);
+       var x = document.getElementById("Bank");
+  if (payment==1) {
+      x.style.display = "none";
+      document.getElementById("rc").value = "";
+      document.getElementById("dd").value = "";
+      document.getElementById("dep").value = "";
+  } else {
+    x.style.display = "block";
+  }
+    }
+</script>
