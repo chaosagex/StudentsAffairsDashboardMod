@@ -255,6 +255,11 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="Student_Affairs_DatabaseDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Student_Affairs_DatabaseDataSet.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AdminLTE\adminlte.css" />
@@ -575,6 +580,17 @@
     <Content Include="Views\invoice_payment\Index.cshtml" />
     <Content Include="Views\invoice_payment\AllInvoices.cshtml" />
     <Content Include="Views\invoice_payment\DetailsPartial.cshtml" />
+    <Content Include="Student_Affairs_DatabaseDataSet.xsc">
+      <DependentUpon>Student_Affairs_DatabaseDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="Student_Affairs_DatabaseDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Student_Affairs_DatabaseDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Student_Affairs_DatabaseDataSet.xss">
+      <DependentUpon>Student_Affairs_DatabaseDataSet.xsd</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -609,6 +625,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Report1.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
