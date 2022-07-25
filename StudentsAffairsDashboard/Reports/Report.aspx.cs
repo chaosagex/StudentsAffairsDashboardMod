@@ -17,10 +17,14 @@ namespace StudentsAffairsDashboard.Reports
             ReportViewer1.LocalReport.ReportPath = Server.MapPath("Report1.rdlc");
             StudentAffairsDatabaseEntities entities = new StudentAffairsDatabaseEntities();
             ReportDataSource datasource = new ReportDataSource("Invoices", entities.invoice_payment.ToList());
-            ReportViewer1.LocalReport.DataSources.Clear();
-            ReportViewer1.LocalReport.DataSources.Add(datasource);
             ReportViewer1.SizeToReportContent = true;
             ReportViewer1.ZoomMode = ZoomMode.FullPage;
+            ReportViewer1.LocalReport.DataSources.Clear();
+            ReportViewer1.LocalReport.DataSources.Add(datasource);
+            //ReportParameter parameter = new ReportParameter("ReportParameter1", "1");
+            //ReportViewer1.LocalReport.SetParameters(parameter);
+            ReportViewer1.LocalReport.Refresh();
+            
         }
     }
 }
