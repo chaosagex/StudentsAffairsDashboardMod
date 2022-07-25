@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StudentsAffairsDashboard.Models;
+using Microsoft.Reporting.WebForms;
 
 namespace StudentsAffairsDashboard.Controllers
 {
@@ -28,6 +29,17 @@ namespace StudentsAffairsDashboard.Controllers
         {
             var invoice_payment = db.invoice_payment.Include(i => i.invoice_payment2).Include(i => i.StudentsMain);
             return View(invoice_payment.ToList());
+        }
+        public ActionResult Report()
+        {
+            ReportViewer x = new ReportViewer();
+            x.ProcessingMode = ProcessingMode.Local;
+            x.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reports\Report1.rdlc";
+            ReportDataSource source = new ReportDataSource("Invoices",(from invoice_payment in db.invoice_payment select invoice_payment));
+            x.LocalReport.DataSources.Clear();
+            x.LocalReport.DataSources.Add(source);
+
+            return View(x);
         }
         public ActionResult AllInvoices(List<invoice_payment> inv)
         {

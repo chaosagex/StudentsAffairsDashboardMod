@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace StudentsAffairsDashboard {
+namespace StudentsAffairsDashboard.Reports {
     
     
     /// <summary>
@@ -13297,7 +13297,7 @@ namespace StudentsAffairsDashboard {
         }
     }
 }
-namespace StudentsAffairsDashboard.Student_Affairs_DatabaseDataSetTableAdapters {
+namespace StudentsAffairsDashboard.Reports.Student_Affairs_DatabaseDataSetTableAdapters {
     
     
     /// <summary>
