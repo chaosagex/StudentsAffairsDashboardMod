@@ -443,7 +443,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>297mm</Height>
+        <Height>17.6057mm</Height>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -453,7 +453,7 @@
       <Width>210mm</Width>
       <Page>
         <PageHeader>
-          <Height>2.47578cm</Height>
+          <Height>2.40522cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -461,10 +461,10 @@
               <Source>Embedded</Source>
               <Value>Newlogoegypt</Value>
               <Sizing>FitProportional</Sizing>
-              <Top>0.89959cm</Top>
+              <Top>0.50271cm</Top>
               <Left>0.38078cm</Left>
-              <Height>1.50564cm</Height>
-              <Width>3.29375cm</Width>
+              <Height>1.90251cm</Height>
+              <Width>4.35208cm</Width>
               <ToolTip>CompanyLogo</ToolTip>
               <Style>
                 <Border>
@@ -476,8 +476,8 @@
               <Source>External</Source>
               <Value>=Parameters!School.Value</Value>
               <Sizing>FitProportional</Sizing>
-              <Top>0.57327cm</Top>
-              <Left>17.04286cm</Left>
+              <Top>0.50271cm</Top>
+              <Left>11.27495cm</Left>
               <Height>1.90251cm</Height>
               <Width>3.53729cm</Width>
               <ZIndex>1</ZIndex>
@@ -494,6 +494,16 @@
             </Border>
           </Style>
         </PageHeader>
+        <PageFooter>
+          <Height>2.54cm</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageFooter>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
         <LeftMargin>2cm</LeftMargin>
