@@ -21,7 +21,9 @@ namespace StudentsAffairsDashboard.Reports
             ReportViewer1.LocalReport.DataSources.Add(datasource);
             ReportViewer1.SizeToReportContent = true;
             ReportViewer1.ZoomMode = ZoomMode.FullPage;
-            ReportParameter parameter = new ReportParameter("School", "2");
+            ReportViewer1.LocalReport.EnableExternalImages = true;
+            string imagePath = new Uri(Server.MapPath("~/Logos/1007.png")).AbsoluteUri;
+            ReportParameter parameter = new ReportParameter("School", imagePath);
             ReportViewer1.LocalReport.SetParameters(parameter);
             ReportViewer1.LocalReport.Refresh();
         }

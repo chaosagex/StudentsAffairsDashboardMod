@@ -8,11 +8,6 @@ this.payment_details = new List<payment_details>();
 		
 		public virtual List<payment_details> payment_details { get; set; }
 		
-		public enum InvoiceType
-    {
-        POS=1,
-        Bank=2
-    }
 		
 		
 payment_details

@@ -398,6 +398,8 @@
     <Content Include="Content\Images\user3-128x128.jpg" />
     <Content Include="Content\Images\user8-128x128.jpg" />
     <Content Include="Content\responsive.bootstrap.min.css" />
+    <Content Include="Database &amp; model changes\changes in models.txt" />
+    <Content Include="Database &amp; model changes\invoiceDB.sql" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
