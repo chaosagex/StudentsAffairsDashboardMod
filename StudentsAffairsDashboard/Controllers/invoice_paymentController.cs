@@ -22,6 +22,7 @@ namespace StudentsAffairsDashboard.Controllers
         // GET: invoice_payment
         public async Task<ActionResult> Index()
         {
+            
             var invoice_payment = db.invoice_payment.Include(i => i.invoice_payment2).Include(i => i.StudentsMain);
             return View(await invoice_payment.ToListAsync());
         }
