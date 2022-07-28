@@ -261,6 +261,9 @@
     <Compile Include="Reports\Report.aspx.designer.cs">
       <DependentUpon>Report.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Student_Affairs_DatabaseDataSet.cs">
+      <DependentUpon>Student_Affairs_DatabaseDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Reports\Student_Affairs_DatabaseDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
