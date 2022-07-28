@@ -32,7 +32,7 @@ namespace StudentsAffairsDashboard.Reports
 
             ReportViewer1.LocalReport.EnableExternalImages = true;
             string schoolID = Session["CurrentSchool"].ToString();
-            string imagePath = new Uri(Server.MapPath($"~/Logos/{schoolID}.png")).AbsoluteUri;
+            string imagePath = new Uri(Server.MapPath($"~/Logos/{schoolID}.jpg")).AbsoluteUri;
 
             ReportParameter parameter = new ReportParameter("School", imagePath);
             ReportViewer1.LocalReport.SetParameters(parameter);
