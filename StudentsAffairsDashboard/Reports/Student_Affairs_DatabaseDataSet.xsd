@@ -1092,11 +1092,17 @@
               <DbSource ConnectionRef="Student_Affairs_DatabaseConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT        Clothes.ClothesName, StudentsMain.StdEnglishFristName, StudentClothes.Quantity, StudentClothes.Price, StudentsMain.StdCode, Clothes.ClothesPrice, StudentsMain.StdEnglishMiddleName, 
-                         StudentsMain.StdEnglishLastName, StudentsMain.StdEnglishFamilyName
+                    <CommandText>SELECT DISTINCT 
+                         Clothes.ClothesName, StudentClothes.Quantity, StudentClothes.Price, StudentsMain.StdCode, Clothes.ClothesPrice, StudentsMain.StdArabicFristName, StudentsMain.StdArabicMiddleName, StudentsMain.StdArabicLastName, 
+                         StudentsMain.StdArabicFamilyName, NESSchools.SchoolName, invoice_payment.id AS Serial, payment_details.amount, Grade.GradeName, StudentClothes.SCID
 FROM            StudentClothes INNER JOIN
                          Clothes ON StudentClothes.ClothesID = Clothes.ClothesID INNER JOIN
-                         StudentsMain ON StudentClothes.StdCode = StudentsMain.StdCode</CommandText>
+                         StudentsMain ON StudentClothes.StdCode = StudentsMain.StdCode INNER JOIN
+                         NESSchools ON StudentsMain.StdSchoolID = NESSchools.SchoolID INNER JOIN
+                         invoice_payment ON StudentsMain.StdCode = invoice_payment.student INNER JOIN
+                         invoice_item ON invoice_payment.id = invoice_item.invoice INNER JOIN
+                         payment_details ON NESSchools.SchoolID = payment_details.school AND invoice_item.payment_item = payment_details.id CROSS JOIN
+                         Grade</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -1104,14 +1110,19 @@ FROM            StudentClothes INNER JOIN
             </MainSource>
             <Mappings>
               <Mapping SourceColumn="ClothesName" DataSetColumn="ClothesName" />
-              <Mapping SourceColumn="StdEnglishFristName" DataSetColumn="StdEnglishFristName" />
               <Mapping SourceColumn="Quantity" DataSetColumn="Quantity" />
               <Mapping SourceColumn="Price" DataSetColumn="Price" />
               <Mapping SourceColumn="StdCode" DataSetColumn="StdCode" />
               <Mapping SourceColumn="ClothesPrice" DataSetColumn="ClothesPrice" />
-              <Mapping SourceColumn="StdEnglishMiddleName" DataSetColumn="StdEnglishMiddleName" />
-              <Mapping SourceColumn="StdEnglishLastName" DataSetColumn="StdEnglishLastName" />
-              <Mapping SourceColumn="StdEnglishFamilyName" DataSetColumn="StdEnglishFamilyName" />
+              <Mapping SourceColumn="StdArabicFristName" DataSetColumn="StdArabicFristName" />
+              <Mapping SourceColumn="StdArabicMiddleName" DataSetColumn="StdArabicMiddleName" />
+              <Mapping SourceColumn="StdArabicLastName" DataSetColumn="StdArabicLastName" />
+              <Mapping SourceColumn="StdArabicFamilyName" DataSetColumn="StdArabicFamilyName" />
+              <Mapping SourceColumn="SchoolName" DataSetColumn="SchoolName" />
+              <Mapping SourceColumn="Serial" DataSetColumn="Serial" />
+              <Mapping SourceColumn="amount" DataSetColumn="amount" />
+              <Mapping SourceColumn="GradeName" DataSetColumn="GradeName" />
+              <Mapping SourceColumn="SCID" DataSetColumn="SCID" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -2065,13 +2076,6 @@ FROM            StudentClothes INNER JOIN
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="StdEnglishFristName" msprop:Generator_ColumnPropNameInTable="StdEnglishFristNameColumn" msprop:Generator_ColumnPropNameInRow="StdEnglishFristName" msprop:Generator_UserColumnName="StdEnglishFristName" msprop:Generator_ColumnVarNameInTable="columnStdEnglishFristName">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="100" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
               <xs:element name="Quantity" msprop:Generator_ColumnPropNameInTable="QuantityColumn" msprop:Generator_ColumnPropNameInRow="Quantity" msprop:Generator_UserColumnName="Quantity" msprop:Generator_ColumnVarNameInTable="columnQuantity">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -2087,34 +2091,58 @@ FROM            StudentClothes INNER JOIN
                 </xs:simpleType>
               </xs:element>
               <xs:element name="StdCode" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnPropNameInTable="StdCodeColumn" msprop:Generator_ColumnPropNameInRow="StdCode" msprop:Generator_UserColumnName="StdCode" msprop:Generator_ColumnVarNameInTable="columnStdCode" type="xs:int" />
-              <xs:element name="ClothesPrice" msprop:Generator_UserColumnName="ClothesPrice" msprop:Generator_ColumnPropNameInTable="ClothesPriceColumn" msprop:Generator_ColumnPropNameInRow="ClothesPrice" msprop:Generator_ColumnVarNameInTable="columnClothesPrice">
+              <xs:element name="ClothesPrice" msprop:Generator_ColumnPropNameInTable="ClothesPriceColumn" msprop:Generator_ColumnPropNameInRow="ClothesPrice" msprop:Generator_UserColumnName="ClothesPrice" msprop:Generator_ColumnVarNameInTable="columnClothesPrice">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="StdEnglishMiddleName" msprop:Generator_ColumnPropNameInRow="StdEnglishMiddleName" msprop:Generator_ColumnPropNameInTable="StdEnglishMiddleNameColumn" msprop:Generator_ColumnVarNameInTable="columnStdEnglishMiddleName" msprop:Generator_UserColumnName="StdEnglishMiddleName">
+              <xs:element name="StdArabicFristName" msprop:Generator_ColumnPropNameInRow="StdArabicFristName" msprop:Generator_ColumnPropNameInTable="StdArabicFristNameColumn" msprop:Generator_ColumnVarNameInTable="columnStdArabicFristName" msprop:Generator_UserColumnName="StdArabicFristName">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="StdEnglishLastName" msprop:Generator_ColumnPropNameInRow="StdEnglishLastName" msprop:Generator_ColumnPropNameInTable="StdEnglishLastNameColumn" msprop:Generator_ColumnVarNameInTable="columnStdEnglishLastName" msprop:Generator_UserColumnName="StdEnglishLastName">
+              <xs:element name="StdArabicMiddleName" msprop:Generator_ColumnPropNameInRow="StdArabicMiddleName" msprop:Generator_ColumnPropNameInTable="StdArabicMiddleNameColumn" msprop:Generator_ColumnVarNameInTable="columnStdArabicMiddleName" msprop:Generator_UserColumnName="StdArabicMiddleName">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="StdEnglishFamilyName" msprop:Generator_ColumnPropNameInRow="StdEnglishFamilyName" msprop:Generator_ColumnPropNameInTable="StdEnglishFamilyNameColumn" msprop:Generator_ColumnVarNameInTable="columnStdEnglishFamilyName" msprop:Generator_UserColumnName="StdEnglishFamilyName">
+              <xs:element name="StdArabicLastName" msprop:Generator_ColumnPropNameInRow="StdArabicLastName" msprop:Generator_ColumnPropNameInTable="StdArabicLastNameColumn" msprop:Generator_ColumnVarNameInTable="columnStdArabicLastName" msprop:Generator_UserColumnName="StdArabicLastName">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="StdArabicFamilyName" msprop:Generator_ColumnPropNameInRow="StdArabicFamilyName" msprop:Generator_ColumnPropNameInTable="StdArabicFamilyNameColumn" msprop:Generator_ColumnVarNameInTable="columnStdArabicFamilyName" msprop:Generator_UserColumnName="StdArabicFamilyName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SchoolName" msprop:Generator_ColumnPropNameInRow="SchoolName" msprop:Generator_ColumnPropNameInTable="SchoolNameColumn" msprop:Generator_ColumnVarNameInTable="columnSchoolName" msprop:Generator_UserColumnName="SchoolName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Serial" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnPropNameInRow="Serial" msprop:Generator_ColumnPropNameInTable="SerialColumn" msprop:Generator_ColumnVarNameInTable="columnSerial" msprop:Generator_UserColumnName="Serial" type="xs:int" />
+              <xs:element name="amount" msprop:Generator_ColumnPropNameInRow="amount" msprop:Generator_ColumnPropNameInTable="amountColumn" msprop:Generator_ColumnVarNameInTable="columnamount" msprop:Generator_UserColumnName="amount" type="xs:decimal" />
+              <xs:element name="GradeName" msprop:Generator_ColumnPropNameInRow="GradeName" msprop:Generator_ColumnPropNameInTable="GradeNameColumn" msprop:Generator_ColumnVarNameInTable="columnGradeName" msprop:Generator_UserColumnName="GradeName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SCID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnPropNameInRow="SCID" msprop:Generator_ColumnPropNameInTable="SCIDColumn" msprop:Generator_ColumnVarNameInTable="columnSCID" msprop:Generator_UserColumnName="SCID" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -2209,25 +2237,25 @@ FROM            StudentClothes INNER JOIN
     </xs:unique>
     <xs:unique name="Uniform_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:Uniform" />
-      <xs:field xpath="mstns:StdCode" />
+      <xs:field xpath="mstns:SCID" />
     </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_invoice_item_invoice_payment" msdata:parent="invoice_payment" msdata:child="invoice_item" msdata:parentkey="id" msdata:childkey="invoice" msprop:Generator_UserParentTable="invoice_payment" msprop:Generator_UserChildTable="invoice_item" msprop:Generator_RelationVarName="relationFK_invoice_item_invoice_payment" msprop:Generator_ChildPropName="Getinvoice_itemRows" msprop:Generator_UserRelationName="FK_invoice_item_invoice_payment" msprop:Generator_ParentPropName="invoice_paymentRow" />
-      <msdata:Relationship name="FK_invoice_item_payment_details" msdata:parent="payment_details" msdata:child="invoice_item" msdata:parentkey="id" msdata:childkey="payment_item" msprop:Generator_UserParentTable="payment_details" msprop:Generator_UserChildTable="invoice_item" msprop:Generator_RelationVarName="relationFK_invoice_item_payment_details" msprop:Generator_ChildPropName="Getinvoice_itemRows" msprop:Generator_UserRelationName="FK_invoice_item_payment_details" msprop:Generator_ParentPropName="payment_detailsRow" />
-      <msdata:Relationship name="FK_invoice_payment_invoice_payment" msdata:parent="invoice_payment" msdata:child="invoice_payment" msdata:parentkey="id" msdata:childkey="previous_payment" msprop:Generator_UserParentTable="invoice_payment" msprop:Generator_UserChildTable="invoice_payment" msprop:Generator_RelationVarName="relationFK_invoice_payment_invoice_payment" msprop:Generator_ChildPropName="Getinvoice_paymentRows" msprop:Generator_UserRelationName="FK_invoice_payment_invoice_payment" msprop:Generator_ParentPropName="invoice_paymentRowParent" />
-      <msdata:Relationship name="FK_invoice_payment_student" msdata:parent="StudentsMain" msdata:child="invoice_payment" msdata:parentkey="StdCode" msdata:childkey="student" msprop:Generator_UserParentTable="StudentsMain" msprop:Generator_UserChildTable="invoice_payment" msprop:Generator_RelationVarName="relationFK_invoice_payment_student" msprop:Generator_ChildPropName="Getinvoice_paymentRows" msprop:Generator_UserRelationName="FK_invoice_payment_student" msprop:Generator_ParentPropName="StudentsMainRow" />
-      <msdata:Relationship name="FK_payment_details_school" msdata:parent="NESSchools" msdata:child="payment_details" msdata:parentkey="SchoolID" msdata:childkey="school" msprop:Generator_UserParentTable="NESSchools" msprop:Generator_UserChildTable="payment_details" msprop:Generator_RelationVarName="relationFK_payment_details_school" msprop:Generator_ChildPropName="Getpayment_detailsRows" msprop:Generator_ParentPropName="NESSchoolsRow" msprop:Generator_UserRelationName="FK_payment_details_school" />
-      <msdata:Relationship name="fkStd_account_data" msdata:parent="StudentsMain" msdata:child="StudentAccounts" msdata:parentkey="StdCode" msdata:childkey="StdCode" msprop:Generator_UserParentTable="StudentsMain" msprop:Generator_UserChildTable="StudentAccounts" msprop:Generator_RelationVarName="relationfkStd_account_data" msprop:Generator_ChildPropName="GetStudentAccountsRows" msprop:Generator_UserRelationName="fkStd_account_data" msprop:Generator_ParentPropName="StudentsMainRow" />
-      <msdata:Relationship name="fk_clothes_student" msdata:parent="Clothes" msdata:child="StudentClothes" msdata:parentkey="ClothesID" msdata:childkey="ClothesID" msprop:Generator_UserParentTable="Clothes" msprop:Generator_UserChildTable="StudentClothes" msprop:Generator_RelationVarName="relationfk_clothes_student" msprop:Generator_ChildPropName="GetStudentClothesRows" msprop:Generator_ParentPropName="ClothesRow" msprop:Generator_UserRelationName="fk_clothes_student" />
-      <msdata:Relationship name="fk_stu_clothes" msdata:parent="StudentsMain" msdata:child="StudentClothes" msdata:parentkey="StdCode" msdata:childkey="StdCode" msprop:Generator_UserParentTable="StudentsMain" msprop:Generator_UserChildTable="StudentClothes" msprop:Generator_RelationVarName="relationfk_stu_clothes" msprop:Generator_ChildPropName="GetStudentClothesRows" msprop:Generator_UserRelationName="fk_stu_clothes" msprop:Generator_ParentPropName="StudentsMainRow" />
-      <msdata:Relationship name="fk_grade_history" msdata:parent="Grade" msdata:child="StudentGradesHistory" msdata:parentkey="GradeID" msdata:childkey="GradeID" msprop:Generator_UserParentTable="Grade" msprop:Generator_UserChildTable="StudentGradesHistory" msprop:Generator_RelationVarName="relationfk_grade_history" msprop:Generator_ChildPropName="GetStudentGradesHistoryRows" msprop:Generator_ParentPropName="GradeRow" msprop:Generator_UserRelationName="fk_grade_history" />
-      <msdata:Relationship name="fk_stu_history" msdata:parent="StudentsMain" msdata:child="StudentGradesHistory" msdata:parentkey="StdCode" msdata:childkey="StdCode" msprop:Generator_UserParentTable="StudentsMain" msprop:Generator_UserChildTable="StudentGradesHistory" msprop:Generator_RelationVarName="relationfk_stu_history" msprop:Generator_ChildPropName="GetStudentGradesHistoryRows" msprop:Generator_UserRelationName="fk_stu_history" msprop:Generator_ParentPropName="StudentsMainRow" />
-      <msdata:Relationship name="fk_class_main" msdata:parent="Class" msdata:child="StudentsMain" msdata:parentkey="ClassID" msdata:childkey="StdClassID" msprop:Generator_UserParentTable="Class" msprop:Generator_UserChildTable="StudentsMain" msprop:Generator_RelationVarName="relationfk_class_main" msprop:Generator_ChildPropName="GetStudentsMainRows" msprop:Generator_ParentPropName="ClassRow" msprop:Generator_UserRelationName="fk_class_main" />
-      <msdata:Relationship name="fk_school_main" msdata:parent="NESSchools" msdata:child="StudentsMain" msdata:parentkey="SchoolID" msdata:childkey="StdSchoolID" msprop:Generator_UserParentTable="NESSchools" msprop:Generator_UserChildTable="StudentsMain" msprop:Generator_RelationVarName="relationfk_school_main" msprop:Generator_ChildPropName="GetStudentsMainRows" msprop:Generator_ParentPropName="NESSchoolsRow" msprop:Generator_UserRelationName="fk_school_main" />
-      <msdata:Relationship name="fk_stu_Enroll" msdata:parent="StudentsMain" msdata:child="StudentSubjectEnroll" msdata:parentkey="StdCode" msdata:childkey="StdCode" msprop:Generator_UserParentTable="StudentsMain" msprop:Generator_UserChildTable="StudentSubjectEnroll" msprop:Generator_RelationVarName="relationfk_stu_Enroll" msprop:Generator_ChildPropName="GetStudentSubjectEnrollRows" msprop:Generator_ParentPropName="StudentsMainRow" msprop:Generator_UserRelationName="fk_stu_Enroll" />
-      <msdata:Relationship name="fk_subject_Enroll" msdata:parent="Subjects" msdata:child="StudentSubjectEnroll" msdata:parentkey="SubjectID" msdata:childkey="SubjectID" msprop:Generator_UserParentTable="Subjects" msprop:Generator_UserChildTable="StudentSubjectEnroll" msprop:Generator_RelationVarName="relationfk_subject_Enroll" msprop:Generator_ChildPropName="GetStudentSubjectEnrollRows" msprop:Generator_UserRelationName="fk_subject_Enroll" msprop:Generator_ParentPropName="SubjectsRow" />
+      <msdata:Relationship name="FK_invoice_item_invoice_payment" msdata:parent="invoice_payment" msdata:child="invoice_item" msdata:parentkey="id" msdata:childkey="invoice" msprop:Generator_UserParentTable="invoice_payment" msprop:Generator_UserChildTable="invoice_item" msprop:Generator_RelationVarName="relationFK_invoice_item_invoice_payment" msprop:Generator_ChildPropName="Getinvoice_itemRows" msprop:Generator_ParentPropName="invoice_paymentRow" msprop:Generator_UserRelationName="FK_invoice_item_invoice_payment" />
+      <msdata:Relationship name="FK_invoice_item_payment_details" msdata:parent="payment_details" msdata:child="invoice_item" msdata:parentkey="id" msdata:childkey="payment_item" msprop:Generator_UserParentTable="payment_details" msprop:Generator_UserChildTable="invoice_item" msprop:Generator_RelationVarName="relationFK_invoice_item_payment_details" msprop:Generator_ChildPropName="Getinvoice_itemRows" msprop:Generator_ParentPropName="payment_detailsRow" msprop:Generator_UserRelationName="FK_invoice_item_payment_details" />
+      <msdata:Relationship name="FK_invoice_payment_invoice_payment" msdata:parent="invoice_payment" msdata:child="invoice_payment" msdata:parentkey="id" msdata:childkey="previous_payment" msprop:Generator_UserParentTable="invoice_payment" msprop:Generator_UserChildTable="invoice_payment" msprop:Generator_RelationVarName="relationFK_invoice_payment_invoice_payment" msprop:Generator_ChildPropName="Getinvoice_paymentRows" msprop:Generator_ParentPropName="invoice_paymentRowParent" msprop:Generator_UserRelationName="FK_invoice_payment_invoice_payment" />
+      <msdata:Relationship name="FK_invoice_payment_student" msdata:parent="StudentsMain" msdata:child="invoice_payment" msdata:parentkey="StdCode" msdata:childkey="student" msprop:Generator_UserParentTable="StudentsMain" msprop:Generator_UserChildTable="invoice_payment" msprop:Generator_RelationVarName="relationFK_invoice_payment_student" msprop:Generator_ChildPropName="Getinvoice_paymentRows" msprop:Generator_ParentPropName="StudentsMainRow" msprop:Generator_UserRelationName="FK_invoice_payment_student" />
+      <msdata:Relationship name="FK_payment_details_school" msdata:parent="NESSchools" msdata:child="payment_details" msdata:parentkey="SchoolID" msdata:childkey="school" msprop:Generator_UserParentTable="NESSchools" msprop:Generator_UserChildTable="payment_details" msprop:Generator_RelationVarName="relationFK_payment_details_school" msprop:Generator_ChildPropName="Getpayment_detailsRows" msprop:Generator_UserRelationName="FK_payment_details_school" msprop:Generator_ParentPropName="NESSchoolsRow" />
+      <msdata:Relationship name="fkStd_account_data" msdata:parent="StudentsMain" msdata:child="StudentAccounts" msdata:parentkey="StdCode" msdata:childkey="StdCode" msprop:Generator_UserParentTable="StudentsMain" msprop:Generator_UserChildTable="StudentAccounts" msprop:Generator_RelationVarName="relationfkStd_account_data" msprop:Generator_ChildPropName="GetStudentAccountsRows" msprop:Generator_ParentPropName="StudentsMainRow" msprop:Generator_UserRelationName="fkStd_account_data" />
+      <msdata:Relationship name="fk_clothes_student" msdata:parent="Clothes" msdata:child="StudentClothes" msdata:parentkey="ClothesID" msdata:childkey="ClothesID" msprop:Generator_UserParentTable="Clothes" msprop:Generator_UserChildTable="StudentClothes" msprop:Generator_RelationVarName="relationfk_clothes_student" msprop:Generator_ChildPropName="GetStudentClothesRows" msprop:Generator_UserRelationName="fk_clothes_student" msprop:Generator_ParentPropName="ClothesRow" />
+      <msdata:Relationship name="fk_stu_clothes" msdata:parent="StudentsMain" msdata:child="StudentClothes" msdata:parentkey="StdCode" msdata:childkey="StdCode" msprop:Generator_UserParentTable="StudentsMain" msprop:Generator_UserChildTable="StudentClothes" msprop:Generator_RelationVarName="relationfk_stu_clothes" msprop:Generator_ChildPropName="GetStudentClothesRows" msprop:Generator_ParentPropName="StudentsMainRow" msprop:Generator_UserRelationName="fk_stu_clothes" />
+      <msdata:Relationship name="fk_grade_history" msdata:parent="Grade" msdata:child="StudentGradesHistory" msdata:parentkey="GradeID" msdata:childkey="GradeID" msprop:Generator_UserParentTable="Grade" msprop:Generator_UserChildTable="StudentGradesHistory" msprop:Generator_RelationVarName="relationfk_grade_history" msprop:Generator_ChildPropName="GetStudentGradesHistoryRows" msprop:Generator_UserRelationName="fk_grade_history" msprop:Generator_ParentPropName="GradeRow" />
+      <msdata:Relationship name="fk_stu_history" msdata:parent="StudentsMain" msdata:child="StudentGradesHistory" msdata:parentkey="StdCode" msdata:childkey="StdCode" msprop:Generator_UserParentTable="StudentsMain" msprop:Generator_UserChildTable="StudentGradesHistory" msprop:Generator_RelationVarName="relationfk_stu_history" msprop:Generator_ChildPropName="GetStudentGradesHistoryRows" msprop:Generator_ParentPropName="StudentsMainRow" msprop:Generator_UserRelationName="fk_stu_history" />
+      <msdata:Relationship name="fk_class_main" msdata:parent="Class" msdata:child="StudentsMain" msdata:parentkey="ClassID" msdata:childkey="StdClassID" msprop:Generator_UserParentTable="Class" msprop:Generator_UserChildTable="StudentsMain" msprop:Generator_RelationVarName="relationfk_class_main" msprop:Generator_ChildPropName="GetStudentsMainRows" msprop:Generator_UserRelationName="fk_class_main" msprop:Generator_ParentPropName="ClassRow" />
+      <msdata:Relationship name="fk_school_main" msdata:parent="NESSchools" msdata:child="StudentsMain" msdata:parentkey="SchoolID" msdata:childkey="StdSchoolID" msprop:Generator_UserParentTable="NESSchools" msprop:Generator_UserChildTable="StudentsMain" msprop:Generator_RelationVarName="relationfk_school_main" msprop:Generator_ChildPropName="GetStudentsMainRows" msprop:Generator_UserRelationName="fk_school_main" msprop:Generator_ParentPropName="NESSchoolsRow" />
+      <msdata:Relationship name="fk_stu_Enroll" msdata:parent="StudentsMain" msdata:child="StudentSubjectEnroll" msdata:parentkey="StdCode" msdata:childkey="StdCode" msprop:Generator_UserParentTable="StudentsMain" msprop:Generator_UserChildTable="StudentSubjectEnroll" msprop:Generator_RelationVarName="relationfk_stu_Enroll" msprop:Generator_ChildPropName="GetStudentSubjectEnrollRows" msprop:Generator_UserRelationName="fk_stu_Enroll" msprop:Generator_ParentPropName="StudentsMainRow" />
+      <msdata:Relationship name="fk_subject_Enroll" msdata:parent="Subjects" msdata:child="StudentSubjectEnroll" msdata:parentkey="SubjectID" msdata:childkey="SubjectID" msprop:Generator_UserParentTable="Subjects" msprop:Generator_UserChildTable="StudentSubjectEnroll" msprop:Generator_RelationVarName="relationfk_subject_Enroll" msprop:Generator_ChildPropName="GetStudentSubjectEnrollRows" msprop:Generator_ParentPropName="SubjectsRow" msprop:Generator_UserRelationName="fk_subject_Enroll" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

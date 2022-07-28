@@ -9419,8 +9419,6 @@ namespace StudentsAffairsDashboard.Reports {
             
             private global::System.Data.DataColumn columnClothesName;
             
-            private global::System.Data.DataColumn columnStdEnglishFristName;
-            
             private global::System.Data.DataColumn columnQuantity;
             
             private global::System.Data.DataColumn columnPrice;
@@ -9429,11 +9427,23 @@ namespace StudentsAffairsDashboard.Reports {
             
             private global::System.Data.DataColumn columnClothesPrice;
             
-            private global::System.Data.DataColumn columnStdEnglishMiddleName;
+            private global::System.Data.DataColumn columnStdArabicFristName;
             
-            private global::System.Data.DataColumn columnStdEnglishLastName;
+            private global::System.Data.DataColumn columnStdArabicMiddleName;
             
-            private global::System.Data.DataColumn columnStdEnglishFamilyName;
+            private global::System.Data.DataColumn columnStdArabicLastName;
+            
+            private global::System.Data.DataColumn columnStdArabicFamilyName;
+            
+            private global::System.Data.DataColumn columnSchoolName;
+            
+            private global::System.Data.DataColumn columnSerial;
+            
+            private global::System.Data.DataColumn columnamount;
+            
+            private global::System.Data.DataColumn columnGradeName;
+            
+            private global::System.Data.DataColumn columnSCID;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -9478,14 +9488,6 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn StdEnglishFristNameColumn {
-                get {
-                    return this.columnStdEnglishFristName;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public global::System.Data.DataColumn QuantityColumn {
                 get {
                     return this.columnQuantity;
@@ -9518,25 +9520,73 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn StdEnglishMiddleNameColumn {
+            public global::System.Data.DataColumn StdArabicFristNameColumn {
                 get {
-                    return this.columnStdEnglishMiddleName;
+                    return this.columnStdArabicFristName;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn StdEnglishLastNameColumn {
+            public global::System.Data.DataColumn StdArabicMiddleNameColumn {
                 get {
-                    return this.columnStdEnglishLastName;
+                    return this.columnStdArabicMiddleName;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn StdEnglishFamilyNameColumn {
+            public global::System.Data.DataColumn StdArabicLastNameColumn {
                 get {
-                    return this.columnStdEnglishFamilyName;
+                    return this.columnStdArabicLastName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn StdArabicFamilyNameColumn {
+                get {
+                    return this.columnStdArabicFamilyName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn SchoolNameColumn {
+                get {
+                    return this.columnSchoolName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn SerialColumn {
+                get {
+                    return this.columnSerial;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn amountColumn {
+                get {
+                    return this.columnamount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn GradeNameColumn {
+                get {
+                    return this.columnGradeName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn SCIDColumn {
+                get {
+                    return this.columnSCID;
                 }
             }
             
@@ -9577,18 +9627,23 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public UniformRow AddUniformRow(string ClothesName, string StdEnglishFristName, string Quantity, string Price, string ClothesPrice, string StdEnglishMiddleName, string StdEnglishLastName, string StdEnglishFamilyName) {
+            public UniformRow AddUniformRow(string ClothesName, string Quantity, string Price, string ClothesPrice, string StdArabicFristName, string StdArabicMiddleName, string StdArabicLastName, string StdArabicFamilyName, string SchoolName, decimal amount, string GradeName) {
                 UniformRow rowUniformRow = ((UniformRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ClothesName,
-                        StdEnglishFristName,
                         Quantity,
                         Price,
                         null,
                         ClothesPrice,
-                        StdEnglishMiddleName,
-                        StdEnglishLastName,
-                        StdEnglishFamilyName};
+                        StdArabicFristName,
+                        StdArabicMiddleName,
+                        StdArabicLastName,
+                        StdArabicFamilyName,
+                        SchoolName,
+                        null,
+                        amount,
+                        GradeName,
+                        null};
                 rowUniformRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowUniformRow);
                 return rowUniformRow;
@@ -9596,9 +9651,9 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public UniformRow FindByStdCode(int StdCode) {
+            public UniformRow FindBySCID(int SCID) {
                 return ((UniformRow)(this.Rows.Find(new object[] {
-                            StdCode})));
+                            SCID})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9619,14 +9674,19 @@ namespace StudentsAffairsDashboard.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             internal void InitVars() {
                 this.columnClothesName = base.Columns["ClothesName"];
-                this.columnStdEnglishFristName = base.Columns["StdEnglishFristName"];
                 this.columnQuantity = base.Columns["Quantity"];
                 this.columnPrice = base.Columns["Price"];
                 this.columnStdCode = base.Columns["StdCode"];
                 this.columnClothesPrice = base.Columns["ClothesPrice"];
-                this.columnStdEnglishMiddleName = base.Columns["StdEnglishMiddleName"];
-                this.columnStdEnglishLastName = base.Columns["StdEnglishLastName"];
-                this.columnStdEnglishFamilyName = base.Columns["StdEnglishFamilyName"];
+                this.columnStdArabicFristName = base.Columns["StdArabicFristName"];
+                this.columnStdArabicMiddleName = base.Columns["StdArabicMiddleName"];
+                this.columnStdArabicLastName = base.Columns["StdArabicLastName"];
+                this.columnStdArabicFamilyName = base.Columns["StdArabicFamilyName"];
+                this.columnSchoolName = base.Columns["SchoolName"];
+                this.columnSerial = base.Columns["Serial"];
+                this.columnamount = base.Columns["amount"];
+                this.columnGradeName = base.Columns["GradeName"];
+                this.columnSCID = base.Columns["SCID"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9634,8 +9694,6 @@ namespace StudentsAffairsDashboard.Reports {
             private void InitClass() {
                 this.columnClothesName = new global::System.Data.DataColumn("ClothesName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnClothesName);
-                this.columnStdEnglishFristName = new global::System.Data.DataColumn("StdEnglishFristName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnStdEnglishFristName);
                 this.columnQuantity = new global::System.Data.DataColumn("Quantity", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnQuantity);
                 this.columnPrice = new global::System.Data.DataColumn("Price", typeof(string), null, global::System.Data.MappingType.Element);
@@ -9644,18 +9702,28 @@ namespace StudentsAffairsDashboard.Reports {
                 base.Columns.Add(this.columnStdCode);
                 this.columnClothesPrice = new global::System.Data.DataColumn("ClothesPrice", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnClothesPrice);
-                this.columnStdEnglishMiddleName = new global::System.Data.DataColumn("StdEnglishMiddleName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnStdEnglishMiddleName);
-                this.columnStdEnglishLastName = new global::System.Data.DataColumn("StdEnglishLastName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnStdEnglishLastName);
-                this.columnStdEnglishFamilyName = new global::System.Data.DataColumn("StdEnglishFamilyName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnStdEnglishFamilyName);
+                this.columnStdArabicFristName = new global::System.Data.DataColumn("StdArabicFristName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStdArabicFristName);
+                this.columnStdArabicMiddleName = new global::System.Data.DataColumn("StdArabicMiddleName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStdArabicMiddleName);
+                this.columnStdArabicLastName = new global::System.Data.DataColumn("StdArabicLastName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStdArabicLastName);
+                this.columnStdArabicFamilyName = new global::System.Data.DataColumn("StdArabicFamilyName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStdArabicFamilyName);
+                this.columnSchoolName = new global::System.Data.DataColumn("SchoolName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSchoolName);
+                this.columnSerial = new global::System.Data.DataColumn("Serial", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSerial);
+                this.columnamount = new global::System.Data.DataColumn("amount", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnamount);
+                this.columnGradeName = new global::System.Data.DataColumn("GradeName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnGradeName);
+                this.columnSCID = new global::System.Data.DataColumn("SCID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSCID);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnStdCode}, true));
+                                this.columnSCID}, true));
                 this.columnClothesName.AllowDBNull = false;
                 this.columnClothesName.MaxLength = 100;
-                this.columnStdEnglishFristName.AllowDBNull = false;
-                this.columnStdEnglishFristName.MaxLength = 100;
                 this.columnQuantity.AllowDBNull = false;
                 this.columnQuantity.MaxLength = 100;
                 this.columnPrice.AllowDBNull = false;
@@ -9665,15 +9733,32 @@ namespace StudentsAffairsDashboard.Reports {
                 this.columnStdCode.AutoIncrementStep = -1;
                 this.columnStdCode.AllowDBNull = false;
                 this.columnStdCode.ReadOnly = true;
-                this.columnStdCode.Unique = true;
                 this.columnClothesPrice.AllowDBNull = false;
                 this.columnClothesPrice.MaxLength = 100;
-                this.columnStdEnglishMiddleName.AllowDBNull = false;
-                this.columnStdEnglishMiddleName.MaxLength = 100;
-                this.columnStdEnglishLastName.AllowDBNull = false;
-                this.columnStdEnglishLastName.MaxLength = 100;
-                this.columnStdEnglishFamilyName.AllowDBNull = false;
-                this.columnStdEnglishFamilyName.MaxLength = 100;
+                this.columnStdArabicFristName.AllowDBNull = false;
+                this.columnStdArabicFristName.MaxLength = 100;
+                this.columnStdArabicMiddleName.AllowDBNull = false;
+                this.columnStdArabicMiddleName.MaxLength = 100;
+                this.columnStdArabicLastName.AllowDBNull = false;
+                this.columnStdArabicLastName.MaxLength = 100;
+                this.columnStdArabicFamilyName.AllowDBNull = false;
+                this.columnStdArabicFamilyName.MaxLength = 100;
+                this.columnSchoolName.AllowDBNull = false;
+                this.columnSchoolName.MaxLength = 100;
+                this.columnSerial.AutoIncrement = true;
+                this.columnSerial.AutoIncrementSeed = -1;
+                this.columnSerial.AutoIncrementStep = -1;
+                this.columnSerial.AllowDBNull = false;
+                this.columnSerial.ReadOnly = true;
+                this.columnamount.AllowDBNull = false;
+                this.columnGradeName.AllowDBNull = false;
+                this.columnGradeName.MaxLength = 100;
+                this.columnSCID.AutoIncrement = true;
+                this.columnSCID.AutoIncrementSeed = -1;
+                this.columnSCID.AutoIncrementStep = -1;
+                this.columnSCID.AllowDBNull = false;
+                this.columnSCID.ReadOnly = true;
+                this.columnSCID.Unique = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13000,17 +13085,6 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string StdEnglishFristName {
-                get {
-                    return ((string)(this[this.tableUniform.StdEnglishFristNameColumn]));
-                }
-                set {
-                    this[this.tableUniform.StdEnglishFristNameColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string Quantity {
                 get {
                     return ((string)(this[this.tableUniform.QuantityColumn]));
@@ -13055,34 +13129,100 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string StdEnglishMiddleName {
+            public string StdArabicFristName {
                 get {
-                    return ((string)(this[this.tableUniform.StdEnglishMiddleNameColumn]));
+                    return ((string)(this[this.tableUniform.StdArabicFristNameColumn]));
                 }
                 set {
-                    this[this.tableUniform.StdEnglishMiddleNameColumn] = value;
+                    this[this.tableUniform.StdArabicFristNameColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string StdEnglishLastName {
+            public string StdArabicMiddleName {
                 get {
-                    return ((string)(this[this.tableUniform.StdEnglishLastNameColumn]));
+                    return ((string)(this[this.tableUniform.StdArabicMiddleNameColumn]));
                 }
                 set {
-                    this[this.tableUniform.StdEnglishLastNameColumn] = value;
+                    this[this.tableUniform.StdArabicMiddleNameColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string StdEnglishFamilyName {
+            public string StdArabicLastName {
                 get {
-                    return ((string)(this[this.tableUniform.StdEnglishFamilyNameColumn]));
+                    return ((string)(this[this.tableUniform.StdArabicLastNameColumn]));
                 }
                 set {
-                    this[this.tableUniform.StdEnglishFamilyNameColumn] = value;
+                    this[this.tableUniform.StdArabicLastNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string StdArabicFamilyName {
+                get {
+                    return ((string)(this[this.tableUniform.StdArabicFamilyNameColumn]));
+                }
+                set {
+                    this[this.tableUniform.StdArabicFamilyNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string SchoolName {
+                get {
+                    return ((string)(this[this.tableUniform.SchoolNameColumn]));
+                }
+                set {
+                    this[this.tableUniform.SchoolNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int Serial {
+                get {
+                    return ((int)(this[this.tableUniform.SerialColumn]));
+                }
+                set {
+                    this[this.tableUniform.SerialColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public decimal amount {
+                get {
+                    return ((decimal)(this[this.tableUniform.amountColumn]));
+                }
+                set {
+                    this[this.tableUniform.amountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string GradeName {
+                get {
+                    return ((string)(this[this.tableUniform.GradeNameColumn]));
+                }
+                set {
+                    this[this.tableUniform.GradeNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int SCID {
+                get {
+                    return ((int)(this[this.tableUniform.SCIDColumn]));
+                }
+                set {
+                    this[this.tableUniform.SCIDColumn] = value;
                 }
             }
         }
@@ -20931,14 +21071,19 @@ namespace StudentsAffairsDashboard.Reports.Student_Affairs_DatabaseDataSetTableA
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "Uniform";
             tableMapping.ColumnMappings.Add("ClothesName", "ClothesName");
-            tableMapping.ColumnMappings.Add("StdEnglishFristName", "StdEnglishFristName");
             tableMapping.ColumnMappings.Add("Quantity", "Quantity");
             tableMapping.ColumnMappings.Add("Price", "Price");
             tableMapping.ColumnMappings.Add("StdCode", "StdCode");
             tableMapping.ColumnMappings.Add("ClothesPrice", "ClothesPrice");
-            tableMapping.ColumnMappings.Add("StdEnglishMiddleName", "StdEnglishMiddleName");
-            tableMapping.ColumnMappings.Add("StdEnglishLastName", "StdEnglishLastName");
-            tableMapping.ColumnMappings.Add("StdEnglishFamilyName", "StdEnglishFamilyName");
+            tableMapping.ColumnMappings.Add("StdArabicFristName", "StdArabicFristName");
+            tableMapping.ColumnMappings.Add("StdArabicMiddleName", "StdArabicMiddleName");
+            tableMapping.ColumnMappings.Add("StdArabicLastName", "StdArabicLastName");
+            tableMapping.ColumnMappings.Add("StdArabicFamilyName", "StdArabicFamilyName");
+            tableMapping.ColumnMappings.Add("SchoolName", "SchoolName");
+            tableMapping.ColumnMappings.Add("Serial", "Serial");
+            tableMapping.ColumnMappings.Add("amount", "amount");
+            tableMapping.ColumnMappings.Add("GradeName", "GradeName");
+            tableMapping.ColumnMappings.Add("SCID", "SCID");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -20955,11 +21100,17 @@ namespace StudentsAffairsDashboard.Reports.Student_Affairs_DatabaseDataSetTableA
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT        Clothes.ClothesName, StudentsMain.StdEnglishFristName, StudentClothes.Quantity, StudentClothes.Price, StudentsMain.StdCode, Clothes.ClothesPrice, StudentsMain.StdEnglishMiddleName, 
-                         StudentsMain.StdEnglishLastName, StudentsMain.StdEnglishFamilyName
+            this._commandCollection[0].CommandText = @"SELECT DISTINCT 
+                         Clothes.ClothesName, StudentClothes.Quantity, StudentClothes.Price, StudentsMain.StdCode, Clothes.ClothesPrice, StudentsMain.StdArabicFristName, StudentsMain.StdArabicMiddleName, StudentsMain.StdArabicLastName, 
+                         StudentsMain.StdArabicFamilyName, NESSchools.SchoolName, invoice_payment.id AS Serial, payment_details.amount, Grade.GradeName, StudentClothes.SCID
 FROM            StudentClothes INNER JOIN
                          Clothes ON StudentClothes.ClothesID = Clothes.ClothesID INNER JOIN
-                         StudentsMain ON StudentClothes.StdCode = StudentsMain.StdCode";
+                         StudentsMain ON StudentClothes.StdCode = StudentsMain.StdCode INNER JOIN
+                         NESSchools ON StudentsMain.StdSchoolID = NESSchools.SchoolID INNER JOIN
+                         invoice_payment ON StudentsMain.StdCode = invoice_payment.student INNER JOIN
+                         invoice_item ON invoice_payment.id = invoice_item.invoice INNER JOIN
+                         payment_details ON NESSchools.SchoolID = payment_details.school AND invoice_item.payment_item = payment_details.id CROSS JOIN
+                         Grade";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
