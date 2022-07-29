@@ -19,15 +19,22 @@ namespace StudentsAffairsDashboard.Models
         {
             this.StudentsMains = new HashSet<StudentsMain>();
             this.payment_details = new HashSet<payment_details>();
+            this.Accounts = new HashSet<Account>();
         }
     
         public int SchoolID { get; set; }
         public string SchoolName { get; set; }
         public string SchooleAbbreviation { get; set; }
+        public string SchoolLocation { get; set; }
+        public string SchoolContact { get; set; }
+        public string SchoolCambridge { get; set; }
+        public string SchoolEmail { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentsMain> StudentsMains { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<payment_details> payment_details { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Account> Accounts { get; set; }
     }
 }

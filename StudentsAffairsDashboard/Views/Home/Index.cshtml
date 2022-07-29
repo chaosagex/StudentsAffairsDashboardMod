@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<StudentsAffairsDashboard.Models.NESSchool>
+
+@{
     ViewBag.Title = "Home Page";
 }
 @*<nav class="content-header card navbar navbar-expand navbar-white navbar-light">
@@ -18,410 +20,78 @@
 
     }
     </nav>*@
-    <!-- Main content -->
-    <section class="content">
-        <!-- Default box -->
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Projects</h3>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                </div>
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Projects</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
             </div>
-            <div class="card-body p-0">
-                <table class="table table-striped projects">
-                    <thead>
-                        <tr>
-                            <th style="width: 1%">
-                                #
-                            </th>
-                            <th style="width: 20%">
-                                Branch
-                            </th>
-                            <th style="width: 30%">
-                                Team Members
-                            </th>
-                            <th>
-                                Admission Progress
-                            </th>
-                            <th style="width: 8%" class="text-center">
-                                Status
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                #
-                            </td>
-                            <td>
-                                <a>
-                                    Assiut
-                                </a>
-                                <br />
-                                <small>
-                                    Created 02.06.2022
-                                </small>
-                            </td>
-                            <td>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar2.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar3.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar4.png">
-                                    </li>
-                                </ul>
-                            </td>
-                            <td class="project_progress">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100" style="width: 98%">
-                                    </div>
-                                </div>
-                                <small>
-                                    98% Complete
-                                </small>
-                            </td>
-                            <td class="project-state">
-                                <span class="badge badge-success">Success</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                #
-                            </td>
-                            <td>
-                                <a>
-                                    Zayed
-                                </a>
-                                <br />
-                                <small>
-                                    Created 02.06.2022
-                                </small>
-                            </td>
-                            <td>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar2.png">
-                                    </li>
-                                </ul>
-                            </td>
-                            <td class="project_progress">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="47" aria-valuemin="0" aria-valuemax="100" style="width: 47%">
-                                    </div>
-                                </div>
-                                <small>
-                                    47% Complete
-                                </small>
-                            </td>
-                            <td class="project-state">
-                                <span class="badge badge-success">Success</span>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                #
-                            </td>
-                            <td>
-                                <a>
-                                    Sadat
-                                </a>
-                                <br />
-                                <small>
-                                    Created 02.06.2022
-                                </small>
-                            </td>
-                            <td>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar2.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar3.png">
-                                    </li>
-                                </ul>
-                            </td>
-                            <td class="project_progress">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%">
-                                    </div>
-                                </div>
-                                <small>
-                                    77% Complete
-                                </small>
-                            </td>
-                            <td class="project-state">
-                                <span class="badge badge-success">Success</span>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                #
-                            </td>
-                            <td>
-                                <a>
-                                    Porsaid
-                                </a>
-                                <br />
-                                <small>
-                                    Created 02.06.2022
-                                </small>
-                            </td>
-                            <td>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar2.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar3.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar4.png">
-                                    </li>
-                                </ul>
-                            </td>
-                            <td class="project_progress">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                    </div>
-                                </div>
-                                <small>
-                                    60% Complete
-                                </small>
-                            </td>
-                            <td class="project-state">
-                                <span class="badge badge-success">Success</span>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                #
-                            </td>
-                            <td>
-                                <a>
-                                    October
-                                </a>
-                                <br />
-                                <small>
-                                    Created 02.06.2022
-                                </small>
-                            </td>
-                            <td>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar4.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar5.png">
-                                    </li>
-                                </ul>
-                            </td>
-                            <td class="project_progress">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-red" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="100" style="width: 12%">
-                                    </div>
-                                </div>
-                                <small>
-                                    12% Complete
-                                </small>
-                            </td>
-                            <td class="project-state">
-                                <span class="badge badge-danger">Failed</span>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                #
-                            </td>
-                            <td>
-                                <a>
-                                    Luxer
-                                </a>
-                                <br />
-                                <small>
-                                    Created 02.06.2022
-                                </small>
-                            </td>
-                            <td>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar2.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar3.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar4.png">
-                                    </li>
-                                </ul>
-                            </td>
-                            <td class="project_progress">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-red" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%">
-                                    </div>
-                                </div>
-                                <small>
-                                    35% Complete
-                                </small>
-                            </td>
-                            <td class="project-state">
-                                <span class="badge badge-danger">Failed</span>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                #
-                            </td>
-                            <td>
-                                <a>
-                                    Aswan
-                                </a>
-                                <br />
-                                <small>
-                                    Created 02.06.2022
-                                </small>
-                            </td>
-                            <td>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar4.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar5.png">
-                                    </li>
-                                </ul>
-                            </td>
-                            <td class="project_progress">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" style="width: 87%">
-                                    </div>
-                                </div>
-                                <small>
-                                    87% Complete
-                                </small>
-                            </td>
-                            <td class="project-state">
-                                <span class="badge badge-success">Success</span>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                #
-                            </td>
-                            <td>
-                                <a>
-                                    Obuar
-                                </a>
-                                <br />
-                                <small>
-                                    Created 02.06.2022
-                                </small>
-                            </td>
-                            <td>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar3.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar4.png">
-                                    </li>
-                                </ul>
-                            </td>
-                            <td class="project_progress">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%">
-                                    </div>
-                                </div>
-                                <small>
-                                    77% Complete
-                                </small>
-                            </td>
-                            <td class="project-state">
-                                <span class="badge badge-success">Success</span>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                #
-                            </td>
-                            <td>
-                                <a>
-                                    Qena
-                                </a>
-                                <br />
-                                <small>
-                                    Created 02.06.2022
-                                </small>
-                            </td>
-                            <td>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar3.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar4.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img alt="Avatar" class="table-avatar" src="~/Content/Images/avatar5.png">
-                                    </li>
-                                </ul>
-                            </td>
-                            <td class="project_progress">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 77%">
-                                    </div>
-                                </div>
-                                <small>
-                                    77% Complete
-                                </small>
-                            </td>
-                            <td class="project-state">
-                                <span class="badge badge-success">Success</span>
-                            </td>
-
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.card-body -->
         </div>
-        <!-- /.card -->
-    </section>
-    <!-- /.content -->
+        <div class="card-body p-0">
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th style="width: 1%">
+                            #
+                        </th>
+                        <th style="width: 20%">
+                            Branch
+                        </th>
+                        <th style="width: 30%">
+                            Team Members
+                        </th>
+                        <th>
+                            Admission Progress
+                        </th>
+                        <th style="width: 8%" class="text-center">
+                            Status
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.SchoolID
+                            </td>
+                            <td>
+                                <a>
+                                    @item.SchoolName
+                                </a>
+                                <br />
+                                <small>
+                                    @item.SchoolEmail
+                                </small>
+                            </td>
+                            <td>
+                                @item.SchoolLocation
+                            </td>
+                            <td class="project_progress">
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                                    </div>
+                                </div>
+                                <small>
+                                    50% Complete
+                                </small>
+                            </td>
+                            <td class="project-state">
+                                <span class="badge badge-success">Success</span>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->

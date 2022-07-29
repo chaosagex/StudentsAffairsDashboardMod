@@ -20,10 +20,25 @@ namespace StudentsAffairsDashboard.Controllers
         public ActionResult Index()
         {
             var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount);
-            ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName");
-            ViewBag.SchoolID = new SelectList(db.NESSchools, "SchoolID", "SchoolName");
-            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
+
+
+            var ListNESSchools = db.NESSchools.ToList();
+            ListNESSchools.Add(new NESSchool() { SchoolID = -1, SchoolName = "All", SchooleAbbreviation = "All" });
+            var NESSchoolsResult = ListNESSchools.OrderBy(d => d.SchoolID).ToList();
+            ViewBag.SchoolID = new SelectList(NESSchoolsResult, "SchoolID", "SchoolName");
+
+            var ListClasses = db.Classes.ToList();
+            ListClasses.Add(new Class() { ClassID = -1, ClassName = "All"});
+            var ClassesResult = ListClasses.OrderBy(d => d.ClassID).ToList();
+            ViewBag.ClassID = new SelectList(ClassesResult, "ClassID", "ClassName");
+
+            var ListGrades = db.Grades.ToList();
+            ListGrades.Add(new Grade() { GradeID = -1, GradeName = "All"});
+            var GradesResult = ListGrades.OrderBy(d => d.GradeID).ToList();
+            ViewBag.GradeID = new SelectList(GradesResult, "GradeID", "GradeName");
+
             return View(studentsMains.ToList());
+            
         }
 
         // GET: StudentsMains/Details/5
@@ -228,6 +243,12 @@ namespace StudentsAffairsDashboard.Controllers
                 
             }
             db.SaveChanges();
+            var studentsGG = db.StudentClothes.Where(a => a.StdCode == StdCode);
+            foreach (StudentClothe item in studentsGG)
+            {
+                db.StudentClothes.Remove(item);
+            }
+            db.SaveChanges();
             StudentsMain studentsMain = db.StudentsMains.Find(Int32.Parse(hiddenId));
             db.StudentsMains.Remove(studentsMain);
             db.SaveChanges();
@@ -239,9 +260,20 @@ namespace StudentsAffairsDashboard.Controllers
             log.LogContent = "Delete : Account (" + Session["UserName"].ToString() + ") Delete Student Data With ID: (" + hiddenId + ")";
             bool checklog = logs.Create(log);
             var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount);
-            ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName");
-            ViewBag.SchoolID = new SelectList(db.NESSchools, "SchoolID", "SchoolName");
-            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
+            var ListNESSchools = db.NESSchools.ToList();
+            ListNESSchools.Add(new NESSchool() { SchoolID = -1, SchoolName = "All", SchooleAbbreviation = "All" });
+            var NESSchoolsResult = ListNESSchools.OrderBy(d => d.SchoolID).ToList();
+            ViewBag.SchoolID = new SelectList(NESSchoolsResult, "SchoolID", "SchoolName");
+
+            var ListClasses = db.Classes.ToList();
+            ListClasses.Add(new Class() { ClassID = -1, ClassName = "All" });
+            var ClassesResult = ListClasses.OrderBy(d => d.ClassID).ToList();
+            ViewBag.ClassID = new SelectList(ClassesResult, "ClassID", "ClassName");
+
+            var ListGrades = db.Grades.ToList();
+            ListGrades.Add(new Grade() { GradeID = -1, GradeName = "All" });
+            var GradesResult = ListGrades.OrderBy(d => d.GradeID).ToList();
+            ViewBag.GradeID = new SelectList(GradesResult, "GradeID", "GradeName");
             return View("Index",studentsMains.ToList());
         }
         protected override void Dispose(bool disposing)

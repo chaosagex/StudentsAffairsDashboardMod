@@ -23,6 +23,7 @@ namespace StudentsAffairsDashboard.Models
         public int ClothesID { get; set; }
         public string ClothesName { get; set; }
         public string ClothesPrice { get; set; }
+        public string ClothesinPackagePrice { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentClothe> StudentClothes { get; set; }
