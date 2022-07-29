@@ -12,14 +12,18 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel my-3 row">
             <div class="image col-12 text-center">
-                <img src="~/Content/Images/avatar.png" class="img-circle elevation-2 w-50" alt="User Image">
+                @if (Session["Email"] != null)
+                {
+                    <img src="~/Logos/@(Session["currentSchool"].ToString()+".jpeg")" class="rounded img-circle elevation-2" style=" width: 100% !important" alt="User Image">
+                }
+                
             </div>
             <div class="col-12 text-center">
                 <fieldset>
                     @if (Session["Email"] != null)
                     {
                     <a href="#" class="d-block brand-text font-weight-light">@Session["UserName"].ToString() </a>
-                    <a href="#" class="d-block brand-text font-weight-bold text-white">@Session["Email"].ToString() </a>   
+                    <a href="#" class="d-block brand-text text-white">@Session["Email"].ToString() </a>   
                     }
                 </fieldset>  
                 
@@ -33,7 +37,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
-                 with font-awesome or any other icon font library -->
+    with font-awesome or any other icon font library -->
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link active">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -106,11 +110,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="@Url.Action("Create","Classes")" class="nav-link active">                                
+                            <a href="@Url.Action("Create","Classes")" class="nav-link active">
                                 <i class="fa fa-plus nav-icon"></i>
                                 <p>
                                     Add New Class
-                                </p>                                
+                                </p>
                             </a>
                         </li>
                     </ul>
@@ -196,15 +200,64 @@
                         </li>
                     </ul>
                 </li>
-                @*<li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link active">
+                        <i herf="#" class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Simple Link
-                            <span class="nav-icon fas fa-th">New</span>
+                            Payments
+                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                </li>*@
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","payment_details")" class="nav-link active">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Payments
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","invoice_payment")" class="nav-link active">
+                                <i class="fa fa-plus nav-icon"></i>
+                                <p>
+                                    Invoice
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link active">
+                        <i herf="#" class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Reports
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                            <a href="@Url.Action("UniformReport","StudentClothes")" class="nav-link active">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Uniform Reports
+                                </p>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                @*<li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                    Simple Link
+                    <span class="nav-icon fas fa-th">New</span>
+                </p>
+            </a>
+        </li>*@
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

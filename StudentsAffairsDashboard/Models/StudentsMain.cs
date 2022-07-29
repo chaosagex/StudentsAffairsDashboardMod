@@ -68,7 +68,7 @@ namespace StudentsAffairsDashboard.Models
         public Nullable<System.DateTime> StdJoinYear { get; set; }
         public string StdStaffSon { get; set; }
         public string StdLegalGuardianship { get; set; }
-        public bool StdParentsSeparated { get; set; }
+        public Nullable<bool> StdParentsSeparated { get; set; }
     
         public virtual Class Class { get; set; }
         public virtual NESSchool NESSchool { get; set; }

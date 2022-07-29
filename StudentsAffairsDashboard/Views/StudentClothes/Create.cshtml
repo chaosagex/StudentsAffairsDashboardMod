@@ -39,20 +39,45 @@
                 <div class="col-lg-12 col-md-12 col-12">
                     <div class="row text-center">
                         <div class="custom-control custom-checkbox pb-3 col-3">
-                            <input type="checkbox" id="FullPackgeKGBoy" class="custom-control-input">
-                            <label class="custom-control-label" for="FullPackgeKGBoy"><b>Full Packge KG Boy</b></label>
+                            <input type="checkbox" id="KG12Boy" class="custom-control-input">
+                            <label class="custom-control-label" for="KG12Boy"><b>KG 1-2 (Boy)</b></label>
+                            <input type="hidden" id="P_KG12Boy" value="@Html.Display("P_KG12Boy")" />
                         </div>
                         <div class="custom-control custom-checkbox pb-3 col-3">
-                            <input type="checkbox" id="FullPackgeKGGirl" class="custom-control-input">
-                            <label class="custom-control-label" for="FullPackgeKGGirl"><b>Full Packge KG Girl</b></label>
+                            <input type="checkbox" id="Grade16Boy" class="custom-control-input">
+                            <label class="custom-control-label" for="Grade16Boy"><b>Grade 1-6 (Boy)</b></label>
+                            <input type="hidden" id="P_Grade16Boy" value="@Html.Display("P_Grade16Boy")" />
                         </div>
                         <div class="custom-control custom-checkbox pb-3 col-3">
-                            <input type="checkbox" id="FullPackgeGradeBoy" class="custom-control-input">
-                            <label class="custom-control-label" for="FullPackgeGradeBoy"><b>Full Packge Grade Boy</b></label>
+                            <input type="checkbox" id="Grade79Boy" class="custom-control-input">
+                            <label class="custom-control-label" for="Grade79Boy"><b>Grade 7-9 (Boy)</b></label>
+                            <input type="hidden" id="P_Grade79Boy" value="@Html.Display("P_Grade79Boy")" />
                         </div>
                         <div class="custom-control custom-checkbox pb-3 col-3">
-                            <input type="checkbox" id="FullPackgeGradeGirl" class="custom-control-input">
-                            <label class="custom-control-label" for="FullPackgeGradeGirl"><b>Full Packge Grade Girl</b></label>
+                            <input type="checkbox" id="Grade1012Boy" class="custom-control-input">
+                            <label class="custom-control-label" for="Grade1012Boy"><b>Grade 10-12 (Boy)</b></label>
+                            <input type="hidden" id="P_Grade1012Boy" value="@Html.Display("P_Grade1012Boy")" />
+                        </div>
+
+                        <div class="custom-control custom-checkbox pb-3 col-3">
+                            <input type="checkbox" id="KG12Girl" class="custom-control-input">
+                            <label class="custom-control-label" for="KG12Girl"><b>KG 1-2 (Girl)</b></label>
+                            <input type="hidden" id="P_KG12Girl" value="@Html.Display("P_KG12Girl")" />
+                        </div>
+                        <div class="custom-control custom-checkbox pb-3 col-3">
+                            <input type="checkbox" id="Grade16Girl" class="custom-control-input">
+                            <label class="custom-control-label" for="Grade16Girl"><b>Grade 1-6 (Girl)</b></label>
+                            <input type="hidden" id="P_Grade16Girl" value="@Html.Display("P_Grade16Girl")" />
+                        </div>
+                        <div class="custom-control custom-checkbox pb-3 col-3">
+                            <input type="checkbox" id="Grade79Girl" class="custom-control-input">
+                            <label class="custom-control-label" for="Grade79Girl"><b>Grade 7-9 (Girl)</b></label>
+                            <input type="hidden" id="P_Grade79Girl" value="@Html.Display("P_Grade79Girl")" />
+                        </div>
+                        <div class="custom-control custom-checkbox pb-3 col-3">
+                            <input type="checkbox" id="Grade1012Girl" class="custom-control-input">
+                            <label class="custom-control-label" for="Grade1012Girl"><b>Grade 10-12 (Girl)</b></label>
+                            <input type="hidden" id="P_Grade1012Girl" value="@Html.Display("P_Grade1012Girl")" />
                         </div>
                     </div>
 
@@ -131,161 +156,186 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         var total = 0
-
+        var PackageName = "";
+        var PackageValue = "";
         $(document).ready(function () {
             $(".c-items").change(function () {
-                total = 0
                 CalcTotal2()
             })
-            $("#FullPackgeKGBoy").change(function () {
-                if ($('#FullPackgeKGBoy').is(":checked")) {
-                    $('#Quantity_1').val(0)
-                    $('#Quantity_2').val(0)
-                    $('#Quantity_3').val(0)
-                    $('#Quantity_4').val(1)
-                    $('#Quantity_5').val(1)
-                    $('#Quantity_6').val(1)
-                    $('#Quantity_7').val(1)
-                    $('#Quantity_9').val(1)
-                    $('#Quantity_10').val(1)
+            $("#KG12Boy").change(function () {
+                if ($('#KG12Boy').is(":checked")) {                  
 
-                    $('#CheckBox_1').prop("checked", false)
-                    $('#CheckBox_2').prop("checked", false)
-                    $('#CheckBox_3').prop("checked", false)
-                    $('#CheckBox_4').prop("checked", true)
-                    $('#CheckBox_5').prop("checked", true)
-                    $('#CheckBox_6').prop("checked", true)
-                    $('#CheckBox_7').prop("checked", true)
-                    $('#CheckBox_9').prop("checked", true)
-                    $('#CheckBox_10').prop("checked", true)
+                    $("#KG12Boy").prop("checked", true)
+                    $('#Grade16Boy').prop("checked", false)
+                    $('#Grade79Boy').prop("checked", false)
+                    $('#Grade1012Boy').prop("checked", false)
 
-                    $('#FullPackgeKGGirl').prop("checked", false)
-                    $('#FullPackgeGradeBoy').prop("checked", false)
-                    $('#FullPackgeGradeGirl').prop("checked", false)
+                    $("#KG12Girl").prop("checked", false)
+                    $('#Grade16Girl').prop("checked", false)
+                    $('#Grade79Girl').prop("checked", false)
+                    $('#Grade1012Girl').prop("checked", false)
 
-                    CalcTotal()
-                } else {
-                    $('.c-item').val(0)
-                    total = 0
+                    total = total + parseFloat($('#P_KG12Boy').val())
                     $('#total').text(total)
-                }
-            });
-            $("#FullPackgeKGGirl").change(function () {
-                if ($('#FullPackgeKGGirl').is(":checked")) {
-                    $('#Quantity_1').val(1)
-                    $('#Quantity_2').val(1)
-                    $('#Quantity_3').val(0)
-                    $('#Quantity_4').val(0)
-                    $('#Quantity_5').val(0)
-                    $('#Quantity_6').val(1)
-                    $('#Quantity_7').val(1)
-                    $('#Quantity_9').val(1)
-                    $('#Quantity_10').val(1)
-
-                    $('#CheckBox_1').prop("checked", true)
-                    $('#CheckBox_2').prop("checked", true)
-                    $('#CheckBox_3').prop("checked", false)
-                    $('#CheckBox_4').prop("checked", false)
-                    $('#CheckBox_5').prop("checked", false)
-                    $('#CheckBox_6').prop("checked", true)
-                    $('#CheckBox_7').prop("checked", true)
-                    $('#CheckBox_9').prop("checked", true)
-                    $('#CheckBox_10').prop("checked", true)
-
-                    $('#FullPackgeKGBoy').prop("checked", false)
-                    $('#FullPackgeGradeBoy').prop("checked", false)
-                    $('#FullPackgeGradeGirl').prop("checked", false)
-
-                    CalcTotal()
-                } else {
-                    $('.c-item').val(0)
-                    total = 0
-                    $('#total').text(total)
-                }
-            });
-            $("#FullPackgeGradeBoy").change(function () {
-                if ($('#FullPackgeGradeBoy').is(":checked")) {
-                    $('#Quantity_1').val(0)
-                    $('#Quantity_2').val(0)
-                    $('#Quantity_3').val(0)
-                    $('#Quantity_4').val(1)
-                    $('#Quantity_5').val(1)
-                    $('#Quantity_6').val(1)
-                    $('#Quantity_7').val(1)
-                    $('#Quantity_9').val(1)
-                    $('#Quantity_10').val(1)
-
-                    $('#CheckBox_1').prop("checked", false)
-                    $('#CheckBox_2').prop("checked", false)
-                    $('#CheckBox_3').prop("checked", false)
-                    $('#CheckBox_4').prop("checked", true)
-                    $('#CheckBox_5').prop("checked", true)
-                    $('#CheckBox_6').prop("checked", true)
-                    $('#CheckBox_7').prop("checked", true)
-                    $('#CheckBox_9').prop("checked", true)
-                    $('#CheckBox_10').prop("checked", true)
-
-                    $('#FullPackgeKGBoy').prop("checked", false)
-                    $('#FullPackgeKGGirl').prop("checked", false)
-                    $('#FullPackgeGradeGirl').prop("checked", false)
-
-                    CalcTotal()
-                } else {
-                    $('.c-item').val(0)
-                    total = 0
-                    $('#total').text(total)
-                }
-            });
-            $("#FullPackgeGradeGirl").change(function () {
-                if ($('#FullPackgeGradeGirl').is(":checked")) {
-                    $('#Quantity_1').val(0)
-                    $('#Quantity_2').val(0)
-                    $('#Quantity_3').val(1)
-                    $('#Quantity_4').val(0)
-                    $('#Quantity_5').val(1)
-                    $('#Quantity_6').val(1)
-                    $('#Quantity_7').val(1)
-                    $('#Quantity_9').val(1)
-                    $('#Quantity_10').val(1)
-
-                    $('#CheckBox_1').prop("checked", false)
-                    $('#CheckBox_2').prop("checked", false)
-                    $('#CheckBox_3').prop("checked", true)
-                    $('#CheckBox_4').prop("checked", false)
-                    $('#CheckBox_5').prop("checked", true)
-                    $('#CheckBox_6').prop("checked", true)
-                    $('#CheckBox_7').prop("checked", true)
-                    $('#CheckBox_9').prop("checked", true)
-                    $('#CheckBox_10').prop("checked", true)
-
-                    $('#FullPackgeKGBoy').prop("checked", false)
-                    $('#FullPackgeKGGirl').prop("checked", false)
-                    $('#FullPackgeGradeBoy').prop("checked", false)
-
-                    CalcTotal()
-                } else {
-                    $('.c-item').val(0)
-                    total = 0
-                    $('#total').text(total)
+                    PackageName = "KGBoy";
+                    PackageValue = $('#P_KG12Boy').val();
                 }
             });
 
+            $("#KG12Girl").change(function () {
+                if ($('#KG12Girl').is(":checked")) {
+                    
+                    $("#KG12Boy").prop("checked", false)
+                    $('#Grade16Boy').prop("checked", false)
+                    $('#Grade79Boy').prop("checked", false)
+                    $('#Grade1012Boy').prop("checked", false)
 
+                    $("#KG12Girl").prop("checked", true)
+                    $('#Grade16Girl').prop("checked", false)
+                    $('#Grade79Girl').prop("checked", false)
+                    $('#Grade1012Girl').prop("checked", false)
+
+                    total = total + parseFloat($('#P_KG12Girl').val())
+                    $('#total').text(total)
+                    PackageName = "KGGirl";
+                    PackageValue = $('#P_KG12Girl').val();
+                }
+            });
+            
+            $("#Grade16Boy").change(function () {
+                if ($('#Grade16Boy').is(":checked")) {
+                    
+                    $("#KG12Boy").prop("checked", false)
+                    $('#Grade16Boy').prop("checked", true)
+                    $('#Grade79Boy').prop("checked", false)
+                    $('#Grade1012Boy').prop("checked", false)
+
+                    $("#KG12Girl").prop("checked", false)
+                    $('#Grade16Girl').prop("checked", false)
+                    $('#Grade79Girl').prop("checked", false)
+                    $('#Grade1012Girl').prop("checked", false)
+
+                    total = total + parseFloat($('#P_Grade16Boy').val())
+                    $('#total').text(total)
+                    PackageName = "PrimaryBoyGirl";
+                    PackageValue = $('#P_Grade16Boy').val();
+                }
+            });
+
+            $("#Grade16Girl").change(function () {
+                if ($('#Grade16Girl').is(":checked")) {
+
+                    $("#KG12Boy").prop("checked", false)
+                    $('#Grade16Boy').prop("checked", false)
+                    $('#Grade79Boy').prop("checked", false)
+                    $('#Grade1012Boy').prop("checked", false)
+
+                    $("#KG12Girl").prop("checked", false)
+                    $('#Grade16Girl').prop("checked", true)
+                    $('#Grade79Girl').prop("checked", false)
+                    $('#Grade1012Girl').prop("checked", false)
+
+                    total = total + parseFloat($('#P_Grade16Girl').val())
+                    $('#total').text(total)
+                    PackageName = "PrimaryBoyGirl";
+                    PackageValue = $('#P_Grade16Girl').val();
+                }
+            });
+
+            $("#Grade79Boy").change(function () {
+                if ($('#Grade79Boy').is(":checked")) {
+                    
+                    $("#KG12Boy").prop("checked", false)
+                    $('#Grade16Boy').prop("checked", false)
+                    $('#Grade79Boy').prop("checked", true)
+                    $('#Grade1012Boy').prop("checked", false)
+
+                    $("#KG12Girl").prop("checked", false)
+                    $('#Grade16Girl').prop("checked", false)
+                    $('#Grade79Girl').prop("checked", false)
+                    $('#Grade1012Girl').prop("checked", false)
+
+                    total = total + parseFloat($('#P_Grade79Boy').val())
+                    $('#total').text(total)
+                    PackageName = "PreparatoryBoyGirl";
+                    PackageValue = $('#P_Grade79Boy').val();
+                }
+            });
+
+            $("#Grade79Girl").change(function () {
+                if ($('#Grade79Girl').is(":checked")) {
+                    
+                    $("#KG12Boy").prop("checked", false)
+                    $('#Grade16Boy').prop("checked", false)
+                    $('#Grade79Boy').prop("checked", false)
+                    $('#Grade1012Boy').prop("checked", false)
+
+                    $("#KG12Girl").prop("checked", false)
+                    $('#Grade16Girl').prop("checked", false)
+                    $('#Grade79Girl').prop("checked", true)
+                    $('#Grade1012Girl').prop("checked", false)
+
+                    total = total + parseFloat($('#P_Grade79Girl').val())
+                    $('#total').text(total)
+                    PackageName = "PreparatoryBoyGirl";
+                    PackageValue = $('#P_Grade79Girl').val();
+                }
+            });
+
+            $("#Grade1012Boy").change(function () {
+                if ($('#Grade1012Boy').is(":checked")) {
+                    
+                    $("#KG12Boy").prop("checked", false)
+                    $('#Grade16Boy').prop("checked", false)
+                    $('#Grade79Boy').prop("checked", false)
+                    $('#Grade1012Boy').prop("checked", true)
+
+                    $("#KG12Girl").prop("checked", false)
+                    $('#Grade16Girl').prop("checked", false)
+                    $('#Grade79Girl').prop("checked", false)
+                    $('#Grade1012Girl').prop("checked", false)
+
+                    total = total + parseFloat($('#P_Grade1012Boy').val())
+                    $('#total').text(total)
+                    PackageName = "SecondaryBoyGirl";
+                    PackageValue = $('#P_Grade1012Boy').val();
+                }
+            });
+
+            $("#Grade1012Girl").change(function () {
+                if ($('#Grade1012Girl').is(":checked")) {
+                    
+                    $("#KG12Boy").prop("checked", false)
+                    $('#Grade16Boy').prop("checked", false)
+                    $('#Grade79Boy').prop("checked", false)
+                    $('#Grade1012Boy').prop("checked", false)
+
+                    $("#KG12Girl").prop("checked", false)
+                    $('#Grade16Girl').prop("checked", false)
+                    $('#Grade79Girl').prop("checked", false)
+                    $('#Grade1012Girl').prop("checked", true)
+
+                    total = total + parseFloat($('#P_Grade1012Girl').val())
+                    $('#total').text(total)
+                    PackageName = "SecondaryBoyGirl";
+                    PackageValue = $('#P_Grade1012Girl').val();
+                }
+            });
 
         })
 
         function CalcTotal() {
-            for (var i = 1; i < 20; i++) {
+            for (var i = 1; i < 30; i++) {
                 if ($('#CheckBox_' + i).is(":checked")) {
-                    total = total + (parseInt($('#Price_' + i).val()) * parseInt($('#Quantity_' + i).val()))
+                    total = total + parseFloat((parseInt($('#Price_' + i).val()) * parseInt($('#Quantity_' + i).val())))
                     console.log(total)
                 }
             }
             $('#total').text(total)
-            total = 0
         }
+
         function CalcTotal2() {
-            for (var i = 1; i < 20; i++) {
+            for (var i = 1; i < 30; i++) {
                 if ($('#CheckBox_' + i).is(":checked")) {
                     $('#Quantity_' + i).val(1)
                 } else {
@@ -295,26 +345,30 @@
             CalcTotal()
         }
 
-        $(document).ready(function () {
             $("#btnsubmit").click(function (e) {
                 //Serialize the form datas.   
                 var valdata = $("#Uniform").serialize();
                 var StdCode = $("#StdCode").val();
-                //to get alert popup   
+                //to get alert popup  
+                e.preventDefault();
                 $.ajax({
                     url: "/StudentClothes/UpdateItems",
                     type: "POST",
-                    dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: {
                         searchText: valdata,
-                        Code: StdCode
+                        Code: StdCode,
+                        packageName : PackageName,
+                        packageValue : PackageValue
                     },
-                    success: function () {
-                        window.location.href = "/StudentClothes/Index";
+                    success: function (response) {
+                        window.location.href = "/StudentClothes/Index"
+                    },
+                    error: function (response) {
+                        console.log(response.responseText);
+                        alert(response.responseText);
                     }
                 });
             });
-        });   
     </script>
 }

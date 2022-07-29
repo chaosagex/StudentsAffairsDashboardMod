@@ -83,7 +83,7 @@
                                 @Html.RadioButtonFor(model => model.StdParentsSeparated, false)
                                 <label class="form-check-label">No</label>
                             </div>
-                                
+
                         </div>
                         <div class="col-md-3">
                             <div class="col-md-offset-2 col-md-10">
@@ -92,16 +92,16 @@
                         </div>
                     </div>
 
-                            @*<div class="form-group">
-                @Html.LabelFor(model => model.StdGradesID, "Student Grade", htmlAttributes: new { @class = "control-label" })
-                <div class="col-md-10">
-                    @Html.DropDownList("StdSchoolID", ViewBag.StdGradesID, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.StdClassID, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+                    @*<div class="form-group">
+                            @Html.LabelFor(model => model.StdGradesID, "Student Grade", htmlAttributes: new { @class = "control-label" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("StdSchoolID", ViewBag.StdGradesID, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.StdClassID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
 
-                
-            </div>
+
+                </div>
 
             </div>
         </div>
@@ -115,3 +115,402 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+
+@* $("#KG12Boy").change(function () {
+        if ($('#KG12Boy').is(":checked")) {
+            //$('#Quantity_1').val(1)
+            //$('#Quantity_2').val(1)
+            //$('#Quantity_3').val(0)
+            //$('#Quantity_4').val(1)
+            //$('#Quantity_5').val(1)
+            //$('#Quantity_6').val(1)
+            //$('#Quantity_7').val(1)
+
+            //$('#Quantity_9').val(0)
+            //$('#Quantity_10').val(0)
+            //$('#Quantity_11').val(0)
+            //$('#Quantity_13').val(0)
+            //$('#Quantity_14').val(0)
+            //$('#Quantity_15').val(0)
+
+            //$('#CheckBox_1').prop("checked", true)
+            //$('#CheckBox_2').prop("checked", true)
+            //$('#CheckBox_3').prop("checked", false)
+            //$('#CheckBox_4').prop("checked", true)
+            //$('#CheckBox_5').prop("checked", true)
+            //$('#CheckBox_6').prop("checked", true)
+            //$('#CheckBox_7').prop("checked", true)
+
+            //$('#CheckBox_9').prop("checked", false)
+            //$('#CheckBox_10').prop("checked", false)
+            //$('#CheckBox_11').prop("checked", false)
+            //$('#CheckBox_13').prop("checked", false)
+            //$('#CheckBox_14').prop("checked", false)
+            //$('#CheckBox_15').prop("checked", false)
+
+            $("#KG12Boy").prop("checked", true)
+            $('#Grade16Boy').prop("checked", false)
+            $('#Grade79Boy').prop("checked", false)
+            $('#Grade1012Boy').prop("checked", false)
+
+            $("#KG12Girl").prop("checked", false)
+            $('#Grade16Girl').prop("checked", false)
+            $('#Grade79Girl').prop("checked", false)
+            $('#Grade1012Girl').prop("checked", false)
+
+            total += $('#P_KG12Boy').val()
+            $('#total').text(total)
+        }
+    });
+
+    $("#KG12Girl").change(function () {
+        if ($('#KG12Girl').is(":checked")) {
+            $('#Quantity_1').val(1)
+            $('#Quantity_2').val(1)
+            $('#Quantity_3').val(1)
+            $('#Quantity_4').val(0)
+            $('#Quantity_5').val(1)
+            $('#Quantity_6').val(1)
+            $('#Quantity_7').val(1)
+
+            $('#Quantity_9').val(0)
+            $('#Quantity_10').val(0)
+            $('#Quantity_11').val(0)
+            $('#Quantity_13').val(0)
+            $('#Quantity_14').val(0)
+            $('#Quantity_15').val(0)
+
+            $('#CheckBox_1').prop("checked", true)
+            $('#CheckBox_2').prop("checked", true)
+            $('#CheckBox_3').prop("checked", true)
+            $('#CheckBox_4').prop("checked", false)
+            $('#CheckBox_5').prop("checked", true)
+            $('#CheckBox_6').prop("checked", true)
+            $('#CheckBox_7').prop("checked", true)
+
+            $('#CheckBox_9').prop("checked", false)
+            $('#CheckBox_10').prop("checked", false)
+            $('#CheckBox_11').prop("checked", false)
+            $('#CheckBox_13').prop("checked", false)
+            $('#CheckBox_14').prop("checked", false)
+            $('#CheckBox_15').prop("checked", false)
+
+            $("#KG12Boy").prop("checked", false)
+            $('#Grade16Boy').prop("checked", false)
+            $('#Grade79Boy').prop("checked", false)
+            $('#Grade1012Boy').prop("checked", false)
+
+            $("#KG12Girl").prop("checked", true)
+            $('#Grade16Girl').prop("checked", false)
+            $('#Grade79Girl').prop("checked", false)
+            $('#Grade1012Girl').prop("checked", false)
+
+            CalcTotal()
+        } else {
+            $('.c-item').val(0)
+            total = 0
+            $('#total').text(total)
+        }
+    });
+
+    $("#Grade16Boy").change(function () {
+        if ($('#Grade16Boy').is(":checked")) {
+            $('#Quantity_1').val(1)
+            $('#Quantity_2').val(1)
+            $('#Quantity_3').val(0)
+            $('#Quantity_4').val(1)
+            $('#Quantity_5').val(1)
+            $('#Quantity_6').val(1)
+            $('#Quantity_7').val(1)
+
+            $('#Quantity_9').val(0)
+            $('#Quantity_10').val(0)
+            $('#Quantity_11').val(0)
+            $('#Quantity_13').val(0)
+            $('#Quantity_14').val(0)
+            $('#Quantity_15').val(0)
+
+            $('#CheckBox_1').prop("checked", true)
+            $('#CheckBox_2').prop("checked", true)
+            $('#CheckBox_3').prop("checked", false)
+            $('#CheckBox_4').prop("checked", true)
+            $('#CheckBox_5').prop("checked", true)
+            $('#CheckBox_6').prop("checked", true)
+            $('#CheckBox_7').prop("checked", true)
+
+            $('#CheckBox_9').prop("checked", false)
+            $('#CheckBox_10').prop("checked", false)
+            $('#CheckBox_11').prop("checked", false)
+            $('#CheckBox_13').prop("checked", false)
+            $('#CheckBox_14').prop("checked", false)
+            $('#CheckBox_15').prop("checked", false)
+
+            $("#KG12Boy").prop("checked", false)
+            $('#Grade16Boy').prop("checked", true)
+            $('#Grade79Boy').prop("checked", false)
+            $('#Grade1012Boy').prop("checked", false)
+
+            $("#KG12Girl").prop("checked", false)
+            $('#Grade16Girl').prop("checked", false)
+            $('#Grade79Girl').prop("checked", false)
+            $('#Grade1012Girl').prop("checked", false)
+
+            CalcTotal()
+        } else {
+            $('.c-item').val(0)
+            total = 0
+            $('#total').text(total)
+        }
+    });
+
+    $("#Grade16Girl").change(function () {
+        if ($('#Grade16Girl').is(":checked")) {
+            $('#Quantity_1').val(1)
+            $('#Quantity_2').val(1)
+            $('#Quantity_3').val(1)
+            $('#Quantity_4').val(0)
+            $('#Quantity_5').val(1)
+            $('#Quantity_6').val(1)
+            $('#Quantity_7').val(1)
+
+            $('#Quantity_9').val(0)
+            $('#Quantity_10').val(0)
+            $('#Quantity_11').val(0)
+            $('#Quantity_13').val(0)
+            $('#Quantity_14').val(0)
+            $('#Quantity_15').val(0)
+
+            $('#CheckBox_1').prop("checked", true)
+            $('#CheckBox_2').prop("checked", true)
+            $('#CheckBox_3').prop("checked", true)
+            $('#CheckBox_4').prop("checked", false)
+            $('#CheckBox_5').prop("checked", true)
+            $('#CheckBox_6').prop("checked", true)
+            $('#CheckBox_7').prop("checked", true)
+
+            $('#CheckBox_9').prop("checked", false)
+            $('#CheckBox_10').prop("checked", false)
+            $('#CheckBox_11').prop("checked", false)
+            $('#CheckBox_13').prop("checked", false)
+            $('#CheckBox_14').prop("checked", false)
+            $('#CheckBox_15').prop("checked", false)
+
+            $("#KG12Boy").prop("checked", false)
+            $('#Grade16Boy').prop("checked", false)
+            $('#Grade79Boy').prop("checked", false)
+            $('#Grade1012Boy').prop("checked", false)
+
+            $("#KG12Girl").prop("checked", false)
+            $('#Grade16Girl').prop("checked", true)
+            $('#Grade79Girl').prop("checked", false)
+            $('#Grade1012Girl').prop("checked", false)
+
+            CalcTotal()
+        } else {
+            $('.c-item').val(0)
+            total = 0
+            $('#total').text(total)
+        }
+    });
+
+    $("#Grade79Boy").change(function () {
+        if ($('#Grade79Boy').is(":checked")) {
+            $('#Quantity_1').val(0)
+            $('#Quantity_2').val(0)
+            $('#Quantity_3').val(0)
+            $('#Quantity_4').val(0)
+            $('#Quantity_5').val(0)
+            $('#Quantity_6').val(0)
+            $('#Quantity_7').val(0)
+
+            $('#Quantity_9').val(1)
+            $('#Quantity_10').val(1)
+            $('#Quantity_11').val(1)
+            $('#Quantity_13').val(1)
+            $('#Quantity_14').val(1)
+            $('#Quantity_15').val(1)
+
+            $('#CheckBox_1').prop("checked", false)
+            $('#CheckBox_2').prop("checked", false)
+            $('#CheckBox_3').prop("checked", false)
+            $('#CheckBox_4').prop("checked", false)
+            $('#CheckBox_5').prop("checked", false)
+            $('#CheckBox_6').prop("checked", false)
+            $('#CheckBox_7').prop("checked", false)
+
+            $('#CheckBox_9').prop("checked", true)
+            $('#CheckBox_10').prop("checked", true)
+            $('#CheckBox_11').prop("checked", true)
+            $('#CheckBox_13').prop("checked", true)
+            $('#CheckBox_14').prop("checked", true)
+            $('#CheckBox_15').prop("checked", true)
+
+            $("#KG12Boy").prop("checked", false)
+            $('#Grade16Boy').prop("checked", false)
+            $('#Grade79Boy').prop("checked", true)
+            $('#Grade1012Boy').prop("checked", false)
+
+            $("#KG12Girl").prop("checked", false)
+            $('#Grade16Girl').prop("checked", false)
+            $('#Grade79Girl').prop("checked", false)
+            $('#Grade1012Girl').prop("checked", false)
+
+            CalcTotal()
+        } else {
+            $('.c-item').val(0)
+            total = 0
+            $('#total').text(total)
+        }
+    });
+
+    $("#Grade79Girl").change(function () {
+        if ($('#Grade79Girl').is(":checked")) {
+            $('#Quantity_1').val(0)
+            $('#Quantity_2').val(0)
+            $('#Quantity_3').val(0)
+            $('#Quantity_4').val(0)
+            $('#Quantity_5').val(0)
+            $('#Quantity_6').val(0)
+            $('#Quantity_7').val(0)
+
+            $('#Quantity_9').val(1)
+            $('#Quantity_10').val(1)
+            $('#Quantity_11').val(1)
+            $('#Quantity_13').val(1)
+            $('#Quantity_14').val(1)
+            $('#Quantity_15').val(1)
+
+            $('#CheckBox_1').prop("checked", false)
+            $('#CheckBox_2').prop("checked", false)
+            $('#CheckBox_3').prop("checked", false)
+            $('#CheckBox_4').prop("checked", false)
+            $('#CheckBox_5').prop("checked", false)
+            $('#CheckBox_6').prop("checked", false)
+            $('#CheckBox_7').prop("checked", false)
+
+            $('#CheckBox_9').prop("checked", true)
+            $('#CheckBox_10').prop("checked", true)
+            $('#CheckBox_11').prop("checked", true)
+            $('#CheckBox_13').prop("checked", true)
+            $('#CheckBox_14').prop("checked", true)
+            $('#CheckBox_15').prop("checked", true)
+
+            $("#KG12Boy").prop("checked", false)
+            $('#Grade16Boy').prop("checked", false)
+            $('#Grade79Boy').prop("checked", false)
+            $('#Grade1012Boy').prop("checked", false)
+
+            $("#KG12Girl").prop("checked", false)
+            $('#Grade16Girl').prop("checked", false)
+            $('#Grade79Girl').prop("checked", true)
+            $('#Grade1012Girl').prop("checked", false)
+
+            CalcTotal()
+        } else {
+            $('.c-item').val(0)
+            total = 0
+            $('#total').text(total)
+        }
+    });
+
+    $("#Grade1012Boy").change(function () {
+        if ($('#Grade1012Boy').is(":checked")) {
+            $('#Quantity_1').val(0)
+            $('#Quantity_2').val(0)
+            $('#Quantity_3').val(0)
+            $('#Quantity_4').val(0)
+            $('#Quantity_5').val(0)
+            $('#Quantity_6').val(0)
+            $('#Quantity_7').val(0)
+
+            $('#Quantity_9').val(1)
+            $('#Quantity_10').val(1)
+            $('#Quantity_11').val(1)
+            $('#Quantity_13').val(1)
+            $('#Quantity_14').val(1)
+            $('#Quantity_15').val(1)
+
+            $('#CheckBox_1').prop("checked", false)
+            $('#CheckBox_2').prop("checked", false)
+            $('#CheckBox_3').prop("checked", false)
+            $('#CheckBox_4').prop("checked", false)
+            $('#CheckBox_5').prop("checked", false)
+            $('#CheckBox_6').prop("checked", false)
+            $('#CheckBox_7').prop("checked", false)
+
+            $('#CheckBox_9').prop("checked", true)
+            $('#CheckBox_10').prop("checked", true)
+            $('#CheckBox_11').prop("checked", true)
+            $('#CheckBox_13').prop("checked", true)
+            $('#CheckBox_14').prop("checked", true)
+            $('#CheckBox_15').prop("checked", true)
+
+            $("#KG12Boy").prop("checked", false)
+            $('#Grade16Boy').prop("checked", false)
+            $('#Grade79Boy').prop("checked", false)
+            $('#Grade1012Boy').prop("checked", true)
+
+            $("#KG12Girl").prop("checked", false)
+            $('#Grade16Girl').prop("checked", false)
+            $('#Grade79Girl').prop("checked", false)
+            $('#Grade1012Girl').prop("checked", false)
+
+            CalcTotal()
+        } else {
+            $('.c-item').val(0)
+            total = 0
+            $('#total').text(total)
+        }
+    });
+
+    $("#Grade1012Girl").change(function () {
+        if ($('#Grade1012Girl').is(":checked")) {
+            $('#Quantity_1').val(0)
+            $('#Quantity_2').val(0)
+            $('#Quantity_3').val(0)
+            $('#Quantity_4').val(0)
+            $('#Quantity_5').val(0)
+            $('#Quantity_6').val(0)
+            $('#Quantity_7').val(0)
+
+            $('#Quantity_9').val(1)
+            $('#Quantity_10').val(1)
+            $('#Quantity_11').val(1)
+            $('#Quantity_13').val(1)
+            $('#Quantity_14').val(1)
+            $('#Quantity_15').val(1)
+
+            $('#CheckBox_1').prop("checked", false)
+            $('#CheckBox_2').prop("checked", false)
+            $('#CheckBox_3').prop("checked", false)
+            $('#CheckBox_4').prop("checked", false)
+            $('#CheckBox_5').prop("checked", false)
+            $('#CheckBox_6').prop("checked", false)
+            $('#CheckBox_7').prop("checked", false)
+
+            $('#CheckBox_9').prop("checked", true)
+            $('#CheckBox_10').prop("checked", true)
+            $('#CheckBox_11').prop("checked", true)
+            $('#CheckBox_13').prop("checked", true)
+            $('#CheckBox_14').prop("checked", true)
+            $('#CheckBox_15').prop("checked", true)
+
+            $("#KG12Boy").prop("checked", false)
+            $('#Grade16Boy').prop("checked", false)
+            $('#Grade79Boy').prop("checked", false)
+            $('#Grade1012Boy').prop("checked", false)
+
+            $("#KG12Girl").prop("checked", false)
+            $('#Grade16Girl').prop("checked", false)
+            $('#Grade79Girl').prop("checked", false)
+            $('#Grade1012Girl').prop("checked", true)
+
+            CalcTotal()
+        } else {
+            $('.c-item').val(0)
+            total = 0
+            $('#total').text(total)
+        }
+    }); *@

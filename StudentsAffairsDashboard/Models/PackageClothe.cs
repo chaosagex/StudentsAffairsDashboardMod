@@ -12,14 +12,10 @@ namespace StudentsAffairsDashboard.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Account
+    public partial class PackageClothe
     {
-        public int ID { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string UserName { get; set; }
-        public Nullable<int> School { get; set; }
-    
-        public virtual NESSchool NESSchool { get; set; }
+        public int PackageID { get; set; }
+        public string PackageName { get; set; }
+        public string PackagePrice { get; set; }
     }
 }

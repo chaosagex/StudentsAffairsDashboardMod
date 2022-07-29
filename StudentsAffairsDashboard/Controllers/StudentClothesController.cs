@@ -35,10 +35,6 @@ namespace StudentsAffairsDashboard.Controllers
                 }
             }
             return View(All);
-
-
-            //var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount);            
-            //return View(studentsMains.ToList());
         }
 
         // GET: StudentClothes/Create
@@ -56,6 +52,16 @@ namespace StudentsAffairsDashboard.Controllers
                 ViewBag.StdClass = db.StudentsMains.Find(id).Class.ClassName;
                 ViewBag.StdCode = id;
 
+                ViewBag.P_KG12Boy = db.PackageClothes.Where(a=>a.PackageName == "KGBoy").Select(a=>a.PackagePrice).FirstOrDefault();
+                ViewBag.P_Grade16Boy = db.PackageClothes.Where(a => a.PackageName == "PrimaryBoyGirl").Select(a => a.PackagePrice).FirstOrDefault();
+                ViewBag.P_Grade79Boy = db.PackageClothes.Where(a => a.PackageName == "PreparatoryBoyGirl").Select(a => a.PackagePrice).FirstOrDefault();
+                ViewBag.P_Grade1012Boy = db.PackageClothes.Where(a => a.PackageName == "SecondaryBoyGirl").Select(a => a.PackagePrice).FirstOrDefault();
+                
+                ViewBag.P_KG12Girl = db.PackageClothes.Where(a => a.PackageName == "KGGirl").Select(a => a.PackagePrice).FirstOrDefault();
+                ViewBag.P_Grade16Girl = db.PackageClothes.Where(a => a.PackageName == "PrimaryBoyGirl").Select(a => a.PackagePrice).FirstOrDefault();
+                ViewBag.P_Grade79Girl = db.PackageClothes.Where(a => a.PackageName == "PreparatoryBoyGirl").Select(a => a.PackagePrice).FirstOrDefault();
+                ViewBag.P_Grade1012Girl = db.PackageClothes.Where(a => a.PackageName == "SecondaryBoyGirl").Select(a => a.PackagePrice).FirstOrDefault();
+
                 return View(db.Clothes.ToList());
 
             }
@@ -66,11 +72,113 @@ namespace StudentsAffairsDashboard.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public JsonResult UpdateItems(string searchText, string Code)
+        public ActionResult UpdateItems(string searchText, string Code,string packageName,string packageValue)
         {
             string[] words = searchText.Split('&');
             int i = 0;
-            decimal total = 0;
+            double total = 0;
+
+            if (packageName == "KGBoy")
+            {
+                foreach (var itemm in db.Clothes)
+                {
+                    if (itemm.ClothesID == 8 
+                        || itemm.ClothesID == 2
+                        || itemm.ClothesID == 4 
+                        || itemm.ClothesID == 5 
+                        || itemm.ClothesID == 6 
+                        || itemm.ClothesID == 7)
+                    {
+                        StudentClothe studentClothe = new StudentClothe();
+                        studentClothe.StdCode = Int32.Parse(Code);
+                        studentClothe.ClothesID = itemm.ClothesID;
+                        studentClothe.Quantity = "1";
+                        studentClothe.Price = itemm.ClothesinPackagePrice;
+                        total += Double.Parse(itemm.ClothesinPackagePrice);
+                        studentClothe.PaymentStatus = "True";
+                        studentClothe.ReceivingStatus = "False";
+                        studentClothe.ReceivingQuantity = "0";
+                        db.StudentClothes.Add(studentClothe);
+                    }
+
+                }
+            }
+            if (packageName == "KGGirl")
+            {
+                foreach (var itemm in db.Clothes)
+                {
+                    if (itemm.ClothesID == 1
+                        || itemm.ClothesID == 2
+                        || itemm.ClothesID == 3
+                        || itemm.ClothesID == 5
+                        || itemm.ClothesID == 6
+                        || itemm.ClothesID == 7)
+                    {
+                        StudentClothe studentClothe = new StudentClothe();
+                        studentClothe.StdCode = Int32.Parse(Code);
+                        studentClothe.ClothesID = itemm.ClothesID;
+                        studentClothe.Quantity = "1";
+                        studentClothe.Price = itemm.ClothesinPackagePrice;
+                        total += Double.Parse(itemm.ClothesinPackagePrice);
+                        studentClothe.PaymentStatus = "True";
+                        studentClothe.ReceivingStatus = "False";
+                        studentClothe.ReceivingQuantity = "0";
+                        db.StudentClothes.Add(studentClothe);
+                    }
+
+                }
+            }
+            if (packageName == "PrimaryBoyGirl")
+            {
+                foreach (var itemm in db.Clothes)
+                {
+                    if (itemm.ClothesID == 9
+                        || itemm.ClothesID == 10
+                        || itemm.ClothesID == 11
+                        || itemm.ClothesID == 12
+                        || itemm.ClothesID == 13
+                        || itemm.ClothesID == 14)
+                    {
+                        StudentClothe studentClothe = new StudentClothe();
+                        studentClothe.StdCode = Int32.Parse(Code);
+                        studentClothe.ClothesID = itemm.ClothesID;
+                        studentClothe.Quantity = "1";
+                        studentClothe.Price = itemm.ClothesinPackagePrice;
+                        total += Double.Parse(itemm.ClothesinPackagePrice);
+                        studentClothe.PaymentStatus = "True";
+                        studentClothe.ReceivingStatus = "False";
+                        studentClothe.ReceivingQuantity = "0";
+                        db.StudentClothes.Add(studentClothe);
+                    }
+
+                }
+            }
+            if (packageName == "PreparatoryBoyGirl" || packageName == "SecondaryBoyGirl")
+            {
+                foreach (var itemm in db.Clothes)
+                {
+                    if (itemm.ClothesID == 15
+                        || itemm.ClothesID == 16
+                        || itemm.ClothesID == 17
+                        || itemm.ClothesID == 18
+                        || itemm.ClothesID == 19
+                        || itemm.ClothesID == 20)
+                    {
+                        StudentClothe studentClothe = new StudentClothe();
+                        studentClothe.StdCode = Int32.Parse(Code);
+                        studentClothe.ClothesID = itemm.ClothesID;
+                        studentClothe.Quantity = "1";
+                        studentClothe.Price = itemm.ClothesinPackagePrice;
+                        total += Double.Parse(itemm.ClothesinPackagePrice);
+                        studentClothe.PaymentStatus = "True";
+                        studentClothe.ReceivingStatus = "False";
+                        studentClothe.ReceivingQuantity = "0";
+                        db.StudentClothes.Add(studentClothe);
+                    }
+
+                }
+            }
+            
             foreach (var itemm in db.Clothes)
             {
                 string[] wordd = words[i].Split('=');
@@ -91,6 +199,7 @@ namespace StudentsAffairsDashboard.Controllers
                 i++;
                 
             }
+                
                 invoice_payment invoice = new invoice_payment();
                 invoice.student = Int32.Parse(Code);
                 int st = invoice.student;
@@ -133,7 +242,7 @@ namespace StudentsAffairsDashboard.Controllers
                 item.Grade = (short)studentGrade;
                 item.year = year;
                 item.student_type = studentType;
-                item.amount = total;
+                item.amount = (decimal)(total + (total*0.14));
                 invoice.paid += item.amount;
                 //newNotes += item.name; ;
                 invoice.payment_details.Add(item);
@@ -141,7 +250,7 @@ namespace StudentsAffairsDashboard.Controllers
                     invoice.Notes = "";
                     db.payment_details.Add(item);
                     db.SaveChanges();
-                    db.invoice_payment.Add(invoice);
+                    db.invoice_payment.Add(invoice); 
                     db.SaveChanges();
                     //invoice.total_cost += item.amount;
                     //invoice.Notes = invoice.Notes + invoice.id + newNotes;
@@ -149,10 +258,20 @@ namespace StudentsAffairsDashboard.Controllers
                     //db.SaveChanges();
 
             db.SaveChanges();
-            return Json(new { code = 1 });
+
+            LogsController logs = new LogsController();
+            DateTime now = DateTime.Now;
+            Log log = new Log();
+            log.UserName = Session["UserName"].ToString();
+            log.Times = now.ToString();
+            log.LogContent = "Uniform : Account (" + Session["UserName"].ToString() + ") Received Student Uniform With ID: (" + Code + ") and invoice with Total Amount = "+item.amount+" EGP";
+            bool checklog = logs.Create(log);
+
+
+            return RedirectToAction("Index");
         }
 
-        public JsonResult UpdateItemsReceived(string searchText, string Code)
+        public ActionResult UpdateItemsReceived(string searchText, string Code)
         {
 
             string[] words = searchText.Split('&');
@@ -185,23 +304,130 @@ namespace StudentsAffairsDashboard.Controllers
             
 
             db.SaveChanges();
-            return Json(new { code = 1 });
+
+            LogsController logs = new LogsController();
+            DateTime now = DateTime.Now;
+            Log log = new Log();
+            log.UserName = Session["UserName"].ToString();
+            log.Times = now.ToString();
+            log.LogContent = "Uniform : Representative (" + Session["UserName"].ToString() + ") Student handed Pieces of Uniform With ID: (" + Code + ")";
+            bool checklog = logs.Create(log);
+
+            return RedirectToAction("Index");
         }
         // GET: StudentClothes/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult UniformReport()
         {
-            if (id == null)
+            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount);
+            ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName");
+            ViewBag.SchoolID = new SelectList(db.NESSchools, "SchoolID", "SchoolName");
+            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
+            return View(studentsMains.ToList());
+        }
+        public ActionResult UniformReportResult(string searchText,string SchoolID,string GradeID)
+        {
+            String[] FilterData = new string[8];
+
+            //FilterData[0] = "first%20installment";
+            //FilterData[1] = "2nd%20installment";
+            //FilterData[2] = "Activity";
+            //FilterData[3] = "Resorce";
+            //FilterData[4] = "Uniform";
+            //FilterData[5] = "Year";
+            //FilterData[6] = "From";
+            //FilterData[7] = "To";
+            FilterData[0] = "0";
+            FilterData[1] = "0";
+            FilterData[2] = "0";
+            FilterData[3] = "0";
+            FilterData[4] = "0";
+            FilterData[5] = "";
+            FilterData[6] = "";
+            FilterData[7] = "";
+            string[] words = searchText.Split('&');
+            for (int i = 0; i < words.Length; i++)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                string[] wordd = words[i].Split('=');
+                System.Diagnostics.Debug.WriteLine(wordd[0] + "   " + wordd[1]);
+                if (wordd[0].Equals("first%20installment"))
+                    FilterData[0] = "1";
+                if (wordd[0].Equals("2nd%20installment"))
+                    FilterData[1] = "2";
+                if (wordd[0].Equals("Activity"))
+                    FilterData[2] = "3";
+                if (wordd[0].Equals("Resorce"))
+                    FilterData[3] = "4";
+                if (wordd[0].Equals("Uniform"))
+                    FilterData[4] = "5";
+                if (wordd[0].Equals("Year"))
+                    FilterData[5] = wordd[1];
+                if (wordd[0].Equals("From"))
+                    FilterData[6] = wordd[1];
+                if (wordd[0].Equals("To"))
+                    FilterData[7] = wordd[1];
             }
-            StudentClothe studentClothe = db.StudentClothes.Find(id);
-            if (studentClothe == null)
+            List<payment_details> All = new List<payment_details>();
+            List<invoice_payment> Dataa= new List<invoice_payment>();
+            HashSet<StudentsMain> StudentData = new HashSet<StudentsMain>();
+            string Year = FilterData[5];
+            int ScID = Int32.Parse(SchoolID);
+            short GrID = (short)Int32.Parse(GradeID);
+
+            if (!FilterData[5].Equals("0"))
             {
-                return HttpNotFound();
+                All = db.payment_details.Where(a=>a.year.Equals(Year)).Where(a=>a.school == ScID).Where(a=>a.Grade == GrID).ToList();
             }
-            ViewBag.ClothesID = new SelectList(db.Clothes, "ClothesID", "ClothesName", studentClothe.ClothesID);
-            ViewBag.StdCode = new SelectList(db.StudentsMains, "StdCode", "StdArabicFristName", studentClothe.StdCode);
-            return View(studentClothe);
+
+            foreach (payment_details item in All)
+            {
+                if (item.type == Int32.Parse(FilterData[0]))
+                {
+                    Dataa.AddRange(item.invoice_payment);
+                }
+                if (item.type == Int32.Parse(FilterData[1]))
+                {
+                    Dataa.AddRange(item.invoice_payment);
+                }
+                if (item.type == Int32.Parse(FilterData[2]))
+                {
+                    Dataa.AddRange(item.invoice_payment);
+                }
+                if (item.type == Int32.Parse(FilterData[3]))
+                {
+                    Dataa.AddRange(item.invoice_payment);
+                }
+                if (item.type == Int32.Parse(FilterData[4]))
+                {
+                    Dataa.AddRange(item.invoice_payment);
+                }
+
+            }
+
+            foreach (var item in Dataa)
+            {
+                System.Diagnostics.Debug.WriteLine(item.id + "   ");
+                if (item.date >= DateTime.Parse(FilterData[6]) && item.date <= DateTime.Parse(FilterData[7]))
+                {
+                    StudentData.Add(item.StudentsMain);
+                }
+            }
+            
+
+                //if (Int32.Parse(wordd[1]) > 0)
+                //{
+                //    StudentClothe studentClothe = new StudentClothe();
+                //    studentClothe.StdCode = Int32.Parse(Code);
+                //    studentClothe.ClothesID = itemm.ClothesID;
+                //    studentClothe.Quantity = wordd[1];
+                //    studentClothe.Price = (Int32.Parse(wordd[1]) * Int32.Parse(itemm.ClothesPrice)).ToString();
+                //    total += (Int32.Parse(wordd[1]) * Int32.Parse(itemm.ClothesPrice));
+                //    studentClothe.PaymentStatus = "True";
+                //    studentClothe.ReceivingStatus = "False";
+                //    studentClothe.ReceivingQuantity = "0";
+                //    db.StudentClothes.Add(studentClothe);
+                //}
+
+            return View(StudentData.ToList());
         }
 
         // POST: StudentClothes/Edit/5
@@ -243,15 +469,41 @@ namespace StudentsAffairsDashboard.Controllers
 
         }
 
-        // POST: StudentClothes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        // POST: StudentClothes/Details/5
+
+        [HttpPost]
+        public ActionResult Details(string customerId)
         {
-            StudentClothe studentClothe = db.StudentClothes.Find(id);
-            db.StudentClothes.Remove(studentClothe);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            int Code = Int32.Parse(customerId);
+            var StudentsClothesData = db.StudentClothes.Where(a => a.StdCode == Code);
+            ViewBag.Total = 0;
+            double Total = 0;
+            double TotalTax = 0;
+
+            foreach (var item in StudentsClothesData.ToList())
+            {
+                Total += Double.Parse(item.Price);
+            }
+            TotalTax = Total + (Total * 0.14);
+            ViewBag.Total = Total;
+            ViewBag.TotalTax = TotalTax;
+            return PartialView("Details", StudentsClothesData.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult DetailsReceipt(string customerId)
+        {
+            int Code = Int32.Parse(customerId);
+            var StudentsClothesData = db.StudentClothes.Where(a => a.StdCode == Code);
+            ViewBag.Total = 0;
+            double Total = 0;
+
+            foreach (var item in StudentsClothesData.ToList())
+            {
+                Total += Double.Parse(item.Price);
+            }
+            ViewBag.Total = Total;
+            return PartialView("DetailsReceipt", StudentsClothesData.ToList());
         }
 
         protected override void Dispose(bool disposing)

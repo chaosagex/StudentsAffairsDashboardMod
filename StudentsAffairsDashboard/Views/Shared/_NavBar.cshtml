@@ -6,13 +6,7 @@
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="@Url.Action("Index","Home")" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="@Url.Action("Index","payment_details")" class="nav-link">Payments</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="@Url.Action("Index","invoice_payment")" class="nav-link">Invoice</a>
-        </li>
+        </li>        
     </ul>
     @using (Html.BeginForm("Index", "Home", FormMethod.Post))
     {
@@ -42,7 +36,7 @@
             </div>
         </form>*@
     <!-- Right navbar links -->
-   @* <ul class="navbar-nav ml-auto">*@
+    <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
         @*<li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
@@ -133,5 +127,5 @@
                     <i class="fas fa-th-large"></i>
                 </a>
             </li>*@
-    @*</ul>*@
+    </ul>
 </nav>
