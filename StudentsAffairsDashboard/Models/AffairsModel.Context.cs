@@ -367,5 +367,14 @@ namespace StudentsAffairsDashboard.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updatePaymentDetail", paymentIdParameter, paymentNameParameter, paymentTypeParameter, paymentAmountParameter, paymentSchoolParameter, paymentYearParameter, paymentStudentTypeParameter);
         }
+    
+        public virtual ObjectResult<getUniformStudent_Result> getUniformStudent(Nullable<int> stdcode)
+        {
+            var stdcodeParameter = stdcode.HasValue ?
+                new ObjectParameter("stdcode", stdcode) :
+                new ObjectParameter("stdcode", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getUniformStudent_Result>("getUniformStudent", stdcodeParameter);
+        }
     }
 }

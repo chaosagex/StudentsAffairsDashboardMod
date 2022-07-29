@@ -7,7 +7,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>dac48b01-1699-4476-9f98-410e9755b145</rd:DataSourceID>
+      <rd:DataSourceID>2a803b97-17e4-4555-884c-5d0066ac9540</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -77,6 +77,14 @@
           <DataField>date</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
+        <Field Name="ClothesinPackagePrice">
+          <DataField>ClothesinPackagePrice</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClothesColor">
+          <DataField>ClothesColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>Student_Affairs_DatabaseDataSet</rd:DataSetName>
@@ -105,7 +113,7 @@
                   <Width>1.4971cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.23312cm</Width>
+                  <Width>1.33323cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.32693cm</Width>
@@ -238,7 +246,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>الأجملي</Value>
+                                  <Value>الأجمالي</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -665,7 +673,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!ClothesColor.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -748,7 +756,7 @@
             <Top>7.8398cm</Top>
             <Left>0.38078cm</Left>
             <Height>1.78209cm</Height>
-            <Width>15.74146cm</Width>
+            <Width>15.84157cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>

@@ -30,6 +30,7 @@
           <Property Name="ClothesName" Type="nvarchar" MaxLength="100" />
           <Property Name="ClothesPrice" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ClothesinPackagePrice" Type="varchar" MaxLength="100" />
+          <Property Name="ClothesColor" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Grade">
           <Key>
@@ -421,6 +422,9 @@
         </Function>
         <Function Name="getPreviousPayment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="student" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getUniformStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="stdcode" Type="int" Mode="In" />
         </Function>
         <Function Name="insertInvoiceItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="itemID" Type="int" Mode="In" />
@@ -929,6 +933,9 @@
             <End Role="Account" EntitySet="Accounts" />
           </AssociationSet>
           <EntitySet Name="PackageClothes" EntityType="Student_Affairs_DatabaseModel.PackageClothe" />
+          <FunctionImport Name="getUniformStudent" ReturnType="Collection(Student_Affairs_DatabaseModel.getUniformStudent_Result)">
+            <Parameter Name="stdcode" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Log">
           <Key>
@@ -1134,6 +1141,7 @@
           <Property Name="ClothesPrice" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="StudentClothes" Relationship="Student_Affairs_DatabaseModel.fk_clothes_student" FromRole="Cloth" ToRole="StudentClothe" />
           <Property Name="ClothesinPackagePrice" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ClothesColor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="fk_clothes_student">
           <End Type="Student_Affairs_DatabaseModel.Cloth" Role="Cloth" Multiplicity="1" />
@@ -1167,6 +1175,23 @@
           <Property Name="PackageName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PackagePrice" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
+        <ComplexType Name="getUniformStudent_Result">
+          <Property Type="String" Name="ClothesName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Quantity" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Price" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="StdCode" Nullable="false" />
+          <Property Type="String" Name="ClothesPrice" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicFristName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicMiddleName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicFamilyName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="SchoolName" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="Serial" Nullable="false" />
+          <Property Type="Decimal" Name="amount" Nullable="false" Precision="19" />
+          <Property Type="String" Name="GradeName" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="SCID" Nullable="false" />
+          <Property Type="DateTime" Name="date" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1480,6 +1505,7 @@
           <EntitySetMapping Name="Clothes">
             <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Cloth">
               <MappingFragment StoreEntitySet="Clothes">
+                <ScalarProperty Name="ClothesColor" ColumnName="ClothesColor" />
                 <ScalarProperty Name="ClothesinPackagePrice" ColumnName="ClothesinPackagePrice" />
                 <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
                 <ScalarProperty Name="ClothesName" ColumnName="ClothesName" />
@@ -1496,6 +1522,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="getUniformStudent" FunctionName="Student_Affairs_DatabaseModel.Store.getUniformStudent">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getUniformStudent_Result">
+                <ScalarProperty Name="ClothesName" ColumnName="ClothesName" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="StdCode" ColumnName="StdCode" />
+                <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
+                <ScalarProperty Name="StdArabicFristName" ColumnName="StdArabicFristName" />
+                <ScalarProperty Name="StdArabicMiddleName" ColumnName="StdArabicMiddleName" />
+                <ScalarProperty Name="StdArabicLastName" ColumnName="StdArabicLastName" />
+                <ScalarProperty Name="StdArabicFamilyName" ColumnName="StdArabicFamilyName" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+                <ScalarProperty Name="SCID" ColumnName="SCID" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
