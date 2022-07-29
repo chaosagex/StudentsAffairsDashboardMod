@@ -1094,15 +1094,15 @@
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT DISTINCT 
                          Clothes.ClothesName, StudentClothes.Quantity, StudentClothes.Price, StudentsMain.StdCode, Clothes.ClothesPrice, StudentsMain.StdArabicFristName, StudentsMain.StdArabicMiddleName, StudentsMain.StdArabicLastName, 
-                         StudentsMain.StdArabicFamilyName, NESSchools.SchoolName, invoice_payment.id AS Serial, payment_details.amount, Grade.GradeName, StudentClothes.SCID
+                         StudentsMain.StdArabicFamilyName, NESSchools.SchoolName, invoice_payment.id AS Serial, payment_details.amount, Grade.GradeName, StudentClothes.SCID, invoice_payment.date
 FROM            StudentClothes INNER JOIN
                          Clothes ON StudentClothes.ClothesID = Clothes.ClothesID INNER JOIN
                          StudentsMain ON StudentClothes.StdCode = StudentsMain.StdCode INNER JOIN
                          NESSchools ON StudentsMain.StdSchoolID = NESSchools.SchoolID INNER JOIN
                          invoice_payment ON StudentsMain.StdCode = invoice_payment.student INNER JOIN
                          invoice_item ON invoice_payment.id = invoice_item.invoice INNER JOIN
-                         payment_details ON NESSchools.SchoolID = payment_details.school AND invoice_item.payment_item = payment_details.id CROSS JOIN
-                         Grade</CommandText>
+                         payment_details ON NESSchools.SchoolID = payment_details.school AND invoice_item.payment_item = payment_details.id INNER JOIN
+                         Grade ON Grade.GradeID = payment_details.Grade</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -1123,6 +1123,7 @@ FROM            StudentClothes INNER JOIN
               <Mapping SourceColumn="amount" DataSetColumn="amount" />
               <Mapping SourceColumn="GradeName" DataSetColumn="GradeName" />
               <Mapping SourceColumn="SCID" DataSetColumn="SCID" />
+              <Mapping SourceColumn="date" DataSetColumn="date" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -2143,6 +2144,7 @@ FROM            StudentClothes INNER JOIN
                 </xs:simpleType>
               </xs:element>
               <xs:element name="SCID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnPropNameInRow="SCID" msprop:Generator_ColumnPropNameInTable="SCIDColumn" msprop:Generator_ColumnVarNameInTable="columnSCID" msprop:Generator_UserColumnName="SCID" type="xs:int" />
+              <xs:element name="date" msprop:Generator_ColumnPropNameInRow="date" msprop:Generator_ColumnPropNameInTable="dateColumn" msprop:Generator_ColumnVarNameInTable="columndate" msprop:Generator_UserColumnName="date" type="xs:dateTime" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

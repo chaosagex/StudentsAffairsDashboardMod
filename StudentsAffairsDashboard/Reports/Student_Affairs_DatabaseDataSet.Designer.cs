@@ -9445,6 +9445,8 @@ namespace StudentsAffairsDashboard.Reports {
             
             private global::System.Data.DataColumn columnSCID;
             
+            private global::System.Data.DataColumn columndate;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public UniformDataTable() {
@@ -9592,6 +9594,14 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn dateColumn {
+                get {
+                    return this.columndate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -9627,7 +9637,7 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public UniformRow AddUniformRow(string ClothesName, string Quantity, string Price, string ClothesPrice, string StdArabicFristName, string StdArabicMiddleName, string StdArabicLastName, string StdArabicFamilyName, string SchoolName, decimal amount, string GradeName) {
+            public UniformRow AddUniformRow(string ClothesName, string Quantity, string Price, string ClothesPrice, string StdArabicFristName, string StdArabicMiddleName, string StdArabicLastName, string StdArabicFamilyName, string SchoolName, decimal amount, string GradeName, System.DateTime date) {
                 UniformRow rowUniformRow = ((UniformRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ClothesName,
@@ -9643,7 +9653,8 @@ namespace StudentsAffairsDashboard.Reports {
                         null,
                         amount,
                         GradeName,
-                        null};
+                        null,
+                        date};
                 rowUniformRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowUniformRow);
                 return rowUniformRow;
@@ -9687,6 +9698,7 @@ namespace StudentsAffairsDashboard.Reports {
                 this.columnamount = base.Columns["amount"];
                 this.columnGradeName = base.Columns["GradeName"];
                 this.columnSCID = base.Columns["SCID"];
+                this.columndate = base.Columns["date"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9720,6 +9732,8 @@ namespace StudentsAffairsDashboard.Reports {
                 base.Columns.Add(this.columnGradeName);
                 this.columnSCID = new global::System.Data.DataColumn("SCID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSCID);
+                this.columndate = new global::System.Data.DataColumn("date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndate);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnSCID}, true));
                 this.columnClothesName.AllowDBNull = false;
@@ -9759,6 +9773,7 @@ namespace StudentsAffairsDashboard.Reports {
                 this.columnSCID.AllowDBNull = false;
                 this.columnSCID.ReadOnly = true;
                 this.columnSCID.Unique = true;
+                this.columndate.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13223,6 +13238,17 @@ namespace StudentsAffairsDashboard.Reports {
                 }
                 set {
                     this[this.tableUniform.SCIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime date {
+                get {
+                    return ((global::System.DateTime)(this[this.tableUniform.dateColumn]));
+                }
+                set {
+                    this[this.tableUniform.dateColumn] = value;
                 }
             }
         }
@@ -21084,6 +21110,7 @@ namespace StudentsAffairsDashboard.Reports.Student_Affairs_DatabaseDataSetTableA
             tableMapping.ColumnMappings.Add("amount", "amount");
             tableMapping.ColumnMappings.Add("GradeName", "GradeName");
             tableMapping.ColumnMappings.Add("SCID", "SCID");
+            tableMapping.ColumnMappings.Add("date", "date");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -21102,15 +21129,15 @@ namespace StudentsAffairsDashboard.Reports.Student_Affairs_DatabaseDataSetTableA
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT DISTINCT 
                          Clothes.ClothesName, StudentClothes.Quantity, StudentClothes.Price, StudentsMain.StdCode, Clothes.ClothesPrice, StudentsMain.StdArabicFristName, StudentsMain.StdArabicMiddleName, StudentsMain.StdArabicLastName, 
-                         StudentsMain.StdArabicFamilyName, NESSchools.SchoolName, invoice_payment.id AS Serial, payment_details.amount, Grade.GradeName, StudentClothes.SCID
+                         StudentsMain.StdArabicFamilyName, NESSchools.SchoolName, invoice_payment.id AS Serial, payment_details.amount, Grade.GradeName, StudentClothes.SCID, invoice_payment.date
 FROM            StudentClothes INNER JOIN
                          Clothes ON StudentClothes.ClothesID = Clothes.ClothesID INNER JOIN
                          StudentsMain ON StudentClothes.StdCode = StudentsMain.StdCode INNER JOIN
                          NESSchools ON StudentsMain.StdSchoolID = NESSchools.SchoolID INNER JOIN
                          invoice_payment ON StudentsMain.StdCode = invoice_payment.student INNER JOIN
                          invoice_item ON invoice_payment.id = invoice_item.invoice INNER JOIN
-                         payment_details ON NESSchools.SchoolID = payment_details.school AND invoice_item.payment_item = payment_details.id CROSS JOIN
-                         Grade";
+                         payment_details ON NESSchools.SchoolID = payment_details.school AND invoice_item.payment_item = payment_details.id INNER JOIN
+                         Grade ON Grade.GradeID = payment_details.Grade";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

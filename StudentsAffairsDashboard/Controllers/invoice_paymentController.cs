@@ -77,7 +77,14 @@ namespace StudentsAffairsDashboard.Controllers
         // GET: invoice_payment/Create
         public ActionResult Create()
         {
-            return CreateView(startID);
+            if (Session["CurrentSchool"]==null)
+                return CreateView(startID);
+            else
+            {
+                int cur = Int32.Parse(Session["CurrentSchool"].ToString());
+                int st = db.StudentsMains.FirstOrDefault(s => s.StdSchoolID == cur).StdCode;
+                return CreateView(st);
+            }
 
         }
         public ActionResult CreateView(int st)
