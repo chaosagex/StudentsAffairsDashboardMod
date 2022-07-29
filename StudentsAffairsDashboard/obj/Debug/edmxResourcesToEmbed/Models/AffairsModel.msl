@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Student_Affairs_DatabaseModelStoreContainer" CdmEntityContainer="StudentAffairsDatabaseEntities">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Account">
+        <MappingFragment StoreEntitySet="Accounts">
+          <ScalarProperty Name="School" ColumnName="School" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Classes">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Class">
+        <MappingFragment StoreEntitySet="Class">
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Grades">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Grade">
+        <MappingFragment StoreEntitySet="Grade">
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NESSchools">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.NESSchool">
+        <MappingFragment StoreEntitySet="NESSchools">
+          <ScalarProperty Name="SchoolEmail" ColumnName="SchoolEmail" />
+          <ScalarProperty Name="SchoolCambridge" ColumnName="SchoolCambridge" />
+          <ScalarProperty Name="SchoolContact" ColumnName="SchoolContact" />
+          <ScalarProperty Name="SchoolLocation" ColumnName="SchoolLocation" />
+          <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+          <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+          <ScalarProperty Name="SchooleAbbreviation" ColumnName="SchooleAbbreviation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentAccounts">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentAccount">
+        <MappingFragment StoreEntitySet="StudentAccounts">
+          <ScalarProperty Name="StdCode" ColumnName="StdCode" />
+          <ScalarProperty Name="StdEmail" ColumnName="StdEmail" />
+          <ScalarProperty Name="StdPassword" ColumnName="StdPassword" />
+          <ScalarProperty Name="StdStatus" ColumnName="StdStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentGradesHistories">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentGradesHistory">
+        <MappingFragment StoreEntitySet="StudentGradesHistory">
+          <ScalarProperty Name="KindBatch" ColumnName="KindBatch" />
+          <ScalarProperty Name="SGID" ColumnName="SGID" />
+          <ScalarProperty Name="StdCode" ColumnName="StdCode" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="StudyYear" ColumnName="StudyYear" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentsMains">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentsMain">
+        <MappingFragment StoreEntitySet="StudentsMain">
+          <ScalarProperty Name="StdCode" ColumnName="StdCode" />
+          <ScalarProperty Name="StdArabicFristName" ColumnName="StdArabicFristName" />
+          <ScalarProperty Name="StdArabicMiddleName" ColumnName="StdArabicMiddleName" />
+          <ScalarProperty Name="StdArabicLastName" ColumnName="StdArabicLastName" />
+          <ScalarProperty Name="StdArabicFamilyName" ColumnName="StdArabicFamilyName" />
+          <ScalarProperty Name="StdEnglishFristName" ColumnName="StdEnglishFristName" />
+          <ScalarProperty Name="StdEnglishMiddleName" ColumnName="StdEnglishMiddleName" />
+          <ScalarProperty Name="StdEnglishLastName" ColumnName="StdEnglishLastName" />
+          <ScalarProperty Name="StdEnglishFamilyName" ColumnName="StdEnglishFamilyName" />
+          <ScalarProperty Name="StdMotherArabicName" ColumnName="StdMotherArabicName" />
+          <ScalarProperty Name="StdMotherEnglishName" ColumnName="StdMotherEnglishName" />
+          <ScalarProperty Name="StdFatherMobilePhone" ColumnName="StdFatherMobilePhone" />
+          <ScalarProperty Name="StdMotherMobilePhone" ColumnName="StdMotherMobilePhone" />
+          <ScalarProperty Name="StdFatherEmail" ColumnName="StdFatherEmail" />
+          <ScalarProperty Name="StdMotherEmail" ColumnName="StdMotherEmail" />
+          <ScalarProperty Name="StdFatherNationality" ColumnName="StdFatherNationality" />
+          <ScalarProperty Name="StdMotherNationality" ColumnName="StdMotherNationality" />
+          <ScalarProperty Name="StdFatherSpokenLanguage" ColumnName="StdFatherSpokenLanguage" />
+          <ScalarProperty Name="StdMotherSpokenLanguage" ColumnName="StdMotherSpokenLanguage" />
+          <ScalarProperty Name="StdFatherJob" ColumnName="StdFatherJob" />
+          <ScalarProperty Name="StdMotherJob" ColumnName="StdMotherJob" />
+          <ScalarProperty Name="StdFatherQualification" ColumnName="StdFatherQualification" />
+          <ScalarProperty Name="StdMotherQualification" ColumnName="StdMotherQualification" />
+          <ScalarProperty Name="StdStudentsAffairs1" ColumnName="StdStudentsAffairs1" />
+          <ScalarProperty Name="StdStudentsAffairs2" ColumnName="StdStudentsAffairs2" />
+          <ScalarProperty Name="StdBirthCode" ColumnName="StdBirthCode" />
+          <ScalarProperty Name="StdAddressGov" ColumnName="StdAddressGov" />
+          <ScalarProperty Name="StdEmergencyContact" ColumnName="StdEmergencyContact" />
+          <ScalarProperty Name="StdEmergencyPhone" ColumnName="StdEmergencyPhone" />
+          <ScalarProperty Name="StdBOD" ColumnName="StdBOD" />
+          <ScalarProperty Name="StdBirthPlace" ColumnName="StdBirthPlace" />
+          <ScalarProperty Name="StdGender" ColumnName="StdGender" />
+          <ScalarProperty Name="StdReligion" ColumnName="StdReligion" />
+          <ScalarProperty Name="StdFatherNID" ColumnName="StdFatherNID" />
+          <ScalarProperty Name="StdMotherNID" ColumnName="StdMotherNID" />
+          <ScalarProperty Name="StdCity" ColumnName="StdCity" />
+          <ScalarProperty Name="StdAddress" ColumnName="StdAddress" />
+          <ScalarProperty Name="StdNID" ColumnName="StdNID" />
+          <ScalarProperty Name="StdSchoolID" ColumnName="StdSchoolID" />
+          <ScalarProperty Name="StdClassID" ColumnName="StdClassID" />
+          <ScalarProperty Name="StdNationality" ColumnName="StdNationality" />
+          <ScalarProperty Name="StdStatus" ColumnName="StdStatus" />
+          <ScalarProperty Name="StdJoinYear" ColumnName="StdJoinYear" />
+          <ScalarProperty Name="StdStaffSon" ColumnName="StdStaffSon" />
+          <ScalarProperty Name="StdLegalGuardianship" ColumnName="StdLegalGuardianship" />
+          <ScalarProperty Name="StdParentsSeparated" ColumnName="StdParentsSeparated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentSubjectEnrolls">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentSubjectEnroll">
+        <MappingFragment StoreEntitySet="StudentSubjectEnroll">
+          <ScalarProperty Name="SSID" ColumnName="SSID" />
+          <ScalarProperty Name="StdCode" ColumnName="StdCode" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="StudyYear" ColumnName="StudyYear" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subjects">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Subject">
+        <MappingFragment StoreEntitySet="Subjects">
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="SubjectCode" ColumnName="SubjectCode" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="SubjectFees" ColumnName="SubjectFees" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Logs">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Log">
+        <MappingFragment StoreEntitySet="Logs">
+          <ScalarProperty Name="LogContent" ColumnName="LogContent" />
+          <ScalarProperty Name="Times" ColumnName="Times" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentClothes">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentClothe">
+        <MappingFragment StoreEntitySet="StudentClothes">
+          <ScalarProperty Name="ReceivingQuantity" ColumnName="ReceivingQuantity" />
+          <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+          <ScalarProperty Name="ReceivingStatus" ColumnName="ReceivingStatus" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ClothesID" ColumnName="ClothesID" />
+          <ScalarProperty Name="StdCode" ColumnName="StdCode" />
+          <ScalarProperty Name="SCID" ColumnName="SCID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="invoice_payment">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.invoice_payment">
+        <MappingFragment StoreEntitySet="invoice_payment">
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="depositer" ColumnName="depositer" />
+          <ScalarProperty Name="reference_code" ColumnName="reference_code" />
+          <ScalarProperty Name="deposit_date" ColumnName="deposit_date" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="previous_payment" ColumnName="previous_payment" />
+          <ScalarProperty Name="remaining" ColumnName="remaining" />
+          <ScalarProperty Name="paid" ColumnName="paid" />
+          <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="student" ColumnName="student" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="payment_details">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.payment_details">
+        <MappingFragment StoreEntitySet="payment_details">
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+          <ScalarProperty Name="student_type" ColumnName="student_type" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="school" ColumnName="school" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="invoice_item" TypeName="Student_Affairs_DatabaseModel.invoice_item" StoreEntitySet="invoice_item">
+      <EndProperty Name="payment_details">
+        <ScalarProperty Name="id" ColumnName="payment_item" />
+      </EndProperty>
+      <EndProperty Name="invoice_payment">
+        <ScalarProperty Name="id" ColumnName="invoice" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="deleteInvoice" FunctionName="Student_Affairs_DatabaseModel.Store.deleteInvoice" />
+    <FunctionImportMapping FunctionImportName="deleteInvoiceItem" FunctionName="Student_Affairs_DatabaseModel.Store.deleteInvoiceItem" />
+    <FunctionImportMapping FunctionImportName="deletePayment" FunctionName="Student_Affairs_DatabaseModel.Store.deletePayment" />
+    <FunctionImportMapping FunctionImportName="getInvoiceById" FunctionName="Student_Affairs_DatabaseModel.Store.getInvoiceById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getInvoiceById_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="student" ColumnName="student" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+          <ScalarProperty Name="paid" ColumnName="paid" />
+          <ScalarProperty Name="remaining" ColumnName="remaining" />
+          <ScalarProperty Name="previous_payment" ColumnName="previous_payment" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getInvoiceItem" FunctionName="Student_Affairs_DatabaseModel.Store.getInvoiceItem">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getInvoiceItem_Result">
+          <ScalarProperty Name="invoice" ColumnName="invoice" />
+          <ScalarProperty Name="payment_item" ColumnName="payment_item" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="school" ColumnName="school" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="student_type" ColumnName="student_type" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getInvoicesById" FunctionName="Student_Affairs_DatabaseModel.Store.getInvoicesById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getInvoicesById_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="student" ColumnName="student" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+          <ScalarProperty Name="paid" ColumnName="paid" />
+          <ScalarProperty Name="remaining" ColumnName="remaining" />
+          <ScalarProperty Name="previous_payment" ColumnName="previous_payment" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getPayment" FunctionName="Student_Affairs_DatabaseModel.Store.getPayment">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getPayment_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="school" ColumnName="school" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="student_type" ColumnName="student_type" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getPaymentById" FunctionName="Student_Affairs_DatabaseModel.Store.getPaymentById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getPaymentById_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="school" ColumnName="school" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="student_type" ColumnName="student_type" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getPaymentItems" FunctionName="Student_Affairs_DatabaseModel.Store.getPaymentItems">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getPaymentItems_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="school" ColumnName="school" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="student_type" ColumnName="student_type" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getPreviousPayment" FunctionName="Student_Affairs_DatabaseModel.Store.getPreviousPayment">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getPreviousPayment_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="student" ColumnName="student" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+          <ScalarProperty Name="paid" ColumnName="paid" />
+          <ScalarProperty Name="remaining" ColumnName="remaining" />
+          <ScalarProperty Name="previous_payment" ColumnName="previous_payment" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="insertInvoiceItem" FunctionName="Student_Affairs_DatabaseModel.Store.insertInvoiceItem" />
+    <FunctionImportMapping FunctionImportName="insertPaymentDetail" FunctionName="Student_Affairs_DatabaseModel.Store.insertPaymentDetail" />
+    <FunctionImportMapping FunctionImportName="insertStudentFees" FunctionName="Student_Affairs_DatabaseModel.Store.insertStudentFees" />
+    <FunctionImportMapping FunctionImportName="updatePaymentDetail" FunctionName="Student_Affairs_DatabaseModel.Store.updatePaymentDetail" />
+    <EntitySetMapping Name="Clothes">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Cloth">
+        <MappingFragment StoreEntitySet="Clothes">
+          <ScalarProperty Name="ClothesinPackagePrice" ColumnName="ClothesinPackagePrice" />
+          <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
+          <ScalarProperty Name="ClothesName" ColumnName="ClothesName" />
+          <ScalarProperty Name="ClothesID" ColumnName="ClothesID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PackageClothes">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.PackageClothe">
+        <MappingFragment StoreEntitySet="PackageClothes">
+          <ScalarProperty Name="PackagePrice" ColumnName="PackagePrice" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

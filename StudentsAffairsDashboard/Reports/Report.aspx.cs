@@ -16,7 +16,7 @@ namespace StudentsAffairsDashboard.Reports
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["CurrentSchool"] = "1007";
+            
             ReportViewer1.Reset();
 
             ReportViewer1.ProcessingMode = ProcessingMode.Local;
