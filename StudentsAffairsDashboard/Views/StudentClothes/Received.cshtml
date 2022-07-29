@@ -55,7 +55,7 @@
                                         <td data-th="Checks">
                                             <div class="col-md-9 text-left mt-sm-2">
                                                 <div class="custom-control custom-checkbox pb-3">
-                                                    <input type="checkbox" id="@Html.DisplayFor(modelItem => item.SCID)" name="@Html.DisplayFor(modelItem => item.SCID)" class="custom-control-input c-items">
+                                                    <input disabled type="checkbox" id="@Html.DisplayFor(modelItem => item.SCID)" name="@Html.DisplayFor(modelItem => item.SCID)" class="custom-control-input c-items">
                                                     <label class="custom-control-label" for="@Html.DisplayFor(modelItem => item.SCID)"></label>
                                                 </div>
                                             </div>
@@ -80,7 +80,7 @@
                             }
 
                         </tbody>
-                    </table>                    
+                    </table>
                 </div>
             </div>
             <div class="row mt-4 d-flex align-items-center">
@@ -93,14 +93,14 @@
                     </a>
                 </div>
             </div>
-        </form>        
+        </form>
     </div>
 </section>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-            
+
 
         $(document).ready(function () {
             $("#btnsubmit").click(function (e) {
@@ -108,17 +108,23 @@
                 var valdata = $("#Uniform").serialize();
                 var StdCode = $("#StdCode").val();
                 //to get alert popup
+
+
+                e.preventDefault();
                 $.ajax({
                     url: "/StudentClothes/UpdateItemsReceived",
                     type: "POST",
-                    dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: {
                         searchText: valdata,
                         Code: StdCode
                     },
-                    success: function () {
+                    success: function (response) {
                         window.location.href = "/StudentClothes/Receiving";
+                    },
+                    error: function (response) {
+                        console.log(response.responseText);
+                        alert(response.responseText);
                     }
                 });
             });

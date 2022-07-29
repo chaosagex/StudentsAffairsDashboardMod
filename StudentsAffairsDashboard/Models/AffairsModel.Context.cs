@@ -41,6 +41,7 @@ namespace StudentsAffairsDashboard.Models
         public virtual DbSet<invoice_payment> invoice_payment { get; set; }
         public virtual DbSet<payment_details> payment_details { get; set; }
         public virtual DbSet<Cloth> Clothes { get; set; }
+        public virtual DbSet<PackageClothe> PackageClothes { get; set; }
     
         public virtual int deleteInvoice(Nullable<int> invoiceID)
         {

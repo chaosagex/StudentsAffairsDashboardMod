@@ -35,7 +35,7 @@
                             <td>@item.LogContent</td>
                             @if (@item.LogContent.StartsWith("Edit"))
                             {
-                                <td><span class="badge badge-success">Edit</span></td>
+                                <td><span class="badge badge-warning">Edit</span></td>
                             }
                             else if (@item.LogContent.StartsWith("Delete"))
                             {
@@ -48,7 +48,11 @@
                             else if (@item.LogContent.StartsWith("Create"))
                             {
                                 <td><span class="badge badge-success">Create</span></td>
-                            }                            
+                            }
+                            else if (@item.LogContent.StartsWith("Uniform"))
+                            {
+                                <td><span class="badge badge-secondary">Uniform</span></td>
+                            }
                             <td>
                                 <div class="sparkbar" data-color="#00a65a" data-height="20">@item.Times</div>
                             </td>

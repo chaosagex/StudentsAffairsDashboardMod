@@ -13,6 +13,7 @@
           <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="School" Type="int" />
         </EntityType>
         <EntityType Name="Class">
           <Key>
@@ -26,8 +27,9 @@
             <PropertyRef Name="ClothesID" />
           </Key>
           <Property Name="ClothesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClothesName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ClothesName" Type="nvarchar" MaxLength="100" />
           <Property Name="ClothesPrice" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ClothesinPackagePrice" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Grade">
           <Key>
@@ -77,6 +79,18 @@
           <Property Name="SchoolID" Type="int" Nullable="false" />
           <Property Name="SchoolName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="SchooleAbbreviation" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="SchoolLocation" Type="nvarchar(max)" />
+          <Property Name="SchoolContact" Type="varchar" MaxLength="20" />
+          <Property Name="SchoolCambridge" Type="varchar" MaxLength="50" />
+          <Property Name="SchoolEmail" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PackageClothes">
+          <Key>
+            <PropertyRef Name="PackageID" />
+          </Key>
+          <Property Name="PackageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PackageName" Type="nvarchar" MaxLength="100" />
+          <Property Name="PackagePrice" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="payment_details">
           <Key>
@@ -136,43 +150,43 @@
           <Property Name="StdEnglishMiddleName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="StdEnglishLastName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="StdEnglishFamilyName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdMotherArabicName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdMotherEnglishName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdFatherMobilePhone" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdMotherMobilePhone" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdFatherEmail" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdMotherEmail" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdFatherNationality" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdMotherNationality" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdFatherSpokenLanguage" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdMotherSpokenLanguage" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdFatherJob" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdMotherJob" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdFatherQualification" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdMotherQualification" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdStudentsAffairs1" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdStudentsAffairs2" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdBirthCode" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="StdAddressGov" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdEmergencyContact" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdEmergencyPhone" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdMotherArabicName" Type="nvarchar" MaxLength="100" />
+          <Property Name="StdMotherEnglishName" Type="varchar" MaxLength="100" />
+          <Property Name="StdFatherMobilePhone" Type="varchar" MaxLength="100" />
+          <Property Name="StdMotherMobilePhone" Type="varchar" MaxLength="100" />
+          <Property Name="StdFatherEmail" Type="varchar" MaxLength="100" />
+          <Property Name="StdMotherEmail" Type="varchar" MaxLength="100" />
+          <Property Name="StdFatherNationality" Type="varchar" MaxLength="100" />
+          <Property Name="StdMotherNationality" Type="varchar" MaxLength="100" />
+          <Property Name="StdFatherSpokenLanguage" Type="varchar" MaxLength="100" />
+          <Property Name="StdMotherSpokenLanguage" Type="varchar" MaxLength="100" />
+          <Property Name="StdFatherJob" Type="varchar" MaxLength="100" />
+          <Property Name="StdMotherJob" Type="varchar" MaxLength="100" />
+          <Property Name="StdFatherQualification" Type="varchar" MaxLength="100" />
+          <Property Name="StdMotherQualification" Type="varchar" MaxLength="100" />
+          <Property Name="StdStudentsAffairs1" Type="varchar" MaxLength="100" />
+          <Property Name="StdStudentsAffairs2" Type="varchar" MaxLength="100" />
+          <Property Name="StdBirthCode" Type="varchar" MaxLength="5" />
+          <Property Name="StdAddressGov" Type="varchar" MaxLength="100" />
+          <Property Name="StdEmergencyContact" Type="varchar" MaxLength="100" />
+          <Property Name="StdEmergencyPhone" Type="varchar" MaxLength="100" />
           <Property Name="StdBOD" Type="date" />
-          <Property Name="StdBirthPlace" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdGender" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdReligion" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdFatherNID" Type="varchar" MaxLength="14" Nullable="false" />
-          <Property Name="StdMotherNID" Type="varchar" MaxLength="14" Nullable="false" />
-          <Property Name="StdCity" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdBirthPlace" Type="varchar" MaxLength="100" />
+          <Property Name="StdGender" Type="varchar" MaxLength="100" />
+          <Property Name="StdReligion" Type="varchar" MaxLength="100" />
+          <Property Name="StdFatherNID" Type="varchar" MaxLength="14" />
+          <Property Name="StdMotherNID" Type="varchar" MaxLength="14" />
+          <Property Name="StdCity" Type="varchar" MaxLength="100" />
+          <Property Name="StdAddress" Type="nvarchar" MaxLength="100" />
           <Property Name="StdNID" Type="varchar" MaxLength="14" Nullable="false" />
           <Property Name="StdSchoolID" Type="int" Nullable="false" />
           <Property Name="StdClassID" Type="int" Nullable="false" />
-          <Property Name="StdNationality" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdStatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdNationality" Type="varchar" MaxLength="100" />
+          <Property Name="StdStatus" Type="varchar" MaxLength="100" />
           <Property Name="StdJoinYear" Type="date" />
-          <Property Name="StdStaffSon" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdLegalGuardianship" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdParentsSeparated" Type="bit" Nullable="false" />
+          <Property Name="StdStaffSon" Type="varchar" MaxLength="100" />
+          <Property Name="StdLegalGuardianship" Type="varchar" MaxLength="100" />
+          <Property Name="StdParentsSeparated" Type="bit" />
         </EntityType>
         <EntityType Name="StudentSubjectEnroll">
           <Key>
@@ -192,6 +206,18 @@
           <Property Name="SubjectName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="SubjectFees" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Accounts_NESSchools">
+          <End Role="NESSchools" Type="Self.NESSchools" Multiplicity="0..1" />
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NESSchools">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="Accounts">
+              <PropertyRef Name="School" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_class_main">
           <End Role="Class" Type="Self.Class" Multiplicity="1" />
           <End Role="StudentsMain" Type="Self.StudentsMain" Multiplicity="*" />
@@ -435,6 +461,7 @@
           <EntitySet Name="invoice_payment" EntityType="Self.invoice_payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NESSchools" EntityType="Self.NESSchools" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PackageClothes" EntityType="Self.PackageClothes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="payment_details" EntityType="Self.payment_details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentAccounts" EntityType="Self.StudentAccounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentClothes" EntityType="Self.StudentClothes" Schema="dbo" store:Type="Tables" />
@@ -442,6 +469,10 @@
           <EntitySet Name="StudentsMain" EntityType="Self.StudentsMain" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentSubjectEnroll" EntityType="Self.StudentSubjectEnroll" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Accounts_NESSchools" Association="Self.FK_Accounts_NESSchools">
+            <End Role="NESSchools" EntitySet="NESSchools" />
+            <End Role="Accounts" EntitySet="Accounts" />
+          </AssociationSet>
           <AssociationSet Name="fk_class_main" Association="Self.fk_class_main">
             <End Role="Class" EntitySet="Class" />
             <End Role="StudentsMain" EntitySet="StudentsMain" />
@@ -511,6 +542,8 @@
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="School" Type="Int32" />
+          <NavigationProperty Name="NESSchool" Relationship="Student_Affairs_DatabaseModel.FK_Accounts_NESSchools" FromRole="Account" ToRole="NESSchool" />
         </EntityType>
         <EntityType Name="Class">
           <Key>
@@ -537,6 +570,11 @@
           <Property Name="SchooleAbbreviation" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="StudentsMains" Relationship="Self.fk_school_main" FromRole="NESSchools" ToRole="StudentsMain" />
           <NavigationProperty Name="payment_details" Relationship="Student_Affairs_DatabaseModel.FK_payment_details_school" FromRole="NESSchool" ToRole="payment_details" />
+          <Property Name="SchoolLocation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolContact" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SchoolCambridge" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SchoolEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Accounts" Relationship="Student_Affairs_DatabaseModel.FK_Accounts_NESSchools" FromRole="NESSchool" ToRole="Account" />
         </EntityType>
         <EntityType Name="StudentAccount">
           <Key>
@@ -573,43 +611,43 @@
           <Property Name="StdEnglishMiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StdEnglishLastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StdEnglishFamilyName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdMotherArabicName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="StdMotherEnglishName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdFatherMobilePhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdMotherMobilePhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdFatherEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdMotherEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdFatherNationality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdMotherNationality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdFatherSpokenLanguage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdMotherSpokenLanguage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdFatherJob" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdMotherJob" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdFatherQualification" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdMotherQualification" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdStudentsAffairs1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdStudentsAffairs2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdBirthCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdAddressGov" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdEmergencyContact" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdEmergencyPhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdMotherArabicName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StdMotherEnglishName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdFatherMobilePhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdMotherMobilePhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdFatherEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdMotherEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdFatherNationality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdMotherNationality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdFatherSpokenLanguage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdMotherSpokenLanguage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdFatherJob" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdMotherJob" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdFatherQualification" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdMotherQualification" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdStudentsAffairs1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdStudentsAffairs2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdBirthCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="StdAddressGov" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdEmergencyContact" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdEmergencyPhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="StdBOD" Type="DateTime" Precision="0" />
-          <Property Name="StdBirthPlace" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdGender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdReligion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdFatherNID" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdMotherNID" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdCity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StdBirthPlace" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdGender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdReligion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdFatherNID" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="StdMotherNID" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="StdCity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="StdNID" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StdSchoolID" Type="Int32" Nullable="false" />
           <Property Name="StdClassID" Type="Int32" Nullable="false" />
-          <Property Name="StdNationality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdNationality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="StdJoinYear" Type="DateTime" Precision="0" />
-          <Property Name="StdStaffSon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdLegalGuardianship" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdParentsSeparated" Type="Boolean" Nullable="false" />
+          <Property Name="StdStaffSon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdLegalGuardianship" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StdParentsSeparated" Type="Boolean" />
           <NavigationProperty Name="Class" Relationship="Self.fk_class_main" FromRole="StudentsMain" ToRole="Class" />
           <NavigationProperty Name="NESSchool" Relationship="Self.fk_school_main" FromRole="StudentsMain" ToRole="NESSchools" />
           <NavigationProperty Name="StudentAccount" Relationship="Self.fkStd_account_data" FromRole="StudentsMain" ToRole="StudentAccounts" />
@@ -886,6 +924,11 @@
             <End Role="Cloth" EntitySet="Clothes" />
             <End Role="StudentClothe" EntitySet="StudentClothes" />
           </AssociationSet>
+          <AssociationSet Name="FK_Accounts_NESSchools" Association="Student_Affairs_DatabaseModel.FK_Accounts_NESSchools">
+            <End Role="NESSchool" EntitySet="NESSchools" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <EntitySet Name="PackageClothes" EntityType="Student_Affairs_DatabaseModel.PackageClothe" />
         </EntityContainer>
         <EntityType Name="Log">
           <Key>
@@ -1087,9 +1130,10 @@
             <PropertyRef Name="ClothesID" />
           </Key>
           <Property Name="ClothesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClothesName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ClothesName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ClothesPrice" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="StudentClothes" Relationship="Student_Affairs_DatabaseModel.fk_clothes_student" FromRole="Cloth" ToRole="StudentClothe" />
+          <Property Name="ClothesinPackagePrice" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="fk_clothes_student">
           <End Type="Student_Affairs_DatabaseModel.Cloth" Role="Cloth" Multiplicity="1" />
@@ -1103,6 +1147,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Accounts_NESSchools">
+          <End Type="Student_Affairs_DatabaseModel.NESSchool" Role="NESSchool" Multiplicity="0..1" />
+          <End Type="Student_Affairs_DatabaseModel.Account" Role="Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NESSchool">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="School" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PackageClothe">
+          <Key>
+            <PropertyRef Name="PackageID" />
+          </Key>
+          <Property Name="PackageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PackageName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PackagePrice" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1112,6 +1176,7 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Account">
               <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="School" ColumnName="School" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -1138,6 +1203,10 @@
           <EntitySetMapping Name="NESSchools">
             <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.NESSchool">
               <MappingFragment StoreEntitySet="NESSchools">
+                <ScalarProperty Name="SchoolEmail" ColumnName="SchoolEmail" />
+                <ScalarProperty Name="SchoolCambridge" ColumnName="SchoolCambridge" />
+                <ScalarProperty Name="SchoolContact" ColumnName="SchoolContact" />
+                <ScalarProperty Name="SchoolLocation" ColumnName="SchoolLocation" />
                 <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
                 <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
                 <ScalarProperty Name="SchooleAbbreviation" ColumnName="SchooleAbbreviation" />
@@ -1411,9 +1480,19 @@
           <EntitySetMapping Name="Clothes">
             <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Cloth">
               <MappingFragment StoreEntitySet="Clothes">
+                <ScalarProperty Name="ClothesinPackagePrice" ColumnName="ClothesinPackagePrice" />
                 <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
                 <ScalarProperty Name="ClothesName" ColumnName="ClothesName" />
                 <ScalarProperty Name="ClothesID" ColumnName="ClothesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PackageClothes">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.PackageClothe">
+              <MappingFragment StoreEntitySet="PackageClothes">
+                <ScalarProperty Name="PackagePrice" ColumnName="PackagePrice" />
+                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+                <ScalarProperty Name="PackageID" ColumnName="PackageID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

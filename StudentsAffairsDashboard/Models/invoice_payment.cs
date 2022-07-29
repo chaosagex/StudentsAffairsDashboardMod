@@ -35,7 +35,7 @@ namespace StudentsAffairsDashboard.Models
         public string reference_code { get; set; }
         public string depositer { get; set; }
         public short type { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<invoice_payment> invoice_payment1 { get; set; }
         public virtual invoice_payment invoice_payment2 { get; set; }
@@ -43,5 +43,4 @@ namespace StudentsAffairsDashboard.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual List<payment_details> payment_details { get; set; }
     }
-
 }

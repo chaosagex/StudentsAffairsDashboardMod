@@ -16,10 +16,7 @@ namespace StudentsAffairsDashboard.Controllers
         
         public ActionResult Index()
         {
-            ViewBag.ClassID  = new SelectList(db.Classes,    "ClassID",  "ClassName");
-            ViewBag.SchoolID = new SelectList(db.NESSchools, "SchoolID", "SchoolName");
-            ViewBag.GradeID  = new SelectList(db.Grades,     "GradeID",  "GradeName");
-            return View();
+            return View(db.NESSchools.ToList());
         }
 
         [HttpPost]
@@ -44,14 +41,78 @@ namespace StudentsAffairsDashboard.Controllers
             int School = Int32.Parse(SchoolID);
             int Class = Int32.Parse(ClassID);
             int Grade = Int32.Parse(GradeID);
-            ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName",School);
-            ViewBag.SchoolID = new SelectList(db.NESSchools, "SchoolID", "SchoolName",Class);
-            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName",Grade);
 
-            var searchResult = db.StudentGradesHistories.Where(a => a.StudentsMain.StdClassID == Class).Where(a => a.GradeID == Grade).Where(a => a.StudentsMain.NESSchool.SchoolID == School).ToList();
+
+            var ListNESSchools = db.NESSchools.ToList();
+            ListNESSchools.Add(new NESSchool() { SchoolID = -1, SchoolName = "All", SchooleAbbreviation = "All" });
+            var NESSchoolsResult = ListNESSchools.OrderBy(d => d.SchoolID).ToList();
+            ViewBag.SchoolID = new SelectList(NESSchoolsResult, "SchoolID", "SchoolName");
+
+            var ListClasses = db.Classes.ToList();
+            ListClasses.Add(new Class() { ClassID = -1, ClassName = "All" });
+            var ClassesResult = ListClasses.OrderBy(d => d.ClassID).ToList();
+            ViewBag.ClassID = new SelectList(ClassesResult, "ClassID", "ClassName");
+
+            var ListGrades = db.Grades.ToList();
+            ListGrades.Add(new Grade() { GradeID = -1, GradeName = "All" });
+            var GradesResult = ListGrades.OrderBy(d => d.GradeID).ToList();
+            ViewBag.GradeID = new SelectList(GradesResult, "GradeID", "GradeName");
+            var searchResult = db.StudentGradesHistories.ToList();
+
+            if (School == -1)
+            {
+                if (Grade == -1)
+                {
+                    if (Class == -1)
+                    {
+                        searchResult = db.StudentGradesHistories.ToList();
+                    }
+                    else
+                    {
+                        searchResult = db.StudentGradesHistories.Where(a => a.StudentsMain.StdClassID == Class).ToList();
+                    }
+                }
+                else 
+                {
+                    if (Class == -1)
+                    {
+                        searchResult = db.StudentGradesHistories.Where(a => a.GradeID == Grade).ToList();
+                    }
+                    else
+                    {
+                        searchResult = db.StudentGradesHistories.Where(a => a.StudentsMain.StdClassID == Class).Where(a => a.GradeID == Grade).ToList();
+                    }
+                }
+            }
+            else
+            {
+                if (Grade == -1)
+                {
+                    if (Class == -1)
+                    {
+                        searchResult = db.StudentGradesHistories.Where(a => a.StudentsMain.NESSchool.SchoolID == School).ToList();
+                    }
+                    else
+                    {
+                        searchResult = db.StudentGradesHistories.Where(a => a.StudentsMain.StdClassID == Class).Where(a => a.StudentsMain.NESSchool.SchoolID == School).ToList();
+                    }
+                }
+                else 
+                {
+                    if (Class == -1)
+                    {
+                        searchResult = db.StudentGradesHistories.Where(a => a.GradeID == Grade).Where(a => a.StudentsMain.NESSchool.SchoolID == School).ToList();
+                    }
+                    else
+                    {
+                        searchResult = db.StudentGradesHistories.Where(a => a.StudentsMain.StdClassID == Class).Where(a => a.GradeID == Grade).Where(a => a.StudentsMain.NESSchool.SchoolID == School).ToList();
+                    }
+                }
+            }
+            
             //.Where(a => a.NESSchool.SchoolID == School)
             //.Where(a => a.StdClassID == Class).ToList();
-            
+
             return View("Search", searchResult);
         }
 
@@ -88,6 +149,7 @@ namespace StudentsAffairsDashboard.Controllers
                     {
                         Session["Email"] = obj.Email.ToString();
                         Session["UserName"] = obj.UserName.ToString();
+                        Session["currentSchool"] = obj.School.ToString();
                         return RedirectToAction("Index");
                     }
                 }

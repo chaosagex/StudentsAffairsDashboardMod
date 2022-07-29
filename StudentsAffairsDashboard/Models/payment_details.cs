@@ -20,7 +20,7 @@ namespace StudentsAffairsDashboard.Models
         {
             this.invoice_payment = new HashSet<invoice_payment>();
         }
-    
+
         public int id { get; set; }
         public string name { get; set; }
         public int type { get; set; }

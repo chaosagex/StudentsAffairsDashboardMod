@@ -1,0 +1,47 @@
+﻿@model IEnumerable<StudentsAffairsDashboard.Models.StudentClothe>
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <thead>
+        <tr>
+            <th style="text-align: center; vertical-align: middle;">
+                Name
+            </th>
+            <th style="text-align: center; vertical-align: middle;">
+                Price
+            </th>
+            <th style="text-align: center; vertical-align: middle;">
+                Quantity
+            </th>
+            <th style="text-align: center; vertical-align: middle;">
+                ReceivingQuantity
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="text-align: center; vertical-align: middle;">
+                @Html.DisplayFor(modelItem => item.Cloth.ClothesName)
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    <span>@Html.DisplayFor(modelItem => item.Price)</span> EGP
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @item.Quantity
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    @item.ReceivingQuantity.Trim()
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+<div>
+    <p class="h2">Total <br> <b id="total">@Html.Display("Total")</b> EGP</p>
+</div>
+<br/>
+<div>
+    <p class="h2">Total + Tax <br> <b id="totaltax">@Html.Display("TotalTax")</b> EGP</p>
+</div>
