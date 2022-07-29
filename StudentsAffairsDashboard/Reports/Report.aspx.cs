@@ -31,7 +31,7 @@ namespace StudentsAffairsDashboard.Reports
             //ReportViewer1.ZoomMode = ZoomMode.FullPage;
 
             ReportViewer1.LocalReport.EnableExternalImages = true;
-            string schoolID = Session["CurrentSchool"].ToString();
+            string schoolID = Session["currentSchool"].ToString();
             string imagePath = new Uri(Server.MapPath($"~/Logos/{schoolID}.jpg")).AbsoluteUri;
 
             ReportParameter parameter = new ReportParameter("School", imagePath);

@@ -25,6 +25,7 @@
     <Property Name="ClothesName" Type="nvarchar" MaxLength="100" />
     <Property Name="ClothesPrice" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="ClothesinPackagePrice" Type="varchar" MaxLength="100" />
+    <Property Name="ClothesColor" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Grade">
     <Key>
@@ -416,6 +417,9 @@
   </Function>
   <Function Name="getPreviousPayment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="student" Type="int" Mode="In" />
+  </Function>
+  <Function Name="getUniformStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="stdcode" Type="int" Mode="In" />
   </Function>
   <Function Name="insertInvoiceItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="itemID" Type="int" Mode="In" />

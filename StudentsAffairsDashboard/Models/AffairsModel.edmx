@@ -934,7 +934,7 @@
           </AssociationSet>
           <EntitySet Name="PackageClothes" EntityType="Student_Affairs_DatabaseModel.PackageClothe" />
           <FunctionImport Name="getUniformStudent" ReturnType="Collection(Student_Affairs_DatabaseModel.getUniformStudent_Result)">
-            <Parameter Name="stdcode" Mode="In" Type="Int32" />
+          <Parameter Name="stdcode" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Log">

@@ -395,6 +395,9 @@
       <End Role="Account" EntitySet="Accounts" />
     </AssociationSet>
     <EntitySet Name="PackageClothes" EntityType="Student_Affairs_DatabaseModel.PackageClothe" />
+    <FunctionImport Name="getUniformStudent" ReturnType="Collection(Student_Affairs_DatabaseModel.getUniformStudent_Result)">
+      <Parameter Name="stdcode" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="Log">
     <Key>
@@ -600,6 +603,7 @@
     <Property Name="ClothesPrice" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="StudentClothes" Relationship="Student_Affairs_DatabaseModel.fk_clothes_student" FromRole="Cloth" ToRole="StudentClothe" />
     <Property Name="ClothesinPackagePrice" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ClothesColor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="fk_clothes_student">
     <End Type="Student_Affairs_DatabaseModel.Cloth" Role="Cloth" Multiplicity="1" />
@@ -633,4 +637,21 @@
     <Property Name="PackageName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="PackagePrice" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
+  <ComplexType Name="getUniformStudent_Result">
+    <Property Type="String" Name="ClothesName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Quantity" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Price" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="StdCode" Nullable="false" />
+    <Property Type="String" Name="ClothesPrice" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicFristName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicMiddleName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicFamilyName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="SchoolName" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="Serial" Nullable="false" />
+    <Property Type="Decimal" Name="amount" Nullable="false" Precision="19" />
+    <Property Type="String" Name="GradeName" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="SCID" Nullable="false" />
+    <Property Type="DateTime" Name="date" Nullable="false" />
+  </ComplexType>
 </Schema>

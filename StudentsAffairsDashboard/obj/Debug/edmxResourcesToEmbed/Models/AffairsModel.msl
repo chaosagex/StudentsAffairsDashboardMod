@@ -308,6 +308,7 @@
     <EntitySetMapping Name="Clothes">
       <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Cloth">
         <MappingFragment StoreEntitySet="Clothes">
+          <ScalarProperty Name="ClothesColor" ColumnName="ClothesColor" />
           <ScalarProperty Name="ClothesinPackagePrice" ColumnName="ClothesinPackagePrice" />
           <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
           <ScalarProperty Name="ClothesName" ColumnName="ClothesName" />
@@ -324,5 +325,26 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="getUniformStudent" FunctionName="Student_Affairs_DatabaseModel.Store.getUniformStudent">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getUniformStudent_Result">
+          <ScalarProperty Name="ClothesName" ColumnName="ClothesName" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="StdCode" ColumnName="StdCode" />
+          <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
+          <ScalarProperty Name="StdArabicFristName" ColumnName="StdArabicFristName" />
+          <ScalarProperty Name="StdArabicMiddleName" ColumnName="StdArabicMiddleName" />
+          <ScalarProperty Name="StdArabicLastName" ColumnName="StdArabicLastName" />
+          <ScalarProperty Name="StdArabicFamilyName" ColumnName="StdArabicFamilyName" />
+          <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+          <ScalarProperty Name="Serial" ColumnName="Serial" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+          <ScalarProperty Name="SCID" ColumnName="SCID" />
+          <ScalarProperty Name="date" ColumnName="date" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -149,7 +149,7 @@ namespace StudentsAffairsDashboard.Controllers
                     {
                         Session["Email"] = obj.Email.ToString();
                         Session["UserName"] = obj.UserName.ToString();
-                        Session["CurrentSchool"] = obj.School.ToString();
+                        Session["currentSchool"] = obj.School.ToString();
                         return RedirectToAction("Index");
                     }
                 }
