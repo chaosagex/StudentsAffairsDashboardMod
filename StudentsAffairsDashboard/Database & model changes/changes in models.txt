@@ -20,6 +20,7 @@ namespace StudentsAffairsDashboard.Models
         public int student { get; set; }
         [DataType(DataType.Date)]
         public System.DateTime date { get; set; }
+
         public decimal total_cost { get; set; }
         public decimal paid { get; set; }
         public decimal remaining { get; set; }
@@ -75,3 +76,13 @@ namespace StudentsAffairsDashboard.Models
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+=======
+		
+		public virtual List<payment_details> payment_details { get; set; }
+		
+		
+		
+payment_details
+[NotMapped]
+        public bool selected { get; set; }
+

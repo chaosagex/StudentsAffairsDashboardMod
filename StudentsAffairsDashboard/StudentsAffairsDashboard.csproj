@@ -263,6 +263,9 @@
     <Compile Include="Reports\Report.aspx.designer.cs">
       <DependentUpon>Report.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Student_Affairs_DatabaseDataSet.cs">
+      <DependentUpon>Student_Affairs_DatabaseDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Reports\Student_Affairs_DatabaseDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -400,9 +403,12 @@
     <Content Include="Content\Images\user3-128x128.jpg" />
     <Content Include="Content\Images\user8-128x128.jpg" />
     <Content Include="Content\responsive.bootstrap.min.css" />
+    <Content Include="Database &amp; model changes\changes in models.txt" />
+    <Content Include="Database &amp; model changes\invoiceDB.sql" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+
     <Content Include="Logos\1000.jpeg" />
     <Content Include="Logos\1001.jpeg" />
     <Content Include="Logos\1002.jpeg" />
@@ -418,6 +424,7 @@
     <Content Include="Logos\1012.jpeg" />
     <Content Include="Logos\1013.jpeg" />
     <Content Include="Logos\1014.jpeg" />
+
     <Content Include="Models\AffairsModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AffairsModel.edmx</DependentUpon>

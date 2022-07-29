@@ -230,7 +230,7 @@ namespace StudentsAffairsDashboard.Controllers
                 invoice.student = st;
                 if (x != null)
                     invoice.remaining = prev.remaining;
-
+                
                 payment_details item = new payment_details();
                 //string newNotes = "\r\n";
                 invoice.StudentsMain = stud;
@@ -246,6 +246,7 @@ namespace StudentsAffairsDashboard.Controllers
                 invoice.paid += item.amount;
                 //newNotes += item.name; ;
                 invoice.payment_details.Add(item);
+                invoice.total_cost = item.amount;
                 if (invoice.Notes == null)
                     invoice.Notes = "";
                     db.payment_details.Add(item);

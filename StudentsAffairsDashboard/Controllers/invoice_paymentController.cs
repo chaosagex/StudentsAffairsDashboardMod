@@ -22,6 +22,7 @@ namespace StudentsAffairsDashboard.Controllers
         // GET: invoice_payment
         public async Task<ActionResult> Index()
         {
+            
             var invoice_payment = db.invoice_payment.Include(i => i.invoice_payment2).Include(i => i.StudentsMain);
             return View(await invoice_payment.ToListAsync());
         }
@@ -76,7 +77,14 @@ namespace StudentsAffairsDashboard.Controllers
         // GET: invoice_payment/Create
         public ActionResult Create()
         {
-            return CreateView(startID);
+            if (Session["CurrentSchool"]==null)
+                return CreateView(startID);
+            else
+            {
+                int cur = Int32.Parse(Session["CurrentSchool"].ToString());
+                int st = db.StudentsMains.FirstOrDefault(s => s.StdSchoolID == cur).StdCode;
+                return CreateView(st);
+            }
 
         }
         public ActionResult CreateView(int st)
