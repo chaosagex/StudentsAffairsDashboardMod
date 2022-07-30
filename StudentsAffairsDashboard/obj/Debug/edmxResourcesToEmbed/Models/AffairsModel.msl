@@ -147,6 +147,7 @@
     <EntitySetMapping Name="StudentClothes">
       <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentClothe">
         <MappingFragment StoreEntitySet="StudentClothes">
+          <ScalarProperty Name="PackageStatus" ColumnName="PackageStatus" />
           <ScalarProperty Name="ReceivingQuantity" ColumnName="ReceivingQuantity" />
           <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
           <ScalarProperty Name="ReceivingStatus" ColumnName="ReceivingStatus" />

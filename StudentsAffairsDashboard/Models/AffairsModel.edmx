@@ -104,7 +104,7 @@
           <Property Name="school" Type="int" Nullable="false" />
           <Property Name="year" Type="char" MaxLength="9" Nullable="false" />
           <Property Name="student_type" Type="smallint" Nullable="false" />
-          <Property Name="Grade" Type="smallint" Nullable="false" />
+          <Property Name="Grade" Type="int" />
         </EntityType>
         <EntityType Name="StudentAccounts">
           <Key>
@@ -127,6 +127,7 @@
           <Property Name="ReceivingStatus" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="PaymentStatus" Type="varchar" MaxLength="100" />
           <Property Name="ReceivingQuantity" Type="nchar" MaxLength="10" />
+          <Property Name="PackageStatus" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="StudentGradesHistory">
           <Key>
@@ -146,11 +147,11 @@
           <Property Name="StdArabicFristName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="StdArabicMiddleName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="StdArabicLastName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdArabicFamilyName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdArabicFamilyName" Type="nvarchar" MaxLength="100" />
           <Property Name="StdEnglishFristName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="StdEnglishMiddleName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="StdEnglishLastName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="StdEnglishFamilyName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StdEnglishFamilyName" Type="varchar" MaxLength="100" />
           <Property Name="StdMotherArabicName" Type="nvarchar" MaxLength="100" />
           <Property Name="StdMotherEnglishName" Type="varchar" MaxLength="100" />
           <Property Name="StdFatherMobilePhone" Type="varchar" MaxLength="100" />
@@ -610,11 +611,11 @@
           <Property Name="StdArabicFristName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="StdArabicMiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="StdArabicLastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="StdArabicFamilyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StdArabicFamilyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="StdEnglishFristName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StdEnglishMiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StdEnglishLastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StdEnglishFamilyName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StdEnglishFamilyName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="StdMotherArabicName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="StdMotherEnglishName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="StdFatherMobilePhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -960,6 +961,7 @@
           <NavigationProperty Name="StudentsMain" Relationship="Student_Affairs_DatabaseModel.fk_stu_clothes" FromRole="StudentClothe" ToRole="StudentsMain" />
           <NavigationProperty Name="Cloth" Relationship="Student_Affairs_DatabaseModel.fk_clothes_student" FromRole="StudentClothe" ToRole="Cloth" />
           <Property Name="ReceivingQuantity" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PackageStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="fk_stu_clothes">
           <End Type="Student_Affairs_DatabaseModel.StudentsMain" Role="StudentsMain" Multiplicity="1" />
@@ -1005,7 +1007,7 @@
           <Property Name="school" Type="Int32" Nullable="false" />
           <Property Name="year" Type="String" Nullable="false" MaxLength="9" FixedLength="true" Unicode="false" />
           <Property Name="student_type" Type="Int16" Nullable="false" />
-          <Property Name="Grade" Type="Int16" Nullable="false" />
+          <Property Name="Grade" Type="Int32" />
           <NavigationProperty Name="NESSchool" Relationship="Student_Affairs_DatabaseModel.FK_payment_details_school" FromRole="payment_details" ToRole="NESSchool" />
           <NavigationProperty Name="invoice_payment" Relationship="Student_Affairs_DatabaseModel.invoice_item" FromRole="payment_details" ToRole="invoice_payment" />
         </EntityType>
@@ -1344,6 +1346,7 @@
           <EntitySetMapping Name="StudentClothes">
             <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentClothe">
               <MappingFragment StoreEntitySet="StudentClothes">
+                <ScalarProperty Name="PackageStatus" ColumnName="PackageStatus" />
                 <ScalarProperty Name="ReceivingQuantity" ColumnName="ReceivingQuantity" />
                 <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
                 <ScalarProperty Name="ReceivingStatus" ColumnName="ReceivingStatus" />

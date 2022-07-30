@@ -26,6 +26,7 @@ namespace StudentsAffairsDashboard.Models
         public int student { get; set; }
         [DataType(DataType.Date)]
         public System.DateTime date { get; set; }
+
         public decimal total_cost { get; set; }
         public decimal paid { get; set; }
         public decimal remaining { get; set; }

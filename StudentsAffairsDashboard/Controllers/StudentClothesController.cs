@@ -17,6 +17,7 @@ namespace StudentsAffairsDashboard.Controllers
         // GET: StudentClothes
         public ActionResult Index()
         {
+            int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
             var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount);
             return View(studentsMains.ToList());
         }
@@ -48,7 +49,8 @@ namespace StudentsAffairsDashboard.Controllers
             {
                 ViewBag.StdName = db.StudentsMains.Find(id).StdEnglishFristName + " " + db.StudentsMains.Find(id).StdEnglishMiddleName + " " + db.StudentsMains.Find(id).StdEnglishLastName + " " + db.StudentsMains.Find(id).StdEnglishFamilyName;
                 ViewBag.StdSchool = db.StudentsMains.Find(id).NESSchool.SchoolName;
-                ViewBag.StdGrade = db.StudentsMains.Find(id).StudentGradesHistories.LastOrDefault().Grade.GradeName;
+                ViewBag.StdGrade = db.StudentsMains.Find(id).StudentGradesHistories.OrderBy(a=>a.GradeID).LastOrDefault().Grade.GradeName;
+                ViewBag.StdGradeID = db.StudentsMains.Find(id).StudentGradesHistories.OrderBy(a => a.GradeID).LastOrDefault().Grade.GradeID.ToString();
                 ViewBag.StdClass = db.StudentsMains.Find(id).Class.ClassName;
                 ViewBag.StdCode = id;
 
@@ -72,12 +74,12 @@ namespace StudentsAffairsDashboard.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult UpdateItems(string searchText, string Code,string packageName,string packageValue)
+        public ActionResult UpdateItems(string searchText, string Code,string packageName)
         {
             string[] words = searchText.Split('&');
             int i = 0;
             double total = 0;
-
+            List<Cloth> ItemsPackage = new List<Cloth>();
             if (packageName == "KGBoy")
             {
                 foreach (var itemm in db.Clothes)
@@ -98,7 +100,9 @@ namespace StudentsAffairsDashboard.Controllers
                         studentClothe.PaymentStatus = "True";
                         studentClothe.ReceivingStatus = "False";
                         studentClothe.ReceivingQuantity = "0";
+                        studentClothe.PackageStatus = "InPackage";
                         db.StudentClothes.Add(studentClothe);
+                        ItemsPackage.Add(itemm);
                     }
 
                 }
@@ -123,7 +127,9 @@ namespace StudentsAffairsDashboard.Controllers
                         studentClothe.PaymentStatus = "True";
                         studentClothe.ReceivingStatus = "False";
                         studentClothe.ReceivingQuantity = "0";
+                        studentClothe.PackageStatus = "InPackage";
                         db.StudentClothes.Add(studentClothe);
+                        ItemsPackage.Add(itemm);
                     }
 
                 }
@@ -148,12 +154,14 @@ namespace StudentsAffairsDashboard.Controllers
                         studentClothe.PaymentStatus = "True";
                         studentClothe.ReceivingStatus = "False";
                         studentClothe.ReceivingQuantity = "0";
+                        studentClothe.PackageStatus = "InPackage";
                         db.StudentClothes.Add(studentClothe);
+                        ItemsPackage.Add(itemm);
                     }
 
                 }
             }
-            if (packageName == "PreparatoryBoyGirl" || packageName == "SecondaryBoyGirl")
+            if (packageName == "PreparatoryBoyGirl")
             {
                 foreach (var itemm in db.Clothes)
                 {
@@ -173,13 +181,42 @@ namespace StudentsAffairsDashboard.Controllers
                         studentClothe.PaymentStatus = "True";
                         studentClothe.ReceivingStatus = "False";
                         studentClothe.ReceivingQuantity = "0";
+                        studentClothe.PackageStatus = "InPackage";
                         db.StudentClothes.Add(studentClothe);
+                        ItemsPackage.Add(itemm);
                     }
 
                 }
             }
-            
-            foreach (var itemm in db.Clothes)
+
+            if (packageName == "SecondaryBoyGirl")
+            {
+                foreach (var itemm in db.Clothes)
+                {
+                    if (itemm.ClothesID == 25
+                        || itemm.ClothesID == 26
+                        || itemm.ClothesID == 27
+                        || itemm.ClothesID == 28
+                        || itemm.ClothesID == 29
+                        || itemm.ClothesID == 30)
+                    {
+                        StudentClothe studentClothe = new StudentClothe();
+                        studentClothe.StdCode = Int32.Parse(Code);
+                        studentClothe.ClothesID = itemm.ClothesID;
+                        studentClothe.Quantity = "1";
+                        studentClothe.Price = itemm.ClothesinPackagePrice;
+                        total += Double.Parse(itemm.ClothesinPackagePrice);
+                        studentClothe.PaymentStatus = "True";
+                        studentClothe.ReceivingStatus = "False";
+                        studentClothe.ReceivingQuantity = "0";
+                        studentClothe.PackageStatus = "InPackage";
+                        db.StudentClothes.Add(studentClothe);
+                        ItemsPackage.Add(itemm);
+                    }
+
+                }
+            }
+            foreach (var itemm in ItemsPackage)
             {
                 string[] wordd = words[i].Split('=');
                 System.Diagnostics.Debug.WriteLine(wordd[0] + "   " + wordd[1]);
@@ -194,10 +231,12 @@ namespace StudentsAffairsDashboard.Controllers
                     studentClothe.PaymentStatus = "True";
                     studentClothe.ReceivingStatus = "False";
                     studentClothe.ReceivingQuantity = "0";
+                    studentClothe.PackageStatus = "OutPackage";
                     db.StudentClothes.Add(studentClothe);
+                    
                 }
                 i++;
-                
+
             }
                 
                 invoice_payment invoice = new invoice_payment();
@@ -239,15 +278,17 @@ namespace StudentsAffairsDashboard.Controllers
                 item.name = "uniform";
                 item.selected = true;
                 item.school = stud.StdSchoolID;
-                item.Grade = (short)studentGrade;
+                item.Grade = studentGrade;
                 item.year = year;
                 item.student_type = studentType;
-                item.amount = (decimal)(total + (total*0.14));
+                item.amount = (decimal)(total);
                 invoice.paid += item.amount;
                 //newNotes += item.name; ;
                 invoice.payment_details.Add(item);
                 invoice.total_cost = item.amount;
-                if (invoice.Notes == null)
+                invoice.type = 1; // POS
+
+            if (invoice.Notes == null)
                     invoice.Notes = "";
                     db.payment_details.Add(item);
                     db.SaveChanges();
@@ -319,10 +360,13 @@ namespace StudentsAffairsDashboard.Controllers
         // GET: StudentClothes/Edit/5
         public ActionResult UniformReport()
         {
-            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount);
+            int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
+            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a => a.NESSchool.SchoolID == SchoolIDsession); ;
+            
             ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName");
             ViewBag.SchoolID = new SelectList(db.NESSchools, "SchoolID", "SchoolName");
             ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
+            
             return View(studentsMains.ToList());
         }
         public ActionResult UniformReportResult(string searchText,string SchoolID,string GradeID)
@@ -476,6 +520,12 @@ namespace StudentsAffairsDashboard.Controllers
         public ActionResult Details(string customerId)
         {
             int Code = Int32.Parse(customerId);
+            ViewBag.StdName = db.StudentsMains.Find(customerId).StdEnglishFristName + " " + db.StudentsMains.Find(customerId).StdEnglishMiddleName + " " + db.StudentsMains.Find(customerId).StdEnglishLastName + " " + db.StudentsMains.Find(customerId).StdEnglishFamilyName;
+            ViewBag.StdSchool = db.StudentsMains.Find(customerId).NESSchool.SchoolName;
+            ViewBag.StdGrade = db.StudentsMains.Find(customerId).StudentGradesHistories.OrderBy(a => a.GradeID).LastOrDefault().Grade.GradeName;
+            ViewBag.StdGradecustomerId = db.StudentsMains.Find(customerId).StudentGradesHistories.OrderBy(a => a.GradeID).LastOrDefault().Grade.GradeID.ToString();
+            ViewBag.StdClass = db.StudentsMains.Find(customerId).Class.ClassName;
+            
             var StudentsClothesData = db.StudentClothes.Where(a => a.StdCode == Code);
             ViewBag.Total = 0;
             double Total = 0;

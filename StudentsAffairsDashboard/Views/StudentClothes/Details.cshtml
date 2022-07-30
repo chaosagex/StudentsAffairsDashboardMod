@@ -1,47 +1,59 @@
 ﻿@model IEnumerable<StudentsAffairsDashboard.Models.StudentClothe>
 
-<table cellpadding="0" cellspacing="0" border="0">
-    <thead>
-        <tr>
-            <th style="text-align: center; vertical-align: middle;">
-                Name
-            </th>
-            <th style="text-align: center; vertical-align: middle;">
-                Price
-            </th>
-            <th style="text-align: center; vertical-align: middle;">
-                Quantity
-            </th>
-            <th style="text-align: center; vertical-align: middle;">
-                ReceivingQuantity
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td style="text-align: center; vertical-align: middle;">
-                @Html.DisplayFor(modelItem => item.Cloth.ClothesName)
-                </td>
-                <td style="text-align: center; vertical-align: middle;">
-                    <span>@Html.DisplayFor(modelItem => item.Price)</span> EGP
-                </td>
-                <td style="text-align: center; vertical-align: middle;">
-                    @item.Quantity
-                </td>
-                <td style="text-align: center; vertical-align: middle;">
-                    @item.ReceivingQuantity.Trim()
-                </td>
-            </tr>
 
-        }
-    </tbody>
-</table>
 <div>
-    <p class="h2">Total <br> <b id="total">@Html.Display("Total")</b> EGP</p>
+    <p>Total <br> <b id="total">@Html.Display("Total")</b> EGP</p>
 </div>
-<br/>
-<div>
-    <p class="h2">Total + Tax <br> <b id="totaltax">@Html.Display("TotalTax")</b> EGP</p>
+
+
+<div class="card card-widget widget-user-2 shadow-sm">
+    <!-- Add the bg color to the header using any of the bg-* classes -->
+    <div class="widget-user-header bg-warning">
+        <div class="widget-user-image">
+            <img class="img-circle elevation-2" src="~/Logos/@(Session["CurrentSchool"].ToString()+".jpeg")" alt="User Avatar">
+        </div>
+        <!-- /.widget-user-image -->
+        <h3 class="widget-user-username">@Html.Display("StdName")</h3>
+        <h5 class="widget-user-desc">NES @Html.Display("StdSchool") - @Html.Display("StdGrade") - @Html.Display("StdClass")</h5>
+    </div>
+    <div class="card-footer p-0">
+        <ul class="nav flex-column">
+            @foreach (var item in Model)
+            {
+                <li class="nav-item">
+                        @Html.DisplayFor(modelItem => item.Cloth.ClothesName) <span class="text-center badge bg-primary">@item.Quantity</span> <span class="float-right badge bg-primary">@item.ReceivingQuantity.Trim()</span>
+                </li>
+
+
+
+
+            }
+        </ul>
+    </div>
+</div>
+
+<div class="card card-widget widget-user-2 shadow-sm">
+    <!-- Add the bg color to the header using any of the bg-* classes -->
+    <div class="widget-user-header bg-warning">
+        <div class="widget-user-image">
+            <img class="img-circle elevation-2" src="~/Logos/@(Session["CurrentSchool"].ToString()+".jpeg")" alt="User Avatar">
+        </div>
+        <!-- /.widget-user-image -->
+        <h3 class="widget-user-username">@Html.Display("StdName")</h3>
+        <h5 class="widget-user-desc">NES @Html.Display("StdSchool") - @Html.Display("StdGrade") - @Html.Display("StdClass")</h5>
+    </div>
+    <div class="card-footer p-0">
+        <ul class="nav flex-column">
+            @foreach (var item in Model)
+            {
+                <li class="nav-item">
+                    @Html.DisplayFor(modelItem => item.Cloth.ClothesName) <span class="text-center badge bg-primary">@item.Quantity</span> <span class="float-right badge bg-primary">@item.ReceivingQuantity.Trim()</span>
+                </li>
+
+
+
+
+            }
+        </ul>
+    </div>
 </div>

@@ -6,23 +6,35 @@
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="@Url.Action("Index","Home")" class="nav-link">Home</a>
-        </li>        
+        </li>
     </ul>
-    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    @if (Session["UserName"].ToString().Contains("Accounts"))
     {
-        <div class="form-inline">
-            <div class="input-group">
-                <input class="form-control form-control-navbar" type="search" placeholder="Enter Name" aria-label="Search" name="customerName" style="width: 400px;">
-                <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit" name="btnSearch">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-
-        </div>
 
     }
+    @if (Session["UserName"].ToString().Contains("Uniform"))
+    {
+
+    }
+    @if (Session["UserName"].ToString().Contains("Admin"))
+    {
+        using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+            <div class="form-inline">
+                <div class="input-group">
+                    <input class="form-control form-control-navbar" type="search" placeholder="Enter Name" aria-label="Search" name="customerName" style="width: 400px;">
+                    <div class="input-group-append">
+                        <button class="btn btn-navbar" type="submit" name="btnSearch">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        }
+    }
+
 
     <!-- SEARCH FORM -->
     @*<form class="form-inline ml-3"  method="POST">
