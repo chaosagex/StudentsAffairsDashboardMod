@@ -14,6 +14,7 @@ namespace StudentsAffairsDashboard.Controllers
     {
         private StudentAffairsDatabaseEntities db = new StudentAffairsDatabaseEntities();
 
+        
         // GET: StudentClothes
         public ActionResult Index()
         {
