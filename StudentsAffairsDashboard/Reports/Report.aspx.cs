@@ -19,7 +19,7 @@ namespace StudentsAffairsDashboard.Reports
             ReportViewer1.Reset();
 
             ReportViewer1.ProcessingMode = ProcessingMode.Local;
-            ReportViewer1.LocalReport.ReportPath = Server.MapPath("Report1.rdlc");
+            ReportViewer1.LocalReport.ReportPath = Server.MapPath("Uniform_Invoice.rdlc");
 
             DataTable dt = GetData(Request.QueryString["student"]);
             ReportDataSource rds = new ReportDataSource("Uniforms", dt);
