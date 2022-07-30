@@ -10435,6 +10435,8 @@ namespace StudentsAffairsDashboard.Reports {
             
             private global::System.Data.DataColumn columnPackageStatus;
             
+            private global::System.Data.DataColumn columnReceivingStatus;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public UniformsDataTable() {
@@ -10614,6 +10616,14 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn ReceivingStatusColumn {
+                get {
+                    return this.columnReceivingStatus;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -10649,7 +10659,23 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public UniformsRow AddUniformsRow(string ClothesName, string Quantity, string Price, string ClothesPrice, string StdArabicFristName, string StdArabicMiddleName, string StdArabicLastName, string StdArabicFamilyName, string SchoolName, decimal amount, string GradeName, System.DateTime date, string ClothesinPackagePrice, string ClothesColor, string PackageStatus) {
+            public UniformsRow AddUniformsRow(
+                        string ClothesName, 
+                        string Quantity, 
+                        string Price, 
+                        string ClothesPrice, 
+                        string StdArabicFristName, 
+                        string StdArabicMiddleName, 
+                        string StdArabicLastName, 
+                        string StdArabicFamilyName, 
+                        string SchoolName, 
+                        decimal amount, 
+                        string GradeName, 
+                        System.DateTime date, 
+                        string ClothesinPackagePrice, 
+                        string ClothesColor, 
+                        string PackageStatus, 
+                        string ReceivingStatus) {
                 UniformsRow rowUniformsRow = ((UniformsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ClothesName,
@@ -10669,7 +10695,8 @@ namespace StudentsAffairsDashboard.Reports {
                         date,
                         ClothesinPackagePrice,
                         ClothesColor,
-                        PackageStatus};
+                        PackageStatus,
+                        ReceivingStatus};
                 rowUniformsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowUniformsRow);
                 return rowUniformsRow;
@@ -10719,6 +10746,7 @@ namespace StudentsAffairsDashboard.Reports {
                 this.columnClothesinPackagePrice = base.Columns["ClothesinPackagePrice"];
                 this.columnClothesColor = base.Columns["ClothesColor"];
                 this.columnPackageStatus = base.Columns["PackageStatus"];
+                this.columnReceivingStatus = base.Columns["ReceivingStatus"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10760,6 +10788,8 @@ namespace StudentsAffairsDashboard.Reports {
                 base.Columns.Add(this.columnClothesColor);
                 this.columnPackageStatus = new global::System.Data.DataColumn("PackageStatus", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPackageStatus);
+                this.columnReceivingStatus = new global::System.Data.DataColumn("ReceivingStatus", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReceivingStatus);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnStdCode,
                                 this.columnSerial,
@@ -10802,6 +10832,8 @@ namespace StudentsAffairsDashboard.Reports {
                 this.columnClothesinPackagePrice.MaxLength = 100;
                 this.columnClothesColor.MaxLength = 100;
                 this.columnPackageStatus.MaxLength = 100;
+                this.columnReceivingStatus.AllowDBNull = false;
+                this.columnReceivingStatus.MaxLength = 100;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -15628,6 +15660,17 @@ namespace StudentsAffairsDashboard.Reports {
                 }
                 set {
                     this[this.tableUniforms.PackageStatusColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string ReceivingStatus {
+                get {
+                    return ((string)(this[this.tableUniforms.ReceivingStatusColumn]));
+                }
+                set {
+                    this[this.tableUniforms.ReceivingStatusColumn] = value;
                 }
             }
             
@@ -24289,6 +24332,7 @@ namespace StudentsAffairsDashboard.Reports.Student_Affairs_DatabaseDataSetTableA
             tableMapping.ColumnMappings.Add("ClothesinPackagePrice", "ClothesinPackagePrice");
             tableMapping.ColumnMappings.Add("ClothesColor", "ClothesColor");
             tableMapping.ColumnMappings.Add("PackageStatus", "PackageStatus");
+            tableMapping.ColumnMappings.Add("ReceivingStatus", "ReceivingStatus");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -24309,7 +24353,7 @@ namespace StudentsAffairsDashboard.Reports.Student_Affairs_DatabaseDataSetTableA
             this._commandCollection[0].CommandText = @"SELECT DISTINCT 
                          Clothes.ClothesName, StudentClothes.Quantity, StudentClothes.Price, StudentsMain.StdCode, Clothes.ClothesPrice, StudentsMain.StdArabicFristName, StudentsMain.StdArabicMiddleName, StudentsMain.StdArabicLastName, 
                          StudentsMain.StdArabicFamilyName, NESSchools.SchoolName, invoice_payment.id AS Serial, payment_details.amount, Grade.GradeName, StudentClothes.SCID, invoice_payment.date, Clothes.ClothesinPackagePrice, 
-                         Clothes.ClothesColor, StudentClothes.PackageStatus
+                         Clothes.ClothesColor, StudentClothes.PackageStatus, StudentClothes.ReceivingStatus
 FROM            StudentClothes INNER JOIN
                          Clothes ON StudentClothes.ClothesID = Clothes.ClothesID INNER JOIN
                          StudentsMain ON StudentClothes.StdCode = StudentsMain.StdCode INNER JOIN
@@ -24317,7 +24361,9 @@ FROM            StudentClothes INNER JOIN
                          invoice_payment ON StudentsMain.StdCode = invoice_payment.student INNER JOIN
                          invoice_item ON invoice_payment.id = invoice_item.invoice INNER JOIN
                          payment_details ON NESSchools.SchoolID = payment_details.school AND invoice_item.payment_item = payment_details.id INNER JOIN
-                         Grade ON Grade.GradeID = payment_details.Grade";
+                         Grade ON Grade.GradeID = payment_details.Grade
+where
+                        StudentClothes.ReceivingStatus = 'False'";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
