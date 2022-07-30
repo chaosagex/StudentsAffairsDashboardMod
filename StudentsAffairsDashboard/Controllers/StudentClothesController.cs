@@ -95,7 +95,7 @@ namespace StudentsAffairsDashboard.Controllers
                         studentClothe.StdCode = Int32.Parse(Code);
                         studentClothe.ClothesID = itemm.ClothesID;
                         studentClothe.Quantity = "1";
-                        studentClothe.Price = itemm.ClothesinPackagePrice;
+                        studentClothe.Price = Double.Parse(itemm.ClothesinPackagePrice).ToString();
                         total += Double.Parse(itemm.ClothesinPackagePrice);
                         studentClothe.PaymentStatus = "True";
                         studentClothe.ReceivingStatus = "False";
@@ -122,7 +122,7 @@ namespace StudentsAffairsDashboard.Controllers
                         studentClothe.StdCode = Int32.Parse(Code);
                         studentClothe.ClothesID = itemm.ClothesID;
                         studentClothe.Quantity = "1";
-                        studentClothe.Price = itemm.ClothesinPackagePrice;
+                        studentClothe.Price = Double.Parse(itemm.ClothesinPackagePrice).ToString();
                         total += Double.Parse(itemm.ClothesinPackagePrice);
                         studentClothe.PaymentStatus = "True";
                         studentClothe.ReceivingStatus = "False";
@@ -149,7 +149,7 @@ namespace StudentsAffairsDashboard.Controllers
                         studentClothe.StdCode = Int32.Parse(Code);
                         studentClothe.ClothesID = itemm.ClothesID;
                         studentClothe.Quantity = "1";
-                        studentClothe.Price = itemm.ClothesinPackagePrice;
+                        studentClothe.Price = Double.Parse(itemm.ClothesinPackagePrice).ToString();
                         total += Double.Parse(itemm.ClothesinPackagePrice);
                         studentClothe.PaymentStatus = "True";
                         studentClothe.ReceivingStatus = "False";
@@ -176,7 +176,7 @@ namespace StudentsAffairsDashboard.Controllers
                         studentClothe.StdCode = Int32.Parse(Code);
                         studentClothe.ClothesID = itemm.ClothesID;
                         studentClothe.Quantity = "1";
-                        studentClothe.Price = itemm.ClothesinPackagePrice;
+                        studentClothe.Price = Double.Parse(itemm.ClothesinPackagePrice).ToString();
                         total += Double.Parse(itemm.ClothesinPackagePrice);
                         studentClothe.PaymentStatus = "True";
                         studentClothe.ReceivingStatus = "False";
@@ -226,8 +226,8 @@ namespace StudentsAffairsDashboard.Controllers
                     studentClothe.StdCode = Int32.Parse(Code);
                     studentClothe.ClothesID = itemm.ClothesID;
                     studentClothe.Quantity = wordd[1];
-                    studentClothe.Price = (Int32.Parse(wordd[1]) * Int32.Parse(itemm.ClothesPrice)).ToString();
-                    total += (Int32.Parse(wordd[1]) * Int32.Parse(itemm.ClothesPrice));
+                    studentClothe.Price = (Double.Parse(wordd[1]) * Double.Parse(itemm.ClothesPrice)).ToString();
+                    total += (Double.Parse(wordd[1]) * Double.Parse(itemm.ClothesPrice));
                     studentClothe.PaymentStatus = "True";
                     studentClothe.ReceivingStatus = "False";
                     studentClothe.ReceivingQuantity = "0";
@@ -308,6 +308,7 @@ namespace StudentsAffairsDashboard.Controllers
             log.Times = now.ToString();
             log.LogContent = "Uniform : Account (" + Session["UserName"].ToString() + ") Received Student Uniform With ID: (" + Code + ") and invoice with Total Amount = "+item.amount+" EGP";
             bool checklog = logs.Create(log);
+            db.SaveChanges();
 
 
             return RedirectToAction("Index");
@@ -520,11 +521,11 @@ namespace StudentsAffairsDashboard.Controllers
         public ActionResult Details(string customerId)
         {
             int Code = Int32.Parse(customerId);
-            ViewBag.StdName = db.StudentsMains.Find(customerId).StdEnglishFristName + " " + db.StudentsMains.Find(customerId).StdEnglishMiddleName + " " + db.StudentsMains.Find(customerId).StdEnglishLastName + " " + db.StudentsMains.Find(customerId).StdEnglishFamilyName;
-            ViewBag.StdSchool = db.StudentsMains.Find(customerId).NESSchool.SchoolName;
-            ViewBag.StdGrade = db.StudentsMains.Find(customerId).StudentGradesHistories.OrderBy(a => a.GradeID).LastOrDefault().Grade.GradeName;
-            ViewBag.StdGradecustomerId = db.StudentsMains.Find(customerId).StudentGradesHistories.OrderBy(a => a.GradeID).LastOrDefault().Grade.GradeID.ToString();
-            ViewBag.StdClass = db.StudentsMains.Find(customerId).Class.ClassName;
+            ViewBag.StdName = db.StudentsMains.Find(Code).StdEnglishFristName + " " + db.StudentsMains.Find(Code).StdEnglishMiddleName + " " + db.StudentsMains.Find(Code).StdEnglishLastName + " " + db.StudentsMains.Find(Code).StdEnglishFamilyName;
+            ViewBag.StdSchool = db.StudentsMains.Find(Code).NESSchool.SchoolName;
+            ViewBag.StdGrade = db.StudentsMains.Find(Code).StudentGradesHistories.OrderBy(a => a.GradeID).LastOrDefault().Grade.GradeName;
+            ViewBag.StdGradecustomerId = db.StudentsMains.Find(Code).StudentGradesHistories.OrderBy(a => a.GradeID).LastOrDefault().Grade.GradeID.ToString();
+            ViewBag.StdClass = db.StudentsMains.Find(Code).Class.ClassName;
             
             var StudentsClothesData = db.StudentClothes.Where(a => a.StdCode == Code);
             ViewBag.Total = 0;
