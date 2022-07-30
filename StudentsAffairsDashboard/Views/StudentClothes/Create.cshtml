@@ -17,16 +17,16 @@
                         <div class="row">
                             <input type="hidden" id="StdCode" value="@Html.Display("StdCode")">
                             <div class="custom-control custom-checkbox pb-3 col-6">
-                                <h4><b>Full Name : @Html.Display("StdName")</b></h4>
+                                <p><b>Full Name : @Html.Display("StdName")</b></p>
                             </div>
                             <div class="custom-control custom-checkbox pb-3 col-2">
-                                <h4><b>@Html.Display("StdSchool")</b></h4>
+                                <p><b>@Html.Display("StdSchool")</b></p>
                             </div>
                             <div class="custom-control custom-checkbox pb-3 col-2">
-                                <h4><b>@Html.Display("StdGrade")</b></h4>
+                                <p><b>@Html.Display("StdGrade")</b></p>
                             </div>
                             <div class="custom-control custom-checkbox pb-3 col-2">
-                                <h4><b>@Html.Display("StdClass")</b></h4>
+                                <p><b>@Html.Display("StdClass")</b></p>
                             </div>
                         </div>
 
@@ -38,47 +38,67 @@
             <div class="row w-100">
                 <div class="col-lg-12 col-md-12 col-12">
                     <div class="row text-center">
-                        <div class="custom-control custom-checkbox pb-3 col-3">
-                            <input type="checkbox" id="KG12Boy" class="custom-control-input">
-                            <label class="custom-control-label" for="KG12Boy"><b>KG 1-2 (Boy)</b></label>
-                            <input type="hidden" id="P_KG12Boy" value="@Html.Display("P_KG12Boy")" />
-                        </div>
-                        <div class="custom-control custom-checkbox pb-3 col-3">
-                            <input type="checkbox" id="Grade16Boy" class="custom-control-input">
-                            <label class="custom-control-label" for="Grade16Boy"><b>Grade 1-6 (Boy)</b></label>
-                            <input type="hidden" id="P_Grade16Boy" value="@Html.Display("P_Grade16Boy")" />
-                        </div>
-                        <div class="custom-control custom-checkbox pb-3 col-3">
-                            <input type="checkbox" id="Grade79Boy" class="custom-control-input">
-                            <label class="custom-control-label" for="Grade79Boy"><b>Grade 7-9 (Boy)</b></label>
-                            <input type="hidden" id="P_Grade79Boy" value="@Html.Display("P_Grade79Boy")" />
-                        </div>
-                        <div class="custom-control custom-checkbox pb-3 col-3">
-                            <input type="checkbox" id="Grade1012Boy" class="custom-control-input">
-                            <label class="custom-control-label" for="Grade1012Boy"><b>Grade 10-12 (Boy)</b></label>
-                            <input type="hidden" id="P_Grade1012Boy" value="@Html.Display("P_Grade1012Boy")" />
-                        </div>
+                        @if (@Html.Display("StdGradeID").ToString().Equals("101") || @Html.Display("StdGradeID").ToString().Equals("102") || @Html.Display("StdGradeID").ToString().Equals("103"))
+                        {
+                            <div class="custom-control custom-checkbox pb-3 col-3">
+                                <input type="checkbox" id="KG12Boy" class="custom-control-input">
+                                <label class="custom-control-label" for="KG12Boy"><b>KG 1-2 (Boy)</b></label>
+                                <input type="hidden" id="P_KG12Boy" value="@Html.Display("P_KG12Boy")" />
+                            </div>
+                            <div class="custom-control custom-checkbox pb-3 col-3">
+                                <input type="checkbox" id="KG12Girl" class="custom-control-input">
+                                <label class="custom-control-label" for="KG12Girl"><b>KG 1-2 (Girl)</b></label>
+                                <input type="hidden" id="P_KG12Girl" value="@Html.Display("P_KG12Girl")" />
+                            </div>
+                        }
+                        @if (@Html.Display("StdGradeID").ToString().Equals("201") || @Html.Display("StdGradeID").ToString().Equals("202") || @Html.Display("StdGradeID").ToString().Equals("203") || @Html.Display("StdGradeID").ToString().Equals("204") || @Html.Display("StdGradeID").ToString().Equals("205") || @Html.Display("StdGradeID").ToString().Equals("206"))
+                        {
+                            <div class="custom-control custom-checkbox pb-3 col-3">
+                                <input type="checkbox" id="Grade16Boy" class="custom-control-input">
+                                <label class="custom-control-label" for="Grade16Boy"><b>Grade 1-6 (Boy)</b></label>
+                                <input type="hidden" id="P_Grade16Boy" value="@Html.Display("P_Grade16Boy")" />
+                            </div>
 
-                        <div class="custom-control custom-checkbox pb-3 col-3">
-                            <input type="checkbox" id="KG12Girl" class="custom-control-input">
-                            <label class="custom-control-label" for="KG12Girl"><b>KG 1-2 (Girl)</b></label>
-                            <input type="hidden" id="P_KG12Girl" value="@Html.Display("P_KG12Girl")" />
-                        </div>
-                        <div class="custom-control custom-checkbox pb-3 col-3">
-                            <input type="checkbox" id="Grade16Girl" class="custom-control-input">
-                            <label class="custom-control-label" for="Grade16Girl"><b>Grade 1-6 (Girl)</b></label>
-                            <input type="hidden" id="P_Grade16Girl" value="@Html.Display("P_Grade16Girl")" />
-                        </div>
-                        <div class="custom-control custom-checkbox pb-3 col-3">
-                            <input type="checkbox" id="Grade79Girl" class="custom-control-input">
-                            <label class="custom-control-label" for="Grade79Girl"><b>Grade 7-9 (Girl)</b></label>
-                            <input type="hidden" id="P_Grade79Girl" value="@Html.Display("P_Grade79Girl")" />
-                        </div>
-                        <div class="custom-control custom-checkbox pb-3 col-3">
-                            <input type="checkbox" id="Grade1012Girl" class="custom-control-input">
-                            <label class="custom-control-label" for="Grade1012Girl"><b>Grade 10-12 (Girl)</b></label>
-                            <input type="hidden" id="P_Grade1012Girl" value="@Html.Display("P_Grade1012Girl")" />
-                        </div>
+                            <div class="custom-control custom-checkbox pb-3 col-3">
+                                <input type="checkbox" id="Grade16Girl" class="custom-control-input">
+                                <label class="custom-control-label" for="Grade16Girl"><b>Grade 1-6 (Girl)</b></label>
+                                <input type="hidden" id="P_Grade16Girl" value="@Html.Display("P_Grade16Girl")" />
+                            </div>
+                        }
+                        @if (@Html.Display("StdGradeID").ToString().Equals("301") || @Html.Display("StdGradeID").ToString().Equals("302") || @Html.Display("StdGradeID").ToString().Equals("303"))
+                        {
+                            <div class="custom-control custom-checkbox pb-3 col-3">
+                                <input type="checkbox" id="Grade79Boy" class="custom-control-input">
+                                <label class="custom-control-label" for="Grade79Boy"><b>Grade 7-9 (Boy)</b></label>
+                                <input type="hidden" id="P_Grade79Boy" value="@Html.Display("P_Grade79Boy")" />
+                            </div>
+                            <div class="custom-control custom-checkbox pb-3 col-3">
+                                <input type="checkbox" id="Grade79Girl" class="custom-control-input">
+                                <label class="custom-control-label" for="Grade79Girl"><b>Grade 7-9 (Girl)</b></label>
+                                <input type="hidden" id="P_Grade79Girl" value="@Html.Display("P_Grade79Girl")" />
+                            </div>
+                        }
+                        @if (@Html.Display("StdGradeID").ToString().Equals("401") || @Html.Display("StdGradeID").ToString().Equals("402") || @Html.Display("StdGradeID").ToString().Equals("403"))
+                        {
+                            <div class="custom-control custom-checkbox pb-3 col-3">
+                                <input type="checkbox" id="Grade1012Boy" class="custom-control-input">
+                                <label class="custom-control-label" for="Grade1012Boy"><b>Grade 10-12 (Boy)</b></label>
+                                <input type="hidden" id="P_Grade1012Boy" value="@Html.Display("P_Grade1012Boy")" />
+                            </div>
+
+
+
+
+                            <div class="custom-control custom-checkbox pb-3 col-3">
+                                <input type="checkbox" id="Grade1012Girl" class="custom-control-input">
+                                <label class="custom-control-label" for="Grade1012Girl"><b>Grade 10-12 (Girl)</b></label>
+                                <input type="hidden" id="P_Grade1012Girl" value="@Html.Display("P_Grade1012Girl")" />
+                            </div>
+                        }
+
+
+
+
                     </div>
 
 
@@ -92,37 +112,154 @@
                             </tr>
                         </thead>
                         <tbody id="data">
-                            @foreach (var item in Model)
+                            @if (@Html.Display("StdGradeID").ToString().Equals("101") || @Html.Display("StdGradeID").ToString().Equals("102") || @Html.Display("StdGradeID").ToString().Equals("103"))
                             {
-                                <tr>
-                                    <td data-th="Checks">
-                                        <div class="col-md-9 text-left mt-sm-2">
-                                            <div class="custom-control custom-checkbox pb-3">
-                                                <input type="checkbox" id="CheckBox_@Html.DisplayFor(modelItem => item.ClothesID)" class="custom-control-input c-items">
-                                                <label class="custom-control-label" for="CheckBox_@Html.DisplayFor(modelItem => item.ClothesID)"></label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td data-th="Product">
-                                        <div class="row">
-                                            <div class="col-md-9 text-left mt-sm-2">
-                                                <h4>@Html.DisplayFor(modelItem => item.ClothesName)</h4>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td data-th="Price">
-                                        <div class="col-md-9 text-left mt-sm-2">
-                                            <input type="hidden" id="Price_@item.ClothesID" value="@item.ClothesPrice">
-                                            <h4><span id="Price_@Html.DisplayFor(modelItem => item.ClothesID)">@Html.DisplayFor(modelItem => item.ClothesPrice)</span> EGP</h4>
-                                        </div>
-                                    </td>
-                                    <td data-th="Quantity">
-                                        <input type="number" id="Quantity_@item.ClothesID" name="Quantity_@item.ClothesID"
-                                               class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()">
-                                    </td>
-                                </tr>
+                                foreach (var item in Model)
+                                {
+                                    if (item.ClothesID == 1 || item.ClothesID == 2 || item.ClothesID == 3 || item.ClothesID == 4
+                                        || item.ClothesID == 5 || item.ClothesID == 6 || item.ClothesID == 7 || item.ClothesID == 8)
+                                    {
+                                        <tr>
+                                            <td data-th="Checks">
+                                                <div class="col-md-9 text-left mt-sm-2">
+                                                    <div class="custom-control custom-checkbox pb-3">
+                                                        <input type="checkbox" id="CheckBox_@Html.DisplayFor(modelItem => item.ClothesID)" class="custom-control-input c-items">
+                                                        <label class="custom-control-label" for="CheckBox_@Html.DisplayFor(modelItem => item.ClothesID)"></label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td data-th="Product">
+                                                <div class="row">
+                                                    <div class="col-md-9 text-left mt-sm-2">
+                                                        <h4>@Html.DisplayFor(modelItem => item.ClothesName)</h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td data-th="Price">
+                                                <div class="col-md-9 text-left mt-sm-2">
+                                                    <input type="hidden" id="Price_@item.ClothesID" value="@item.ClothesPrice">
+                                                    <h4><span id="Price_@Html.DisplayFor(modelItem => item.ClothesID)">@Html.DisplayFor(modelItem => item.ClothesPrice)</span> EGP</h4>
+                                                </div>
+                                            </td>
+                                            <td data-th="Quantity">
+                                                <input type="number" id="Quantity_@item.ClothesID" name="Quantity_@item.ClothesID"
+                                                       class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()">
+                                            </td>
+                                        </tr>
+                                    }
+                                }
                             }
-
+                            @if (@Html.Display("StdGradeID").ToString().Equals("201") || @Html.Display("StdGradeID").ToString().Equals("202") || @Html.Display("StdGradeID").ToString().Equals("203") || @Html.Display("StdGradeID").ToString().Equals("204") || @Html.Display("StdGradeID").ToString().Equals("205") || @Html.Display("StdGradeID").ToString().Equals("206"))
+                            {
+                                foreach (var item in Model)
+                                {
+                                    if (item.ClothesID == 9 || item.ClothesID == 10 || item.ClothesID == 11 
+                                        || item.ClothesID == 12 || item.ClothesID == 13 || item.ClothesID == 14)
+                                    {
+                                        <tr>
+                                            <td data-th="Checks">
+                                                <div class="col-md-9 text-left mt-sm-2">
+                                                    <div class="custom-control custom-checkbox pb-3">
+                                                        <input type="checkbox" id="CheckBox_@Html.DisplayFor(modelItem => item.ClothesID)" class="custom-control-input c-items">
+                                                        <label class="custom-control-label" for="CheckBox_@Html.DisplayFor(modelItem => item.ClothesID)"></label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td data-th="Product">
+                                                <div class="row">
+                                                    <div class="col-md-9 text-left mt-sm-2">
+                                                        <h4>@Html.DisplayFor(modelItem => item.ClothesName)</h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td data-th="Price">
+                                                <div class="col-md-9 text-left mt-sm-2">
+                                                    <input type="hidden" id="Price_@item.ClothesID" value="@item.ClothesPrice">
+                                                    <h4><span id="Price_@Html.DisplayFor(modelItem => item.ClothesID)">@Html.DisplayFor(modelItem => item.ClothesPrice)</span> EGP</h4>
+                                                </div>
+                                            </td>
+                                            <td data-th="Quantity">
+                                                <input type="number" id="Quantity_@item.ClothesID" name="Quantity_@item.ClothesID"
+                                                       class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()">
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                            @if (@Html.Display("StdGradeID").ToString().Equals("301") || @Html.Display("StdGradeID").ToString().Equals("302") || @Html.Display("StdGradeID").ToString().Equals("303"))
+                            {
+                                foreach (var item in Model)
+                                {
+                                    if (item.ClothesID == 15 || item.ClothesID == 16 || item.ClothesID == 17
+                                        || item.ClothesID == 18 || item.ClothesID == 19 || item.ClothesID == 20)
+                                    {
+                                        <tr>
+                                            <td data-th="Checks">
+                                                <div class="col-md-9 text-left mt-sm-2">
+                                                    <div class="custom-control custom-checkbox pb-3">
+                                                        <input type="checkbox" id="CheckBox_@Html.DisplayFor(modelItem => item.ClothesID)" class="custom-control-input c-items">
+                                                        <label class="custom-control-label" for="CheckBox_@Html.DisplayFor(modelItem => item.ClothesID)"></label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td data-th="Product">
+                                                <div class="row">
+                                                    <div class="col-md-9 text-left mt-sm-2">
+                                                        <h4>@Html.DisplayFor(modelItem => item.ClothesName)</h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td data-th="Price">
+                                                <div class="col-md-9 text-left mt-sm-2">
+                                                    <input type="hidden" id="Price_@item.ClothesID" value="@item.ClothesPrice">
+                                                    <h4><span id="Price_@Html.DisplayFor(modelItem => item.ClothesID)">@Html.DisplayFor(modelItem => item.ClothesPrice)</span> EGP</h4>
+                                                </div>
+                                            </td>
+                                            <td data-th="Quantity">
+                                                <input type="number" id="Quantity_@item.ClothesID" name="Quantity_@item.ClothesID"
+                                                       class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()">
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                            @if (@Html.Display("StdGradeID").ToString().Equals("401") || @Html.Display("StdGradeID").ToString().Equals("402") || @Html.Display("StdGradeID").ToString().Equals("403"))
+                            {
+                                foreach (var item in Model)
+                                {
+                                    if (item.ClothesID == 25 || item.ClothesID == 26 || item.ClothesID == 27
+                                        || item.ClothesID == 28 || item.ClothesID == 29 || item.ClothesID == 30)
+                                    {
+                                        <tr>
+                                            <td data-th="Checks">
+                                                <div class="col-md-9 text-left mt-sm-2">
+                                                    <div class="custom-control custom-checkbox pb-3">
+                                                        <input type="checkbox" id="CheckBox_@Html.DisplayFor(modelItem => item.ClothesID)" class="custom-control-input c-items">
+                                                        <label class="custom-control-label" for="CheckBox_@Html.DisplayFor(modelItem => item.ClothesID)"></label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td data-th="Product">
+                                                <div class="row">
+                                                    <div class="col-md-9 text-left mt-sm-2">
+                                                        <h4>@Html.DisplayFor(modelItem => item.ClothesName)</h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td data-th="Price">
+                                                <div class="col-md-9 text-left mt-sm-2">
+                                                    <input type="hidden" id="Price_@item.ClothesID" value="@item.ClothesPrice">
+                                                    <h4><span id="Price_@Html.DisplayFor(modelItem => item.ClothesID)">@Html.DisplayFor(modelItem => item.ClothesPrice)</span> EGP</h4>
+                                                </div>
+                                            </td>
+                                            <td data-th="Quantity">
+                                                <input type="number" id="Quantity_@item.ClothesID" name="Quantity_@item.ClothesID"
+                                                       class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()">
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
                         </tbody>
                     </table>
                     <div class="float-right text-right">
@@ -136,20 +273,20 @@
                 </div>
                 <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
                     <a href="catalog.html">
-                        <i class="fas fa-arrow-left mr-2"></i> @Html.ActionLink("Back to List", "Index" , "StudentClothes")
+                        <i class="fas fa-arrow-left mr-2"></i> @Html.ActionLink("Back to List", "Index", "StudentClothes")
                     </a>
                 </div>
             </div>
         </form>
-            @if (ViewBag.Message != null)
-            {
-                <script type="text/javascript">
+        @if (ViewBag.Message != null)
+        {
+            <script type="text/javascript">
             window.onload = function () {
                 alert("@ViewBag.Message");
             };
-                </script>
-            }
-        </div>
+            </script>
+        }
+    </div>
 </section>
 
 @section Scripts {
@@ -163,7 +300,7 @@
                 CalcTotal2()
             })
             $("#KG12Boy").change(function () {
-                if ($('#KG12Boy').is(":checked")) {                  
+                if ($('#KG12Boy').is(":checked")) {
 
                     $("#KG12Boy").prop("checked", true)
                     $('#Grade16Boy').prop("checked", false)
@@ -184,7 +321,7 @@
 
             $("#KG12Girl").change(function () {
                 if ($('#KG12Girl').is(":checked")) {
-                    
+
                     $("#KG12Boy").prop("checked", false)
                     $('#Grade16Boy').prop("checked", false)
                     $('#Grade79Boy').prop("checked", false)
@@ -201,10 +338,10 @@
                     PackageValue = $('#P_KG12Girl').val();
                 }
             });
-            
+
             $("#Grade16Boy").change(function () {
                 if ($('#Grade16Boy').is(":checked")) {
-                    
+
                     $("#KG12Boy").prop("checked", false)
                     $('#Grade16Boy').prop("checked", true)
                     $('#Grade79Boy').prop("checked", false)
@@ -244,7 +381,7 @@
 
             $("#Grade79Boy").change(function () {
                 if ($('#Grade79Boy').is(":checked")) {
-                    
+
                     $("#KG12Boy").prop("checked", false)
                     $('#Grade16Boy').prop("checked", false)
                     $('#Grade79Boy').prop("checked", true)
@@ -264,7 +401,7 @@
 
             $("#Grade79Girl").change(function () {
                 if ($('#Grade79Girl').is(":checked")) {
-                    
+
                     $("#KG12Boy").prop("checked", false)
                     $('#Grade16Boy').prop("checked", false)
                     $('#Grade79Boy').prop("checked", false)
@@ -284,7 +421,7 @@
 
             $("#Grade1012Boy").change(function () {
                 if ($('#Grade1012Boy').is(":checked")) {
-                    
+
                     $("#KG12Boy").prop("checked", false)
                     $('#Grade16Boy').prop("checked", false)
                     $('#Grade79Boy').prop("checked", false)
@@ -304,7 +441,7 @@
 
             $("#Grade1012Girl").change(function () {
                 if ($('#Grade1012Girl').is(":checked")) {
-                    
+
                     $("#KG12Boy").prop("checked", false)
                     $('#Grade16Boy').prop("checked", false)
                     $('#Grade79Boy').prop("checked", false)
@@ -325,7 +462,7 @@
         })
 
         function CalcTotal() {
-            for (var i = 1; i < 30; i++) {
+            for (var i = 1; i < 35; i++) {
                 if ($('#CheckBox_' + i).is(":checked")) {
                     total = total + parseFloat((parseInt($('#Price_' + i).val()) * parseInt($('#Quantity_' + i).val())))
                     console.log(total)
@@ -335,7 +472,7 @@
         }
 
         function CalcTotal2() {
-            for (var i = 1; i < 30; i++) {
+            for (var i = 1; i < 35; i++) {
                 if ($('#CheckBox_' + i).is(":checked")) {
                     $('#Quantity_' + i).val(1)
                 } else {
@@ -345,30 +482,29 @@
             CalcTotal()
         }
 
-            $("#btnsubmit").click(function (e) {
-                //Serialize the form datas.   
-                var valdata = $("#Uniform").serialize();
-                var StdCode = $("#StdCode").val();
-                //to get alert popup  
-                e.preventDefault();
-                $.ajax({
-                    url: "/StudentClothes/UpdateItems",
-                    type: "POST",
-                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    data: {
-                        searchText: valdata,
-                        Code: StdCode,
-                        packageName : PackageName,
-                        packageValue : PackageValue
-                    },
-                    success: function (response) {
-                        window.location.href = "/StudentClothes/Index"
-                    },
-                    error: function (response) {
-                        console.log(response.responseText);
-                        alert(response.responseText);
-                    }
-                });
+        $("#btnsubmit").click(function (e) {
+            //Serialize the form datas.
+            var valdata = $("#Uniform").serialize();
+            var StdCode = $("#StdCode").val();
+            //to get alert popup
+            e.preventDefault();
+            $.ajax({
+                url: "/StudentClothes/UpdateItems",
+                type: "POST",
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: {
+                    searchText: valdata,
+                    Code: StdCode,
+                    packageName: PackageName
+                },
+                success: function (response) {
+                    window.location.href = "/StudentClothes/Index"
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                    alert(response.responseText);
+                }
             });
+        });
     </script>
 }

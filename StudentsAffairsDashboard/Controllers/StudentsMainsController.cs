@@ -19,7 +19,8 @@ namespace StudentsAffairsDashboard.Controllers
         // GET: StudentsMains
         public ActionResult Index()
         {
-            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount);
+            int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
+            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a => a.NESSchool.SchoolID == SchoolIDsession);
 
 
             var ListNESSchools = db.NESSchools.ToList();
