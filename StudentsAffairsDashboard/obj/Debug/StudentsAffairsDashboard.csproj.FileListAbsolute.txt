@@ -391,3 +391,4 @@ C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\ru\Microsoft.ReportView
 C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
 C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
 C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\obj\Debug\StudentsAffairsDashboard.csproj.CopyComplete
+C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\StudentsAffairsDashboard.dll.config

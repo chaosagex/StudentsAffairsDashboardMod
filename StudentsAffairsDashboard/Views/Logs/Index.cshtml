@@ -27,38 +27,76 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Where(a=>a.UserName.Equals(Session["UserName"])))
+                    @if (Session["UserName"].Equals("AdminNES"))
                     {
-                        <tr>
-                            <td><a href="#">@item.ID</a></td>
-                            <td>@item.UserName</td>
-                            <td>@item.LogContent</td>
-                            @if (@item.LogContent.StartsWith("Edit"))
-                            {
-                                <td><span class="badge badge-warning">Edit</span></td>
-                            }
-                            else if (@item.LogContent.StartsWith("Delete"))
-                            {
-                                <td><span class="badge badge-danger">Delete</span></td>
-                            }
-                            else if (@item.LogContent.StartsWith("Update"))
-                            {
-                                <td><span class="badge badge-info">Update</span></td>
-                            }
-                            else if (@item.LogContent.StartsWith("Create"))
-                            {
-                                <td><span class="badge badge-success">Create</span></td>
-                            }
-                            else if (@item.LogContent.StartsWith("Uniform"))
-                            {
-                                <td><span class="badge badge-secondary">Uniform</span></td>
-                            }
-                            <td>
-                                <div class="sparkbar" data-color="#00a65a" data-height="20">@item.Times</div>
-                            </td>
-                        </tr>
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td><a href="#">@item.ID</a></td>
+                                <td>@item.UserName</td>
+                                <td>@item.LogContent</td>
+                                @if (@item.LogContent.StartsWith("Edit"))
+                                {
+                                    <td><span class="badge badge-warning">Edit</span></td>
+                                }
+                                else if (@item.LogContent.StartsWith("Delete"))
+                                {
+                                    <td><span class="badge badge-danger">Delete</span></td>
+                                }
+                                else if (@item.LogContent.StartsWith("Update"))
+                                {
+                                    <td><span class="badge badge-info">Update</span></td>
+                                }
+                                else if (@item.LogContent.StartsWith("Create"))
+                                {
+                                    <td><span class="badge badge-success">Create</span></td>
+                                }
+                                else if (@item.LogContent.StartsWith("Uniform"))
+                                {
+                                    <td><span class="badge badge-secondary">Uniform</span></td>
+                                }
+                                <td>
+                                    <div class="sparkbar" data-color="#00a65a" data-height="20">@item.Times</div>
+                                </td>
+                            </tr>
+                        }
                     }
-                    
+                    else
+                    {
+                        foreach (var item in Model.Where(a => a.UserName.Equals(Session["UserName"])))
+                        {
+                            <tr>
+                                <td><a href="#">@item.ID</a></td>
+                                <td>@item.UserName</td>
+                                <td>@item.LogContent</td>
+                                @if (@item.LogContent.StartsWith("Edit"))
+                                {
+                                    <td><span class="badge badge-warning">Edit</span></td>
+                                }
+                                else if (@item.LogContent.StartsWith("Delete"))
+                                {
+                                    <td><span class="badge badge-danger">Delete</span></td>
+                                }
+                                else if (@item.LogContent.StartsWith("Update"))
+                                {
+                                    <td><span class="badge badge-info">Update</span></td>
+                                }
+                                else if (@item.LogContent.StartsWith("Create"))
+                                {
+                                    <td><span class="badge badge-success">Create</span></td>
+                                }
+                                else if (@item.LogContent.StartsWith("Uniform"))
+                                {
+                                    <td><span class="badge badge-secondary">Uniform</span></td>
+                                }
+                                <td>
+                                    <div class="sparkbar" data-color="#00a65a" data-height="20">@item.Times</div>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+
                 </tbody>
             </table>
         </div>
