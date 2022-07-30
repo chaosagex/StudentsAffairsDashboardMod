@@ -18,7 +18,7 @@ namespace StudentsAffairsDashboard.Controllers
         public ActionResult Index()
         {
             int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
-            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a=>a.StdSchoolID == SchoolIDsession);
+            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a=>a.NESSchool.SchoolID == SchoolIDsession);
             return View(studentsMains.ToList());
         }
 
@@ -362,8 +362,8 @@ namespace StudentsAffairsDashboard.Controllers
         public ActionResult UniformReport()
         {
             int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
-            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a => a.NESSchool.SchoolID == SchoolIDsession); ;
-            
+            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a => a.NESSchool.SchoolID == SchoolIDsession);
+
             ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName");
             ViewBag.SchoolID = new SelectList(db.NESSchools, "SchoolID", "SchoolName");
             ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
@@ -530,15 +530,12 @@ namespace StudentsAffairsDashboard.Controllers
             var StudentsClothesData = db.StudentClothes.Where(a => a.StdCode == Code);
             ViewBag.Total = 0;
             double Total = 0;
-            double TotalTax = 0;
 
             foreach (var item in StudentsClothesData.ToList())
             {
                 Total += Double.Parse(item.Price);
             }
-            TotalTax = Total + (Total * 0.14);
             ViewBag.Total = Total;
-            ViewBag.TotalTax = TotalTax;
             return PartialView("Details", StudentsClothesData.ToList());
         }
 

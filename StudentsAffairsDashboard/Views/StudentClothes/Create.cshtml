@@ -278,14 +278,7 @@
                 </div>
             </div>
         </form>
-        @if (ViewBag.Message != null)
-        {
-            <script type="text/javascript">
-            window.onload = function () {
-                alert("@ViewBag.Message");
-            };
-            </script>
-        }
+        
     </div>
 </section>
 
@@ -293,7 +286,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         var total = 0
-        var PackageName = "";
+        var PackageNameT = "";
         var PackageValue = "";
         $(document).ready(function () {
             $(".c-items").change(function () {
@@ -314,7 +307,7 @@
 
                     total = total + parseFloat($('#P_KG12Boy').val())
                     $('#total').text(total)
-                    PackageName = "KGBoy";
+                    PackageNameT = "KGBoy";
                     PackageValue = $('#P_KG12Boy').val();
                 }
             });
@@ -334,7 +327,7 @@
 
                     total = total + parseFloat($('#P_KG12Girl').val())
                     $('#total').text(total)
-                    PackageName = "KGGirl";
+                    PackageNameT = "KGGirl";
                     PackageValue = $('#P_KG12Girl').val();
                 }
             });
@@ -354,7 +347,7 @@
 
                     total = total + parseFloat($('#P_Grade16Boy').val())
                     $('#total').text(total)
-                    PackageName = "PrimaryBoyGirl";
+                    PackageNameT = "PrimaryBoyGirl";
                     PackageValue = $('#P_Grade16Boy').val();
                 }
             });
@@ -374,7 +367,7 @@
 
                     total = total + parseFloat($('#P_Grade16Girl').val())
                     $('#total').text(total)
-                    PackageName = "PrimaryBoyGirl";
+                    PackageNameT = "PrimaryBoyGirl";
                     PackageValue = $('#P_Grade16Girl').val();
                 }
             });
@@ -394,7 +387,7 @@
 
                     total = total + parseFloat($('#P_Grade79Boy').val())
                     $('#total').text(total)
-                    PackageName = "PreparatoryBoyGirl";
+                    PackageNameT = "PreparatoryBoyGirl";
                     PackageValue = $('#P_Grade79Boy').val();
                 }
             });
@@ -414,7 +407,7 @@
 
                     total = total + parseFloat($('#P_Grade79Girl').val())
                     $('#total').text(total)
-                    PackageName = "PreparatoryBoyGirl";
+                    PackageNameT = "PreparatoryBoyGirl";
                     PackageValue = $('#P_Grade79Girl').val();
                 }
             });
@@ -434,7 +427,7 @@
 
                     total = total + parseFloat($('#P_Grade1012Boy').val())
                     $('#total').text(total)
-                    PackageName = "SecondaryBoyGirl";
+                    PackageNameT = "SecondaryBoyGirl";
                     PackageValue = $('#P_Grade1012Boy').val();
                 }
             });
@@ -454,7 +447,7 @@
 
                     total = total + parseFloat($('#P_Grade1012Girl').val())
                     $('#total').text(total)
-                    PackageName = "SecondaryBoyGirl";
+                    PackageNameT = "SecondaryBoyGirl";
                     PackageValue = $('#P_Grade1012Girl').val();
                 }
             });
@@ -481,11 +474,12 @@
             }
             CalcTotal()
         }
-
+        $(document).ready(function () {
         $("#btnsubmit").click(function (e) {
             //Serialize the form datas.
             var valdata = $("#Uniform").serialize();
             var StdCode = $("#StdCode").val();
+            var PackageT = PackageNameT;
             //to get alert popup
             e.preventDefault();
             $.ajax({
@@ -495,10 +489,10 @@
                 data: {
                     searchText: valdata,
                     Code: StdCode,
-                    packageName: PackageName
+                    packageName: PackageT
                 },
                 success: function (response) {
-                    window.location.replace = "~/Reports/Report.aspx?student="+StdCode
+                    window.location.href = "/StudentClothes/Index"
                 },
                 error: function (response) {
                     console.log(response.responseText);
@@ -506,5 +500,7 @@
                 }
             });
         });
+        });
+
     </script>
 }
