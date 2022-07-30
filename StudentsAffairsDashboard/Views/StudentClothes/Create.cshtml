@@ -480,6 +480,7 @@
             var valdata = $("#Uniform").serialize();
             var StdCode = $("#StdCode").val();
             var PackageT = PackageNameT;
+            $("#btnsubmit").prop("disabled", true);
             //to get alert popup
             e.preventDefault();
             $.ajax({
