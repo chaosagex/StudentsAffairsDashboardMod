@@ -16,7 +16,7 @@ namespace StudentsAffairsDashboard.Reports
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            Session["currentSchool"] = 1001;
             ReportViewer1.Reset();
 
             ReportViewer1.ProcessingMode = ProcessingMode.Local;
@@ -32,7 +32,7 @@ namespace StudentsAffairsDashboard.Reports
 
             ReportViewer1.LocalReport.EnableExternalImages = true;
             string schoolID = Session["currentSchool"].ToString();
-            string imagePath = new Uri(Server.MapPath($"~/Logos/{schoolID}.jpg")).AbsoluteUri;
+            string imagePath = new Uri(Server.MapPath($"~/Logos/{schoolID}.png")).AbsoluteUri;
 
             ReportParameter parameter = new ReportParameter("School", imagePath);
             ReportViewer1.LocalReport.SetParameters(parameter);
@@ -45,7 +45,7 @@ namespace StudentsAffairsDashboard.Reports
         {
             DataTable dt = new DataTable();
 
-            string connStr = ConfigurationManager.ConnectionStrings["Student_Affairs_DatabaseConnectionString"].ConnectionString;
+            string connStr = ConfigurationManager.ConnectionStrings["Student_Affairs_DatabaseConnectionString1"].ConnectionString;
             try
             {
                 using (SqlConnection con = new SqlConnection(connStr))

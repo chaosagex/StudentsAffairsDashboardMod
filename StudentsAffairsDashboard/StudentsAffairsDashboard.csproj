@@ -408,21 +408,21 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Logos\1000.jpeg" />
-    <Content Include="Logos\1001.jpeg" />
-    <Content Include="Logos\1002.jpeg" />
-    <Content Include="Logos\1003.jpeg" />
-    <Content Include="Logos\1004.jpeg" />
-    <Content Include="Logos\1005.jpeg" />
-    <Content Include="Logos\1006.jpeg" />
-    <Content Include="Logos\1007.jpeg" />
-    <Content Include="Logos\1008.jpeg" />
-    <Content Include="Logos\1009.jpeg" />
-    <Content Include="Logos\1010.jpeg" />
-    <Content Include="Logos\1011.jpeg" />
-    <Content Include="Logos\1012.jpeg" />
-    <Content Include="Logos\1013.jpeg" />
-    <Content Include="Logos\1014.jpeg" />
+    <Content Include="Logos\1000.png" />
+    <Content Include="Logos\1001.png" />
+    <Content Include="Logos\1002.png" />
+    <Content Include="Logos\1003.png" />
+    <Content Include="Logos\1004.png" />
+    <Content Include="Logos\1005.png" />
+    <Content Include="Logos\1006.png" />
+    <Content Include="Logos\1007.png" />
+    <Content Include="Logos\1008.png" />
+    <Content Include="Logos\1009.png" />
+    <Content Include="Logos\1010.png" />
+    <Content Include="Logos\1011.png" />
+    <Content Include="Logos\1012.png" />
+    <Content Include="Logos\1013.png" />
+    <Content Include="Logos\1014.png" />
     <Content Include="Models\AffairsModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AffairsModel.edmx</DependentUpon>
