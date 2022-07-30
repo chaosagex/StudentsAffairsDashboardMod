@@ -278,14 +278,7 @@
                 </div>
             </div>
         </form>
-        @if (ViewBag.Message != null)
-        {
-            <script type="text/javascript">
-            window.onload = function () {
-                alert("@ViewBag.Message");
-            };
-            </script>
-        }
+        
     </div>
 </section>
 
@@ -481,7 +474,7 @@
             }
             CalcTotal()
         }
-
+        $(document).ready(function () {
         $("#btnsubmit").click(function (e) {
             //Serialize the form datas.
             var valdata = $("#Uniform").serialize();
@@ -499,7 +492,7 @@
                     packageName: PackageT
                 },
                 success: function (response) {
-                    window.location.herf = "/StudentClothes/Index"
+                    window.location.href = "/StudentClothes/Index"
                 },
                 error: function (response) {
                     console.log(response.responseText);
@@ -507,5 +500,7 @@
                 }
             });
         });
+        });
+
     </script>
 }
