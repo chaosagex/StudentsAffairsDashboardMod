@@ -20,7 +20,7 @@ namespace StudentsAffairsDashboard.Controllers
         public ActionResult Index()
         {
             int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
-            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount);
+            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a=>a.StdSchoolID == SchoolIDsession);
 
 
             var ListNESSchools = db.NESSchools.ToList();
@@ -249,6 +249,7 @@ namespace StudentsAffairsDashboard.Controllers
             {
                 db.StudentClothes.Remove(item);
             }
+
             db.SaveChanges();
             StudentsMain studentsMain = db.StudentsMains.Find(Int32.Parse(hiddenId));
             db.StudentsMains.Remove(studentsMain);
@@ -260,21 +261,9 @@ namespace StudentsAffairsDashboard.Controllers
             log.Times = now.ToString();
             log.LogContent = "Delete : Account (" + Session["UserName"].ToString() + ") Delete Student Data With ID: (" + hiddenId + ")";
             bool checklog = logs.Create(log);
-            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount);
-            var ListNESSchools = db.NESSchools.ToList();
-            ListNESSchools.Add(new NESSchool() { SchoolID = -1, SchoolName = "All", SchooleAbbreviation = "All" });
-            var NESSchoolsResult = ListNESSchools.OrderBy(d => d.SchoolID).ToList();
-            ViewBag.SchoolID = new SelectList(NESSchoolsResult, "SchoolID", "SchoolName");
-
-            var ListClasses = db.Classes.ToList();
-            ListClasses.Add(new Class() { ClassID = -1, ClassName = "All" });
-            var ClassesResult = ListClasses.OrderBy(d => d.ClassID).ToList();
-            ViewBag.ClassID = new SelectList(ClassesResult, "ClassID", "ClassName");
-
-            var ListGrades = db.Grades.ToList();
-            ListGrades.Add(new Grade() { GradeID = -1, GradeName = "All" });
-            var GradesResult = ListGrades.OrderBy(d => d.GradeID).ToList();
-            ViewBag.GradeID = new SelectList(GradesResult, "GradeID", "GradeName");
+            int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
+            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a => a.StdSchoolID == SchoolIDsession); ;
+            
             return View("Index",studentsMains.ToList());
         }
         protected override void Dispose(bool disposing)

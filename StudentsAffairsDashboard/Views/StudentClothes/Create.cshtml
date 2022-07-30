@@ -498,7 +498,7 @@
                     packageName: PackageName
                 },
                 success: function (response) {
-                    window.location.href = "/StudentClothes/Index"
+                    window.location.replace = "~/Reports/Report.aspx?student="+StdCode
                 },
                 error: function (response) {
                     console.log(response.responseText);
