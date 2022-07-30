@@ -584,7 +584,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=iif(Fields!Quantity&gt;1,Fields!ClothesPrice.Value,Fields!ClothesinPackagePrice)</Value>
+                                  <Value>=iif(cint(Fields!Quantity.Value)&gt;1,Fields!ClothesPrice.Value,Fields!ClothesinPackagePrice.Value)</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
