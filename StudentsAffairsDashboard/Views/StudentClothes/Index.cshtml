@@ -112,7 +112,7 @@
     <!-- /.modal-dialog -->
 <!--</div>-->
 
-<div class="modal fade show" id="partialModal" style="display: block; padding-right: 17px;" aria-modal="true" role="dialog">
+<div class="modal fade" id="partialModal" style="display: block; padding-right: 17px;" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -176,26 +176,7 @@
             });
         });
 
-        $("#example1 .Receipt").click(function () {
-            var customerId = $(this).closest("tr").find("td").eq(0).html();
-            $.ajax({
-                type: "POST",
-                url: "/StudentClothes/DetailsReceipt",
-                data: '{customerId: "' + customerId + '" }',
-                contentType: "application/json; charset=utf-8",
-                dataType: "html",
-                success: function (response) {
-                    $("#partialModal2").find(".modal-body").html(response);
-                    $("#partialModal2").modal('show');
-                },
-                failure: function (response) {
-                    console.log(response.responseText);
-                },
-                error: function (response) {
-                    console.log(response.responseText);
-                }
-            });
-        });
+        
     </script>
 }
 

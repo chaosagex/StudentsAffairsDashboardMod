@@ -72,11 +72,11 @@
     <Property Name="StdArabicFristName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="StdArabicMiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="StdArabicLastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="StdArabicFamilyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StdArabicFamilyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="StdEnglishFristName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="StdEnglishMiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="StdEnglishLastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="StdEnglishFamilyName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="StdEnglishFamilyName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="StdMotherArabicName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="StdMotherEnglishName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="StdFatherMobilePhone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -422,6 +422,7 @@
     <NavigationProperty Name="StudentsMain" Relationship="Student_Affairs_DatabaseModel.fk_stu_clothes" FromRole="StudentClothe" ToRole="StudentsMain" />
     <NavigationProperty Name="Cloth" Relationship="Student_Affairs_DatabaseModel.fk_clothes_student" FromRole="StudentClothe" ToRole="Cloth" />
     <Property Name="ReceivingQuantity" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="PackageStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="fk_stu_clothes">
     <End Type="Student_Affairs_DatabaseModel.StudentsMain" Role="StudentsMain" Multiplicity="1" />
@@ -467,7 +468,7 @@
     <Property Name="school" Type="Int32" Nullable="false" />
     <Property Name="year" Type="String" Nullable="false" MaxLength="9" FixedLength="true" Unicode="false" />
     <Property Name="student_type" Type="Int16" Nullable="false" />
-    <Property Name="Grade" Type="Int16" Nullable="false" />
+    <Property Name="Grade" Type="Int32" />
     <NavigationProperty Name="NESSchool" Relationship="Student_Affairs_DatabaseModel.FK_payment_details_school" FromRole="payment_details" ToRole="NESSchool" />
     <NavigationProperty Name="invoice_payment" Relationship="Student_Affairs_DatabaseModel.invoice_item" FromRole="payment_details" ToRole="invoice_payment" />
   </EntityType>

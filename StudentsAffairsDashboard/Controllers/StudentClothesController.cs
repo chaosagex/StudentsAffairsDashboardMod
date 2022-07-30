@@ -18,7 +18,7 @@ namespace StudentsAffairsDashboard.Controllers
         public ActionResult Index()
         {
             int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
-            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a=>a.NESSchool.SchoolID == SchoolIDsession);
+            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount);
             return View(studentsMains.ToList());
         }
 
@@ -278,7 +278,7 @@ namespace StudentsAffairsDashboard.Controllers
                 item.name = "uniform";
                 item.selected = true;
                 item.school = stud.StdSchoolID;
-                item.Grade = (short)studentGrade;
+                item.Grade = studentGrade;
                 item.year = year;
                 item.student_type = studentType;
                 item.amount = (decimal)(total);
@@ -286,7 +286,9 @@ namespace StudentsAffairsDashboard.Controllers
                 //newNotes += item.name; ;
                 invoice.payment_details.Add(item);
                 invoice.total_cost = item.amount;
-                if (invoice.Notes == null)
+                invoice.type = 1; // POS
+
+            if (invoice.Notes == null)
                     invoice.Notes = "";
                     db.payment_details.Add(item);
                     db.SaveChanges();

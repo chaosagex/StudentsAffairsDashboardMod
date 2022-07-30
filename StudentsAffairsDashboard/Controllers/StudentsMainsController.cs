@@ -20,7 +20,7 @@ namespace StudentsAffairsDashboard.Controllers
         public ActionResult Index()
         {
             int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
-            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a => a.NESSchool.SchoolID == SchoolIDsession);
+            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount);
 
 
             var ListNESSchools = db.NESSchools.ToList();

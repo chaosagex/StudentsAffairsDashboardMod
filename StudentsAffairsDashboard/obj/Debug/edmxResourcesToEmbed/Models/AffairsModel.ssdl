@@ -99,7 +99,7 @@
     <Property Name="school" Type="int" Nullable="false" />
     <Property Name="year" Type="char" MaxLength="9" Nullable="false" />
     <Property Name="student_type" Type="smallint" Nullable="false" />
-    <Property Name="Grade" Type="smallint" Nullable="false" />
+    <Property Name="Grade" Type="int" />
   </EntityType>
   <EntityType Name="StudentAccounts">
     <Key>
@@ -122,6 +122,7 @@
     <Property Name="ReceivingStatus" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="PaymentStatus" Type="varchar" MaxLength="100" />
     <Property Name="ReceivingQuantity" Type="nchar" MaxLength="10" />
+    <Property Name="PackageStatus" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="StudentGradesHistory">
     <Key>
@@ -141,11 +142,11 @@
     <Property Name="StdArabicFristName" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="StdArabicMiddleName" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="StdArabicLastName" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="StdArabicFamilyName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="StdArabicFamilyName" Type="nvarchar" MaxLength="100" />
     <Property Name="StdEnglishFristName" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="StdEnglishMiddleName" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="StdEnglishLastName" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="StdEnglishFamilyName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="StdEnglishFamilyName" Type="varchar" MaxLength="100" />
     <Property Name="StdMotherArabicName" Type="nvarchar" MaxLength="100" />
     <Property Name="StdMotherEnglishName" Type="varchar" MaxLength="100" />
     <Property Name="StdFatherMobilePhone" Type="varchar" MaxLength="100" />

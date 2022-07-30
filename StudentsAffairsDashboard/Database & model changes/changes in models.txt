@@ -66,7 +66,7 @@ namespace StudentsAffairsDashboard.Models
         public int school { get; set; }
         public string year { get; set; }
         public short student_type { get; set; }
-        public short Grade { get; set; }
+        public int Grade { get; set; }
         [NotMapped]
         public bool selected { get; set; }
         public virtual NESSchool NESSchool { get; set; }
@@ -76,13 +76,3 @@ namespace StudentsAffairsDashboard.Models
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-=======
-		
-		public virtual List<payment_details> payment_details { get; set; }
-		
-		
-		
-payment_details
-[NotMapped]
-        public bool selected { get; set; }
-

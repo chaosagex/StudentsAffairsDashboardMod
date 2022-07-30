@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9babbf2e97d54b639cf3fc1492a62b27" Name="Diagram1">
-        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Account" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Account" Width="1.5" PointX="0.875" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Class" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Grade" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.NESSchool" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />

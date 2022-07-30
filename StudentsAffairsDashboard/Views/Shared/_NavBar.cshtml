@@ -18,7 +18,7 @@
     }
     @if (Session["UserName"].ToString().Contains("Admin"))
     {
-        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        using (Html.BeginForm("Index", "Home", FormMethod.Post))
         {
             <div class="form-inline">
                 <div class="input-group">
