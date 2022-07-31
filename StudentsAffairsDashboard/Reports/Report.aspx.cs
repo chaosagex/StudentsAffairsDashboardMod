@@ -44,7 +44,7 @@ namespace StudentsAffairsDashboard.Reports
         {
             DataTable dt = new DataTable();
 
-            string connStr = ConfigurationManager.ConnectionStrings["Student_Affairs_DatabaseConnectionString1"].ConnectionString;
+            string connStr = ConfigurationManager.ConnectionStrings["Student_Affairs_DatabaseConnectionString"].ConnectionString;
             try
             {
                 using (SqlConnection con = new SqlConnection(connStr))
