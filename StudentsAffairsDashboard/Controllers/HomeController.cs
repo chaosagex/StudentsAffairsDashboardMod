@@ -132,6 +132,9 @@ namespace StudentsAffairsDashboard.Controllers
         
         public ActionResult Login()
         {
+            Session["Email"] = null;
+            Session["UserName"] = null;
+            Session["CurrentSchool"] = null;
             return View();
         }
 
@@ -140,6 +143,7 @@ namespace StudentsAffairsDashboard.Controllers
         
         public ActionResult Login(Account objUser)
         {
+            
             if (ModelState.IsValid)
             {
                 using (StudentAffairsDatabaseEntities db = new StudentAffairsDatabaseEntities())
@@ -150,6 +154,14 @@ namespace StudentsAffairsDashboard.Controllers
                         Session["Email"] = obj.Email.ToString();
                         Session["UserName"] = obj.UserName.ToString();
                         Session["CurrentSchool"] = obj.School.ToString();
+                        LogsController logs = new LogsController();
+                        DateTime now = DateTime.Now;
+                        Log log = new Log();
+                        log.UserName = Session["UserName"].ToString();
+                        log.Times = now.ToString();
+                        log.LogContent = "Login : Account (" + Session["UserName"].ToString() + ") login School Managment System";
+                        bool checklog = logs.Create(log);
+                        db.SaveChanges();
                         return RedirectToAction("Index");
                     }
                 }
@@ -165,6 +177,14 @@ namespace StudentsAffairsDashboard.Controllers
             }
             else
             {
+                LogsController logs = new LogsController();
+                DateTime now = DateTime.Now;
+                Log log = new Log();
+                log.UserName = Session["UserName"].ToString();
+                log.Times = now.ToString();
+                log.LogContent = "Logout : Account (" + Session["UserName"].ToString() + ") logout  School Managment System";
+                bool checklog = logs.Create(log);
+                db.SaveChanges();
                 return RedirectToAction("Login");
             }
         }

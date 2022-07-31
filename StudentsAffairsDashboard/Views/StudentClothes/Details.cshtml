@@ -4,44 +4,76 @@
     <!-- Add the bg color to the header using any of the bg-* classes -->
     <div class="widget-user-header bg-gradient-blue">
         <div class="widget-user-image">
-            <img class="img-circle elevation-2" src="~/Logos/@(Session["CurrentSchool"].ToString()+".png")" alt="User Avatar">
+            @*<img class="img-circle elevation-2" src="~/Logos/@(Session["CurrentSchool"].ToString()+".png")" alt="User Avatar">*@
         </div>
         <!-- /.widget-user-image -->
         <h3 class="widget-user-username">@Html.Display("StdName")</h3>
         <h5 class="widget-user-desc">NES @Html.Display("StdSchool") - @Html.Display("StdGrade") - @Html.Display("StdClass")</h5>
     </div>
-    <div class="card-footer p-0">
-        <ul class="nav flex-column">
-            <li class="nav-item">
+    <div class="card-footer p-1">
+        <div class="row">
+            <div class="col-3  text-center" style="width: 115px; height: 20px;">
+                <h6><span class="badge bg-warning">Receiving Quantity</span></h6>
+            </div>
+            <div class="col-3 text-center" style="width: 115px; height: 20px;">
+                <h6> <span class="text-center badge bg-success">All Quantity</span> </h6>
+            </div>
+
+            <div class="col-6" style="width: 115px; height: 20px; text-align: right;">
+                #
+            </div>
+        </div>
+        @foreach (var item in Model)
+        {
+            if (Int32.Parse(item.ReceivingQuantity.ToString()) == Int32.Parse(item.Quantity.ToString()))
+            {
                 <div class="row">
-                    <div class="col-4">
-                        <h6>Uniform Clothes</h6>
+                    <div class="col-3  text-center" style="width: 115px; height: 20px;">
+                        <h6><span class="badge bg-success">@item.ReceivingQuantity.Trim()</span></h6>
                     </div>
-                    <div class="col-4">
-                        <h3> <span class="text-center badge bg-primary">All Quantity</span> </h3>
+
+                    <div class="col-3  text-center" style="width: 115px; height: 20px;">
+                        <h6> <span class="text-center badge bg-success">@item.Quantity</span> </h6>
                     </div>
-                    <div class="col-4">
-                        <h3><span class="float-right badge bg-primary">Receiving Quantity</span></h3>
+
+                    <div class="col-6" style="width: 115px; height: 20px; text-align: right;">
+                        <h6>@Html.DisplayFor(modelItem => item.Cloth.ClothesName) </h6>
                     </div>
                 </div>
-            </li>
-            @foreach (var item in Model)
-            {
-                <li class="nav-item">
-                    <div class="row">
-                        <div class="col-4">
-                            <h6>@Html.DisplayFor(modelItem => item.Cloth.ClothesName) </h6>
-                        </div>
-                        <div class="col-4">
-                            <h3> <span class="text-center badge bg-primary">@item.Quantity</span> </h3>
-                        </div>
-                        <div class="col-4">
-                            <h3><span class="float-right badge bg-primary">@item.ReceivingQuantity.Trim()</span></h3>
-                        </div>
-                    </div>
-                </li>
             }
-        </ul> 
+            if (Int32.Parse(item.ReceivingQuantity.ToString()) < Int32.Parse(item.Quantity.ToString()) && Int32.Parse(item.ReceivingQuantity.ToString()) != 0)
+            {
+                <div class="row">
+                    <div class="col-3  text-center" style="width: 115px; height: 20px;">
+                        <h6><span class="badge bg-warning">@item.ReceivingQuantity.Trim()</span></h6>
+                    </div>
+
+                    <div class="col-3  text-center" style="width: 115px; height: 20px;">
+                        <h6> <span class="text-center badge bg-black">@item.Quantity</span> </h6>
+                    </div>
+
+                    <div class="col-6" style="width: 115px; height: 20px; text-align: right;">
+                        <h6>@Html.DisplayFor(modelItem => item.Cloth.ClothesName) </h6>
+                    </div>
+                </div>
+            }
+            if (Int32.Parse(item.ReceivingQuantity.ToString()) == 0)
+            {
+                <div class="row">
+                    <div class="col-3  text-center" style="width: 115px; height: 20px;">
+                        <h6><span class="badge bg-black">@item.ReceivingQuantity.Trim()</span></h6>
+                    </div>
+
+                    <div class="col-3  text-center" style="width: 115px; height: 20px;">
+                        <h6> <span class="text-center badge bg-danger">@item.Quantity</span> </h6>
+                    </div>
+
+                    <div class="col-6" style="width: 115px; height: 20px; text-align: right;">
+                        <h6>@Html.DisplayFor(modelItem => item.Cloth.ClothesName) </h6>
+                    </div>
+                </div>
+            }
+        }
     </div>
 </div>
 

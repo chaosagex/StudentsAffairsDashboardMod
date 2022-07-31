@@ -8,14 +8,6 @@
             <a href="@Url.Action("Index","Home")" class="nav-link">Home</a>
         </li>
     </ul>
-    @if (Session["UserName"].ToString().Contains("Accounts"))
-    {
-
-    }
-    @if (Session["UserName"].ToString().Contains("Uniform"))
-    {
-
-    }
     @if (Session["UserName"].ToString().Contains("Admin"))
     {
         using (Html.BeginForm("Index", "Home", FormMethod.Post))
