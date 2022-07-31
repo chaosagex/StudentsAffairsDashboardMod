@@ -1,42 +1,112 @@
-﻿
-@model IEnumerable<StudentsAffairsDashboard.Models.StudentClothe>
+﻿@model IEnumerable<StudentsAffairsDashboard.Models.invoice_payment>
 
-<table cellpadding="0" cellspacing="0" border="0">
-    <thead>
-        <tr>
-            <th style="text-align: center; vertical-align: middle;">
-                Name
-            </th>
-            <th style="text-align: center; vertical-align: middle;">
-                Price
-            </th>
-            <th style="text-align: center; vertical-align: middle;">
-                Quantity
-            </th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="card card-widget widget-user-2 shadow-sm">
+    <!-- Add the bg color to the header using any of the bg-* classes -->
+    <div class="widget-user-header bg-gradient-blue">
+        <div class="widget-user-image">
+            @*<img class="img-circle elevation-2" src="~/Logos/@(Session["CurrentSchool"].ToString()+".png")" alt="User Avatar">*@
+        </div>
+        <!-- /.widget-user-image -->
+        <h3 class="widget-user-username">@Html.Display("StdName")</h3>
+        <h5 class="widget-user-desc">NES @Html.Display("StdSchool") - @Html.Display("StdGrade") - @Html.Display("StdClass")</h5>
+    </div>
+    <div class="card-footer p-1">
+        <div class="row">
+
+            <div class="col-4" style="width: 115px; height: 20px; text-align: right;">
+                Invoices
+            </div>
+            <div class="col-2" style="width: 115px; height: 20px; text-align: right;">
+                Total
+            </div>
+            <div class="col-2" style="width: 115px; height: 20px; text-align: right;">
+                Paid
+            </div>
+            <div class="col-2" style="width: 115px; height: 20px; text-align: right;">
+                Remining
+            </div>
+            <div class="col-2" style="width: 115px; height: 20px; text-align: right;">
+                Invoice Details
+            </div>
+        </div>
         @foreach (var item in Model)
         {
-            <tr>
-                <td style="text-align: center; vertical-align: middle;">
-                    @Html.DisplayFor(modelItem => item.Cloth.ClothesName)
-                </td>
-                <td style="text-align: center; vertical-align: middle;">
-                    <span>@Html.DisplayFor(modelItem => item.Price)</span> EGP
-                </td>
-                <td style="text-align: center; vertical-align: middle;">
-                    @item.Quantity
-                </td>
-            </tr>
+            @*if (Int32.Parse(item.ReceivingQuantity.ToString()) == Int32.Parse(item.Quantity.ToString()))
+                {
+                    <div class="row">
+                        <div class="col-3  text-center" style="width: 115px; height: 20px;">
+                            <h6><span class="badge bg-success">@item.ReceivingQuantity.Trim()</span></h6>
+                        </div>
 
+                        <div class="col-3  text-center" style="width: 115px; height: 20px;">
+                            <h6> <span class="text-center badge bg-success">@item.Quantity</span> </h6>
+                        </div>
+
+                        <div class="col-6" style="width: 115px; height: 20px; text-align: right;">
+                            <h6>@Html.DisplayFor(modelItem => item.Cloth.ClothesName) </h6>
+                        </div>
+                    </div>
+                }
+                if (Int32.Parse(item.ReceivingQuantity.ToString()) < Int32.Parse(item.Quantity.ToString()) && Int32.Parse(item.ReceivingQuantity.ToString()) != 0)
+                {
+                    <div class="row">
+                        <div class="col-3  text-center" style="width: 115px; height: 20px;">
+                            <h6><span class="badge bg-warning">@item.ReceivingQuantity.Trim()</span></h6>
+                        </div>
+
+                        <div class="col-3  text-center" style="width: 115px; height: 20px;">
+                            <h6> <span class="text-center badge bg-black">@item.Quantity</span> </h6>
+                        </div>
+
+                        <div class="col-6" style="width: 115px; height: 20px; text-align: right;">
+                            <h6>@Html.DisplayFor(modelItem => item.Cloth.ClothesName) </h6>
+                        </div>
+                    </div>
+                }
+                if (Int32.Parse(item.ReceivingQuantity.ToString()) == 0)
+                {
+                    <div class="row">
+                        <div class="col-3  text-center" style="width: 115px; height: 20px;">
+                            <h6><span class="badge bg-black">@item.ReceivingQuantity.Trim()</span></h6>
+                        </div>
+
+                        <div class="col-3  text-center" style="width: 115px; height: 20px;">
+                            <h6> <span class="text-center badge bg-danger">@item.Quantity</span> </h6>
+                        </div>
+
+                        <div class="col-6" style="width: 115px; height: 20px; text-align: right;">
+                            <h6>@Html.DisplayFor(modelItem => item.Cloth.ClothesName) </h6>
+                        </div>
+                    </div>
+                }*@
+            <div class="row">
+                <div class="col-4" style="width: 115px; height: 20px; text-align: right;">
+                    <h6>Invoce No-@Html.DisplayFor(modelItem => item.id) </h6>
+                </div>
+
+                <div class="col-2  text-center" style="width: 115px; height: 20px;">
+                    <h6><span class="badge bg-black">@item.total_cost</span></h6>
+                </div>
+
+                <div class="col-2  text-center" style="width: 115px; height: 20px;">
+                    <h6><span class="badge bg-success">@item.paid</span></h6>
+                </div>
+                <div class="col-2  text-center" style="width: 115px; height: 20px;">
+                    <h6><span class="badge bg-danger">@item.remaining</span></h6>
+                </div>
+                <div class="col-2  text-center" style="width: 115px; height: 20px;">
+                    @foreach (var itemm in item.payment_details)
+                    {
+                        <h6><span class="badge bg-primary">@itemm.name</span></h6>
+                        <br />
+                    }
+                </div>
+            </div>
         }
-    </tbody>
-</table>
-<div>
-    <p class="h2">Total <br> <b id="total">@Html.Display("Total")</b> EGP</p>
+    </div>
 </div>
-<br />
+
+
 <div>
-    @Html.ActionLink("Print", "Print", new { @class = "btn btn-default fas fa-print" })
+    <p>Total Reminig <br> <b id="total">@Html.Display("TotalReminig")</b> EGP</p>
 </div>

@@ -42,16 +42,16 @@
                                 <div class="col-1">
                                 </div>
                                 <div class="col-2">
-                                    <label>Select Grade</b></label>
+                                    <label>Select Grade</label>
                                 </div>
                                 <div class="col-2">
-                                    <label>Year</b></label>
+                                    <label>Year</label>
                                 </div>
                                 <div class="col-2">
-                                    <label>From</b></label>
+                                    <label>From</label>
                                 </div>
                                 <div class="col-2">
-                                    <label>To</b></label>
+                                    <label>To</label>
                                 </div>
                                 <div class="col-3">
 
@@ -168,7 +168,7 @@
 
                             </td>
                             <td style="text-align: center; vertical-align: middle;">
-                                <a href="javascript:;" class="badge badge-secondary details"><i class="glyphicon glyphicon-trash"></i>Show Invoces Status</a>
+                                <a href="javascript:;" class="badge badge-secondary details2"><i class="glyphicon glyphicon-trash"></i>Show Invoices Status</a>
                             </td>
                         </tr>
                     }
@@ -195,6 +195,27 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center">Uniform Data For Student</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="partialModal2">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Invoices Data For Student</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -260,6 +281,8 @@
             });
         });
 
+
+
         $("#example1 .details").click(function () {
             var customerId = $(this).closest("tr").find("td").eq(0).html();
             $.ajax({
@@ -271,6 +294,27 @@
                 success: function (response) {
                     $("#partialModal").find(".modal-body").html(response);
                     $("#partialModal").modal('show');
+                },
+                failure: function (response) {
+                    console.log(response.responseText);
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        });
+
+        $("#example1 .details2").click(function () {
+            var customerId2 = $(this).closest("tr").find("td").eq(0).html();
+            $.ajax({
+                type: "POST",
+                url: "/StudentClothes/DetailsReceipt",
+                data: '{customerId: "' + customerId2 + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $("#partialModal2").find(".modal-body").html(response);
+                    $("#partialModal2").modal('show');
                 },
                 failure: function (response) {
                     console.log(response.responseText);

@@ -123,6 +123,7 @@
     <Property Name="PaymentStatus" Type="varchar" MaxLength="100" />
     <Property Name="ReceivingQuantity" Type="nchar" MaxLength="10" />
     <Property Name="PackageStatus" Type="varchar" MaxLength="100" />
+    <Property Name="InvoiceID" Type="int" />
   </EntityType>
   <EntityType Name="StudentGradesHistory">
     <Key>
