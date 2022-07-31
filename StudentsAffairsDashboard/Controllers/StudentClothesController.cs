@@ -84,7 +84,7 @@ namespace StudentsAffairsDashboard.Controllers
         public ActionResult UpdateItems(string searchText, string Code,string packageName)
         {
             string[] words = searchText.Split('&');
-            int i = 0;
+            //int i = 0;
             double total = 0;
             List<Cloth> ItemsPackage = new List<Cloth>();
             if (packageName == "KGBoy")
@@ -195,7 +195,6 @@ namespace StudentsAffairsDashboard.Controllers
 
                 }
             }
-
             if (packageName == "SecondaryBoyGirl")
             {
                 foreach (var itemm in db.Clothes)
@@ -223,28 +222,28 @@ namespace StudentsAffairsDashboard.Controllers
 
                 }
             }
-            foreach (var itemm in ItemsPackage)
+
+            for (int i = 0; i < words.Length; i++)
             {
                 string[] wordd = words[i].Split('=');
                 System.Diagnostics.Debug.WriteLine(wordd[0] + "   " + wordd[1]);
                 if (Int32.Parse(wordd[1]) > 0)
                 {
+                    int CID = Int32.Parse(wordd[0]);
                     StudentClothe studentClothe = new StudentClothe();
-                    studentClothe.StdCode = Int32.Parse(Code);
-                    studentClothe.ClothesID = itemm.ClothesID;
+                    studentClothe.StdCode = Int32.Parse(Code);                    
+                    studentClothe.ClothesID = db.Clothes.Find(CID).ClothesID;
                     studentClothe.Quantity = wordd[1];
-                    studentClothe.Price = (Double.Parse(wordd[1]) * Double.Parse(itemm.ClothesPrice)).ToString();
-                    total += (Double.Parse(wordd[1]) * Double.Parse(itemm.ClothesPrice));
+                    studentClothe.Price = (Double.Parse(wordd[1]) * Double.Parse(db.Clothes.Find(CID).ClothesPrice)).ToString();
+                    total += (Double.Parse(wordd[1]) * Double.Parse(db.Clothes.Find(CID).ClothesPrice));
                     studentClothe.PaymentStatus = "True";
                     studentClothe.ReceivingStatus = "False";
                     studentClothe.ReceivingQuantity = "0";
                     studentClothe.PackageStatus = "OutPackage";
                     db.StudentClothes.Add(studentClothe);
-                    
                 }
-                i++;
-
             }
+            
                 
                 invoice_payment invoice = new invoice_payment();
                 invoice.student = Int32.Parse(Code);

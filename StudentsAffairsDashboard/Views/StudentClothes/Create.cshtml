@@ -142,7 +142,7 @@
                                                 </div>
                                             </td>
                                             <td data-th="Quantity">
-                                                <input type="number" id="Quantity_@item.ClothesID" name="Quantity_@item.ClothesID"
+                                                <input type="number" id="@item.ClothesID" name="@item.ClothesID"
                                                        class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()">
                                             </td>
                                         </tr>
@@ -179,7 +179,7 @@
                                                 </div>
                                             </td>
                                             <td data-th="Quantity">
-                                                <input type="number" id="Quantity_@item.ClothesID" name="Quantity_@item.ClothesID"
+                                                <input type="number" id="@item.ClothesID" name="@item.ClothesID"
                                                        class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()">
                                             </td>
                                         </tr>
@@ -216,7 +216,7 @@
                                                 </div>
                                             </td>
                                             <td data-th="Quantity">
-                                                <input type="number" id="Quantity_@item.ClothesID" name="Quantity_@item.ClothesID"
+                                                <input type="number" id="@item.ClothesID" name="@item.ClothesID"
                                                        class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()">
                                             </td>
                                         </tr>
@@ -253,7 +253,7 @@
                                                 </div>
                                             </td>
                                             <td data-th="Quantity">
-                                                <input type="number" id="Quantity_@item.ClothesID" name="Quantity_@item.ClothesID"
+                                                <input type="number" id="@item.ClothesID" name="@item.ClothesID"
                                                        class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()">
                                             </td>
                                         </tr>
@@ -514,7 +514,7 @@
             total = parseFloat(PackageValue)|0;
             for (var i = 1; i < 35; i++) {
                 if ($('#CheckBox_' + i).is(":checked")) {
-                    total = total + parseFloat((parseInt($('#Price_' + i).val()) * parseInt($('#Quantity_' + i).val())))
+                    total = total + parseFloat((parseInt($('#Price_' + i).val()) * parseInt($('#' + i).val())))
                     console.log(total)
                 }
             }
@@ -525,9 +525,9 @@
             total = parseFloat(PackageValue) | 0;
             for (var i = 1; i < 35; i++) {
                 if ($('#CheckBox_' + i).is(":checked")) {
-                    $('#Quantity_' + i).val(1)
+                    $('#' + i).val(1)
                 } else {
-                    $('#Quantity_' + i).val(0)
+                    $('#' + i).val(0)
                 }
             }
             CalcTotal()

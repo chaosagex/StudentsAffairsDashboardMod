@@ -12,35 +12,36 @@ using StudentsAffairsDashboard.Models;
 
 namespace StudentsAffairsDashboard.Reports
 {
-    public partial class Report : System.Web.UI.Page
+    public partial class genereicReport : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ReportViewer1.Reset();
+            
+            ReportViewer2.Reset();
 
-            ReportViewer1.ProcessingMode = ProcessingMode.Local;
-            ReportViewer1.LocalReport.ReportPath = Server.MapPath("Uniform_Invoice.rdlc");
+            ReportViewer2.ProcessingMode = ProcessingMode.Local;
+            ReportViewer2.LocalReport.ReportPath = Server.MapPath("genericReport.rdlc");
+            string schoolID = Session["currentSchool"].ToString();
+            DataTable dt = GetData(schoolID);
+            ReportDataSource rds = new ReportDataSource("InvoiceSchool", dt);
 
-            DataTable dt = GetData(Request.QueryString["invoice"]);
-            ReportDataSource rds = new ReportDataSource("Uniforms", dt);
+            ReportViewer2.LocalReport.DataSources.Add(rds);
 
-            ReportViewer1.LocalReport.DataSources.Add(rds);
-
-            ReportViewer1.SizeToReportContent = true;
+            ReportViewer2.SizeToReportContent = true;
             //ReportViewer1.ZoomMode = ZoomMode.FullPage;
 
-            ReportViewer1.LocalReport.EnableExternalImages = true;
-            string schoolID = Session["currentSchool"].ToString();
+            ReportViewer2.LocalReport.EnableExternalImages = true;
+            
             string imagePath = new Uri(Server.MapPath($"~/Logos/{schoolID}.png")).AbsoluteUri;
 
             ReportParameter parameter = new ReportParameter("School", imagePath);
-            ReportViewer1.LocalReport.SetParameters(parameter);
-            ReportViewer1.LocalReport.Refresh();
+            ReportViewer2.LocalReport.SetParameters(parameter);
+            ReportViewer2.LocalReport.Refresh();
 
 
         }
 
-        private DataTable GetData(string invoice)
+        private DataTable GetData(string school)
         {
             DataTable dt = new DataTable();
 
@@ -51,10 +52,10 @@ namespace StudentsAffairsDashboard.Reports
                 {
                     con.Open();
 
-                    using (SqlCommand cmd = new SqlCommand("dbo.getUniformByInvoice", con))
+                    using (SqlCommand cmd = new SqlCommand("dbo.getSchoolInvoiceReport", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add("@invoice", SqlDbType.Int).Value = Int32.Parse(invoice);
+                        cmd.Parameters.Add("@School", SqlDbType.Int).Value = Int32.Parse(school);
                         SqlDataAdapter adp = new SqlDataAdapter(cmd);
                         adp.Fill(dt);
                     }

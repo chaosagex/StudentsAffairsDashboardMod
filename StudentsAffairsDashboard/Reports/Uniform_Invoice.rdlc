@@ -29,13 +29,65 @@
           <DataField>Price</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="StdCode">
-          <DataField>StdCode</DataField>
+        <Field Name="GradeName">
+          <DataField>GradeName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="date">
+          <DataField>date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="PackageStatus">
+          <DataField>PackageStatus</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ReceivingStatus">
+          <DataField>ReceivingStatus</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Grade">
+          <DataField>Grade</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="type">
+          <DataField>type</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ClothesID">
+          <DataField>ClothesID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ReceivingQuantity">
+          <DataField>ReceivingQuantity</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InvoiceID">
+          <DataField>InvoiceID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="student">
+          <DataField>student</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="ClothesPrice">
           <DataField>ClothesPrice</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClothesinPackagePrice">
+          <DataField>ClothesinPackagePrice</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClothesColor">
+          <DataField>ClothesColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SchoolName">
+          <DataField>SchoolName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="amount">
+          <DataField>amount</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="StdArabicFristName">
           <DataField>StdArabicFristName</DataField>
@@ -51,42 +103,6 @@
         </Field>
         <Field Name="StdArabicFamilyName">
           <DataField>StdArabicFamilyName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="SchoolName">
-          <DataField>SchoolName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Serial">
-          <DataField>Serial</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="amount">
-          <DataField>amount</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="GradeName">
-          <DataField>GradeName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="SCID">
-          <DataField>SCID</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="date">
-          <DataField>date</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="ClothesinPackagePrice">
-          <DataField>ClothesinPackagePrice</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ClothesColor">
-          <DataField>ClothesColor</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PackageStatus">
-          <DataField>PackageStatus</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -573,6 +589,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -727,7 +744,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -833,7 +849,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=First(Fields!Serial.Value)</Value>
+                                  <Value>=First(Fields!InvoiceID.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -1118,7 +1134,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=First(Fields!StdCode.Value, "Uniforms")</Value>
+                                  <Value>=First(Fields!student.Value, "Uniforms")</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>11pt</FontSize>

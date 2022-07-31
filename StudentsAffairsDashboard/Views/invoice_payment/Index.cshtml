@@ -45,45 +45,47 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.total_cost)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.paid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.remaining)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Notes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.deposit_date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.reference_code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.depositer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.invoice_payment2.Notes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentsMain.StdArabicFristName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
-    
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.total_cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.paid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.remaining)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.deposit_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reference_code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.depositer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.invoice_payment2.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentsMain.StdArabicFristName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+
 </table>
 <a href="~/Reports/Report.aspx?student=1">View Report</a>
+<a href="~/Reports/genericReport.aspx">View generic</a>
