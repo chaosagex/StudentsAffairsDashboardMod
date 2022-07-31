@@ -58,6 +58,16 @@
                                 </a>
                             </li>
                         </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="@Url.Action("UniformReport","StudentClothes")" class="nav-link active">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Uniform Report
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 
                 </ul>
@@ -88,7 +98,7 @@
 
                 </ul>
             }
-            @if (Session["UserName"].ToString().Contains("AdminNES"))
+            @if (Session["UserName"].ToString().Contains("Admin NES"))
             {
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class

@@ -23,6 +23,7 @@ namespace StudentsAffairsDashboard.Models
         public string PaymentStatus { get; set; }
         public string ReceivingQuantity { get; set; }
         public string PackageStatus { get; set; }
+        public Nullable<int> InvoiceID { get; set; }
     
         public virtual StudentsMain StudentsMain { get; set; }
         public virtual Cloth Cloth { get; set; }

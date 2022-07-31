@@ -27,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Session["UserName"].Equals("AdminNES"))
+                    @if (Session["UserName"].Equals("Admin NES"))
                     {
                         foreach (var item in Model)
                         {
@@ -55,7 +55,7 @@
                                 {
                                     <td><span class="badge badge-secondary">Uniform</span></td>
                                 }
-                                else if (item.LogContent.StartsWith("Login"))
+                                else if (item.LogContent.StartsWith("Login "))
                                 {
                                     <td><span class="badge badge-light">Login</span></td>
                                 }

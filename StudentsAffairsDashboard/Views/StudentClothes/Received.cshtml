@@ -91,8 +91,19 @@
 
                         </tbody>
                     </table>
-                    <hr>
+
+                </div>
+                <div class="col-lg-12 col-md-12 col-12">
                     <table id="shoppingCart" class="table table-condensed table-responsive">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
                         <tbody id="data">
 
                             @foreach (var item in Model)
@@ -101,7 +112,7 @@
                                 if (item.ReceivingStatus.Equals("False") && item.PackageStatus.Equals("OutPackage"))
                                 {
                                     <tr>
-                                        <td data-th="Checks">
+                                        <td data-th="Checks" style="width:5%">
                                             <div class="col-md-9 text-left mt-sm-2">
                                                 <div class="custom-control custom-checkbox pb-3">
                                                     <input disabled type="checkbox" id="@Html.DisplayFor(modelItem => item.SCID)" name="@Html.DisplayFor(modelItem => item.SCID)" class="custom-control-input c-items">
@@ -112,22 +123,22 @@
                                         <td data-th="Product">
                                             <div class="row">
                                                 <div class="col-md-9 text-left mt-sm-2">
-                                                    <h4>@Html.DisplayFor(modelItem => item.Cloth.ClothesName)</h4>
+                                                    <h5>@Html.DisplayFor(modelItem => item.Cloth.ClothesName)</h5>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td data-th="PackageStatus">
+                                        <td data-th="PackageStatus" style="width:10%">
                                             <div class="row">
                                                 <div class="col-md-9 text-left mt-sm-2">
                                                     <h5>@Html.DisplayFor(modelItem => item.PackageStatus)</h5>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td data-th="Quantity">
+                                        <td data-th="Quantity" style="width:15%">
                                             <input type="number" disabled id="Quantity_@item.SCID" name="Quantity_@item.SCID"
                                                    class="form-control form-control-lg text-center c-item" value="@item.Quantity" min="0">
                                         </td>
-                                        <td data-th="REQuantity">
+                                        <td data-th="REQuantity" style="width:15%">
                                             <input type="number" required id="REQuantity_@item.SCID" name="REQuantity_@item.SCID"
                                                    class="form-control form-control-lg text-center c-item" value="@Int32.Parse(item.ReceivingQuantity)" min="0" max="@item.Quantity">
                                         </td>
@@ -137,6 +148,7 @@
 
                         </tbody>
                     </table>
+
                 </div>
             </div>
             <div class="row mt-4 d-flex align-items-center">
@@ -167,7 +179,7 @@
                 //to get alert popup
                 e.preventDefault();
                 $.ajax({
-                    url: "StudentClothes/UpdateItemsReceived",
+                    url: "/StudentClothes/UpdateItemsReceived",
                     type: "POST",
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: {
@@ -175,11 +187,10 @@
                         Code: StdCode
                     },
                     success: function (response) {
-                        window.location.href = "StudentClothes/Receiving";
+                        window.location.href = "/StudentClothes/Receiving";
                     },
                     error: function (response) {
-                        console.log(response.responseText);
-                        alert(response.responseText);
+                        window.location.href = "/StudentClothes/Received/" + StdCode
                     }
                 });
             });

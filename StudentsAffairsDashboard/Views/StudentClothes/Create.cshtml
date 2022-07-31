@@ -554,8 +554,7 @@
                     window.location.href = "/StudentClothes/Index"
                 },
                 error: function (response) {
-                    console.log(response.responseText);
-                    alert(response.responseText);
+                    window.location.href = "/StudentClothes/Create/"+StdCode
                 }
             });
         });

@@ -1,38 +1,68 @@
 ﻿@model IEnumerable<StudentsAffairsDashboard.Models.StudentsMain>
-@{
-    ViewBag.ID = 0;
-}
+
 <!-- Main content -->
 <section class="content">
     <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Uniform</h3>
-        </div>
         <form id="FillterData">
             <div class="col-lg-12">
                 <div class="card card-primary">
                     <div class="form-horizontal">
                         <div class="card-header">
-                            <h3 class="card-title">Filter</h3><div class="col-md-2 d-flex align-items-center justify-content-center">
-                                @Html.DropDownList("SchoolID", null, htmlAttributes: new { @class = "form-control" })
-                            </div>
+                            <h3 class="card-title">Filter</h3>
                         </div>
                         <br />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            <div class="row px-3">
-                                <div class="custom-control custom-checkbox pb-3 col-md-4">
+                            <div class="row">
+                                <div class="col-1">
+                                </div>
+                                <div class="custom-control custom-checkbox pb-3 col-2">
                                     <input type="checkbox" id="1" name="first installment" class="custom-control-input">
-                                    <label class="custom-control-label" for="1"><b>First installment</b></label>
+                                    <label class="custom-control-label" for="1">First installment</label>
                                 </div>
-                                <div class="custom-control custom-checkbox pb-3 col-md-4">
+                                <div class="custom-control custom-checkbox pb-3 col-2">
+                                    <input type="checkbox" id="3" name="Resorce" class="custom-control-input">
+                                    <label class="custom-control-label" for="3">Resorce</label>
+                                </div>
+                                <div class="custom-control custom-checkbox pb-3 col-2">
+                                    <input type="checkbox" id="4" name="Activity" class="custom-control-input">
+                                    <label class="custom-control-label" for="4">Activity</label>
+                                </div>
+                                <div class="custom-control custom-checkbox pb-3 col-2">
                                     <input type="checkbox" id="2" name="2nd installment" class="custom-control-input">
-                                    <label class="custom-control-label" for="2"><b>2nd installment</b></label>
+                                    <label class="custom-control-label" for="2">2nd installment</label>
                                 </div>
-                                <div class="col-md-1">
-                                    @Html.Label("Search Year", htmlAttributes: new { @class = "control-label" })
+                                <div class="custom-control custom-checkbox pb-3 col-2">
+                                    <input type="checkbox" id="5" name="Uniform" class="custom-control-input">
+                                    <label class="custom-control-label" for="5">Uniform</label>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-1">
+                                </div>
+
+                                <div class="col-1">
+                                </div>
+                                <div class="col-2">
+                                    <label>Select Grade</label>
+                                </div>
+                                <div class="col-2">
+                                    <label>Year</label>
+                                </div>
+                                <div class="col-2">
+                                    <label>From</label>
+                                </div>
+                                <div class="col-2">
+                                    <label>To</label>
+                                </div>
+                                <div class="col-3">
+
+                                </div>
+
+                                <div class="col-1">
+                                </div>
+                                <div class="col-2 d-flex align-items-center justify-content-center">
+                                    @Html.DropDownList("GradeID", null, htmlAttributes: new { @class = "form-control" })
+                                </div>
+                                <div class="col-2">
                                     @Html.DropDownList("Year", new List<SelectListItem>()
                                             {
                                                 new SelectListItem {  Text = "2014",Value = "2014"},
@@ -54,38 +84,13 @@
                                                 new SelectListItem {  Text = "2030",Value = "2030"},
                                             }, htmlAttributes: new { @class = "form-control", required = "required" })
                                 </div>
-                                <div class="custom-control custom-checkbox pb-3 col-md-4">
-                                    <input type="checkbox" id="3" name="Resorce" class="custom-control-input">
-                                    <label class="custom-control-label" for="3"><b>Resorce</b></label>
-                                </div>
-                                <div class="custom-control custom-checkbox pb-3 col-md-4">
-                                    <input type="checkbox" id="4" name="Activity" class="custom-control-input">
-                                    <label class="custom-control-label" for="4"><b>Activity</b></label>
-                                </div>
-                                <div class="col-md-1">
-                                    @Html.Label("From", htmlAttributes: new { @class = "control-label" })
-                                </div>
-                                <div class="col-md-3">
+                                <div class="col-2">
                                     @Html.Editor("From", new { htmlAttributes = new { @class = "form-control", type = "date", required = "required" } })
                                 </div>
-
-                                <div class="custom-control custom-checkbox pb-3 col-md-4">
-                                    <input type="checkbox" id="5" name="Uniform" class="custom-control-input">
-                                    <label class="custom-control-label" for="5"><b>Uniform</b></label>
-                                </div>
-                                <div class="col-md-4"></div>
-                                <div class="col-md-1">
-                                    @Html.Label("To", htmlAttributes: new { @class = "control-label" })
-                                </div>
-                                <div class="col-md-3">
+                                <div class="col-2">
                                     @Html.Editor("To", new { htmlAttributes = new { @class = "form-control", type = "date", required = "required" } })
                                 </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    @Html.DropDownList("SchoolID", null, htmlAttributes: new { @class = "form-control" })
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    @Html.DropDownList("GradeID", null, htmlAttributes: new { @class = "form-control" })
-                                </div>
+
 
                             </div>
                             <div class="row mt-2 d-flex align-items-center px-3">
@@ -99,23 +104,30 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Uniform</h3>
+        </div>
         <!-- /.card-header -->
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
+                        <th hidden></th>
                         <th style="width: 10%">ID</th>
                         <th style="width: 25%">Full Name</th>
-                        <th>Uniform</th>
-                        <th>Payment Status</th>
-                        <th>Receiving Status</th>
-                        <th>Uniform Status</th>
+                        <th style="text-align: center; vertical-align: middle;">Grade</th>
+                        <th style="text-align: center; vertical-align: middle;">Uniforms Status</th>
+                        <th style="text-align: center; vertical-align: middle;">Invoces Status</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
+                            <td hidden>@Html.DisplayFor(modelItem => item.StdCode)</td>
                             <td style="text-align: center; vertical-align: middle;">@Html.DisplayFor(modelItem => item.StdNID)</td>
                             <td style="vertical-align: middle;">
                                 <a>
@@ -125,13 +137,11 @@
                                 <small>
                                     NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault()  @Html.DisplayFor(modelItem => item.Class.ClassName) (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
                                 </small>
-                                <br />
-                                <small>
-                                    Father : @Html.DisplayFor(modelItem => item.StdFatherMobilePhone)  -  Mother : @Html.DisplayFor(modelItem => item.StdMotherMobilePhone)
-                                </small>
                             </td>
                             <td style="text-align: center; vertical-align: middle;">
-                                @*@Html.ActionLink("Reservation Uniform", "Create", new { id = item.StdCode }, new { @class = "btn btn-primary btn-sm" })*@
+                                <a>
+                                    @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault().Replace(" ", "")
+                                </a>
                             </td>
                             <td style="text-align: center; vertical-align: middle;">
 
@@ -144,9 +154,7 @@
                                 {
                                     <span class="badge badge-danger">NOT Paid</span>
                                 }
-
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
+                                <br />
                                 @if (item.StudentClothes.Where(a => a.StudentsMain.StdCode == item.StdCode).ToList().Count != 0 && item.StudentClothes.Where(a => a.StudentsMain.StdCode == item.StdCode).ToList().All(a => a.ReceivingStatus == "True"))
                                 {
                                     <span class="badge badge-success">Received</span>
@@ -155,120 +163,173 @@
                                 {
                                     <span class="badge badge-danger">NOT Received</span>
                                 }
+                                <br />
+                                <a href="javascript:;" class="badge badge-primary details"><i class="glyphicon glyphicon-trash"></i>Show Uniform Status</a>
+                                <br />
+                                @*<a href="~/Reports/Report.aspx?student=@item.StdCode" class="badge badge-primary"><i class="glyphicon glyphicon-trash"></i>Print Receipt</a>*@
+                            
                             </td>
                             <td style="text-align: center; vertical-align: middle;">
-                                <a href="#" class="badge badge-primary" @*onclick="ConfirmDelete(@item.StdCode)*@><i class="glyphicon glyphicon-trash"></i>Show Uniform Status</a>
+                                <a href="javascript:;" class="badge badge-secondary details2"><i class="glyphicon glyphicon-trash"></i>Show Invoices Status</a>
                             </td>
-
                         </tr>
-                        }
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th style="width: 10%">ID</th>
-                            <th style="width: 25%">Full Name</th>
-                            <th>Uniform</th>
-                            <th>Payment Status</th>
-                            <th>Receiving Status</th>
-                            <th>Uniform Status</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-            <!-- /.card-body -->
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th hidden></th>
+                        <th style="width: 10%">ID</th>
+                        <th style="width: 25%">Full Name</th>
+                        <th style="text-align: center; vertical-align: middle;">Grade</th>
+                        <th style="text-align: center; vertical-align: middle;">Uniforms Status</th>
+                        <th style="text-align: center; vertical-align: middle;">Invoces Status</th>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
-        <!-- /.card -->
-    </section>
-
-    <div class="modal fade" id="modal-danger">
-        <div class="modal-dialog">
-            <div class="modal-content bg-white">
-                <div class="modal-header">
-                    <h4 class="modal-title">Uniform Data</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row text-center">
-                        @foreach (var item in Model.Where(a => a.StdCode == ViewBag.ID))
-                        {
-                            <div class="col-3">
-                                <label><b>@item.StudentClothes.FirstOrDefault().Cloth.ClothesName</b></label>
-                            </div>
-                            <div class="col-3">
-                                <label><b>T</b></label>
-                            </div>
-                            <div class="col-3">
-                                <label><b>4</b></label>
-                            </div>
-                            <div class="col-3">
-                                <label><b>3</b></label>
-                            </div>
-                        }
-                    </div>
-                    @*hidden field for storing current employeeId*@
-                    <input type="hidden" id="hiddenId" name="hiddenId" />
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-outline-light">Delete</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
+        <!-- /.card-body -->
     </div>
+    <!-- /.card -->
+</section>
 
-    @section scripts{
-        <script>
-            var ConfirmDelete = function (EmployeeId) {
-                $("#hiddenId").val(EmployeeId);
-                $("#modal-danger").modal('show');
-            }
+<div class="modal fade" id="partialModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Uniform Data For Student</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
-            $(function () {
-                $("#example1").DataTable({
-                    "responsive": true, "lengthChange": false, "autoWidth": false,
-                    "buttons": ["excel", "pdf", "print"]
-                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-                $('#example2').DataTable({
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": false,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "responsive": true,
+
+<div class="modal fade" id="partialModal2">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Invoices Data For Student</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+@section scripts{
+    <script>
+        var ConfirmDelete = function (EmployeeId) {
+            $("#hiddenId").val(EmployeeId);
+            $("#partialModal").modal('show');
+
+        }
+
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["excel", "pdf", "print"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+        $(document).ready(function () {
+            $("#btnSearch").click(function (e) {
+                //Serialize the form datas.
+                var valdata = $("#FillterData").serialize();
+                //var StdCode = $("#StdCode").val();
+                //to get alert popup
+                alert(valdata);
+                $.ajax({
+                    url: "/StudentClothes/UniformReportResult",
+                    type: "POST",
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: {
+                        searchText: valdata,
+                        //Code: StdCode
+                    },
+                    success: function (result) {
+                        document.open();
+                        document.write(result);
+                        document.close();
+                    }, error: function (request, status, error) {
+                        console.log(request.responseText)
+                        alert(request.responseText);
+
+                    }
                 });
             });
-            $(document).ready(function () {
-                $("#btnSearch").click(function (e) {
-                    //Serialize the form datas.
-                    var valdata = $("#FillterData").serialize();
-                    //var StdCode = $("#StdCode").val();
-                    //to get alert popup
-                    alert(valdata);
-                    $.ajax({
-                        url: "/StudentClothes/UniformReportResult",
-                        type: "POST",
-                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                        data: {
-                            searchText: valdata,
-                            //Code: StdCode
-                        },
-                        success: function (result) {
-                            document.open();
-                            document.write(result);
-                            document.close();
-                        }, error: function (request, status, error) {
-                            console.log(request.responseText)
-                            alert(request.responseText);
+        });
 
-                        }
-                    });
-                });
+
+
+        $("#example1 .details").click(function () {
+            var customerId = $(this).closest("tr").find("td").eq(0).html();
+            $.ajax({
+                type: "POST",
+                url: "/StudentClothes/Details",
+                data: '{customerId: "' + customerId + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $("#partialModal").find(".modal-body").html(response);
+                    $("#partialModal").modal('show');
+                },
+                failure: function (response) {
+                    console.log(response.responseText);
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
             });
-        </script>
-    }
+        });
+
+        $("#example1 .details2").click(function () {
+            var customerId2 = $(this).closest("tr").find("td").eq(0).html();
+            $.ajax({
+                type: "POST",
+                url: "/StudentClothes/DetailsReceipt",
+                data: '{customerId: "' + customerId2 + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $("#partialModal2").find(".modal-body").html(response);
+                    $("#partialModal2").modal('show');
+                },
+                failure: function (response) {
+                    console.log(response.responseText);
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        });
+
+
+    </script>
+}
+
+
 

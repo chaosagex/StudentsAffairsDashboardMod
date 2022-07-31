@@ -67,7 +67,7 @@
                                 <a href="javascript:;" class="badge badge-primary details"><i class="glyphicon glyphicon-trash"></i>Show Uniform Status</a>
                             </td>
                             <td style="text-align: center; vertical-align: middle;">
-                                <a href="~/Reports/Report.aspx?student=@item.StdCode" class="badge badge-primary" ><i class="glyphicon glyphicon-trash"></i>Print Receipt</a>
+                                <a href="javascript:;" class="badge badge-secondary details2"><i class="glyphicon glyphicon-trash"></i>Show Invoices Status</a>
                             </td>
                         </tr>
                     }
@@ -91,27 +91,6 @@
     <!-- /.card -->
 </section>
 
-<!--<div class="modal fade" >
-    <div class="modal-dialog" role="document">
-        <div class="modal-content bg-white">
-            <div class="modal-header">
-                <h4 class="modal-title">Uniform Data</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-outline-light">Delete</button>
-            </div>
-        </div>-->
-        <!-- /.modal-content -->
-    <!--</div>-->
-    <!-- /.modal-dialog -->
-<!--</div>-->
-
 <div class="modal fade" id="partialModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -132,11 +111,11 @@
     <!-- /.modal-dialog -->
 </div>
 
-<!--<div class="modal fade" id="partialModal" style="display: block; padding-right: 17px;" aria-modal="true" role="dialog">
-    <div class="modal-dialog modal-xl" role="document">
+<div class="modal fade" id="partialModal2">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Uniform Data</h5>
+                <h4 class="modal-title text-center">Invoices Data For Student</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -144,13 +123,13 @@
             <div class="modal-body">
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
-        </div>-->
+        </div>
         <!-- /.modal-content -->
-    <!--</div>-->
+    </div>
     <!-- /.modal-dialog -->
-<!--</div>-->
+</div>
 @section scripts{
     <script>
         var ConfirmDelete = function (EmployeeId) {
@@ -195,7 +174,26 @@
                 }
             });
         });
-
+        $("#example1 .details2").click(function () {
+            var customerId2 = $(this).closest("tr").find("td").eq(0).html();
+            $.ajax({
+                type: "POST",
+                url: "/StudentClothes/DetailsReceipt",
+                data: '{customerId: "' + customerId2 + ' }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $("#partialModal2").find(".modal-body").html(response);
+                    $("#partialModal2").modal('show');
+                },
+                failure: function (response) {
+                    console.log(response.responseText);
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        });
         
     </script>
 }
