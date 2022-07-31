@@ -584,7 +584,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=iif(cint(Fields!Quantity.Value)&gt;1,Fields!ClothesPrice.Value,Fields!ClothesinPackagePrice.Value)</Value>
+                                  <Value>=iif(Fields!PackageStatus.Value="OutPackage",Fields!ClothesPrice.Value,Fields!ClothesinPackagePrice.Value)</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -706,7 +706,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=First(Fields!ClothesName.Value)</Value>
+                                  <Value>=iif(Fields!PackageStatus.Value="OutPackage",Fields!ClothesName.Value &amp; " (أضافي)",Fields!ClothesName.Value)</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -727,6 +727,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>

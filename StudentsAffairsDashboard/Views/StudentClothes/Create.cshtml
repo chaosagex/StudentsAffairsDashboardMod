@@ -310,6 +310,11 @@
                     PackageNameT = "KGBoy";
                     PackageValue = $('#P_KG12Boy').val();
                 }
+                else {
+                    $("#KG12Boy").prop("checked", false)
+                    total = total - parseFloat($('#P_KG12Boy').val())
+                    $('#total').text(total)
+                }
             });
 
             $("#KG12Girl").change(function () {
@@ -330,6 +335,11 @@
                     PackageNameT = "KGGirl";
                     PackageValue = $('#P_KG12Girl').val();
                 }
+                else {
+                    $("#KG12Girl").prop("checked", false)
+                    total = total - parseFloat($('#P_KG12Girl').val())
+                    $('#total').text(total)
+                }
             });
 
             $("#Grade16Boy").change(function () {
@@ -345,10 +355,15 @@
                     $('#Grade79Girl').prop("checked", false)
                     $('#Grade1012Girl').prop("checked", false)
 
-                    total = total + parseFloat($('#P_Grade16Boy').val())
+                    total = total - parseFloat($('#P_Grade16Boy').val())
                     $('#total').text(total)
                     PackageNameT = "PrimaryBoyGirl";
                     PackageValue = $('#P_Grade16Boy').val();
+                }
+                else {
+                    $('#Grade16Boy').prop("checked", false)
+                    total = total - parseFloat($('#P_Grade16Boy').val())
+                    $('#total').text(total)
                 }
             });
 
@@ -370,6 +385,11 @@
                     PackageNameT = "PrimaryBoyGirl";
                     PackageValue = $('#P_Grade16Girl').val();
                 }
+                else {
+                    $('#Grade16Girl').prop("checked", false)
+                    total = total - parseFloat($('#P_Grade16Girl').val())
+                    $('#total').text(total)
+                }
             });
 
             $("#Grade79Boy").change(function () {
@@ -389,6 +409,11 @@
                     $('#total').text(total)
                     PackageNameT = "PreparatoryBoyGirl";
                     PackageValue = $('#P_Grade79Boy').val();
+                }
+                else {
+                    $('#Grade79Boy').prop("checked", false)
+                    total = total - parseFloat($('#P_Grade79Boy').val())
+                    $('#total').text(total)
                 }
             });
 
@@ -410,6 +435,11 @@
                     PackageNameT = "PreparatoryBoyGirl";
                     PackageValue = $('#P_Grade79Girl').val();
                 }
+                else {
+                    $('#Grade79Girl').prop("checked", false)
+                    total = total - parseFloat($('#P_Grade79Girl').val())
+                    $('#total').text(total)
+                }
             });
 
             $("#Grade1012Boy").change(function () {
@@ -429,6 +459,11 @@
                     $('#total').text(total)
                     PackageNameT = "SecondaryBoyGirl";
                     PackageValue = $('#P_Grade1012Boy').val();
+                }
+                else {
+                    $('#Grade1012Boy').prop("checked", false)
+                    total = total - parseFloat($('#P_Grade1012Boy').val())
+                    $('#total').text(total)
                 }
             });
 
@@ -450,11 +485,17 @@
                     PackageNameT = "SecondaryBoyGirl";
                     PackageValue = $('#P_Grade1012Girl').val();
                 }
+                else {
+                    $('#Grade1012Girl').prop("checked", false)
+                    total = total - parseFloat($('#P_Grade1012Girl').val())
+                    $('#total').text(total)
+                }
             });
 
         })
 
         function CalcTotal() {
+            total = parseFloat(PackageValue)|0;
             for (var i = 1; i < 35; i++) {
                 if ($('#CheckBox_' + i).is(":checked")) {
                     total = total + parseFloat((parseInt($('#Price_' + i).val()) * parseInt($('#Quantity_' + i).val())))
