@@ -179,7 +179,7 @@
                 //to get alert popup
                 e.preventDefault();
                 $.ajax({
-                    url: "StudentClothes/UpdateItemsReceived",
+                    url: "/StudentClothes/UpdateItemsReceived",
                     type: "POST",
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: {
@@ -187,11 +187,10 @@
                         Code: StdCode
                     },
                     success: function (response) {
-                        window.location.href = "StudentClothes/Receiving";
+                        window.location.href = "/StudentClothes/Receiving";
                     },
                     error: function (response) {
-                        console.log(response.responseText);
-                        alert(response.responseText);
+                        window.location.href = "/StudentClothes/Received/" + StdCode
                     }
                 });
             });

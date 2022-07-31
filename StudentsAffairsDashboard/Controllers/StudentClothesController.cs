@@ -387,13 +387,19 @@ namespace StudentsAffairsDashboard.Controllers
             var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a => a.NESSchool.SchoolID == SchoolIDsession);
 
             ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName");
-            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
+            var ListGrades = db.Grades.ToList();
+            ListGrades.Add(new Grade() { GradeID = -1, GradeName = "All" });
+            var GradesResult = ListGrades.OrderBy(d => d.GradeID).ToList();
+            ViewBag.GradeID = new SelectList(GradesResult, "GradeID", "GradeName");
 
             return View(studentsMains.ToList());
         }
         public ActionResult UniformReportResult(string searchText, string GradeID)
         {
-            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
+            var ListGrades = db.Grades.ToList();
+            ListGrades.Add(new Grade() { GradeID = -1, GradeName = "All" });
+            var GradesResult = ListGrades.OrderBy(d => d.GradeID).ToList();
+            ViewBag.GradeID = new SelectList(GradesResult, "GradeID", "GradeName");
             String[] FilterData = new string[9];
 
             //FilterData[0] = "first%20installment";
@@ -444,12 +450,24 @@ namespace StudentsAffairsDashboard.Controllers
             HashSet<StudentsMain> StudentData = new HashSet<StudentsMain>();
             string Year = FilterData[5];
             int ScID = Int32.Parse(Session["CurrentSchool"].ToString());
-            int GrID = Int32.Parse(FilterData[8]);
-
-            if (!FilterData[5].Equals("0"))
+            if (FilterData[8].Equals("-1"))
             {
-                All = db.payment_details.Where(a => a.year.Equals(Year)).Where(a => a.school == ScID).Where(a => a.Grade == GrID).ToList();
+                if (!FilterData[5].Equals("0"))
+                {
+                    All = db.payment_details.Where(a => a.year.Equals(Year)).Where(a => a.school == ScID).ToList();
+                }
             }
+            else
+            {
+                int GrID = Int32.Parse(FilterData[8]);
+                if (!FilterData[5].Equals("0"))
+                {
+                    All = db.payment_details.Where(a => a.year.Equals(Year)).Where(a => a.school == ScID).Where(a => a.Grade == GrID).ToList();
+                }
+            }
+            
+
+            
 
             foreach (payment_details item in All)
             {
@@ -567,7 +585,7 @@ namespace StudentsAffairsDashboard.Controllers
         }
 
         [HttpPost]
-        public ActionResult DetailsReceipt(string customerId)
+        public ActionResult DetailsReceipt(string customerId, string Typ)
         {
             int Code = Int32.Parse(customerId);
             ViewBag.StdName = db.StudentsMains.Find(Code).StdEnglishFristName + " " + db.StudentsMains.Find(Code).StdEnglishMiddleName + " " + db.StudentsMains.Find(Code).StdEnglishLastName + " " + db.StudentsMains.Find(Code).StdEnglishFamilyName;
@@ -577,9 +595,9 @@ namespace StudentsAffairsDashboard.Controllers
             ViewBag.StdClass = db.StudentsMains.Find(Code).Class.ClassName;
 
             var StudentsInvoicesData = db.invoice_payment.Where(a => a.student == Code);
-            //decimal TRemaing = db.invoice_payment.Where(a => a.student == Code).LastOrDefault().remaining;
+            decimal TRemaing = StudentsInvoicesData.ToList().Last().remaining;
 
-            ViewBag.TotalReminig = 2000;
+            ViewBag.TotalReminig = TRemaing;
             return PartialView("DetailsReceipt", StudentsInvoicesData.ToList());
         }
 

@@ -13,20 +13,23 @@
     <div class="card-footer p-1">
         <div class="row">
 
-            <div class="col-4" style="width: 115px; height: 20px; text-align: right;">
+            <div class="col-2" style="width: 115px; height: 20px;">
                 Invoices
             </div>
-            <div class="col-2" style="width: 115px; height: 20px; text-align: right;">
+            <div class="col-2 text-center" style="width: 115px; height: 20px;">
                 Total
             </div>
-            <div class="col-2" style="width: 115px; height: 20px; text-align: right;">
+            <div class="col-2 text-center" style="width: 115px; height: 20px;">
                 Paid
             </div>
-            <div class="col-2" style="width: 115px; height: 20px; text-align: right;">
+            <div class="col-2 text-center" style="width: 115px; height: 20px;">
                 Remining
             </div>
-            <div class="col-2" style="width: 115px; height: 20px; text-align: right;">
+            <div class="col-2 text-center" style="width: 115px; height: 20px;">
                 Invoice Details
+            </div>
+            <div class="col-2 text-center" style="width: 115px; height: 20px;">
+                Invoice Print
             </div>
         </div>
         @foreach (var item in Model)
@@ -42,7 +45,7 @@
                             <h6> <span class="text-center badge bg-success">@item.Quantity</span> </h6>
                         </div>
 
-                        <div class="col-6" style="width: 115px; height: 20px; text-align: right;">
+                        <div class="col-6" style="width: 115px; height: 20px;">
                             <h6>@Html.DisplayFor(modelItem => item.Cloth.ClothesName) </h6>
                         </div>
                     </div>
@@ -58,7 +61,7 @@
                             <h6> <span class="text-center badge bg-black">@item.Quantity</span> </h6>
                         </div>
 
-                        <div class="col-6" style="width: 115px; height: 20px; text-align: right;">
+                        <div class="col-6" style="width: 115px; height: 20px;">
                             <h6>@Html.DisplayFor(modelItem => item.Cloth.ClothesName) </h6>
                         </div>
                     </div>
@@ -74,13 +77,13 @@
                             <h6> <span class="text-center badge bg-danger">@item.Quantity</span> </h6>
                         </div>
 
-                        <div class="col-6" style="width: 115px; height: 20px; text-align: right;">
+                        <div class="col-6" style="width: 115px; height: 20px;">
                             <h6>@Html.DisplayFor(modelItem => item.Cloth.ClothesName) </h6>
                         </div>
                     </div>
                 }*@
             <div class="row">
-                <div class="col-4" style="width: 115px; height: 20px; text-align: right;">
+                <div class="col-2" style="width: 115px; height: 20px;">
                     <h6>Invoce No-@Html.DisplayFor(modelItem => item.id) </h6>
                 </div>
 
@@ -97,8 +100,13 @@
                 <div class="col-2  text-center" style="width: 115px; height: 20px;">
                     @foreach (var itemm in item.payment_details)
                     {
-                        <h6><span class="badge bg-primary">@itemm.name</span></h6>
-                        <br />
+                        <h6><span class="badge">@itemm.name</span></h6>
+                    }
+                </div>
+                <div class="col-2  text-center" style="width: 115px; height: 20px;">
+                    @foreach (var itemm in item.payment_details)
+                    {
+                        <a href="~/Reports/Report.aspx?invoice=@item.id" class="badge badge-primary"><i class="glyphicon glyphicon-trash"></i>Print Receipt</a>
                     }
                 </div>
             </div>
@@ -106,7 +114,7 @@
     </div>
 </div>
 
+    <div>
+        <p>Total Reminig <br> <b id="total">@Html.Display("TotalReminig")</b> EGP</p>
+    </div>
 
-<div>
-    <p>Total Reminig <br> <b id="total">@Html.Display("TotalReminig")</b> EGP</p>
-</div>
