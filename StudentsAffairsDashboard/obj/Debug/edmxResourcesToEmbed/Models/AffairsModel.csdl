@@ -41,6 +41,7 @@
     <Property Name="SchoolCambridge" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="SchoolEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Accounts" Relationship="Student_Affairs_DatabaseModel.FK_Accounts_NESSchools" FromRole="NESSchool" ToRole="Account" />
+    <Property Name="SchoolArabicName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="StudentAccount">
     <Key>
@@ -398,6 +399,21 @@
     <FunctionImport Name="getUniformStudent" ReturnType="Collection(Student_Affairs_DatabaseModel.getUniformStudent_Result)">
       <Parameter Name="stdcode" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="getSchoolFullyOrPartial" ReturnType="Collection(Student_Affairs_DatabaseModel.getSchoolFullyOrPartial_Result)">
+      <Parameter Name="School" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="getSchoolFullyRecieved" ReturnType="Collection(Student_Affairs_DatabaseModel.getSchoolFullyRecieved_Result)">
+      <Parameter Name="School" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="getSchoolInvoiceReport" ReturnType="Collection(Student_Affairs_DatabaseModel.getSchoolInvoiceReport_Result)">
+      <Parameter Name="School" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="getSchoolNotRecieved" ReturnType="Collection(Student_Affairs_DatabaseModel.getSchoolNotRecieved_Result)">
+      <Parameter Name="School" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="getUniformByInvoice" ReturnType="Collection(Student_Affairs_DatabaseModel.getUniformByInvoice_Result)">
+      <Parameter Name="invoice" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="Log">
     <Key>
@@ -457,6 +473,7 @@
     <Property Name="reference_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="depositer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="type" Type="Int16" Nullable="false" />
+    <Property Name="SeqID" Type="Int32" />
   </EntityType>
   <EntityType Name="payment_details">
     <Key>
@@ -655,5 +672,100 @@
     <Property Type="String" Name="GradeName" Nullable="false" MaxLength="100" />
     <Property Type="Int32" Name="SCID" Nullable="false" />
     <Property Type="DateTime" Name="date" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="getSchoolFullyOrPartial_Result">
+    <Property Type="Int32" Name="student" Nullable="false" />
+    <Property Type="DateTime" Name="date" Nullable="false" />
+    <Property Type="Decimal" Name="amount" Nullable="false" Precision="19" />
+    <Property Type="String" Name="Quantity" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Price" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="ReceivingStatus" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="ReceivingQuantity" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="PackageStatus" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="StdArabicFristName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicMiddleName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicFamilyName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ClothesPrice" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="ClothesinPackagePrice" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ClothesColor" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ClothesName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="GradeName" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="getSchoolFullyRecieved_Result">
+    <Property Type="Int32" Name="student" Nullable="false" />
+    <Property Type="DateTime" Name="date" Nullable="false" />
+    <Property Type="Decimal" Name="amount" Nullable="false" Precision="19" />
+    <Property Type="String" Name="Quantity" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Price" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="ReceivingStatus" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="ReceivingQuantity" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="PackageStatus" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="StdArabicFristName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicMiddleName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicFamilyName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ClothesPrice" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="ClothesinPackagePrice" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ClothesColor" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ClothesName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="GradeName" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="getSchoolInvoiceReport_Result">
+    <Property Type="DateTime" Name="date" Nullable="false" />
+    <Property Type="Decimal" Name="total_cost" Nullable="false" Precision="19" />
+    <Property Type="Decimal" Name="paid" Nullable="false" Precision="19" />
+    <Property Type="Decimal" Name="remaining" Nullable="false" Precision="19" />
+    <Property Type="String" Name="StdArabicFristName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicMiddleName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicFamilyName" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="Grade" Nullable="true" />
+    <Property Type="String" Name="GradeName" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="type" Nullable="false" />
+    <Property Type="Int32" Name="id" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="getSchoolNotRecieved_Result">
+    <Property Type="Int32" Name="student" Nullable="false" />
+    <Property Type="DateTime" Name="date" Nullable="false" />
+    <Property Type="Decimal" Name="amount" Nullable="false" Precision="19" />
+    <Property Type="String" Name="Quantity" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Price" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="ReceivingStatus" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="ReceivingQuantity" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="PackageStatus" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="StdArabicFristName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicMiddleName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicFamilyName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ClothesPrice" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="ClothesinPackagePrice" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ClothesColor" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ClothesName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="GradeName" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="getUniformByInvoice_Result">
+    <Property Type="Int32" Name="Grade" Nullable="true" />
+    <Property Type="Int32" Name="type" Nullable="false" />
+    <Property Type="String" Name="Quantity" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="ClothesID" Nullable="false" />
+    <Property Type="String" Name="Price" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="ReceivingStatus" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="ReceivingQuantity" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="PackageStatus" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="InvoiceID" Nullable="true" />
+    <Property Type="String" Name="GradeName" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="student" Nullable="false" />
+    <Property Type="DateTime" Name="date" Nullable="false" />
+    <Property Type="String" Name="ClothesPrice" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="ClothesinPackagePrice" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ClothesColor" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ClothesName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="SchoolName" Nullable="false" MaxLength="100" />
+    <Property Type="Decimal" Name="amount" Nullable="false" Precision="19" />
+    <Property Type="String" Name="StdArabicFristName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicMiddleName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="StdArabicFamilyName" Nullable="true" MaxLength="100" />
   </ComplexType>
 </Schema>

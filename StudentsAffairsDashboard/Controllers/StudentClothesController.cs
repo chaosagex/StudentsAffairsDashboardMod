@@ -306,6 +306,9 @@ namespace StudentsAffairsDashboard.Controllers
                     invoice.Notes = "";
                 db.payment_details.Add(item);
                 db.SaveChanges();
+                var rawQuery = db.Database.SqlQuery<int>($"SELECT NEXT VALUE FOR dbo.SeqIn{school};");
+                int nextVal = rawQuery.Single();
+                invoice.SeqID = nextVal;
                 db.invoice_payment.Add(invoice);
                 db.SaveChanges();
                 //invoice.total_cost += item.amount;

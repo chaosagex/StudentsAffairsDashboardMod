@@ -29,6 +29,7 @@ namespace StudentsAffairsDashboard.Models
         public string SchoolContact { get; set; }
         public string SchoolCambridge { get; set; }
         public string SchoolEmail { get; set; }
+        public string SchoolArabicName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentsMain> StudentsMains { get; set; }

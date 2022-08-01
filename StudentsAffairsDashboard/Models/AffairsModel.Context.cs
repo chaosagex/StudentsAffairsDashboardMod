@@ -376,5 +376,50 @@ namespace StudentsAffairsDashboard.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getUniformStudent_Result>("getUniformStudent", stdcodeParameter);
         }
+    
+        public virtual ObjectResult<getSchoolFullyOrPartial_Result> getSchoolFullyOrPartial(Nullable<int> school)
+        {
+            var schoolParameter = school.HasValue ?
+                new ObjectParameter("School", school) :
+                new ObjectParameter("School", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getSchoolFullyOrPartial_Result>("getSchoolFullyOrPartial", schoolParameter);
+        }
+    
+        public virtual ObjectResult<getSchoolFullyRecieved_Result> getSchoolFullyRecieved(Nullable<int> school)
+        {
+            var schoolParameter = school.HasValue ?
+                new ObjectParameter("School", school) :
+                new ObjectParameter("School", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getSchoolFullyRecieved_Result>("getSchoolFullyRecieved", schoolParameter);
+        }
+    
+        public virtual ObjectResult<getSchoolInvoiceReport_Result> getSchoolInvoiceReport(Nullable<int> school)
+        {
+            var schoolParameter = school.HasValue ?
+                new ObjectParameter("School", school) :
+                new ObjectParameter("School", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getSchoolInvoiceReport_Result>("getSchoolInvoiceReport", schoolParameter);
+        }
+    
+        public virtual ObjectResult<getSchoolNotRecieved_Result> getSchoolNotRecieved(Nullable<int> school)
+        {
+            var schoolParameter = school.HasValue ?
+                new ObjectParameter("School", school) :
+                new ObjectParameter("School", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getSchoolNotRecieved_Result>("getSchoolNotRecieved", schoolParameter);
+        }
+    
+        public virtual ObjectResult<getUniformByInvoice_Result> getUniformByInvoice(Nullable<int> invoice)
+        {
+            var invoiceParameter = invoice.HasValue ?
+                new ObjectParameter("invoice", invoice) :
+                new ObjectParameter("invoice", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getUniformByInvoice_Result>("getUniformByInvoice", invoiceParameter);
+        }
     }
 }
