@@ -852,7 +852,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="New ID: " &amp; Fields!SeqID.Value &amp; "Old ID:" &amp; Fields!InvoiceID.Value</Value>
+                                  <Value>= Fields!SeqID.Value &amp; "-&gt;" &amp; Fields!InvoiceID.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>11pt</FontSize>
@@ -876,7 +876,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1287,7 +1286,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>11pt</FontSize>
-                                    <Format>d</Format>
+                                    <Format>dd/MM/yyyy</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1308,6 +1307,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2011,10 +2011,11 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=DateString()</Value>
+                    <Value>=CDate(DateString())</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>11pt</FontSize>
+                      <Format>dd/MM/yyyy</Format>
                     </Style>
                   </TextRun>
                 </TextRuns>
