@@ -251,7 +251,7 @@
                 //to get alert popup
                 alert(valdata);
                 $.ajax({
-                    url: "https://nes.moe.gov.eg/SMS/StudentClothes/UniformReportResult",
+                    url: "/StudentClothes/UniformReportResult",
                     type: "POST",
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: {
@@ -277,7 +277,7 @@
             var customerId = $(this).closest("tr").find("td").eq(0).html();
             $.ajax({
                 type: "POST",
-                url: "https://nes.moe.gov.eg/SMS/StudentClothes/Details",
+                url: "/StudentClothes/Details",
                 data: '{customerId: "' + customerId + '" }',
                 contentType: "application/json; charset=utf-8",
                 dataType: "html",
@@ -298,7 +298,7 @@
             var customerId2 = $(this).closest("tr").find("td").eq(0).html();
             $.ajax({
                 type: "POST",
-                url: "https://nes.moe.gov.eg/SMS/StudentClothes/DetailsReceipt",
+                url: "/StudentClothes/DetailsReceipt",
                 data: '{customerId: "' + customerId2 + '" }',
                 contentType: "application/json; charset=utf-8",
                 dataType: "html",

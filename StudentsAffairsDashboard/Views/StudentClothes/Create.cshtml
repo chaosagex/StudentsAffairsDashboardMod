@@ -561,7 +561,7 @@
             //to get alert popup
             e.preventDefault();
             $.ajax({
-                url: "https://nes.moe.gov.eg/SMS/StudentClothes/UpdateItems",
+                url: "/StudentClothes/UpdateItems",
                 type: "POST",
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 data: {
@@ -570,10 +570,10 @@
                     packageName: PackageT
                 },
                 success: function (response) {
-                    window.location.href = "https://nes.moe.gov.eg/SMS/StudentClothes/Index"
+                    window.location.href = "/StudentClothes/Index"
                 },
                 error: function (response) {
-                    window.location.href = "https://nes.moe.gov.eg/SMS/StudentClothes/Create/"+StdCode
+                    window.location.href = "/StudentClothes/Create/"+StdCode
                 }
             });
         });
