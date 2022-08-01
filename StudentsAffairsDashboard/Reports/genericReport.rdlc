@@ -649,7 +649,7 @@
                                   <Value>=RowNumber(nothing)</Value>
                                   <Style>
                                     <FontSize>14pt</FontSize>
-                                    <Format>f2</Format>
+                                    <Format>f0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
