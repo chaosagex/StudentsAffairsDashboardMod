@@ -607,18 +607,21 @@ namespace StudentsAffairsDashboard.Controllers
         }
 
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult Delete(string hiddenId)
         {
-            //List<StudentClothe> StudentClotheD = new List<StudentClothe>();
-            //StudentClotheD = db.StudentClothes.Where(a => a.StdCode == id).ToList();
-            //List<invoice_payment> StudentClotheD = new List<StudentClothe>();
-            //StudentClotheD = db.StudentClothes.Where(a => a.StdCode == id).ToList();
-            //List<StudentClothe> StudentClotheD = new List<StudentClothe>();
-            //StudentClotheD = db.StudentClothes.Where(a => a.StdCode == id).ToList();
-            //db.Grades.Remove(grade);
-            //db.SaveChanges();
+            int id = Int32.Parse(hiddenId);
+            var StudentClotheD = db.invoice_payment.Include(p => p.payment_details).Include(p => p.invoice_payment2).Where(s=>s.student == id).ToList(); ;
+            foreach (var item in StudentClotheD)
+            {
+                foreach (var ite in db.StudentClothes.Where(a => a.InvoiceID == item.id))
+                {
+                    db.StudentClothes.Remove(ite);
+                }
+                db.invoice_payment.Remove(item);
+                
+            }            
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
