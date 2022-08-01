@@ -58,6 +58,7 @@
     <Property Name="reference_code" Type="varchar" MaxLength="20" />
     <Property Name="depositer" Type="nvarchar" MaxLength="100" />
     <Property Name="type" Type="smallint" Nullable="false" />
+    <Property Name="SeqID" Type="int" />
   </EntityType>
   <EntityType Name="Logs">
     <Key>
@@ -74,6 +75,7 @@
     </Key>
     <Property Name="SchoolID" Type="int" Nullable="false" />
     <Property Name="SchoolName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="SchoolArabicName" Type="nvarchar" MaxLength="100" />
     <Property Name="SchooleAbbreviation" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="SchoolLocation" Type="nvarchar(max)" />
     <Property Name="SchoolContact" Type="varchar" MaxLength="20" />
@@ -419,6 +421,21 @@
   </Function>
   <Function Name="getPreviousPayment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="student" Type="int" Mode="In" />
+  </Function>
+  <Function Name="getSchoolFullyOrPartial" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="School" Type="int" Mode="In" />
+  </Function>
+  <Function Name="getSchoolFullyRecieved" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="School" Type="int" Mode="In" />
+  </Function>
+  <Function Name="getSchoolInvoiceReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="School" Type="int" Mode="In" />
+  </Function>
+  <Function Name="getSchoolNotRecieved" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="School" Type="int" Mode="In" />
+  </Function>
+  <Function Name="getUniformByInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="invoice" Type="int" Mode="In" />
   </Function>
   <Function Name="getUniformStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="stdcode" Type="int" Mode="In" />

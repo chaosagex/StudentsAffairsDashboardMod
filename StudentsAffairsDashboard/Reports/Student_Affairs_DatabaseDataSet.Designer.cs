@@ -10590,6 +10590,8 @@ namespace StudentsAffairsDashboard.Reports {
             
             private global::System.Data.DataColumn columnStdArabicFamilyName;
             
+            private global::System.Data.DataColumn columnSeqID;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public UniformsDataTable() {
@@ -10801,6 +10803,14 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn SeqIDColumn {
+                get {
+                    return this.columnSeqID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -10858,7 +10868,8 @@ namespace StudentsAffairsDashboard.Reports {
                         string StdArabicFristName, 
                         string StdArabicMiddleName, 
                         string StdArabicLastName, 
-                        string StdArabicFamilyName) {
+                        string StdArabicFamilyName, 
+                        int SeqID) {
                 UniformsRow rowUniformsRow = ((UniformsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ClothesName,
@@ -10882,7 +10893,8 @@ namespace StudentsAffairsDashboard.Reports {
                         StdArabicFristName,
                         StdArabicMiddleName,
                         StdArabicLastName,
-                        StdArabicFamilyName};
+                        StdArabicFamilyName,
+                        SeqID};
                 rowUniformsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowUniformsRow);
                 return rowUniformsRow;
@@ -10927,6 +10939,7 @@ namespace StudentsAffairsDashboard.Reports {
                 this.columnStdArabicMiddleName = base.Columns["StdArabicMiddleName"];
                 this.columnStdArabicLastName = base.Columns["StdArabicLastName"];
                 this.columnStdArabicFamilyName = base.Columns["StdArabicFamilyName"];
+                this.columnSeqID = base.Columns["SeqID"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10976,6 +10989,8 @@ namespace StudentsAffairsDashboard.Reports {
                 base.Columns.Add(this.columnStdArabicLastName);
                 this.columnStdArabicFamilyName = new global::System.Data.DataColumn("StdArabicFamilyName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnStdArabicFamilyName);
+                this.columnSeqID = new global::System.Data.DataColumn("SeqID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSeqID);
                 this.columnClothesName.MaxLength = 100;
                 this.columnQuantity.AllowDBNull = false;
                 this.columnQuantity.MaxLength = 100;
@@ -12701,6 +12716,10 @@ namespace StudentsAffairsDashboard.Reports {
             
             private global::System.Data.DataColumn columnid;
             
+            private global::System.Data.DataColumn columnSchoolArabicName;
+            
+            private global::System.Data.DataColumn columnSeqID;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public invoiceReportDataTable() {
@@ -12832,6 +12851,22 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn SchoolArabicNameColumn {
+                get {
+                    return this.columnSchoolArabicName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn SeqIDColumn {
+                get {
+                    return this.columnSeqID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -12867,7 +12902,7 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public invoiceReportRow AddinvoiceReportRow(System.DateTime date, decimal total_cost, decimal paid, decimal remaining, string StdArabicFristName, string StdArabicMiddleName, string StdArabicLastName, string StdArabicFamilyName, int Grade, string GradeName, int type) {
+            public invoiceReportRow AddinvoiceReportRow(System.DateTime date, decimal total_cost, decimal paid, decimal remaining, string StdArabicFristName, string StdArabicMiddleName, string StdArabicLastName, string StdArabicFamilyName, int Grade, string GradeName, int type, string SchoolArabicName, int SeqID) {
                 invoiceReportRow rowinvoiceReportRow = ((invoiceReportRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         date,
@@ -12881,7 +12916,9 @@ namespace StudentsAffairsDashboard.Reports {
                         Grade,
                         GradeName,
                         type,
-                        null};
+                        null,
+                        SchoolArabicName,
+                        SeqID};
                 rowinvoiceReportRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowinvoiceReportRow);
                 return rowinvoiceReportRow;
@@ -12923,6 +12960,8 @@ namespace StudentsAffairsDashboard.Reports {
                 this.columnGradeName = base.Columns["GradeName"];
                 this.columntype = base.Columns["type"];
                 this.columnid = base.Columns["id"];
+                this.columnSchoolArabicName = base.Columns["SchoolArabicName"];
+                this.columnSeqID = base.Columns["SeqID"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12952,6 +12991,10 @@ namespace StudentsAffairsDashboard.Reports {
                 base.Columns.Add(this.columntype);
                 this.columnid = new global::System.Data.DataColumn("id", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnid);
+                this.columnSchoolArabicName = new global::System.Data.DataColumn("SchoolArabicName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSchoolArabicName);
+                this.columnSeqID = new global::System.Data.DataColumn("SeqID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSeqID);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
                 this.columndate.AllowDBNull = false;
@@ -12974,6 +13017,7 @@ namespace StudentsAffairsDashboard.Reports {
                 this.columnid.AllowDBNull = false;
                 this.columnid.ReadOnly = true;
                 this.columnid.Unique = true;
+                this.columnSchoolArabicName.MaxLength = 100;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -17875,6 +17919,22 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int SeqID {
+                get {
+                    try {
+                        return ((int)(this[this.tableUniforms.SeqIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SeqID\' in table \'Uniforms\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableUniforms.SeqIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsClothesNameNull() {
                 return this.IsNull(this.tableUniforms.ClothesNameColumn);
             }
@@ -17967,6 +18027,18 @@ namespace StudentsAffairsDashboard.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetStdArabicFamilyNameNull() {
                 this[this.tableUniforms.StdArabicFamilyNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsSeqIDNull() {
+                return this.IsNull(this.tableUniforms.SeqIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetSeqIDNull() {
+                this[this.tableUniforms.SeqIDColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -19053,6 +19125,38 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string SchoolArabicName {
+                get {
+                    try {
+                        return ((string)(this[this.tableinvoiceReport.SchoolArabicNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SchoolArabicName\' in table \'invoiceReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableinvoiceReport.SchoolArabicNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int SeqID {
+                get {
+                    try {
+                        return ((int)(this[this.tableinvoiceReport.SeqIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SeqID\' in table \'invoiceReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableinvoiceReport.SeqIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsStdArabicFamilyNameNull() {
                 return this.IsNull(this.tableinvoiceReport.StdArabicFamilyNameColumn);
             }
@@ -19073,6 +19177,30 @@ namespace StudentsAffairsDashboard.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetGradeNull() {
                 this[this.tableinvoiceReport.GradeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsSchoolArabicNameNull() {
+                return this.IsNull(this.tableinvoiceReport.SchoolArabicNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetSchoolArabicNameNull() {
+                this[this.tableinvoiceReport.SchoolArabicNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsSeqIDNull() {
+                return this.IsNull(this.tableinvoiceReport.SeqIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetSeqIDNull() {
+                this[this.tableinvoiceReport.SeqIDColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -27813,6 +27941,7 @@ namespace StudentsAffairsDashboard.Reports.Student_Affairs_DatabaseDataSetTableA
             tableMapping.ColumnMappings.Add("StdArabicMiddleName", "StdArabicMiddleName");
             tableMapping.ColumnMappings.Add("StdArabicLastName", "StdArabicLastName");
             tableMapping.ColumnMappings.Add("StdArabicFamilyName", "StdArabicFamilyName");
+            tableMapping.ColumnMappings.Add("SeqID", "SeqID");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -27832,7 +27961,7 @@ namespace StudentsAffairsDashboard.Reports.Student_Affairs_DatabaseDataSetTableA
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT        payment_details.Grade, payment_details.type, StudentClothes.Quantity, StudentClothes.ClothesID, StudentClothes.Price, StudentClothes.ReceivingStatus, StudentClothes.ReceivingQuantity, StudentClothes.PackageStatus, 
                          StudentClothes.InvoiceID, Grade.GradeName, invoice_payment.student, invoice_payment.date, Clothes.ClothesPrice, Clothes.ClothesinPackagePrice, Clothes.ClothesColor, Clothes.ClothesName, NESSchools.SchoolName, 
-                         payment_details.amount, StudentsMain.StdArabicFristName, StudentsMain.StdArabicMiddleName, StudentsMain.StdArabicLastName, StudentsMain.StdArabicFamilyName
+                         payment_details.amount, StudentsMain.StdArabicFristName, StudentsMain.StdArabicMiddleName, StudentsMain.StdArabicLastName, StudentsMain.StdArabicFamilyName, invoice_payment.SeqID
 FROM            payment_details INNER JOIN
                          invoice_item ON payment_details.id = invoice_item.payment_item INNER JOIN
                          invoice_payment ON invoice_payment.id = invoice_item.invoice INNER JOIN
@@ -28585,6 +28714,8 @@ WHERE        (StudentClothes.ReceivingStatus = 'False') AND (StudentClothes.Rece
             tableMapping.ColumnMappings.Add("GradeName", "GradeName");
             tableMapping.ColumnMappings.Add("type", "type");
             tableMapping.ColumnMappings.Add("id", "id");
+            tableMapping.ColumnMappings.Add("SchoolArabicName", "SchoolArabicName");
+            tableMapping.ColumnMappings.Add("SeqID", "SeqID");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -28603,12 +28734,13 @@ WHERE        (StudentClothes.ReceivingStatus = 'False') AND (StudentClothes.Rece
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT        invoice_payment.date, invoice_payment.total_cost, invoice_payment.paid, invoice_payment.remaining, StudentsMain.StdArabicFristName, StudentsMain.StdArabicMiddleName, StudentsMain.StdArabicLastName, 
-                         StudentsMain.StdArabicFamilyName, payment_details.Grade, Grade.GradeName, payment_details.type, invoice_payment.id
+                         StudentsMain.StdArabicFamilyName, payment_details.Grade, Grade.GradeName, payment_details.type, invoice_payment.id, NESSchools.SchoolArabicName, invoice_payment.SeqID
 FROM            StudentsMain INNER JOIN
                          invoice_payment ON StudentsMain.StdCode = invoice_payment.student INNER JOIN
                          invoice_item ON invoice_payment.id = invoice_item.invoice INNER JOIN
                          payment_details ON payment_details.id = invoice_item.payment_item INNER JOIN
-                         Grade ON payment_details.Grade = Grade.GradeID";
+                         Grade ON payment_details.Grade = Grade.GradeID INNER JOIN
+                         NESSchools ON StudentsMain.StdSchoolID = NESSchools.SchoolID AND payment_details.school = NESSchools.SchoolID";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

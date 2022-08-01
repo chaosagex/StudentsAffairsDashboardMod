@@ -63,6 +63,7 @@
           <Property Name="reference_code" Type="varchar" MaxLength="20" />
           <Property Name="depositer" Type="nvarchar" MaxLength="100" />
           <Property Name="type" Type="smallint" Nullable="false" />
+          <Property Name="SeqID" Type="int" />
         </EntityType>
         <EntityType Name="Logs">
           <Key>
@@ -79,6 +80,7 @@
           </Key>
           <Property Name="SchoolID" Type="int" Nullable="false" />
           <Property Name="SchoolName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SchoolArabicName" Type="nvarchar" MaxLength="100" />
           <Property Name="SchooleAbbreviation" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="SchoolLocation" Type="nvarchar(max)" />
           <Property Name="SchoolContact" Type="varchar" MaxLength="20" />
@@ -425,6 +427,21 @@
         <Function Name="getPreviousPayment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="student" Type="int" Mode="In" />
         </Function>
+        <Function Name="getSchoolFullyOrPartial" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="School" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getSchoolFullyRecieved" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="School" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getSchoolInvoiceReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="School" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getSchoolNotRecieved" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="School" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getUniformByInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="invoice" Type="int" Mode="In" />
+        </Function>
         <Function Name="getUniformStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="stdcode" Type="int" Mode="In" />
         </Function>
@@ -581,6 +598,7 @@
           <Property Name="SchoolCambridge" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SchoolEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Accounts" Relationship="Student_Affairs_DatabaseModel.FK_Accounts_NESSchools" FromRole="NESSchool" ToRole="Account" />
+          <Property Name="SchoolArabicName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="StudentAccount">
           <Key>
@@ -938,6 +956,21 @@
           <FunctionImport Name="getUniformStudent" ReturnType="Collection(Student_Affairs_DatabaseModel.getUniformStudent_Result)">
           <Parameter Name="stdcode" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="getSchoolFullyOrPartial" ReturnType="Collection(Student_Affairs_DatabaseModel.getSchoolFullyOrPartial_Result)">
+          <Parameter Name="School" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getSchoolFullyRecieved" ReturnType="Collection(Student_Affairs_DatabaseModel.getSchoolFullyRecieved_Result)">
+          <Parameter Name="School" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getSchoolInvoiceReport" ReturnType="Collection(Student_Affairs_DatabaseModel.getSchoolInvoiceReport_Result)">
+          <Parameter Name="School" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getSchoolNotRecieved" ReturnType="Collection(Student_Affairs_DatabaseModel.getSchoolNotRecieved_Result)">
+          <Parameter Name="School" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getUniformByInvoice" ReturnType="Collection(Student_Affairs_DatabaseModel.getUniformByInvoice_Result)">
+          <Parameter Name="invoice" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Log">
           <Key>
@@ -997,6 +1030,7 @@
           <Property Name="reference_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="depositer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="type" Type="Int16" Nullable="false" />
+          <Property Name="SeqID" Type="Int32" />
         </EntityType>
         <EntityType Name="payment_details">
           <Key>
@@ -1196,6 +1230,101 @@
           <Property Type="Int32" Name="SCID" Nullable="false" />
           <Property Type="DateTime" Name="date" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="getSchoolFullyOrPartial_Result">
+          <Property Type="Int32" Name="student" Nullable="false" />
+          <Property Type="DateTime" Name="date" Nullable="false" />
+          <Property Type="Decimal" Name="amount" Nullable="false" Precision="19" />
+          <Property Type="String" Name="Quantity" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Price" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ReceivingStatus" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ReceivingQuantity" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="PackageStatus" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="StdArabicFristName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicMiddleName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicFamilyName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ClothesPrice" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ClothesinPackagePrice" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ClothesColor" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ClothesName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="GradeName" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="getSchoolFullyRecieved_Result">
+          <Property Type="Int32" Name="student" Nullable="false" />
+          <Property Type="DateTime" Name="date" Nullable="false" />
+          <Property Type="Decimal" Name="amount" Nullable="false" Precision="19" />
+          <Property Type="String" Name="Quantity" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Price" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ReceivingStatus" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ReceivingQuantity" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="PackageStatus" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="StdArabicFristName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicMiddleName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicFamilyName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ClothesPrice" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ClothesinPackagePrice" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ClothesColor" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ClothesName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="GradeName" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="getSchoolInvoiceReport_Result">
+          <Property Type="DateTime" Name="date" Nullable="false" />
+          <Property Type="Decimal" Name="total_cost" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="paid" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="remaining" Nullable="false" Precision="19" />
+          <Property Type="String" Name="StdArabicFristName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicMiddleName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicFamilyName" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Grade" Nullable="true" />
+          <Property Type="String" Name="GradeName" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="type" Nullable="false" />
+          <Property Type="Int32" Name="id" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getSchoolNotRecieved_Result">
+          <Property Type="Int32" Name="student" Nullable="false" />
+          <Property Type="DateTime" Name="date" Nullable="false" />
+          <Property Type="Decimal" Name="amount" Nullable="false" Precision="19" />
+          <Property Type="String" Name="Quantity" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Price" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ReceivingStatus" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ReceivingQuantity" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="PackageStatus" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="StdArabicFristName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicMiddleName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicFamilyName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ClothesPrice" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ClothesinPackagePrice" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ClothesColor" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ClothesName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="GradeName" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="getUniformByInvoice_Result">
+          <Property Type="Int32" Name="Grade" Nullable="true" />
+          <Property Type="Int32" Name="type" Nullable="false" />
+          <Property Type="String" Name="Quantity" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="ClothesID" Nullable="false" />
+          <Property Type="String" Name="Price" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ReceivingStatus" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ReceivingQuantity" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="PackageStatus" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="InvoiceID" Nullable="true" />
+          <Property Type="String" Name="GradeName" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="student" Nullable="false" />
+          <Property Type="DateTime" Name="date" Nullable="false" />
+          <Property Type="String" Name="ClothesPrice" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ClothesinPackagePrice" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ClothesColor" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ClothesName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SchoolName" Nullable="false" MaxLength="100" />
+          <Property Type="Decimal" Name="amount" Nullable="false" Precision="19" />
+          <Property Type="String" Name="StdArabicFristName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicMiddleName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StdArabicFamilyName" Nullable="true" MaxLength="100" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1232,6 +1361,7 @@
           <EntitySetMapping Name="NESSchools">
             <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.NESSchool">
               <MappingFragment StoreEntitySet="NESSchools">
+                <ScalarProperty Name="SchoolArabicName" ColumnName="SchoolArabicName" />
                 <ScalarProperty Name="SchoolEmail" ColumnName="SchoolEmail" />
                 <ScalarProperty Name="SchoolCambridge" ColumnName="SchoolCambridge" />
                 <ScalarProperty Name="SchoolContact" ColumnName="SchoolContact" />
@@ -1364,6 +1494,7 @@
           <EntitySetMapping Name="invoice_payment">
             <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.invoice_payment">
               <MappingFragment StoreEntitySet="invoice_payment">
+                <ScalarProperty Name="SeqID" ColumnName="SeqID" />
                 <ScalarProperty Name="type" ColumnName="type" />
                 <ScalarProperty Name="depositer" ColumnName="depositer" />
                 <ScalarProperty Name="reference_code" ColumnName="reference_code" />
@@ -1546,6 +1677,121 @@
                 <ScalarProperty Name="GradeName" ColumnName="GradeName" />
                 <ScalarProperty Name="SCID" ColumnName="SCID" />
                 <ScalarProperty Name="date" ColumnName="date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getSchoolFullyOrPartial" FunctionName="Student_Affairs_DatabaseModel.Store.getSchoolFullyOrPartial">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getSchoolFullyOrPartial_Result">
+                <ScalarProperty Name="student" ColumnName="student" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ReceivingStatus" ColumnName="ReceivingStatus" />
+                <ScalarProperty Name="ReceivingQuantity" ColumnName="ReceivingQuantity" />
+                <ScalarProperty Name="PackageStatus" ColumnName="PackageStatus" />
+                <ScalarProperty Name="StdArabicFristName" ColumnName="StdArabicFristName" />
+                <ScalarProperty Name="StdArabicMiddleName" ColumnName="StdArabicMiddleName" />
+                <ScalarProperty Name="StdArabicLastName" ColumnName="StdArabicLastName" />
+                <ScalarProperty Name="StdArabicFamilyName" ColumnName="StdArabicFamilyName" />
+                <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
+                <ScalarProperty Name="ClothesinPackagePrice" ColumnName="ClothesinPackagePrice" />
+                <ScalarProperty Name="ClothesColor" ColumnName="ClothesColor" />
+                <ScalarProperty Name="ClothesName" ColumnName="ClothesName" />
+                <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getSchoolFullyRecieved" FunctionName="Student_Affairs_DatabaseModel.Store.getSchoolFullyRecieved">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getSchoolFullyRecieved_Result">
+                <ScalarProperty Name="student" ColumnName="student" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ReceivingStatus" ColumnName="ReceivingStatus" />
+                <ScalarProperty Name="ReceivingQuantity" ColumnName="ReceivingQuantity" />
+                <ScalarProperty Name="PackageStatus" ColumnName="PackageStatus" />
+                <ScalarProperty Name="StdArabicFristName" ColumnName="StdArabicFristName" />
+                <ScalarProperty Name="StdArabicMiddleName" ColumnName="StdArabicMiddleName" />
+                <ScalarProperty Name="StdArabicLastName" ColumnName="StdArabicLastName" />
+                <ScalarProperty Name="StdArabicFamilyName" ColumnName="StdArabicFamilyName" />
+                <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
+                <ScalarProperty Name="ClothesinPackagePrice" ColumnName="ClothesinPackagePrice" />
+                <ScalarProperty Name="ClothesColor" ColumnName="ClothesColor" />
+                <ScalarProperty Name="ClothesName" ColumnName="ClothesName" />
+                <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getSchoolInvoiceReport" FunctionName="Student_Affairs_DatabaseModel.Store.getSchoolInvoiceReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getSchoolInvoiceReport_Result">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+                <ScalarProperty Name="paid" ColumnName="paid" />
+                <ScalarProperty Name="remaining" ColumnName="remaining" />
+                <ScalarProperty Name="StdArabicFristName" ColumnName="StdArabicFristName" />
+                <ScalarProperty Name="StdArabicMiddleName" ColumnName="StdArabicMiddleName" />
+                <ScalarProperty Name="StdArabicLastName" ColumnName="StdArabicLastName" />
+                <ScalarProperty Name="StdArabicFamilyName" ColumnName="StdArabicFamilyName" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getSchoolNotRecieved" FunctionName="Student_Affairs_DatabaseModel.Store.getSchoolNotRecieved">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getSchoolNotRecieved_Result">
+                <ScalarProperty Name="student" ColumnName="student" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ReceivingStatus" ColumnName="ReceivingStatus" />
+                <ScalarProperty Name="ReceivingQuantity" ColumnName="ReceivingQuantity" />
+                <ScalarProperty Name="PackageStatus" ColumnName="PackageStatus" />
+                <ScalarProperty Name="StdArabicFristName" ColumnName="StdArabicFristName" />
+                <ScalarProperty Name="StdArabicMiddleName" ColumnName="StdArabicMiddleName" />
+                <ScalarProperty Name="StdArabicLastName" ColumnName="StdArabicLastName" />
+                <ScalarProperty Name="StdArabicFamilyName" ColumnName="StdArabicFamilyName" />
+                <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
+                <ScalarProperty Name="ClothesinPackagePrice" ColumnName="ClothesinPackagePrice" />
+                <ScalarProperty Name="ClothesColor" ColumnName="ClothesColor" />
+                <ScalarProperty Name="ClothesName" ColumnName="ClothesName" />
+                <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getUniformByInvoice" FunctionName="Student_Affairs_DatabaseModel.Store.getUniformByInvoice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Student_Affairs_DatabaseModel.getUniformByInvoice_Result">
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ClothesID" ColumnName="ClothesID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ReceivingStatus" ColumnName="ReceivingStatus" />
+                <ScalarProperty Name="ReceivingQuantity" ColumnName="ReceivingQuantity" />
+                <ScalarProperty Name="PackageStatus" ColumnName="PackageStatus" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+                <ScalarProperty Name="student" ColumnName="student" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
+                <ScalarProperty Name="ClothesinPackagePrice" ColumnName="ClothesinPackagePrice" />
+                <ScalarProperty Name="ClothesColor" ColumnName="ClothesColor" />
+                <ScalarProperty Name="ClothesName" ColumnName="ClothesName" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="StdArabicFristName" ColumnName="StdArabicFristName" />
+                <ScalarProperty Name="StdArabicMiddleName" ColumnName="StdArabicMiddleName" />
+                <ScalarProperty Name="StdArabicLastName" ColumnName="StdArabicLastName" />
+                <ScalarProperty Name="StdArabicFamilyName" ColumnName="StdArabicFamilyName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

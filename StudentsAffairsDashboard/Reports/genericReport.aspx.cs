@@ -22,6 +22,7 @@ namespace StudentsAffairsDashboard.Reports
             ReportViewer2.ProcessingMode = ProcessingMode.Local;
             ReportViewer2.LocalReport.ReportPath = Server.MapPath("genericReport.rdlc");
             string schoolID = Session["currentSchool"].ToString();
+            //schoolID = "1001";
             DataTable dt = GetData(schoolID);
             ReportDataSource rds = new ReportDataSource("InvoiceSchool", dt);
 
@@ -54,6 +55,7 @@ namespace StudentsAffairsDashboard.Reports
 
                     using (SqlCommand cmd = new SqlCommand("dbo.getSchoolInvoiceReport", con))
                     {
+                        
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@School", SqlDbType.Int).Value = Int32.Parse(school);
                         SqlDataAdapter adp = new SqlDataAdapter(cmd);

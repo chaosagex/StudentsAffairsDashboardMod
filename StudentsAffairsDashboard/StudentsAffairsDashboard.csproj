@@ -213,6 +213,21 @@
     <Compile Include="Models\getPreviousPayment_Result.cs">
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\getSchoolFullyOrPartial_Result.cs">
+      <DependentUpon>AffairsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getSchoolFullyRecieved_Result.cs">
+      <DependentUpon>AffairsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getSchoolInvoiceReport_Result.cs">
+      <DependentUpon>AffairsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getSchoolNotRecieved_Result.cs">
+      <DependentUpon>AffairsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getUniformByInvoice_Result.cs">
+      <DependentUpon>AffairsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\getUniformStudent_Result.cs">
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
