@@ -19,6 +19,10 @@
                         <th>Receiving Status</th>
                         <th>Uniform Status</th>
                         <th>Print</th>
+                        @if (Session["UserName"].ToString().Contains("Admin NES"))
+                        {
+                            <th>Delete All Uniform</th>
+                        }
 
                     </tr>
                 </thead>
@@ -34,7 +38,7 @@
                                 </a>
                                 <br />
                                 <small>
-                                    NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault()  @Html.DisplayFor(modelItem => item.Class.ClassName) (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
+                                    NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault().Replace(" ", "-")  @Html.DisplayFor(modelItem => item.Class.ClassName).ToString().Replace(" ", "-") (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
                                 </small>
                             </td>
                             <td style="text-align: center; vertical-align: middle;">
@@ -49,7 +53,7 @@
                                 }
                                 else
                                 {
-                                    <span class="badge badge-danger">NOT Paid</span>
+                                    <span class="badge badge-danger">NOT-Paid</span>
                                 }
 
                             </td>
@@ -60,7 +64,7 @@
                                 }
                                 else
                                 {
-                                    <span class="badge badge-danger">NOT Received</span>
+                                    <span class="badge badge-danger">NOT-Received</span>
                                 }
                             </td>
                             <td style="text-align: center; vertical-align: middle;">
@@ -69,6 +73,13 @@
                             <td style="text-align: center; vertical-align: middle;">
                                 <a href="javascript:;" class="badge badge-secondary details2"><i class="glyphicon glyphicon-trash"></i>Show Invoices Status</a>
                             </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                @if (Session["UserName"].ToString().Contains("Admin NES"))
+                                {                                    
+                                    <a href="#" class="btn btn-danger btn-sm" onclick="ConfirmDelete(@item.StdCode)"><i class="glyphicon glyphicon-trash"></i>Delete</a>
+                                }
+                            </td>
+                            
                         </tr>
                     }
                 </tbody>
@@ -82,6 +93,10 @@
                         <th>Receiving Status</th>
                         <th>Uniform Status</th>
                         <th>Print</th>
+                        @if (Session["UserName"].ToString().Contains("Admin NES"))
+                        {
+                            <th>Delete All Uniform</th>
+                        }
                     </tr>
                 </tfoot>
             </table>
@@ -130,12 +145,38 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+<div class="modal fade" id="modal-danger">
+    @using (Html.BeginForm("Delete", "StudentClothes", FormMethod.Post))
+    {
+        <div class="modal-dialog">
+            <div class="modal-content bg-danger">
+                <div class="modal-header">
+                    <h4 class="modal-title">Danger Modal</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are You Sure To Delete This Student (Uniform)</p>
+                    @*hidden field for storing current employeeId*@
+                    <input type="hidden" id="hiddenId" name="hiddenId" />
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Delete</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    }
+</div>
 @section scripts{
     <script>
         var ConfirmDelete = function (EmployeeId) {
             $("#hiddenId").val(EmployeeId);
-            $("#partialModal").modal('show');
-            
+            $("#modal-danger").modal('show');
         }
 
         $(function () {
@@ -158,7 +199,7 @@
             var customerId = $(this).closest("tr").find("td").eq(0).html();
             $.ajax({
                 type: "POST",
-                url: "/StudentClothes/Details",
+                url: "https://nes.moe.gov.eg/SMS/StudentClothes/Details",
                 data: '{customerId: "' + customerId + '" }',
                 contentType: "application/json; charset=utf-8",
                 dataType: "html",
@@ -178,7 +219,7 @@
             var customerId2 = $(this).closest("tr").find("td").eq(0).html();
             $.ajax({
                 type: "POST",
-                url: "/StudentClothes/DetailsReceipt",
+                url: "https://nes.moe.gov.eg/SMS/StudentClothes/DetailsReceipt",
                 data: '{customerId: "' + customerId2 + '" }',
                 contentType: "application/json; charset=utf-8",
                 dataType: "html",

@@ -31,7 +31,7 @@
                                 </a>
                                 <br />
                                 <small>
-                                    NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault()  @Html.DisplayFor(modelItem => item.Class.ClassName) (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
+                                    NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault().Replace(" ","-")  @Html.DisplayFor(modelItem => item.Class.ClassName).ToString().Replace(" ","-") (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
                                 </small>
                             </td>
                             <td>
@@ -46,7 +46,7 @@
                                 }
                                 else
                                 {
-                                    <span class="badge badge-danger">NOT Paid</span>
+                                    <span class="badge badge-danger">NOT-Paid</span>
                                 }
 
                             </td>
@@ -57,7 +57,7 @@
                                 }
                                 else
                                 {
-                                    <span class="badge badge-danger">NOT Received</span>
+                                    <span class="badge badge-danger">NOT-Received</span>
                                 }
 
                             </td>

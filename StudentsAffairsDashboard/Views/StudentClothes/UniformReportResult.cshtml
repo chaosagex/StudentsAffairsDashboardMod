@@ -117,7 +117,6 @@
                         <th hidden></th>
                         <th style="width: 10%">ID</th>
                         <th style="width: 25%">Full Name</th>
-                        <th style="text-align: center; vertical-align: middle;">Grade</th>
                         <th style="text-align: center; vertical-align: middle;">Uniforms Status</th>
                         <th style="text-align: center; vertical-align: middle;">Invoces Status</th>
 
@@ -135,13 +134,8 @@
                                 </a>
                                 <br />
                                 <small>
-                                    NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault()  @Html.DisplayFor(modelItem => item.Class.ClassName) (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
+                                    NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault().ToString().Replace(" ", "-")  @Html.DisplayFor(modelItem => item.Class.ClassName).Replace(" ", "-") (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
                                 </small>
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                <a>
-                                    @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault().Replace(" ", "")
-                                </a>
                             </td>
                             <td style="text-align: center; vertical-align: middle;">
 
@@ -152,7 +146,7 @@
                                 }
                                 else
                                 {
-                                    <span class="badge badge-danger">NOT Paid</span>
+                                    <span class="badge badge-danger">NOT-Paid</span>
                                 }
                                 <br />
                                 @if (item.StudentClothes.Where(a => a.StudentsMain.StdCode == item.StdCode).ToList().Count != 0 && item.StudentClothes.Where(a => a.StudentsMain.StdCode == item.StdCode).ToList().All(a => a.ReceivingStatus == "True"))
@@ -161,7 +155,7 @@
                                 }
                                 else
                                 {
-                                    <span class="badge badge-danger">NOT Received</span>
+                                    <span class="badge badge-danger">NOT-Received</span>
                                 }
                                 <br />
                                 <a href="javascript:;" class="badge badge-primary details"><i class="glyphicon glyphicon-trash"></i>Show Uniform Status</a>
@@ -180,7 +174,6 @@
                         <th hidden></th>
                         <th style="width: 10%">ID</th>
                         <th style="width: 25%">Full Name</th>
-                        <th style="text-align: center; vertical-align: middle;">Grade</th>
                         <th style="text-align: center; vertical-align: middle;">Uniforms Status</th>
                         <th style="text-align: center; vertical-align: middle;">Invoces Status</th>
                     </tr>
@@ -234,11 +227,6 @@
 </div>
 @section scripts{
     <script>
-        var ConfirmDelete = function (EmployeeId) {
-            $("#hiddenId").val(EmployeeId);
-            $("#partialModal").modal('show');
-
-        }
 
         $(function () {
             $("#example1").DataTable({
@@ -263,7 +251,7 @@
                 //to get alert popup
                 alert(valdata);
                 $.ajax({
-                    url: "/StudentClothes/UniformReportResult",
+                    url: "https://nes.moe.gov.eg/SMS/StudentClothes/UniformReportResult",
                     type: "POST",
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: {
@@ -289,7 +277,7 @@
             var customerId = $(this).closest("tr").find("td").eq(0).html();
             $.ajax({
                 type: "POST",
-                url: "/StudentClothes/Details",
+                url: "https://nes.moe.gov.eg/SMS/StudentClothes/Details",
                 data: '{customerId: "' + customerId + '" }',
                 contentType: "application/json; charset=utf-8",
                 dataType: "html",
@@ -310,7 +298,7 @@
             var customerId2 = $(this).closest("tr").find("td").eq(0).html();
             $.ajax({
                 type: "POST",
-                url: "/StudentClothes/DetailsReceipt",
+                url: "https://nes.moe.gov.eg/SMS/StudentClothes/DetailsReceipt",
                 data: '{customerId: "' + customerId2 + '" }',
                 contentType: "application/json; charset=utf-8",
                 dataType: "html",
