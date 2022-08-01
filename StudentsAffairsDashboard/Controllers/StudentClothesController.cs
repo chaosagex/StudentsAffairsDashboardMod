@@ -24,7 +24,7 @@ namespace StudentsAffairsDashboard.Controllers
             }
             else
             {
-                
+
                 if (SchoolIDsession == 1000)
                 {
                     var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount);
@@ -35,7 +35,7 @@ namespace StudentsAffairsDashboard.Controllers
                     var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a => a.NESSchool.SchoolID == SchoolIDsession);
                     return View(studentsMains.ToList());
                 }
-                
+
             }
         }
 
@@ -341,7 +341,7 @@ namespace StudentsAffairsDashboard.Controllers
             {
                 return View();
             }
-            
+
         }
 
         public ActionResult UpdateItemsReceived(string searchText, string Code)
@@ -473,9 +473,9 @@ namespace StudentsAffairsDashboard.Controllers
                     All = db.payment_details.Where(a => a.year.Equals(Year)).Where(a => a.school == ScID).Where(a => a.Grade == GrID).ToList();
                 }
             }
-            
 
-            
+
+
 
             foreach (payment_details item in All)
             {
@@ -614,7 +614,7 @@ namespace StudentsAffairsDashboard.Controllers
         public ActionResult Delete(string hiddenId)
         {
             int id = Int32.Parse(hiddenId);
-            var StudentClotheD = db.invoice_payment.Include(p => p.payment_details).Include(p => p.invoice_payment2).Where(s=>s.student == id).ToList(); ;
+            var StudentClotheD = db.invoice_payment.Include(p => p.payment_details).Include(p => p.invoice_payment2).Where(s => s.student == id).ToList(); ;
             foreach (var item in StudentClotheD)
             {
                 foreach (var ite in db.StudentClothes.Where(a => a.InvoiceID == item.id))
@@ -622,8 +622,8 @@ namespace StudentsAffairsDashboard.Controllers
                     db.StudentClothes.Remove(ite);
                 }
                 db.invoice_payment.Remove(item);
-                
-            }            
+
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }
