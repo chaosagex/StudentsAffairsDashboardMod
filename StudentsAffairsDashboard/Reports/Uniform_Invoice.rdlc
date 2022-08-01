@@ -774,12 +774,14 @@
               <TablixMembers>
                 <TablixMember>
                   <KeepWithGroup>After</KeepWithGroup>
+                  <RepeatOnNewPage>true</RepeatOnNewPage>
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Details" />
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
+            <RepeatRowHeaders>true</RepeatRowHeaders>
             <DataSetName>Uniforms</DataSetName>
             <Top>8.4748cm</Top>
             <Left>0.38078cm</Left>
@@ -856,7 +858,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=iif(Fields!SeqID.Value,Fields!SchoolCambridge.Value &amp; "-" &amp; Fields!SeqID.Value,Fields!InvoiceID)</Value>
+                                  <Value>=iif(Fields!SeqID.Value,Fields!SchoolCambridge.Value &amp; "-" &amp; Fields!SeqID.Value,Fields!InvoiceID.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>11pt</FontSize>
