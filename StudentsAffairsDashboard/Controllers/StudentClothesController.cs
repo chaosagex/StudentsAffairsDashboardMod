@@ -42,17 +42,45 @@ namespace StudentsAffairsDashboard.Controllers
         // GET: StudentClothes/Receiving
         public ActionResult Receiving()
         {
-            var studentClothes = db.StudentClothes.Include(s => s.Cloth).Include(s => s.StudentsMain).GroupBy(a => a.StdCode).Select(a => a.FirstOrDefault());
-            List<StudentsMain> All = new List<StudentsMain>();
-
-            foreach (var item in studentClothes)
+            int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
+            if (Session["CurrentSchool"] == null)
             {
-                if (!db.StudentClothes.Where(a => a.StdCode == item.StdCode).All(a => a.ReceivingStatus == "True"))
-                {
-                    All.Add(db.StudentsMains.Find(item.StdCode));
-                }
+                return RedirectToAction("Login", "Home");
             }
-            return View(All);
+            else
+            {
+
+                if (SchoolIDsession == 1000)
+                {
+                    var studentClothes = db.StudentClothes.Include(s => s.Cloth).Include(s => s.StudentsMain).GroupBy(a => a.StdCode).Select(a => a.FirstOrDefault());
+                    List<StudentsMain> All = new List<StudentsMain>();
+
+                    foreach (var item in studentClothes)
+                    {
+                        if (!db.StudentClothes.Where(a => a.StdCode == item.StdCode).All(a => a.ReceivingStatus == "True"))
+                        {
+                            All.Add(db.StudentsMains.Find(item.StdCode));
+                        }
+                    }
+                    return View(All);
+                }
+                else
+                {
+                    var studentClothes = db.StudentClothes.Include(s => s.Cloth).Include(s => s.StudentsMain).GroupBy(a => a.StdCode).Select(a => a.FirstOrDefault());
+                    List<StudentsMain> All = new List<StudentsMain>();
+
+                    foreach (var item in studentClothes)
+                    {
+                        if (!db.StudentClothes.Where(a => a.StdCode == item.StdCode).Where(a => a.StudentsMain.NESSchool.SchoolID == SchoolIDsession).All(a => a.ReceivingStatus == "True"))
+                        {
+                            All.Add(db.StudentsMains.Find(item.StdCode));
+                        }
+                    }
+                    return View(All);
+                }
+
+            }
+
         }
 
         // GET: StudentClothes/Create
