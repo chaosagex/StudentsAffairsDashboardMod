@@ -73,6 +73,10 @@
           <DataField>SeqID</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="SchoolCambridge">
+          <DataField>SchoolCambridge</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>Student_Affairs_DatabaseDataSet</rd:DataSetName>
@@ -475,7 +479,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!SeqID.Value</Value>
+                                  <Value>=iif(Fields!SeqID.Value,Fields!SchoolCambridge.Value &amp; "-" &amp; Fields!SeqID.Value,Fields!id)</Value>
                                   <Style>
                                     <FontSize>14pt</FontSize>
                                   </Style>
@@ -498,6 +502,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -670,7 +675,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>

@@ -109,6 +109,10 @@
           <DataField>SeqID</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="SchoolCambridge">
+          <DataField>SchoolCambridge</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>Student_Affairs_DatabaseDataSet</rd:DataSetName>
@@ -852,7 +856,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>= Fields!InvoiceID.Value &amp; "-&gt;" &amp; Fields!SeqID.Value</Value>
+                                  <Value>=iif(Fields!SeqID.Value,Fields!SchoolCambridge.Value &amp; "-" &amp; Fields!SeqID.Value,Fields!InvoiceID)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>11pt</FontSize>
