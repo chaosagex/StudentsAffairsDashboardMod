@@ -102,10 +102,10 @@
                   <Width>6.50875cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.10854cm</Width>
+                  <Width>4.37854cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>1.38875cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -601,11 +601,12 @@
                             </Border>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingRight>8pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -624,7 +625,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -659,7 +660,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -707,7 +708,7 @@
             <DataSetName>InvoiceSchool</DataSetName>
             <Top>0.7105cm</Top>
             <Height>1.80854cm</Height>
-            <Width>28.41562cm</Width>
+            <Width>28.57437cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -718,7 +719,7 @@
         <Height>0.99175in</Height>
         <Style />
       </Body>
-      <Width>11.18725in</Width>
+      <Width>11.24975in</Width>
       <Page>
         <PageHeader>
           <Height>3.01695cm</Height>
@@ -832,6 +833,11 @@
             <Border>
               <Style>None</Style>
             </Border>
+            <BottomBorder>
+              <Color>Black</Color>
+              <Style>Solid</Style>
+              <Width>1pt</Width>
+            </BottomBorder>
           </Style>
         </PageHeader>
         <PageFooter>
