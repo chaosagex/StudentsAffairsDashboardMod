@@ -114,6 +114,7 @@ namespace StudentsAffairsDashboard.Controllers
                         studentClothe.Quantity = "1";
                         studentClothe.Price = Double.Parse(itemm.ClothesinPackagePrice).ToString();
                         total += Double.Parse(itemm.ClothesinPackagePrice);
+                        total = Math.Round(total);
                         studentClothe.PaymentStatus = "True";
                         studentClothe.ReceivingStatus = "False";
                         studentClothe.ReceivingQuantity = "0";
@@ -140,6 +141,7 @@ namespace StudentsAffairsDashboard.Controllers
                         studentClothe.Quantity = "1";
                         studentClothe.Price = Double.Parse(itemm.ClothesinPackagePrice).ToString();
                         total += Double.Parse(itemm.ClothesinPackagePrice);
+                        total = Math.Round(total);
                         studentClothe.PaymentStatus = "True";
                         studentClothe.ReceivingStatus = "False";
                         studentClothe.ReceivingQuantity = "0";
@@ -166,6 +168,7 @@ namespace StudentsAffairsDashboard.Controllers
                         studentClothe.Quantity = "1";
                         studentClothe.Price = Double.Parse(itemm.ClothesinPackagePrice).ToString();
                         total += Double.Parse(itemm.ClothesinPackagePrice);
+                        total = Math.Round(total);
                         studentClothe.PaymentStatus = "True";
                         studentClothe.ReceivingStatus = "False";
                         studentClothe.ReceivingQuantity = "0";
@@ -192,6 +195,7 @@ namespace StudentsAffairsDashboard.Controllers
                         studentClothe.Quantity = "1";
                         studentClothe.Price = Double.Parse(itemm.ClothesinPackagePrice).ToString();
                         total += Double.Parse(itemm.ClothesinPackagePrice);
+                        total = Math.Round(total);
                         studentClothe.PaymentStatus = "True";
                         studentClothe.ReceivingStatus = "False";
                         studentClothe.ReceivingQuantity = "0";
@@ -218,6 +222,7 @@ namespace StudentsAffairsDashboard.Controllers
                         studentClothe.Quantity = "1";
                         studentClothe.Price = itemm.ClothesinPackagePrice;
                         total += Double.Parse(itemm.ClothesinPackagePrice);
+                        total = Math.Round(total);
                         studentClothe.PaymentStatus = "True";
                         studentClothe.ReceivingStatus = "False";
                         studentClothe.ReceivingQuantity = "0";
@@ -295,7 +300,7 @@ namespace StudentsAffairsDashboard.Controllers
                 item.Grade = studentGrade;
                 item.year = year;
                 item.student_type = studentType;
-                item.amount = (decimal)(total);
+                item.amount = (decimal)Math.Round(total);
                 invoice.paid += item.amount;
                 //newNotes += item.name; ;
                 invoice.payment_details.Add(item);
@@ -580,7 +585,7 @@ namespace StudentsAffairsDashboard.Controllers
             {
                 Total += Double.Parse(item.Price);
             }
-            ViewBag.Total = Total;
+            ViewBag.Total = Math.Round(Total);
             return PartialView("Details", StudentsClothesData.ToList());
         }
 
@@ -597,7 +602,7 @@ namespace StudentsAffairsDashboard.Controllers
             var StudentsInvoicesData = db.invoice_payment.Where(a => a.student == Code);
             decimal TRemaing = StudentsInvoicesData.ToList().Last().remaining;
 
-            ViewBag.TotalReminig = TRemaing;
+            ViewBag.TotalReminig = Math.Round(TRemaing);
             return PartialView("DetailsReceipt", StudentsInvoicesData.ToList());
         }
 

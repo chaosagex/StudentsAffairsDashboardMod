@@ -34,7 +34,7 @@
                                 </a>
                                 <br />
                                 <small>
-                                    NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault()  @Html.DisplayFor(modelItem => item.Class.ClassName) (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
+                                    NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault().Replace(" ","-")  @Html.DisplayFor(modelItem => item.Class.ClassName).ToString().Replace(" ", "-") (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
                                 </small>
                             </td>
                             <td style="text-align: center; vertical-align: middle;">
@@ -49,7 +49,7 @@
                                 }
                                 else
                                 {
-                                    <span class="badge badge-danger">NOT Paid</span>
+                                    <span class="badge badge-danger">NOT-Paid</span>
                                 }
 
                             </td>
@@ -60,7 +60,7 @@
                                 }
                                 else
                                 {
-                                    <span class="badge badge-danger">NOT Received</span>
+                                    <span class="badge badge-danger">NOT-Received</span>
                                 }
                             </td>
                             <td style="text-align: center; vertical-align: middle;">
@@ -132,11 +132,7 @@
 </div>
 @section scripts{
     <script>
-        var ConfirmDelete = function (EmployeeId) {
-            $("#hiddenId").val(EmployeeId);
-            $("#partialModal").modal('show');
-            
-        }
+        
 
         $(function () {
             $("#example1").DataTable({
@@ -158,7 +154,7 @@
             var customerId = $(this).closest("tr").find("td").eq(0).html();
             $.ajax({
                 type: "POST",
-                url: "/StudentClothes/Details",
+                url: "https://nes.moe.gov.eg/SMS/StudentClothes/Details",
                 data: '{customerId: "' + customerId + '" }',
                 contentType: "application/json; charset=utf-8",
                 dataType: "html",
@@ -178,7 +174,7 @@
             var customerId2 = $(this).closest("tr").find("td").eq(0).html();
             $.ajax({
                 type: "POST",
-                url: "/StudentClothes/DetailsReceipt",
+                url: "https://nes.moe.gov.eg/SMS/StudentClothes/DetailsReceipt",
                 data: '{customerId: "' + customerId2 + '" }',
                 contentType: "application/json; charset=utf-8",
                 dataType: "html",
