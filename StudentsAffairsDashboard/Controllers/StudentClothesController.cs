@@ -42,20 +42,48 @@ namespace StudentsAffairsDashboard.Controllers
         // GET: StudentClothes/Receiving
         public ActionResult Receiving()
         {
-            var studentClothes = db.StudentClothes.Include(s => s.Cloth).Include(s => s.StudentsMain).GroupBy(a => a.StdCode).Select(a => a.FirstOrDefault());
-            List<StudentsMain> All = new List<StudentsMain>();
-
-            foreach (var item in studentClothes)
+            int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
+            if (Session["CurrentSchool"] == null)
             {
-                if (!db.StudentClothes.Where(a => a.StdCode == item.StdCode).All(a => a.ReceivingStatus == "True"))
-                {
-                    All.Add(db.StudentsMains.Find(item.StdCode));
-                }
+                return RedirectToAction("Login", "Home");
             }
-            return View(All);
+            else
+            {
+
+                if (SchoolIDsession == 1000)
+                {
+                    var studentClothes = db.StudentClothes.Include(s => s.Cloth).Include(s => s.StudentsMain).GroupBy(a => a.StdCode).Select(a => a.FirstOrDefault());
+                    List<StudentsMain> All = new List<StudentsMain>();
+
+                    foreach (var item in studentClothes)
+                    {
+                        if (!db.StudentClothes.Where(a => a.StdCode == item.StdCode).All(a => a.ReceivingStatus == "True"))
+                        {
+                            All.Add(db.StudentsMains.Find(item.StdCode));
+                        }
+                    }
+                    return View(All);
+                }
+                else
+                {
+                    var studentClothes = db.StudentClothes.Include(s => s.Cloth).Include(s => s.StudentsMain).GroupBy(a => a.StdCode).Select(a => a.FirstOrDefault());
+                    List<StudentsMain> All = new List<StudentsMain>();
+
+                    foreach (var item in studentClothes)
+                    {
+                        if (!db.StudentClothes.Where(a => a.StdCode == item.StdCode).Where(a => a.StudentsMain.NESSchool.SchoolID == SchoolIDsession).All(a => a.ReceivingStatus == "True"))
+                        {
+                            All.Add(db.StudentsMains.Find(item.StdCode));
+                        }
+                    }
+                    return View(All);
+                }
+
+            }
+            
         }
 
-        // GET: StudentClothes/Create
+        // GET: StudentClothes/Create/5
         public ActionResult Create(int? id)
         {
             if (id == null)
@@ -87,9 +115,7 @@ namespace StudentsAffairsDashboard.Controllers
 
         }
 
-        // POST: StudentClothes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: StudentClothes/UpdateItems/"s","c","p"
         [HttpPost]
         public ActionResult UpdateItems(string searchText, string Code, string packageName)
         {
@@ -344,6 +370,7 @@ namespace StudentsAffairsDashboard.Controllers
             
         }
 
+        // POST: StudentClothes/UpdateItemsReceived/"s","c"
         public ActionResult UpdateItemsReceived(string searchText, string Code)
         {
 
@@ -388,11 +415,31 @@ namespace StudentsAffairsDashboard.Controllers
 
             return RedirectToAction("Index");
         }
-        // GET: StudentClothes/Edit/5
-        public ActionResult UniformReport()
+
+        // GET: StudentClothes/InvoicesReports/5
+        public ActionResult InvoicesReports()
         {
             int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
-            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a => a.NESSchool.SchoolID == SchoolIDsession);
+            List<StudentsMain> studentsMains = new List<StudentsMain>();
+            if (Session["CurrentSchool"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else
+            {
+
+                if (SchoolIDsession == 1000)
+                {
+                    studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).ToList();
+                    
+                }
+                else
+                {
+                    studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a => a.NESSchool.SchoolID == SchoolIDsession).ToList();
+                    
+                }
+
+            }
 
             ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName");
             var ListGrades = db.Grades.ToList();
@@ -400,14 +447,24 @@ namespace StudentsAffairsDashboard.Controllers
             var GradesResult = ListGrades.OrderBy(d => d.GradeID).ToList();
             ViewBag.GradeID = new SelectList(GradesResult, "GradeID", "GradeName");
 
-            return View(studentsMains.ToList());
+            return View(studentsMains);
         }
-        public ActionResult UniformReportResult(string searchText, string GradeID)
+
+        // GET: StudentClothes/InvoicesReportsResult/"s"
+        public ActionResult InvoicesReportsResult(string searchText)
         {
+            int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
+            if (Session["CurrentSchool"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName");
             var ListGrades = db.Grades.ToList();
             ListGrades.Add(new Grade() { GradeID = -1, GradeName = "All" });
             var GradesResult = ListGrades.OrderBy(d => d.GradeID).ToList();
             ViewBag.GradeID = new SelectList(GradesResult, "GradeID", "GradeName");
+
             String[] FilterData = new string[9];
 
             //FilterData[0] = "first%20installment";
@@ -511,27 +568,9 @@ namespace StudentsAffairsDashboard.Controllers
                 }
             }
 
-
-            //if (Int32.Parse(wordd[1]) > 0)
-            //{
-            //    StudentClothe studentClothe = new StudentClothe();
-            //    studentClothe.StdCode = Int32.Parse(Code);
-            //    studentClothe.ClothesID = itemm.ClothesID;
-            //    studentClothe.Quantity = wordd[1];
-            //    studentClothe.Price = (Int32.Parse(wordd[1]) * Int32.Parse(itemm.ClothesPrice)).ToString();
-            //    total += (Int32.Parse(wordd[1]) * Int32.Parse(itemm.ClothesPrice));
-            //    studentClothe.PaymentStatus = "True";
-            //    studentClothe.ReceivingStatus = "False";
-            //    studentClothe.ReceivingQuantity = "0";
-            //    db.StudentClothes.Add(studentClothe);
-            //}
-
             return View(StudentData.ToList());
         }
-
-        // POST: StudentClothes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "SCID,StdCode,ClothesID,Quantity,Price,ReceivingStatus,PaymentStatus")] StudentClothe studentClothe)
@@ -547,7 +586,7 @@ namespace StudentsAffairsDashboard.Controllers
             return View(studentClothe);
         }
 
-        // GET: StudentClothes/Delete/5
+        // GET: StudentClothes/Received/5
         public ActionResult Received(int? id)
         {
             if (id == null)
@@ -569,7 +608,6 @@ namespace StudentsAffairsDashboard.Controllers
         }
 
         // POST: StudentClothes/Details/5
-
         [HttpPost]
         public ActionResult Details(string customerId)
         {
@@ -592,6 +630,7 @@ namespace StudentsAffairsDashboard.Controllers
             return PartialView("Details", StudentsClothesData.ToList());
         }
 
+        // POST: StudentClothes/DetailsReceipt/5
         [HttpPost]
         public ActionResult DetailsReceipt(string customerId, string Typ)
         {
@@ -601,7 +640,7 @@ namespace StudentsAffairsDashboard.Controllers
             ViewBag.StdGrade = db.StudentsMains.Find(Code).StudentGradesHistories.OrderBy(a => a.GradeID).LastOrDefault().Grade.GradeName;
             ViewBag.StdGradecustomerId = db.StudentsMains.Find(Code).StudentGradesHistories.OrderBy(a => a.GradeID).LastOrDefault().Grade.GradeID.ToString();
             ViewBag.StdClass = db.StudentsMains.Find(Code).Class.ClassName;
-
+            ViewBag.SchoolCambridge = db.StudentsMains.Find(Code).NESSchool.SchoolCambridge;
             var StudentsInvoicesData = db.invoice_payment.Where(a => a.student == Code);
             decimal TRemaing = StudentsInvoicesData.ToList().Last().remaining;
 
@@ -609,7 +648,7 @@ namespace StudentsAffairsDashboard.Controllers
             return PartialView("DetailsReceipt", StudentsInvoicesData.ToList());
         }
 
-
+        // POST: StudentClothes/Delete/5
         [HttpPost]
         public ActionResult Delete(string hiddenId)
         {
@@ -625,9 +664,42 @@ namespace StudentsAffairsDashboard.Controllers
                 
             }            
             db.SaveChanges();
+            LogsController logs = new LogsController();
+            DateTime now = DateTime.Now;
+            Log log = new Log();
+            log.UserName = Session["UserName"].ToString();
+            log.Times = now.ToString();
+            log.LogContent = "Delete : Account (" + Session["UserName"].ToString() + ") Delete Student Uniform With ID: (" + id + ")";
+            bool checklog = logs.Create(log);
             return RedirectToAction("Index");
         }
 
+        // POST: StudentClothes/Delete/5,1
+        public ActionResult Delete(string hiddenId,string invoiceId)
+        {
+            int id = Int32.Parse(hiddenId);
+            int invid = Int32.Parse(invoiceId);
+            var StudentClotheD = db.invoice_payment.Include(p => p.payment_details).Include(p => p.invoice_payment2).Where(s => s.student == id).ToList(); ;
+            foreach (var item in StudentClotheD)
+            {
+                foreach (var ite in db.StudentClothes.Where(a => a.InvoiceID == invid))
+                {
+                    db.StudentClothes.Remove(ite);
+                }
+                db.invoice_payment.Remove(item);
+
+            }
+            db.SaveChanges();
+            LogsController logs = new LogsController();
+            DateTime now = DateTime.Now;
+            Log log = new Log();
+            log.UserName = Session["UserName"].ToString();
+            log.Times = now.ToString();
+            log.LogContent = "Delete : Account (" + Session["UserName"].ToString() + ") Delete Student Uniform Invoice With ID: (" + invid + ")";
+            bool checklog = logs.Create(log);
+            return RedirectToAction("Index");
+        }
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

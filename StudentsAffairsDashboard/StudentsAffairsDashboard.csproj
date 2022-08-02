@@ -639,8 +639,8 @@
     <Content Include="Views\Reports\Edit.cshtml" />
     <Content Include="Views\StudentClothes\Details.cshtml" />
     <Content Include="Views\StudentClothes\DetailsReceipt.cshtml" />
-    <Content Include="Views\StudentClothes\UniformReport.cshtml" />
-    <Content Include="Views\StudentClothes\UniformReportResult.cshtml" />
+    <Content Include="Views\StudentClothes\InvoicesReports.cshtml" />
+    <Content Include="Views\StudentClothes\InvoicesReportsResult.cshtml" />
     <Content Include="Reports\Student_Affairs_DatabaseDataSet.xsc">
       <DependentUpon>Student_Affairs_DatabaseDataSet.xsd</DependentUpon>
     </Content>

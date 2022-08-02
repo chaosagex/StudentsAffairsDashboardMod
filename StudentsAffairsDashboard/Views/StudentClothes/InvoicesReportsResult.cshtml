@@ -134,7 +134,7 @@
                                 </a>
                                 <br />
                                 <small>
-                                    NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault().ToString().Replace(" ", "-")  @Html.DisplayFor(modelItem => item.Class.ClassName).Replace(" ", "-") (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
+                                    NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault().Replace(" ", "-")  @Html.DisplayFor(modelItem => item.Class.ClassName).ToString().Replace(" ", "-") (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
                                 </small>
                             </td>
                             <td style="text-align: center; vertical-align: middle;">
@@ -251,7 +251,7 @@
                 //to get alert popup
                 alert(valdata);
                 $.ajax({
-                    url: "/StudentClothes/UniformReportResult",
+                    url: "/StudentClothes/InvoicesReportsResult",
                     type: "POST",
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: {

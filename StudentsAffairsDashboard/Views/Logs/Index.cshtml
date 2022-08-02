@@ -55,7 +55,7 @@
                                 {
                                     <td><span class="badge badge-secondary">Uniform</span></td>
                                 }
-                                else if (item.LogContent.StartsWith("Login "))
+                                else if (item.LogContent.StartsWith("Login"))
                                 {
                                     <td><span class="badge badge-light">Login</span></td>
                                 }
@@ -96,6 +96,14 @@
                                 else if (@item.LogContent.StartsWith("Uniform"))
                                 {
                                     <td><span class="badge badge-secondary">Uniform</span></td>
+                                }
+                                else if (item.LogContent.StartsWith("Login"))
+                                {
+                                    <td><span class="badge badge-light">Login</span></td>
+                                }
+                                else if (item.LogContent.StartsWith("Logout"))
+                                {
+                                    <td><span class="badge badge-light">Logout</span></td>
                                 }
                                 <td>
                                     <div class="sparkbar" data-color="#00a65a" data-height="20">@item.Times</div>

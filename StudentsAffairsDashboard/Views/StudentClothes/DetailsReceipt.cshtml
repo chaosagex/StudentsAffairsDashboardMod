@@ -31,60 +31,26 @@
             <div class="col-2 text-center" style="width: 115px; height: 20px;">
                 Invoice Print
             </div>
+            <div class="col-2 text-center" style="width: 115px; height: 20px;">
+                @if (Session["UserName"].ToString().Contains("Admin NES"))
+                {
+                    <p>Delete Invoce</p>
+                }
+            </div>
         </div>
         @foreach (var item in Model)
         {
-            @*if (Int32.Parse(item.ReceivingQuantity.ToString()) == Int32.Parse(item.Quantity.ToString()))
-                {
-                    <div class="row">
-                        <div class="col-3  text-center" style="width: 115px; height: 20px;">
-                            <h6><span class="badge bg-success">@item.ReceivingQuantity.Trim()</span></h6>
-                        </div>
-
-                        <div class="col-3  text-center" style="width: 115px; height: 20px;">
-                            <h6> <span class="text-center badge bg-success">@item.Quantity</span> </h6>
-                        </div>
-
-                        <div class="col-6" style="width: 115px; height: 20px;">
-                            <h6>@Html.DisplayFor(modelItem => item.Cloth.ClothesName) </h6>
-                        </div>
-                    </div>
-                }
-                if (Int32.Parse(item.ReceivingQuantity.ToString()) < Int32.Parse(item.Quantity.ToString()) && Int32.Parse(item.ReceivingQuantity.ToString()) != 0)
-                {
-                    <div class="row">
-                        <div class="col-3  text-center" style="width: 115px; height: 20px;">
-                            <h6><span class="badge bg-warning">@item.ReceivingQuantity.Trim()</span></h6>
-                        </div>
-
-                        <div class="col-3  text-center" style="width: 115px; height: 20px;">
-                            <h6> <span class="text-center badge bg-black">@item.Quantity</span> </h6>
-                        </div>
-
-                        <div class="col-6" style="width: 115px; height: 20px;">
-                            <h6>@Html.DisplayFor(modelItem => item.Cloth.ClothesName) </h6>
-                        </div>
-                    </div>
-                }
-                if (Int32.Parse(item.ReceivingQuantity.ToString()) == 0)
-                {
-                    <div class="row">
-                        <div class="col-3  text-center" style="width: 115px; height: 20px;">
-                            <h6><span class="badge bg-black">@item.ReceivingQuantity.Trim()</span></h6>
-                        </div>
-
-                        <div class="col-3  text-center" style="width: 115px; height: 20px;">
-                            <h6> <span class="text-center badge bg-danger">@item.Quantity</span> </h6>
-                        </div>
-
-                        <div class="col-6" style="width: 115px; height: 20px;">
-                            <h6>@Html.DisplayFor(modelItem => item.Cloth.ClothesName) </h6>
-                        </div>
-                    </div>
-                }*@
             <div class="row">
                 <div class="col-2" style="width: 115px; height: 20px;">
                     <h6>Invoce No-@Html.DisplayFor(modelItem => item.id) </h6>
+                    @if (item.SeqID == null)
+                    {
+                        <h6>Invoice @Html.Display("SchoolCambridge")-@item.SeqID) </h6>
+                    }
+                    else
+                    {
+                        <h6>Invoice @item.id) </h6>
+                    }
                 </div>
 
                 <div class="col-2  text-center" style="width: 115px; height: 20px;">
@@ -109,12 +75,54 @@
                         <a href="~/Reports/Report.aspx?invoice=@item.id" class="badge badge-primary"><i class="glyphicon glyphicon-trash"></i>Print Receipt</a>
                     }
                 </div>
+                <div class="col-2  text-center" style="width: 115px; height: 20px;"
+                     @if (Session["UserName"].ToString().Contains("Admin NES")) { 
+                         <a href="#" class="badge badge-primary" onclick="ConfirmDelete(@item.id,@item.student)"><i class="glyphicon glyphicon-trash"></i>Delete</a>
+                    }
+                </div>
             </div>
         }
     </div>
 </div>
 
-    <div>
-        <p>Total Reminig <br> <b id="total">@Html.Display("TotalReminig")</b> EGP</p>
-    </div>
+<div>
+    <p>Total Reminig <br> <b id="total">@Html.Display("TotalReminig")</b> EGP</p>
+</div>
 
+<div class="modal fade" id="modal-danger">
+    @using (Html.BeginForm("Delete", "StudentClothes", FormMethod.Post))
+    {
+        <div class="modal-dialog">
+            <div class="modal-content bg-danger">
+                <div class="modal-header">
+                    <h4 class="modal-title">Invoice Delete</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are You Sure To Delete This Student (Invoice Uniform)</p>
+                    @*hidden field for storing current employeeId*@
+                    <input type="hidden" id="hiddenId" name="hiddenId" />
+                    <input type="hidden" id="invoiceId" name="invoiceId" />
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Delete</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    }
+</div>
+
+@section scripts{
+    <script>
+        var ConfirmDelete = function (EmployeeId, EmployeeId2) {
+            $("#hiddenId").val(EmployeeId);
+            $("#invoiceId").val(EmployeeId2);
+            $("#modal-danger").modal('show');
+    }
+    </script>
+    }
