@@ -683,6 +683,8 @@ namespace StudentsAffairsDashboard.Controllers
             return RedirectToAction("Index");
         }
 
+
+
         // POST: StudentClothes/DeleteInvoice/5,1
         [HttpPost]
         public ActionResult DeleteInvoice(string hiddenId,string invoiceId)
