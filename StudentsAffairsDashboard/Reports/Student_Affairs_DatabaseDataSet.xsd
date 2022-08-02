@@ -1199,7 +1199,8 @@
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        payment_details.Grade, payment_details.type, StudentClothes.Quantity, StudentClothes.ClothesID, StudentClothes.Price, StudentClothes.ReceivingStatus, StudentClothes.ReceivingQuantity, StudentClothes.PackageStatus, 
                          StudentClothes.InvoiceID, Grade.GradeName, invoice_payment.student, invoice_payment.date, Clothes.ClothesPrice, Clothes.ClothesinPackagePrice, Clothes.ClothesColor, Clothes.ClothesName, NESSchools.SchoolName, 
-                         payment_details.amount, StudentsMain.StdArabicFristName, StudentsMain.StdArabicMiddleName, StudentsMain.StdArabicLastName, StudentsMain.StdArabicFamilyName, invoice_payment.SeqID
+                         payment_details.amount, StudentsMain.StdArabicFristName, StudentsMain.StdArabicMiddleName, StudentsMain.StdArabicLastName, StudentsMain.StdArabicFamilyName, invoice_payment.SeqID, 
+                         NESSchools.SchoolCambridge
 FROM            payment_details INNER JOIN
                          invoice_item ON payment_details.id = invoice_item.payment_item INNER JOIN
                          invoice_payment ON invoice_payment.id = invoice_item.invoice INNER JOIN
@@ -1237,6 +1238,7 @@ FROM            payment_details INNER JOIN
               <Mapping SourceColumn="StdArabicLastName" DataSetColumn="StdArabicLastName" />
               <Mapping SourceColumn="StdArabicFamilyName" DataSetColumn="StdArabicFamilyName" />
               <Mapping SourceColumn="SeqID" DataSetColumn="SeqID" />
+              <Mapping SourceColumn="SchoolCambridge" DataSetColumn="SchoolCambridge" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -1373,13 +1375,20 @@ WHERE        (StudentClothes.ReceivingStatus = 'False') AND (StudentClothes.Rece
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        invoice_payment.date, invoice_payment.total_cost, invoice_payment.paid, invoice_payment.remaining, StudentsMain.StdArabicFristName, StudentsMain.StdArabicMiddleName, StudentsMain.StdArabicLastName, 
-                         StudentsMain.StdArabicFamilyName, payment_details.Grade, Grade.GradeName, payment_details.type, invoice_payment.id, NESSchools.SchoolArabicName, invoice_payment.SeqID
+                         StudentsMain.StdArabicFamilyName, payment_details.Grade, Grade.GradeName, payment_details.type, invoice_payment.id, NESSchools.SchoolArabicName, invoice_payment.SeqID, NESSchools.SchoolCambridge, 
+                         COUNT(StudentClothes_1.ReceivingStatus) AS ItemsCount,
+                             (SELECT        COUNT(ReceivingStatus) AS Expr1
+                               FROM            StudentClothes
+                               WHERE        (ReceivingStatus = 'True') AND (InvoiceID = invoice_payment.id)) AS RecievedItemsCount
 FROM            StudentsMain INNER JOIN
                          invoice_payment ON StudentsMain.StdCode = invoice_payment.student INNER JOIN
                          invoice_item ON invoice_payment.id = invoice_item.invoice INNER JOIN
                          payment_details ON payment_details.id = invoice_item.payment_item INNER JOIN
                          Grade ON payment_details.Grade = Grade.GradeID INNER JOIN
-                         NESSchools ON StudentsMain.StdSchoolID = NESSchools.SchoolID AND payment_details.school = NESSchools.SchoolID</CommandText>
+                         NESSchools ON StudentsMain.StdSchoolID = NESSchools.SchoolID AND payment_details.school = NESSchools.SchoolID INNER JOIN
+                         StudentClothes AS StudentClothes_1 ON invoice_payment.id = StudentClothes_1.InvoiceID
+GROUP BY invoice_payment.date, invoice_payment.total_cost, invoice_payment.paid, invoice_payment.remaining, StudentsMain.StdArabicFristName, StudentsMain.StdArabicMiddleName, StudentsMain.StdArabicLastName, 
+                         StudentsMain.StdArabicFamilyName, payment_details.Grade, Grade.GradeName, payment_details.type, invoice_payment.id, NESSchools.SchoolArabicName, invoice_payment.SeqID, NESSchools.SchoolCambridge</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -1400,6 +1409,9 @@ FROM            StudentsMain INNER JOIN
               <Mapping SourceColumn="id" DataSetColumn="id" />
               <Mapping SourceColumn="SchoolArabicName" DataSetColumn="SchoolArabicName" />
               <Mapping SourceColumn="SeqID" DataSetColumn="SeqID" />
+              <Mapping SourceColumn="SchoolCambridge" DataSetColumn="SchoolCambridge" />
+              <Mapping SourceColumn="ItemsCount" DataSetColumn="ItemsCount" />
+              <Mapping SourceColumn="RecievedItemsCount" DataSetColumn="RecievedItemsCount" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -2562,76 +2574,83 @@ FROM            StudentsMain INNER JOIN
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Grade" msprop:Generator_UserColumnName="Grade" msprop:Generator_ColumnPropNameInTable="GradeColumn" msprop:Generator_ColumnPropNameInRow="Grade" msprop:Generator_ColumnVarNameInTable="columnGrade" type="xs:int" minOccurs="0" />
-              <xs:element name="type" msprop:Generator_UserColumnName="type" msprop:Generator_ColumnPropNameInTable="typeColumn" msprop:Generator_ColumnPropNameInRow="type" msprop:Generator_ColumnVarNameInTable="columntype" type="xs:int" />
-              <xs:element name="ClothesID" msprop:Generator_UserColumnName="ClothesID" msprop:Generator_ColumnPropNameInTable="ClothesIDColumn" msprop:Generator_ColumnPropNameInRow="ClothesID" msprop:Generator_ColumnVarNameInTable="columnClothesID" type="xs:int" />
-              <xs:element name="ReceivingQuantity" msprop:Generator_UserColumnName="ReceivingQuantity" msprop:Generator_ColumnPropNameInTable="ReceivingQuantityColumn" msprop:Generator_ColumnPropNameInRow="ReceivingQuantity" msprop:Generator_ColumnVarNameInTable="columnReceivingQuantity" minOccurs="0">
+              <xs:element name="Grade" msprop:Generator_ColumnPropNameInTable="GradeColumn" msprop:Generator_ColumnPropNameInRow="Grade" msprop:Generator_UserColumnName="Grade" msprop:Generator_ColumnVarNameInTable="columnGrade" type="xs:int" minOccurs="0" />
+              <xs:element name="type" msprop:Generator_ColumnPropNameInTable="typeColumn" msprop:Generator_ColumnPropNameInRow="type" msprop:Generator_UserColumnName="type" msprop:Generator_ColumnVarNameInTable="columntype" type="xs:int" />
+              <xs:element name="ClothesID" msprop:Generator_ColumnPropNameInTable="ClothesIDColumn" msprop:Generator_ColumnPropNameInRow="ClothesID" msprop:Generator_UserColumnName="ClothesID" msprop:Generator_ColumnVarNameInTable="columnClothesID" type="xs:int" />
+              <xs:element name="ReceivingQuantity" msprop:Generator_ColumnPropNameInTable="ReceivingQuantityColumn" msprop:Generator_ColumnPropNameInRow="ReceivingQuantity" msprop:Generator_UserColumnName="ReceivingQuantity" msprop:Generator_ColumnVarNameInTable="columnReceivingQuantity" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="10" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="InvoiceID" msprop:Generator_UserColumnName="InvoiceID" msprop:Generator_ColumnPropNameInTable="InvoiceIDColumn" msprop:Generator_ColumnPropNameInRow="InvoiceID" msprop:Generator_ColumnVarNameInTable="columnInvoiceID" type="xs:int" minOccurs="0" />
-              <xs:element name="student" msprop:Generator_UserColumnName="student" msprop:Generator_ColumnPropNameInTable="studentColumn" msprop:Generator_ColumnPropNameInRow="student" msprop:Generator_ColumnVarNameInTable="columnstudent" type="xs:int" />
-              <xs:element name="ClothesPrice" msprop:Generator_UserColumnName="ClothesPrice" msprop:Generator_ColumnPropNameInTable="ClothesPriceColumn" msprop:Generator_ColumnPropNameInRow="ClothesPrice" msprop:Generator_ColumnVarNameInTable="columnClothesPrice">
+              <xs:element name="InvoiceID" msprop:Generator_ColumnPropNameInTable="InvoiceIDColumn" msprop:Generator_ColumnPropNameInRow="InvoiceID" msprop:Generator_UserColumnName="InvoiceID" msprop:Generator_ColumnVarNameInTable="columnInvoiceID" type="xs:int" minOccurs="0" />
+              <xs:element name="student" msprop:Generator_ColumnPropNameInTable="studentColumn" msprop:Generator_ColumnPropNameInRow="student" msprop:Generator_UserColumnName="student" msprop:Generator_ColumnVarNameInTable="columnstudent" type="xs:int" />
+              <xs:element name="ClothesPrice" msprop:Generator_ColumnPropNameInTable="ClothesPriceColumn" msprop:Generator_ColumnPropNameInRow="ClothesPrice" msprop:Generator_UserColumnName="ClothesPrice" msprop:Generator_ColumnVarNameInTable="columnClothesPrice">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="ClothesinPackagePrice" msprop:Generator_UserColumnName="ClothesinPackagePrice" msprop:Generator_ColumnPropNameInTable="ClothesinPackagePriceColumn" msprop:Generator_ColumnPropNameInRow="ClothesinPackagePrice" msprop:Generator_ColumnVarNameInTable="columnClothesinPackagePrice" minOccurs="0">
+              <xs:element name="ClothesinPackagePrice" msprop:Generator_ColumnPropNameInTable="ClothesinPackagePriceColumn" msprop:Generator_ColumnPropNameInRow="ClothesinPackagePrice" msprop:Generator_UserColumnName="ClothesinPackagePrice" msprop:Generator_ColumnVarNameInTable="columnClothesinPackagePrice" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="ClothesColor" msprop:Generator_UserColumnName="ClothesColor" msprop:Generator_ColumnPropNameInTable="ClothesColorColumn" msprop:Generator_ColumnPropNameInRow="ClothesColor" msprop:Generator_ColumnVarNameInTable="columnClothesColor" minOccurs="0">
+              <xs:element name="ClothesColor" msprop:Generator_ColumnPropNameInTable="ClothesColorColumn" msprop:Generator_ColumnPropNameInRow="ClothesColor" msprop:Generator_UserColumnName="ClothesColor" msprop:Generator_ColumnVarNameInTable="columnClothesColor" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="SchoolName" msprop:Generator_UserColumnName="SchoolName" msprop:Generator_ColumnPropNameInTable="SchoolNameColumn" msprop:Generator_ColumnPropNameInRow="SchoolName" msprop:Generator_ColumnVarNameInTable="columnSchoolName">
+              <xs:element name="SchoolName" msprop:Generator_ColumnPropNameInTable="SchoolNameColumn" msprop:Generator_ColumnPropNameInRow="SchoolName" msprop:Generator_UserColumnName="SchoolName" msprop:Generator_ColumnVarNameInTable="columnSchoolName">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="amount" msprop:Generator_UserColumnName="amount" msprop:Generator_ColumnPropNameInTable="amountColumn" msprop:Generator_ColumnPropNameInRow="amount" msprop:Generator_ColumnVarNameInTable="columnamount" type="xs:decimal" />
-              <xs:element name="StdArabicFristName" msprop:Generator_UserColumnName="StdArabicFristName" msprop:Generator_ColumnPropNameInTable="StdArabicFristNameColumn" msprop:Generator_ColumnPropNameInRow="StdArabicFristName" msprop:Generator_ColumnVarNameInTable="columnStdArabicFristName">
+              <xs:element name="amount" msprop:Generator_ColumnPropNameInTable="amountColumn" msprop:Generator_ColumnPropNameInRow="amount" msprop:Generator_UserColumnName="amount" msprop:Generator_ColumnVarNameInTable="columnamount" type="xs:decimal" />
+              <xs:element name="StdArabicFristName" msprop:Generator_ColumnPropNameInTable="StdArabicFristNameColumn" msprop:Generator_ColumnPropNameInRow="StdArabicFristName" msprop:Generator_UserColumnName="StdArabicFristName" msprop:Generator_ColumnVarNameInTable="columnStdArabicFristName">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="StdArabicMiddleName" msprop:Generator_UserColumnName="StdArabicMiddleName" msprop:Generator_ColumnPropNameInTable="StdArabicMiddleNameColumn" msprop:Generator_ColumnPropNameInRow="StdArabicMiddleName" msprop:Generator_ColumnVarNameInTable="columnStdArabicMiddleName">
+              <xs:element name="StdArabicMiddleName" msprop:Generator_ColumnPropNameInTable="StdArabicMiddleNameColumn" msprop:Generator_ColumnPropNameInRow="StdArabicMiddleName" msprop:Generator_UserColumnName="StdArabicMiddleName" msprop:Generator_ColumnVarNameInTable="columnStdArabicMiddleName">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="StdArabicLastName" msprop:Generator_UserColumnName="StdArabicLastName" msprop:Generator_ColumnPropNameInTable="StdArabicLastNameColumn" msprop:Generator_ColumnPropNameInRow="StdArabicLastName" msprop:Generator_ColumnVarNameInTable="columnStdArabicLastName">
+              <xs:element name="StdArabicLastName" msprop:Generator_ColumnPropNameInTable="StdArabicLastNameColumn" msprop:Generator_ColumnPropNameInRow="StdArabicLastName" msprop:Generator_UserColumnName="StdArabicLastName" msprop:Generator_ColumnVarNameInTable="columnStdArabicLastName">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="StdArabicFamilyName" msprop:Generator_UserColumnName="StdArabicFamilyName" msprop:Generator_ColumnPropNameInTable="StdArabicFamilyNameColumn" msprop:Generator_ColumnPropNameInRow="StdArabicFamilyName" msprop:Generator_ColumnVarNameInTable="columnStdArabicFamilyName" minOccurs="0">
+              <xs:element name="StdArabicFamilyName" msprop:Generator_ColumnPropNameInTable="StdArabicFamilyNameColumn" msprop:Generator_ColumnPropNameInRow="StdArabicFamilyName" msprop:Generator_UserColumnName="StdArabicFamilyName" msprop:Generator_ColumnVarNameInTable="columnStdArabicFamilyName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="SeqID" msprop:Generator_ColumnPropNameInRow="SeqID" msprop:Generator_ColumnPropNameInTable="SeqIDColumn" msprop:Generator_ColumnVarNameInTable="columnSeqID" msprop:Generator_UserColumnName="SeqID" type="xs:int" minOccurs="0" />
+              <xs:element name="SeqID" msprop:Generator_ColumnPropNameInTable="SeqIDColumn" msprop:Generator_ColumnPropNameInRow="SeqID" msprop:Generator_UserColumnName="SeqID" msprop:Generator_ColumnVarNameInTable="columnSeqID" type="xs:int" minOccurs="0" />
+              <xs:element name="SchoolCambridge" msprop:Generator_UserColumnName="SchoolCambridge" msprop:Generator_ColumnPropNameInTable="SchoolCambridgeColumn" msprop:Generator_ColumnPropNameInRow="SchoolCambridge" msprop:Generator_ColumnVarNameInTable="columnSchoolCambridge" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -2956,59 +2975,68 @@ FROM            StudentsMain INNER JOIN
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="invoiceReport" msprop:Generator_RowClassName="invoiceReportRow" msprop:Generator_RowEvHandlerName="invoiceReportRowChangeEventHandler" msprop:Generator_RowDeletedName="invoiceReportRowDeleted" msprop:Generator_RowDeletingName="invoiceReportRowDeleting" msprop:Generator_RowEvArgName="invoiceReportRowChangeEvent" msprop:Generator_TablePropName="invoiceReport" msprop:Generator_RowChangedName="invoiceReportRowChanged" msprop:Generator_UserTableName="invoiceReport" msprop:Generator_RowChangingName="invoiceReportRowChanging" msprop:Generator_TableClassName="invoiceReportDataTable" msprop:Generator_TableVarName="tableinvoiceReport">
+        <xs:element name="invoiceReport" msprop:Generator_RowEvHandlerName="invoiceReportRowChangeEventHandler" msprop:Generator_RowDeletedName="invoiceReportRowDeleted" msprop:Generator_RowDeletingName="invoiceReportRowDeleting" msprop:Generator_RowEvArgName="invoiceReportRowChangeEvent" msprop:Generator_TablePropName="invoiceReport" msprop:Generator_RowChangedName="invoiceReportRowChanged" msprop:Generator_UserTableName="invoiceReport" msprop:Generator_RowChangingName="invoiceReportRowChanging" msprop:Generator_RowClassName="invoiceReportRow" msprop:Generator_TableClassName="invoiceReportDataTable" msprop:Generator_TableVarName="tableinvoiceReport">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="date" msprop:Generator_UserColumnName="date" msprop:Generator_ColumnPropNameInTable="dateColumn" msprop:Generator_ColumnPropNameInRow="date" msprop:Generator_ColumnVarNameInTable="columndate" type="xs:dateTime" />
-              <xs:element name="total_cost" msprop:Generator_UserColumnName="total_cost" msprop:Generator_ColumnPropNameInTable="total_costColumn" msprop:Generator_ColumnPropNameInRow="total_cost" msprop:Generator_ColumnVarNameInTable="columntotal_cost" type="xs:decimal" />
-              <xs:element name="paid" msprop:Generator_UserColumnName="paid" msprop:Generator_ColumnPropNameInTable="paidColumn" msprop:Generator_ColumnPropNameInRow="paid" msprop:Generator_ColumnVarNameInTable="columnpaid" type="xs:decimal" />
-              <xs:element name="remaining" msprop:Generator_UserColumnName="remaining" msprop:Generator_ColumnPropNameInTable="remainingColumn" msprop:Generator_ColumnPropNameInRow="remaining" msprop:Generator_ColumnVarNameInTable="columnremaining" type="xs:decimal" />
-              <xs:element name="StdArabicFristName" msprop:Generator_UserColumnName="StdArabicFristName" msprop:Generator_ColumnPropNameInTable="StdArabicFristNameColumn" msprop:Generator_ColumnPropNameInRow="StdArabicFristName" msprop:Generator_ColumnVarNameInTable="columnStdArabicFristName">
+              <xs:element name="date" msprop:Generator_ColumnPropNameInTable="dateColumn" msprop:Generator_ColumnPropNameInRow="date" msprop:Generator_UserColumnName="date" msprop:Generator_ColumnVarNameInTable="columndate" type="xs:dateTime" />
+              <xs:element name="total_cost" msprop:Generator_ColumnPropNameInTable="total_costColumn" msprop:Generator_ColumnPropNameInRow="total_cost" msprop:Generator_UserColumnName="total_cost" msprop:Generator_ColumnVarNameInTable="columntotal_cost" type="xs:decimal" />
+              <xs:element name="paid" msprop:Generator_ColumnPropNameInTable="paidColumn" msprop:Generator_ColumnPropNameInRow="paid" msprop:Generator_UserColumnName="paid" msprop:Generator_ColumnVarNameInTable="columnpaid" type="xs:decimal" />
+              <xs:element name="remaining" msprop:Generator_ColumnPropNameInTable="remainingColumn" msprop:Generator_ColumnPropNameInRow="remaining" msprop:Generator_UserColumnName="remaining" msprop:Generator_ColumnVarNameInTable="columnremaining" type="xs:decimal" />
+              <xs:element name="StdArabicFristName" msprop:Generator_ColumnPropNameInTable="StdArabicFristNameColumn" msprop:Generator_ColumnPropNameInRow="StdArabicFristName" msprop:Generator_UserColumnName="StdArabicFristName" msprop:Generator_ColumnVarNameInTable="columnStdArabicFristName">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="StdArabicMiddleName" msprop:Generator_UserColumnName="StdArabicMiddleName" msprop:Generator_ColumnPropNameInTable="StdArabicMiddleNameColumn" msprop:Generator_ColumnPropNameInRow="StdArabicMiddleName" msprop:Generator_ColumnVarNameInTable="columnStdArabicMiddleName">
+              <xs:element name="StdArabicMiddleName" msprop:Generator_ColumnPropNameInTable="StdArabicMiddleNameColumn" msprop:Generator_ColumnPropNameInRow="StdArabicMiddleName" msprop:Generator_UserColumnName="StdArabicMiddleName" msprop:Generator_ColumnVarNameInTable="columnStdArabicMiddleName">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="StdArabicLastName" msprop:Generator_UserColumnName="StdArabicLastName" msprop:Generator_ColumnPropNameInTable="StdArabicLastNameColumn" msprop:Generator_ColumnPropNameInRow="StdArabicLastName" msprop:Generator_ColumnVarNameInTable="columnStdArabicLastName">
+              <xs:element name="StdArabicLastName" msprop:Generator_ColumnPropNameInTable="StdArabicLastNameColumn" msprop:Generator_ColumnPropNameInRow="StdArabicLastName" msprop:Generator_UserColumnName="StdArabicLastName" msprop:Generator_ColumnVarNameInTable="columnStdArabicLastName">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="StdArabicFamilyName" msprop:Generator_UserColumnName="StdArabicFamilyName" msprop:Generator_ColumnPropNameInTable="StdArabicFamilyNameColumn" msprop:Generator_ColumnPropNameInRow="StdArabicFamilyName" msprop:Generator_ColumnVarNameInTable="columnStdArabicFamilyName" minOccurs="0">
+              <xs:element name="StdArabicFamilyName" msprop:Generator_ColumnPropNameInTable="StdArabicFamilyNameColumn" msprop:Generator_ColumnPropNameInRow="StdArabicFamilyName" msprop:Generator_UserColumnName="StdArabicFamilyName" msprop:Generator_ColumnVarNameInTable="columnStdArabicFamilyName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Grade" msprop:Generator_UserColumnName="Grade" msprop:Generator_ColumnPropNameInTable="GradeColumn" msprop:Generator_ColumnPropNameInRow="Grade" msprop:Generator_ColumnVarNameInTable="columnGrade" type="xs:int" minOccurs="0" />
-              <xs:element name="GradeName" msprop:Generator_UserColumnName="GradeName" msprop:Generator_ColumnPropNameInTable="GradeNameColumn" msprop:Generator_ColumnPropNameInRow="GradeName" msprop:Generator_ColumnVarNameInTable="columnGradeName">
+              <xs:element name="Grade" msprop:Generator_ColumnPropNameInTable="GradeColumn" msprop:Generator_ColumnPropNameInRow="Grade" msprop:Generator_UserColumnName="Grade" msprop:Generator_ColumnVarNameInTable="columnGrade" type="xs:int" minOccurs="0" />
+              <xs:element name="GradeName" msprop:Generator_ColumnPropNameInTable="GradeNameColumn" msprop:Generator_ColumnPropNameInRow="GradeName" msprop:Generator_UserColumnName="GradeName" msprop:Generator_ColumnVarNameInTable="columnGradeName">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="type" msprop:Generator_UserColumnName="type" msprop:Generator_ColumnPropNameInTable="typeColumn" msprop:Generator_ColumnPropNameInRow="type" msprop:Generator_ColumnVarNameInTable="columntype" type="xs:int" />
-              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_UserColumnName="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnVarNameInTable="columnid" type="xs:int" />
-              <xs:element name="SchoolArabicName" msprop:Generator_ColumnPropNameInRow="SchoolArabicName" msprop:Generator_ColumnPropNameInTable="SchoolArabicNameColumn" msprop:Generator_ColumnVarNameInTable="columnSchoolArabicName" msprop:Generator_UserColumnName="SchoolArabicName" minOccurs="0">
+              <xs:element name="type" msprop:Generator_ColumnPropNameInTable="typeColumn" msprop:Generator_ColumnPropNameInRow="type" msprop:Generator_UserColumnName="type" msprop:Generator_ColumnVarNameInTable="columntype" type="xs:int" />
+              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_UserColumnName="id" msprop:Generator_ColumnVarNameInTable="columnid" type="xs:int" />
+              <xs:element name="SchoolArabicName" msprop:Generator_ColumnPropNameInTable="SchoolArabicNameColumn" msprop:Generator_ColumnPropNameInRow="SchoolArabicName" msprop:Generator_UserColumnName="SchoolArabicName" msprop:Generator_ColumnVarNameInTable="columnSchoolArabicName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="SeqID" msprop:Generator_ColumnPropNameInRow="SeqID" msprop:Generator_ColumnPropNameInTable="SeqIDColumn" msprop:Generator_ColumnVarNameInTable="columnSeqID" msprop:Generator_UserColumnName="SeqID" type="xs:int" minOccurs="0" />
+              <xs:element name="SeqID" msprop:Generator_ColumnPropNameInTable="SeqIDColumn" msprop:Generator_ColumnPropNameInRow="SeqID" msprop:Generator_UserColumnName="SeqID" msprop:Generator_ColumnVarNameInTable="columnSeqID" type="xs:int" minOccurs="0" />
+              <xs:element name="SchoolCambridge" msprop:Generator_UserColumnName="SchoolCambridge" msprop:Generator_ColumnPropNameInTable="SchoolCambridgeColumn" msprop:Generator_ColumnPropNameInRow="SchoolCambridge" msprop:Generator_ColumnVarNameInTable="columnSchoolCambridge" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ItemsCount" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="ItemsCount" msprop:Generator_ColumnPropNameInTable="ItemsCountColumn" msprop:Generator_ColumnVarNameInTable="columnItemsCount" msprop:Generator_UserColumnName="ItemsCount" type="xs:int" minOccurs="0" />
+              <xs:element name="RecievedItemsCount" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="RecievedItemsCount" msprop:Generator_ColumnPropNameInTable="RecievedItemsCountColumn" msprop:Generator_ColumnVarNameInTable="columnRecievedItemsCount" msprop:Generator_UserColumnName="RecievedItemsCount" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
