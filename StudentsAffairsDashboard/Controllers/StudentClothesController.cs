@@ -642,18 +642,27 @@ namespace StudentsAffairsDashboard.Controllers
             ViewBag.StdClass = db.StudentsMains.Find(Code).Class.ClassName;
             ViewBag.SchoolCambridge = db.StudentsMains.Find(Code).NESSchool.SchoolCambridge;
             var StudentsInvoicesData = db.invoice_payment.Where(a => a.student == Code);
-            decimal TRemaing = StudentsInvoicesData.ToList().Last().remaining;
+            if (StudentsInvoicesData.ToList().Count != 0)
+            {
+                var TR = StudentsInvoicesData.ToList().LastOrDefault();
 
-            ViewBag.TotalReminig = Math.Round(TRemaing);
+                decimal TRemaing = TR.remaining;
+                ViewBag.TotalReminig = Math.Round(TRemaing);
+            }
+            else
+            {
+                ViewBag.TotalReminig = 0;
+            }
+            
             return PartialView("DetailsReceipt", StudentsInvoicesData.ToList());
         }
 
         // POST: StudentClothes/Delete/5
         [HttpPost]
-        public ActionResult Delete(string hiddenId)
+        public ActionResult Delete(string hiddenIdD)
         {
-            int id = Int32.Parse(hiddenId);
-            var StudentClotheD = db.invoice_payment.Include(p => p.payment_details).Include(p => p.invoice_payment2).Where(s=>s.student == id).ToList(); ;
+            int id = Int32.Parse(hiddenIdD);
+            var StudentClotheD = db.invoice_payment.Include(p => p.payment_details).Include(p => p.invoice_payment2).Where(s=>s.student == id).ToList();
             foreach (var item in StudentClotheD)
             {
                 foreach (var ite in db.StudentClothes.Where(a => a.InvoiceID == item.id))
@@ -674,20 +683,31 @@ namespace StudentsAffairsDashboard.Controllers
             return RedirectToAction("Index");
         }
 
-        // POST: StudentClothes/Delete/5,1
-        public ActionResult Delete(string hiddenId,string invoiceId)
+        // POST: StudentClothes/DeleteInvoice/5,1
+        [HttpPost]
+        public ActionResult DeleteInvoice(string hiddenId,string invoiceId)
         {
             int id = Int32.Parse(hiddenId);
             int invid = Int32.Parse(invoiceId);
-            var StudentClotheD = db.invoice_payment.Include(p => p.payment_details).Include(p => p.invoice_payment2).Where(s => s.student == id).ToList(); ;
-            foreach (var item in StudentClotheD)
+            invoice_payment StudentClotheD = db.invoice_payment.Include(p => p.payment_details).Include(p => p.invoice_payment2).Where(s => s.student == id).Where(a => a.id == invid).FirstOrDefault();
+            
+            if(StudentClotheD != null)
             {
-                foreach (var ite in db.StudentClothes.Where(a => a.InvoiceID == invid))
+                foreach (var ite in db.StudentClothes.Where(a=>a.InvoiceID == invid))
                 {
                     db.StudentClothes.Remove(ite);
                 }
-                db.invoice_payment.Remove(item);
-
+                invoice_payment prev = db.invoice_payment.Where(a => a.previous_payment == StudentClotheD.id).FirstOrDefault();
+                if (prev.previous_payment != null)
+                {
+                    prev.previous_payment = StudentClotheD.previous_payment;
+                    db.SaveChanges();
+                    db.invoice_payment.Remove(StudentClotheD);
+                }
+                else
+                {
+                    db.invoice_payment.Remove(StudentClotheD);
+                }
             }
             db.SaveChanges();
             LogsController logs = new LogsController();

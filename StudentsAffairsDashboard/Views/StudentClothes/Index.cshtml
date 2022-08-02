@@ -127,7 +127,7 @@
 </div>
 
 <div class="modal fade" id="partialModal2">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center">Invoices Data For Student</h4>
@@ -160,7 +160,7 @@
                 <div class="modal-body">
                     <p>Are You Sure To Delete This Student (Uniform)</p>
                     @*hidden field for storing current employeeId*@
-                    <input type="hidden" id="hiddenId" name="hiddenId" />
+                    <input type="hidden" id="hiddenIdD" name="hiddenIdD" />
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
@@ -175,10 +175,14 @@
 @section scripts{
     <script>
         var ConfirmDelete = function (EmployeeId) {
-            $("#hiddenId").val(EmployeeId);
+            $("#hiddenIdD").val(EmployeeId);
             $("#modal-danger").modal('show');
         }
-
+        var ConfirmDelete2 = function (EmployeeId, EmployeeId2) {
+            $("#hiddenId").val(EmployeeId);
+            $("#invoiceId").val(EmployeeId2);
+            $("#modal-danger").modal('show');
+        }
         $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
