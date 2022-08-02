@@ -77,6 +77,14 @@
           <DataField>SchoolCambridge</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="ItemsCount">
+          <DataField>ItemsCount</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="RecievedItemsCount">
+          <DataField>RecievedItemsCount</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>Student_Affairs_DatabaseDataSet</rd:DataSetName>
