@@ -700,16 +700,18 @@ namespace StudentsAffairsDashboard.Controllers
                     db.StudentClothes.Remove(ite);
                 }
                 invoice_payment prev = db.invoice_payment.Where(a => a.previous_payment == StudentClotheD.id).FirstOrDefault();
-                if (prev.previous_payment != null)
+                if (prev != null)
                 {
-                    prev.previous_payment = StudentClotheD.previous_payment;
-                    db.SaveChanges();
-                    db.invoice_payment.Remove(StudentClotheD);
-                }
-                else
-                {
-                    db.invoice_payment.Remove(StudentClotheD);
-                }
+                    if (prev.previous_payment != null)
+                    {
+                        prev.previous_payment = StudentClotheD.previous_payment;                      
+                        db.invoice_payment.Remove(StudentClotheD);
+                    }
+                    else
+                    {
+                        db.invoice_payment.Remove(StudentClotheD);
+                    }
+                }                
             }
             db.SaveChanges();
             LogsController logs = new LogsController();

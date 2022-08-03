@@ -73,14 +73,15 @@
                             <td style="text-align: center; vertical-align: middle;">
                                 <a href="javascript:;" class="badge badge-secondary details2"><i class="glyphicon glyphicon-trash"></i>Show Invoices Status</a>
                             </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                @if (Session["UserName"].ToString().Contains("Admin NES"))
-                                {                                    
+                            @if (Session["UserName"].ToString().Contains("Admin NES"))
+                            {
+                                <td style="text-align: center; vertical-align: middle;">
+
                                     <a href="#" class="btn btn-danger btn-sm" onclick="ConfirmDelete(@item.StdCode)"><i class="glyphicon glyphicon-trash"></i>Delete</a>
-                                }
-                            </td>
-                            
-                        </tr>
+                                    
+                                </td>
+                            }
+                            </tr>
                     }
                 </tbody>
                 <tfoot>

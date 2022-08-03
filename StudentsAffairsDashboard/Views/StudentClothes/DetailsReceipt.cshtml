@@ -34,7 +34,7 @@
             <div class="col-2 text-center" style="width: 115px; height: 20px;">
                 @if (Session["UserName"].ToString().Contains("Admin NES"))
                 {
-                    <p>Delete Invoce</p>
+                    <p>Delete Invoice</p>
                 }
             </div>
         </div>
@@ -43,9 +43,9 @@
             <div class="row">
                 <div class="col-2" style="width: 115px; height: 20px;">
                     
-                    @if (item.SeqID == null)
+                    @if (item.SeqID != null)
                     {
-                        <h6>Invoice @Html.Display("SchoolCambridge")-@item.SeqID) </h6>
+                        <h6>@Html.Display("SchoolCambridge")-@item.SeqID </h6>
                     }
                     else
                     {
