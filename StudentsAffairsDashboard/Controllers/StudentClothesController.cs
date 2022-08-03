@@ -691,27 +691,32 @@ namespace StudentsAffairsDashboard.Controllers
         {
             int id = Int32.Parse(hiddenId);
             int invid = Int32.Parse(invoiceId);
-            invoice_payment StudentClotheD = db.invoice_payment.Include(p => p.payment_details).Include(p => p.invoice_payment2).Where(s => s.student == id).Where(a => a.id == invid).FirstOrDefault();
+            invoice_payment invoiceNOW = db.invoice_payment.Include(p => p.payment_details).Include(p => p.invoice_payment2).Where(s => s.student == id).Where(a => a.id == invid).FirstOrDefault();
             
-            if(StudentClotheD != null)
+            if(invoiceNOW != null)
             {
                 foreach (var ite in db.StudentClothes.Where(a=>a.InvoiceID == invid))
                 {
                     db.StudentClothes.Remove(ite);
                 }
-                invoice_payment prev = db.invoice_payment.Where(a => a.previous_payment == StudentClotheD.id).FirstOrDefault();
+                invoice_payment prev = db.invoice_payment.Where(a => a.previous_payment == invoiceNOW.id).FirstOrDefault();
                 if (prev != null)
                 {
-                    if (prev.previous_payment != null)
-                    {
-                        prev.previous_payment = StudentClotheD.previous_payment;                      
-                        db.invoice_payment.Remove(StudentClotheD);
-                    }
-                    else
-                    {
-                        db.invoice_payment.Remove(StudentClotheD);
-                    }
+                    prev.previous_payment = invoiceNOW.previous_payment;
+                    db.SaveChanges();
+                    db.invoice_payment.Remove(invoiceNOW);
+
+                }
+                else
+                {
+                    db.invoice_payment.Remove(invoiceNOW);
                 }                
+            }
+            List<payment_details> payment_Details = new List<payment_details>();
+            payment_Details.AddRange(invoiceNOW.payment_details);
+            foreach (var item in payment_Details)
+            {
+                db.payment_details.Remove(item);
             }
             db.SaveChanges();
             LogsController logs = new LogsController();
