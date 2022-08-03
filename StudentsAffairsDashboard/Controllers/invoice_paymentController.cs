@@ -410,6 +410,9 @@ namespace StudentsAffairsDashboard.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             invoice_payment invoice_payment = await db.invoice_payment.Include(p => p.payment_details).Include(p => p.StudentsMain).Include(p => p.invoice_payment2).FirstOrDefaultAsync(s => s.id == id);
+            invoice_payment next = await db.invoice_payment.Where(p => p.previous_payment == invoice_payment.id).FirstOrDefaultAsync();
+            if (next != null)
+                next.previous_payment = invoice_payment.previous_payment;
             db.invoice_payment.Remove(invoice_payment);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
