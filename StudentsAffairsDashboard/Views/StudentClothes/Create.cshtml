@@ -537,10 +537,10 @@
             for (var i = 1; i < 35; i++) {
                 if ($('#CheckBox_' + i).is(":checked")) {
                     $('#' + i).val(1)
-                    $('#' + i).prop("disabled", false);
+                    //$('#' + i).prop("disabled", false);
                 } else {
                     $('#' + i).val(0)
-                    $('#' + i).prop("disabled", true);
+                    //$('#' + i).prop("disabled", true);
                 }
             }
             CalcTotal()
