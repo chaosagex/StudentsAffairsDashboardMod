@@ -24,14 +24,25 @@ namespace StudentsAffairsDashboard.Models
         }
     
         public int StdCode { get; set; }
+        [RegularExpression("^[\u0621-\u064A]+$", ErrorMessage = "???? ????? ????????")]
         public string StdArabicFristName { get; set; }
+        [RegularExpression("^[\u0621-\u064A]+$", ErrorMessage = "???? ????? ????????")]
         public string StdArabicMiddleName { get; set; }
+        [RegularExpression("^[\u0621-\u064A]+$", ErrorMessage = "???? ????? ????????")]
         public string StdArabicLastName { get; set; }
+        [RegularExpression("^[\u0621-\u064A]+$", ErrorMessage = "???? ????? ????????")]
         public string StdArabicFamilyName { get; set; }
+
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Not Allow Spaces in Englis Name")]
         public string StdEnglishFristName { get; set; }
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Not Allow Spaces in Englis Name")]
         public string StdEnglishMiddleName { get; set; }
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Not Allow Spaces in Englis Name")]
         public string StdEnglishLastName { get; set; }
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Not Allow Spaces in Englis Name")]
         public string StdEnglishFamilyName { get; set; }
+
+
         public string StdMotherArabicName { get; set; }
         public string StdMotherEnglishName { get; set; }
         public string StdFatherMobilePhone { get; set; }
@@ -61,7 +72,7 @@ namespace StudentsAffairsDashboard.Models
         public string StdCity { get; set; }
         public string StdAddress { get; set; }
 
-        [RegularExpression(@"^[0-9]+$", ErrorMessage = "You need to put the 14 National id numbers")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "You need to put the 14 National id numbers With No Spaces")]
         public string StdNID { get; set; }
         public int StdSchoolID { get; set; }
         public int StdClassID { get; set; }
