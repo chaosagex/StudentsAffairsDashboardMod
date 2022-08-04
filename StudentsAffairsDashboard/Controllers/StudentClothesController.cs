@@ -695,6 +695,12 @@ namespace StudentsAffairsDashboard.Controllers
             
             if(invoiceNOW != null)
             {
+                List<payment_details> x=invoiceNOW.payment_details.ToList();
+                foreach (var item in x)
+                {
+                    db.payment_details.Remove(item);
+                }
+                db.SaveChanges();
                 foreach (var ite in db.StudentClothes.Where(a=>a.InvoiceID == invid))
                 {
                     db.StudentClothes.Remove(ite);
@@ -712,13 +718,7 @@ namespace StudentsAffairsDashboard.Controllers
                     db.invoice_payment.Remove(invoiceNOW);
                 }                
             }
-            List<payment_details> payment_Details = new List<payment_details>();
-            payment_Details.AddRange(invoiceNOW.payment_details);
-            foreach (var item in payment_Details)
-            {
-                db.payment_details.Remove(item);
-            }
-            db.SaveChanges();
+            
             LogsController logs = new LogsController();
             DateTime now = DateTime.Now;
             Log log = new Log();

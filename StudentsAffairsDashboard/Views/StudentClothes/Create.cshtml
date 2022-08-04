@@ -135,7 +135,7 @@
                                             </td>
                                             <td data-th="Quantity">
                                                 <input type="number" id="@item.ClothesID" name="@item.ClothesID"
-                                                       class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()" disabled>
+                                                       class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()" >
                                             </td>
                                         </tr>
                                     }
@@ -172,7 +172,7 @@
                                             </td>
                                             <td data-th="Quantity">
                                                 <input type="number" id="@item.ClothesID" name="@item.ClothesID"
-                                                       class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()" disabled>
+                                                       class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()" >
                                             </td>
                                         </tr>
                                     }
@@ -209,7 +209,7 @@
                                             </td>
                                             <td data-th="Quantity">
                                                 <input type="number" id="@item.ClothesID" name="@item.ClothesID"
-                                                       class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()" disabled>
+                                                       class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()" >
                                             </td>
                                         </tr>
                                     }
@@ -246,7 +246,7 @@
                                             </td>
                                             <td data-th="Quantity">
                                                 <input  type="number" id="@item.ClothesID" name="@item.ClothesID"
-                                                       class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()" disabled>
+                                                       class="form-control form-control-lg text-center c-item" value="0" min="0" onchange="CalcTotal()" >
                                             </td>
                                         </tr>
                                     }
@@ -537,10 +537,10 @@
             for (var i = 1; i < 35; i++) {
                 if ($('#CheckBox_' + i).is(":checked")) {
                     $('#' + i).val(1)
-                    $('#' + i).prop("disabled", false);
+                    //$('#' + i).prop("disabled", false);
                 } else {
                     $('#' + i).val(0)
-                    $('#' + i).prop("disabled", true);
+                    //$('#' + i).prop("disabled", true);
                 }
             }
             CalcTotal()
