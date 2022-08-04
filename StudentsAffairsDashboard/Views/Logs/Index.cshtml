@@ -16,7 +16,7 @@
     <!-- /.card-header -->
     <div class="card-body p-0">
         <div class="table-responsive">
-            <table class="table m-0">
+           <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Operation Number </th>
@@ -27,13 +27,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Session["UserName"].Equals("Admin NES"))
+                    @if (Session["UserName"].ToString().Contains("Admin NES"))
                     {
-                        foreach (var item in Model)
+                        foreach (var item in Model.OrderByDescending(a => a.ID))
                         {
                             <tr>
                                 <td><a href="#">@item.ID</a></td>
-                                <td>@item.UserName</td>
+                                <td>@item.UserName.Replace(" ", "-")</td>
                                 <td>@item.LogContent</td>
                                 @if (item.LogContent.StartsWith("Edit"))
                                 {
@@ -57,11 +57,11 @@
                                 }
                                 else if (item.LogContent.StartsWith("Login"))
                                 {
-                                    <td><span class="badge badge-light">Login</span></td>
+                                    <td><span class="badge badge-dark">Login</span></td>
                                 }
                                 else if (item.LogContent.StartsWith("Logout"))
                                 {
-                                    <td><span class="badge badge-light">Logout</span></td>
+                                    <td><span class="badge badge-dark">Logout</span></td>
                                 }
                                 <td>
                                     <div class="sparkbar" data-color="#00a65a" data-height="20">@item.Times</div>
@@ -71,11 +71,11 @@
                     }
                     else
                     {
-                        foreach (var item in Model.Where(a => a.UserName.Equals(Session["UserName"])))
+                        foreach (var item in Model.Where(a => a.UserName.Equals(Session["UserName"])).OrderByDescending(a => a.ID))
                         {
                             <tr>
                                 <td><a href="#">@item.ID</a></td>
-                                <td>@item.UserName</td>
+                                <td>@item.UserName.Replace(" ","-")</td>
                                 <td>@item.LogContent</td>
                                 @if (@item.LogContent.StartsWith("Edit"))
                                 {
@@ -99,11 +99,11 @@
                                 }
                                 else if (item.LogContent.StartsWith("Login"))
                                 {
-                                    <td><span class="badge badge-light">Login</span></td>
+                                    <td><span class="badge badge-dark">Login</span></td>
                                 }
                                 else if (item.LogContent.StartsWith("Logout"))
                                 {
-                                    <td><span class="badge badge-light">Logout</span></td>
+                                    <td><span class="badge badge-dark">Logout</span></td>
                                 }
                                 <td>
                                     <div class="sparkbar" data-color="#00a65a" data-height="20">@item.Times</div>
@@ -111,9 +111,16 @@
                             </tr>
                         }
                     }
-
-
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Operation Number </th>
+                        <th>User</th>
+                        <th>Details</th>
+                        <th>Status</th>
+                        <th>Time</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         <!-- /.table-responsive -->
@@ -124,3 +131,23 @@
     </div>
     <!-- /.card-footer -->
 </div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["excel", "pdf", "print"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </Script>
+}

@@ -18,27 +18,45 @@ namespace StudentsAffairsDashboard.Controllers
 
         // GET: StudentsMains
         public ActionResult Index()
-        {
+        {            
+
             int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
-            var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a=>a.StdSchoolID == SchoolIDsession);
+            if (Session["CurrentSchool"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else
+            {
 
+                if (SchoolIDsession == 1000)
+                {
+                    var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount);
+                    return View(studentsMains.ToList());
+                }
+                else
+                {
+                    var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a => a.StdSchoolID == SchoolIDsession);
+                    return View(studentsMains.ToList());
+                }
 
-            var ListNESSchools = db.NESSchools.ToList();
-            ListNESSchools.Add(new NESSchool() { SchoolID = -1, SchoolName = "All", SchooleAbbreviation = "All" });
-            var NESSchoolsResult = ListNESSchools.OrderBy(d => d.SchoolID).ToList();
-            ViewBag.SchoolID = new SelectList(NESSchoolsResult, "SchoolID", "SchoolName");
+            }
 
-            var ListClasses = db.Classes.ToList();
-            ListClasses.Add(new Class() { ClassID = -1, ClassName = "All"});
-            var ClassesResult = ListClasses.OrderBy(d => d.ClassID).ToList();
-            ViewBag.ClassID = new SelectList(ClassesResult, "ClassID", "ClassName");
+            //var ListNESSchools = db.NESSchools.ToList();
+            //ListNESSchools.Add(new NESSchool() { SchoolID = -1, SchoolName = "All", SchooleAbbreviation = "All" });
+            //var NESSchoolsResult = ListNESSchools.OrderBy(d => d.SchoolID).ToList();
+            //ViewBag.SchoolID = new SelectList(NESSchoolsResult, "SchoolID", "SchoolName");
 
-            var ListGrades = db.Grades.ToList();
-            ListGrades.Add(new Grade() { GradeID = -1, GradeName = "All"});
-            var GradesResult = ListGrades.OrderBy(d => d.GradeID).ToList();
-            ViewBag.GradeID = new SelectList(GradesResult, "GradeID", "GradeName");
+            //var ListClasses = db.Classes.ToList();
+            //ListClasses.Add(new Class() { ClassID = -1, ClassName = "All"});
+            //var ClassesResult = ListClasses.OrderBy(d => d.ClassID).ToList();
+            //ViewBag.ClassID = new SelectList(ClassesResult, "ClassID", "ClassName");
 
-            return View(studentsMains.ToList());
+            //var ListGrades = db.Grades.ToList();
+            //ListGrades.Add(new Grade() { GradeID = -1, GradeName = "All"});
+            //var GradesResult = ListGrades.OrderBy(d => d.GradeID).ToList();
+            //ViewBag.GradeID = new SelectList(GradesResult, "GradeID", "GradeName");
+
+            //return View(studentsMains.ToList());
             
         }
 
@@ -67,6 +85,12 @@ namespace StudentsAffairsDashboard.Controllers
             return View();
         }
 
+        public ActionResult CreateQuick()
+        {
+            ViewBag.StdGradeID = new SelectList(db.Grades, "GradeID", "GradeName");
+            ViewBag.StdSchoolID = new SelectList(db.NESSchools, "SchoolID", "SchoolName");
+            return View();
+        }
         public ActionResult Update(int? id)
         {
             var studentsGrades = db.StudentGradesHistories.Include(s => s.Grade).Include(s => s.StudentsMain).Where(a=>a.StdCode == id);
@@ -133,7 +157,38 @@ namespace StudentsAffairsDashboard.Controllers
             ViewBag.StdCode = new SelectList(db.StudentAccounts, "StdCode", "StdEmail", studentsMain.StdCode);
             return View(studentsMain);
         }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateQuick([Bind(Include = "StdCode,StdArabicFristName,StdArabicMiddleName,StdArabicLastName,StdArabicFamilyName,StdEnglishFristName,StdEnglishMiddleName,StdEnglishLastName,StdEnglishFamilyName,StdNID,StdJoinYear")] StudentsMain studentsMain, string StdGradeID)
+        {
+            int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
+            studentsMain.StdSchoolID = SchoolIDsession;
+            studentsMain.StdClassID = 1;
+            if (ModelState.IsValid)
+            {
+               
+                db.StudentsMains.Add(studentsMain);
+                db.SaveChanges();
 
+                StudentGradesHistory studentGradesHistory = new StudentGradesHistory();
+                studentGradesHistory.GradeID = Int32.Parse(StdGradeID);
+                studentGradesHistory.StdCode = studentsMain.StdCode;
+                studentGradesHistory.StudyYear = studentsMain.StdJoinYear.ToString().Substring(4, 4);
+                studentGradesHistory.KindBatch = "Normal";
+                db.StudentGradesHistories.Add(studentGradesHistory);
+                db.SaveChanges();
+                LogsController logs = new LogsController();
+                DateTime now = DateTime.Now;
+                Log log = new Log();
+                log.UserName = Session["UserName"].ToString();
+                log.Times = now.ToString();
+                log.LogContent = "Create : Account (" + Session["UserName"].ToString() + ") Create New Quick Student Data With ID: (" + studentsMain.StdCode + ")";
+                bool checklog = logs.Create(log);
+                return RedirectToAction("Index");
+            }
+            return View(studentsMain);
+        }
         // GET: StudentsMains/Edit/5
         public ActionResult Edit(int? id)
         {

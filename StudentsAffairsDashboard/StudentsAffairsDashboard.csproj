@@ -652,6 +652,7 @@
     <Content Include="Reports\Student_Affairs_DatabaseDataSet.xss">
       <DependentUpon>Student_Affairs_DatabaseDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="Views\StudentsMains\CreateQuick.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

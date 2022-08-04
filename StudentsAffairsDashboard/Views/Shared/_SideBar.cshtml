@@ -107,6 +107,40 @@
 
                 </ul>
             }
+            @if (Session["UserName"].ToString().Contains("Affairs"))
+            {
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link active">
+                            <i herf="#" class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Students
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index","StudentsMains")" class="nav-link active">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        NES Students
+                                    </p>
+                                </a>
+                            </li>
+                            @*<li class="nav-item">
+                                <a href="@Url.Action("CreateQuick","StudentsMains")" class="nav-link active">
+                                    <i class="fa fa-plus nav-icon"></i>
+                                    <p>
+                                        Add New Student 
+                                    </p>
+                                </a>
+                            </li>*@
+                        </ul>
+                    </li>
+
+                </ul>
+            }
             @if (Session["UserName"].ToString().Contains("Admin NES"))
             {
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -310,17 +344,17 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="@Url.Action("InvoicesReports","StudentClothes")" class="nav-link active">
-                                        <i class="nav-icon fas fa-th"></i>
-                                        <p>
-                                            Invoices Reports
-                                        </p>
-                                    </a>
-                                </li>
-                            </ul>
-                    </li>                    
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="@Url.Action("InvoicesReports","StudentClothes")" class="nav-link active">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Invoices Reports
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             }
         </nav>

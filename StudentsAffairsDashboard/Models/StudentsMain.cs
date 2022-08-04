@@ -11,7 +11,7 @@ namespace StudentsAffairsDashboard.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class StudentsMain
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -60,6 +60,8 @@ namespace StudentsAffairsDashboard.Models
         public string StdMotherNID { get; set; }
         public string StdCity { get; set; }
         public string StdAddress { get; set; }
+
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "You need to put the 14 National id numbers")]
         public string StdNID { get; set; }
         public int StdSchoolID { get; set; }
         public int StdClassID { get; set; }

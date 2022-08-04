@@ -1,0 +1,115 @@
+﻿@model StudentsAffairsDashboard.Models.StudentsMain
+@{
+    ViewBag.Title = "Create";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="col-lg-12">
+        <div class="card card-primary">
+            <div class="form-horizontal">
+                <div class="card-header">
+                    <h3 class="card-title">Add Student Data Quickly</h3>
+                </div>
+                <br />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="row px-3">
+                        <div class="col-md-4" style="padding-bottom: 20px;">
+                            @Html.Label("National ID", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.StdNID, new { htmlAttributes = new { @class = "form-control", required = "required", @maxlength = "14", @minlength = "14" } })
+                            @Html.ValidationMessageFor(model => model.StdNID, "", new { @class = "text-danger" })
+                        </div>                       
+                        <div class="col-md-4" style="padding-bottom: 20px;">
+                            @Html.Label("Grade", htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownList("StdGradeID", null, htmlAttributes: new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessage("", "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4" style="padding-bottom: 20px;">
+                            @Html.LabelFor(model => model.StdJoinYear, "Join Year", htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownList("StdJoinYear", new List<SelectListItem>()
+                                                            {
+                                                                new SelectListItem {  Text = "2014",Value = "9/1/2014 12:00:00 AM"},
+                                                                new SelectListItem {  Text = "2015",Value = "9/1/2015 12:00:00 AM"},
+                                                                new SelectListItem {  Text = "2016",Value = "9/1/2016 12:00:00 AM"},
+                                                                new SelectListItem {  Text = "2017",Value = "9/1/2017 12:00:00 AM"},
+                                                                new SelectListItem {  Text = "2018",Value = "9/1/2018 12:00:00 AM"},
+                                                                new SelectListItem {  Text = "2019",Value = "9/1/2019 12:00:00 AM"},
+                                                                new SelectListItem {  Text = "2020",Value = "9/1/2020 12:00:00 AM"},
+                                                                new SelectListItem {  Text = "2021",Value = "9/1/2021 12:00:00 AM"},
+                                                                new SelectListItem {  Text = "2022",Value = "9/1/2022 12:00:00 AM"},
+                                                                new SelectListItem {  Text = "2023",Value = "9/1/2023 12:00:00 AM"},
+                                                                new SelectListItem {  Text = "2024",Value = "9/1/2024 12:00:00 AM"},
+                                                                new SelectListItem {  Text = "2025",Value = "9/1/2025 12:00:00 AM"},
+                                                                new SelectListItem {  Text = "2026",Value = "9/1/2026 12:00:00 AM"},
+                                                                new SelectListItem {  Text = "2027",Value = "9/1/2027 12:00:00 AM"},
+                                                                new SelectListItem {  Text = "2028",Value = "9/1/2028 12:00:00 AM"},
+                                                                new SelectListItem {  Text = "2029",Value = "9/1/2029 12:00:00 AM"},
+                                                                new SelectListItem {  Text = "2030",Value = "9/1/2030 12:00:00 AM"},
+                                                            }, htmlAttributes: new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessageFor(model => model.StdJoinYear, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-3" style="padding-bottom: 20px;">
+                            @Html.LabelFor(model => model.StdArabicFristName, "Arabic Frist Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.StdArabicFristName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.StdArabicFristName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-3" style="padding-bottom: 20px;">
+                            @Html.LabelFor(model => model.StdArabicMiddleName, "Arabic Middle Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.StdArabicMiddleName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.StdArabicMiddleName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-3" style="padding-bottom: 20px;">
+                            @Html.LabelFor(model => model.StdArabicLastName, "Arabic Last Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.StdArabicLastName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.StdArabicLastName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-3" style="padding-bottom: 20px;">
+                            @Html.LabelFor(model => model.StdArabicFamilyName, "Arabic Family Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.StdArabicFamilyName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.StdArabicFamilyName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-3" style="padding-bottom: 20px;">
+                            @Html.LabelFor(model => model.StdEnglishFristName, "English Frist Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.StdEnglishFristName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.StdEnglishFristName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-3" style="padding-bottom: 20px;">
+                            @Html.LabelFor(model => model.StdEnglishMiddleName, "English Middle Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.StdEnglishMiddleName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.StdEnglishMiddleName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-3" style="padding-bottom: 20px;">
+                            @Html.LabelFor(model => model.StdEnglishLastName, "English Last Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.StdEnglishLastName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.StdEnglishLastName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-3" style="padding-bottom: 20px;">
+                            @Html.LabelFor(model => model.StdEnglishFamilyName, "English Family Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.StdEnglishFamilyName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.StdEnglishFamilyName, "", new { @class = "text-danger" })
+                        </div>
+                    </div><br />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Add New Student" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+<div class="col-6">
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

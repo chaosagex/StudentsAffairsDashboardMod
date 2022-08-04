@@ -5,19 +5,26 @@
 }
 <!-- Main content -->
 <section class="content">
+    <div class="col-6">
+        
+    </div>
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Students Data</h3>
+            <h3 class="card-title float-right">@Html.ActionLink("Create New", "CreateQuick", null, new { @class = "btn btn-primary btn-sm m-1" })</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th style="width: 10%">NID</th>
-                        <th style="width: 20%">Full Name</th>
-                        <th>Family Data</th>
-                        <th>Contact</th>
+                        <th>NID</th>
+                        <th>Full Name</th>
+                        @if (Session["UserName"].ToString().Contains("Admin NES"))
+                        {
+                            <th>Family Data</th>
+                            <th>Contact</th>
+                        }
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -25,7 +32,6 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            
                             <td style="text-align: center; vertical-align: middle;">@Html.DisplayFor(modelItem => item.StdNID)</td>
                             <td style="vertical-align: middle;">
                                 <a>
@@ -33,17 +39,19 @@
                                 </a>
                                 <br />
                                 <small>
-                                    NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault()  @Html.DisplayFor(modelItem => item.Class.ClassName) (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
+                                    NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault().Replace(" ", "-")  @Html.DisplayFor(modelItem => item.Class.ClassName).ToString().Replace(" ", "-") (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
                                 </small>
                             </td>
-                            <td style="text-align: center; vertical-align: middle;">
+                            @if (Session["UserName"].ToString().Contains("Admin NES"))
+                            {
+                                <td style="text-align: center; vertical-align: middle;">
                                     <a>Father NID : @Html.DisplayFor(modelItem => item.StdFatherNID)</a>
                                     <br />
                                     <a>Mother NID : @Html.DisplayFor(modelItem => item.StdMotherNID)</a>
                                     <br />
                                     <a>Mother Name: @Html.DisplayFor(modelItem => item.StdMotherEnglishName)</a>
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
+                                </td>
+                                <td style="text-align: center; vertical-align: middle;">
                                     <a>Father Phone : @Html.DisplayFor(modelItem => item.StdFatherMobilePhone)</a>
                                     <br />
                                     <a>Mother Phone : @Html.DisplayFor(modelItem => item.StdMotherMobilePhone)</a>
@@ -51,15 +59,24 @@
                                     <a>Father Email : @Html.DisplayFor(modelItem => item.StdFatherEmail)</a>
                                     <br />
                                     <a>Mother Email : @Html.DisplayFor(modelItem => item.StdMotherEmail)</a>
-                            </td>
+                                </td>
+                            }
+
                             <td style="text-align: center; vertical-align: middle;">
-                                @Html.ActionLink("Update Grade", "Update", new { id = item.StdCode }, new { @class = "btn btn-primary btn-sm m-1" })
-                                <br />
-                                @Html.ActionLink("View Profile", "Details", new { id = item.StdCode }, new { @class = "btn btn-primary btn-sm m-1" })
-                                <br />
-                                @Html.ActionLink("Edit", "Edit", new { id = item.StdCode }, new { @class = "btn btn-info btn-sm m-1" })
-                                <br />
-                                <a href="#" class="btn btn-danger btn-sm m-1" onclick="ConfirmDelete(@item.StdCode)"><i class="glyphicon glyphicon-trash"></i>Delete</a>
+                                @if (Session["UserName"].ToString().Contains("Affairs"))
+                                {
+                                    @Html.ActionLink("Update Grade", "Update", new { id = item.StdCode }, new { @class = "btn btn-primary btn-sm m-1" })
+                                }
+                                else if (Session["UserName"].ToString().Contains("Admin NES"))
+                                {
+                                    @Html.ActionLink("Update Grade", "Update", new { id = item.StdCode }, new { @class = "btn btn-primary btn-sm m-1" })
+                                    <br />
+                                    @Html.ActionLink("View Profile", "Details", new { id = item.StdCode }, new { @class = "btn btn-primary btn-sm m-1" })
+                                    <br />
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.StdCode }, new { @class = "btn btn-info btn-sm m-1" })
+                                    <br />
+                                    <a href="#" class="btn btn-danger btn-sm m-1" onclick="ConfirmDelete(@item.StdCode)"><i class="glyphicon glyphicon-trash"></i>Delete</a>
+                                }
                             </td>
 
                         </tr>
@@ -67,10 +84,13 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th style="width: 10%">NID</th>
-                        <th style="width: 20%">Full Name</th>
-                        <th>Family Data</th>
-                        <th>Contact</th>
+                        <th>NID</th>
+                        <th>Full Name</th>
+                        @if (Session["UserName"].ToString().Contains("Admin NES"))
+                        {
+                            <th>Family Data</th>
+                            <th>Contact</th>
+                        }
                         <th>Actions</th>
                     </tr>
                 </tfoot>

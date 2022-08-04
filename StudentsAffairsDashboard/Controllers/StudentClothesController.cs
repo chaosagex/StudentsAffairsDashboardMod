@@ -24,7 +24,7 @@ namespace StudentsAffairsDashboard.Controllers
             }
             else
             {
-                
+
                 if (SchoolIDsession == 1000)
                 {
                     var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount);
@@ -35,7 +35,7 @@ namespace StudentsAffairsDashboard.Controllers
                     var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a => a.NESSchool.SchoolID == SchoolIDsession);
                     return View(studentsMains.ToList());
                 }
-                
+
             }
         }
 
@@ -80,7 +80,7 @@ namespace StudentsAffairsDashboard.Controllers
                 }
 
             }
-            
+
         }
 
         // GET: StudentClothes/Create/5
@@ -367,7 +367,7 @@ namespace StudentsAffairsDashboard.Controllers
             {
                 return View();
             }
-            
+
         }
 
         // POST: StudentClothes/UpdateItemsReceived/"s","c"
@@ -431,12 +431,12 @@ namespace StudentsAffairsDashboard.Controllers
                 if (SchoolIDsession == 1000)
                 {
                     studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).ToList();
-                    
+
                 }
                 else
                 {
                     studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a => a.NESSchool.SchoolID == SchoolIDsession).ToList();
-                    
+
                 }
 
             }
@@ -530,9 +530,9 @@ namespace StudentsAffairsDashboard.Controllers
                     All = db.payment_details.Where(a => a.year.Equals(Year)).Where(a => a.school == ScID).Where(a => a.Grade == GrID).ToList();
                 }
             }
-            
 
-            
+
+
 
             foreach (payment_details item in All)
             {
@@ -570,7 +570,7 @@ namespace StudentsAffairsDashboard.Controllers
 
             return View(StudentData.ToList());
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "SCID,StdCode,ClothesID,Quantity,Price,ReceivingStatus,PaymentStatus")] StudentClothe studentClothe)
@@ -653,7 +653,7 @@ namespace StudentsAffairsDashboard.Controllers
             {
                 ViewBag.TotalReminig = 0;
             }
-            
+
             return PartialView("DetailsReceipt", StudentsInvoicesData.ToList());
         }
 
@@ -662,7 +662,7 @@ namespace StudentsAffairsDashboard.Controllers
         public ActionResult Delete(string hiddenIdD)
         {
             int id = Int32.Parse(hiddenIdD);
-            var StudentClotheD = db.invoice_payment.Include(p => p.payment_details).Include(p => p.invoice_payment2).Where(s=>s.student == id).ToList();
+            var StudentClotheD = db.invoice_payment.Include(p => p.payment_details).Include(p => p.invoice_payment2).Where(s => s.student == id).ToList();
             foreach (var item in StudentClotheD)
             {
                 foreach (var ite in db.StudentClothes.Where(a => a.InvoiceID == item.id))
@@ -670,8 +670,8 @@ namespace StudentsAffairsDashboard.Controllers
                     db.StudentClothes.Remove(ite);
                 }
                 db.invoice_payment.Remove(item);
-                
-            }            
+
+            }
             db.SaveChanges();
             LogsController logs = new LogsController();
             DateTime now = DateTime.Now;
@@ -687,15 +687,21 @@ namespace StudentsAffairsDashboard.Controllers
 
         // POST: StudentClothes/DeleteInvoice/5,1
         [HttpPost]
-        public ActionResult DeleteInvoice(string hiddenId,string invoiceId)
+        public ActionResult DeleteInvoice(string hiddenId, string invoiceId)
         {
             int id = Int32.Parse(hiddenId);
             int invid = Int32.Parse(invoiceId);
             invoice_payment invoiceNOW = db.invoice_payment.Include(p => p.payment_details).Include(p => p.invoice_payment2).Where(s => s.student == id).Where(a => a.id == invid).FirstOrDefault();
-            
-            if(invoiceNOW != null)
+
+            if (invoiceNOW != null)
             {
-                foreach (var ite in db.StudentClothes.Where(a=>a.InvoiceID == invid))
+                List<payment_details> x = invoiceNOW.payment_details.ToList();
+                foreach (var item in x)
+                {
+                    db.payment_details.Remove(item);
+                }
+                db.SaveChanges();
+                foreach (var ite in db.StudentClothes.Where(a => a.InvoiceID == invid))
                 {
                     db.StudentClothes.Remove(ite);
                 }
@@ -710,15 +716,9 @@ namespace StudentsAffairsDashboard.Controllers
                 else
                 {
                     db.invoice_payment.Remove(invoiceNOW);
-                }                
+                }
             }
-            List<payment_details> payment_Details = new List<payment_details>();
-            payment_Details.AddRange(invoiceNOW.payment_details);
-            foreach (var item in payment_Details)
-            {
-                db.payment_details.Remove(item);
-            }
-            db.SaveChanges();
+
             LogsController logs = new LogsController();
             DateTime now = DateTime.Now;
             Log log = new Log();
@@ -728,7 +728,7 @@ namespace StudentsAffairsDashboard.Controllers
             bool checklog = logs.Create(log);
             return RedirectToAction("Index");
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
