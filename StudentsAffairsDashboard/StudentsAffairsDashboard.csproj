@@ -274,6 +274,13 @@
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\soldReport.aspx.cs">
+      <DependentUpon>soldReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\soldReport.aspx.designer.cs">
+      <DependentUpon>soldReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\genericReport.aspx.cs">
       <DependentUpon>genericReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -474,6 +481,7 @@
     <Content Include="Plugins\fontawesome-free\webfonts\fa-brands-400.svg" />
     <Content Include="Plugins\fontawesome-free\webfonts\fa-regular-400.svg" />
     <Content Include="Plugins\fontawesome-free\webfonts\fa-solid-900.svg" />
+    <Content Include="Reports\soldReport.aspx" />
     <Content Include="Reports\genericReport.aspx" />
     <Content Include="Reports\Report.aspx" />
     <Content Include="Scripts\AdminLTE\adminlte.js" />
@@ -690,6 +698,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\soldReport.rdlc" />
     <EmbeddedResource Include="Reports\genericReport.rdlc" />
     <EmbeddedResource Include="Reports\Uniform_Invoice.rdlc" />
   </ItemGroup>
