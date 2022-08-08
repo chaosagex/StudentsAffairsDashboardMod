@@ -41,6 +41,10 @@
           <DataField>SchoolArabicName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="FactoryPrice">
+          <DataField>FactoryPrice</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>Student_Affairs_DatabaseDataSet</rd:DataSetName>
@@ -263,7 +267,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Tot.Value * iif(Fields!PackageStatus.Value="OutPackage",cdbl(Fields!ClothesPrice.Value),cdbl(Fields!ClothesinPackagePrice.Value))</Value>
+                                  <Value>=iif(Parameters!Type.Value = "1",Fields!Tot.Value * iif(Fields!PackageStatus.Value="OutPackage",cdbl(Fields!ClothesPrice.Value),cdbl(Fields!ClothesinPackagePrice.Value)),Fields!FactoryPrice.Value * Fields!Tot.Value)</Value>
                                   <Style>
                                     <FontSize>14pt</FontSize>
                                   </Style>
@@ -297,7 +301,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=iif(Fields!PackageStatus.Value="OutPackage",cdbl(Fields!ClothesPrice.Value),cdbl(Fields!ClothesinPackagePrice.Value))</Value>
+                                  <Value>=iif(Parameters!Type.Value = "1",iif(Fields!PackageStatus.Value="OutPackage",cdbl(Fields!ClothesPrice.Value),cdbl(Fields!ClothesinPackagePrice.Value)),Fields!FactoryPrice.Value)</Value>
                                   <Style>
                                     <FontSize>14pt</FontSize>
                                   </Style>
@@ -439,7 +443,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Tot.Value * iif(Fields!PackageStatus.Value="OutPackage",cdbl(Fields!ClothesPrice.Value),cdbl(Fields!ClothesinPackagePrice.Value)))</Value>
+                                  <Value>=iif(Parameters!Type.Value = "1",Sum(Fields!Tot.Value * iif(Fields!PackageStatus.Value="OutPackage",cdbl(Fields!ClothesPrice.Value),cdbl(Fields!ClothesinPackagePrice.Value))),Sum(Fields!FactoryPrice.Value * Fields!Tot.Value))</Value>
                                   <Style>
                                     <FontSize>14pt</FontSize>
                                   </Style>
@@ -462,6 +466,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -768,6 +773,10 @@
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="Type">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -778,6 +787,11 @@
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>School</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Type</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

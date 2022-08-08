@@ -164,6 +164,9 @@
     <EntitySetMapping Name="invoice_payment">
       <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.invoice_payment">
         <MappingFragment StoreEntitySet="invoice_payment">
+          <ScalarProperty Name="machine" ColumnName="machine" />
+          <ScalarProperty Name="BATCH" ColumnName="BATCH" />
+          <ScalarProperty Name="STAN" ColumnName="STAN" />
           <ScalarProperty Name="SeqID" ColumnName="SeqID" />
           <ScalarProperty Name="type" ColumnName="type" />
           <ScalarProperty Name="depositer" ColumnName="depositer" />
@@ -312,6 +315,8 @@
     <EntitySetMapping Name="Clothes">
       <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Cloth">
         <MappingFragment StoreEntitySet="Clothes">
+          <ScalarProperty Name="FactoryPackagePrice" ColumnName="FactoryPackagePrice" />
+          <ScalarProperty Name="FactoryPrice" ColumnName="FactoryPrice" />
           <ScalarProperty Name="ClothesColor" ColumnName="ClothesColor" />
           <ScalarProperty Name="ClothesinPackagePrice" ColumnName="ClothesinPackagePrice" />
           <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
@@ -465,5 +470,14 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="Machines">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Machine">
+        <MappingFragment StoreEntitySet="Machines">
+          <ScalarProperty Name="MachineSchool" ColumnName="MachineSchool" />
+          <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+          <ScalarProperty Name="MachineID" ColumnName="MachineID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

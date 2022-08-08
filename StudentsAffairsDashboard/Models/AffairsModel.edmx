@@ -31,6 +31,8 @@
           <Property Name="ClothesPrice" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ClothesinPackagePrice" Type="varchar" MaxLength="100" />
           <Property Name="ClothesColor" Type="nvarchar" MaxLength="100" />
+          <Property Name="FactoryPrice" Type="money" />
+          <Property Name="FactoryPackagePrice" Type="money" />
         </EntityType>
         <EntityType Name="Grade">
           <Key>
@@ -64,6 +66,9 @@
           <Property Name="depositer" Type="nvarchar" MaxLength="100" />
           <Property Name="type" Type="smallint" Nullable="false" />
           <Property Name="SeqID" Type="int" />
+          <Property Name="STAN" Type="varchar" MaxLength="6" />
+          <Property Name="BATCH" Type="varchar" MaxLength="6" />
+          <Property Name="machine" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Logs">
           <Key>
@@ -73,6 +78,14 @@
           <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Times" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="LogContent" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Machines">
+          <Key>
+            <PropertyRef Name="MachineID" />
+          </Key>
+          <Property Name="MachineID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MachineName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="MachineSchool" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="NESSchools">
           <Key>
@@ -295,6 +308,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_invoice_payment_Machines">
+          <End Role="Machines" Type="Self.Machines" Multiplicity="0..1" />
+          <End Role="invoice_payment" Type="Self.invoice_payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Machines">
+              <PropertyRef Name="MachineID" />
+            </Principal>
+            <Dependent Role="invoice_payment">
+              <PropertyRef Name="machine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_invoice_payment_student">
           <End Role="StudentsMain" Type="Self.StudentsMain" Multiplicity="1" />
           <End Role="invoice_payment" Type="Self.invoice_payment" Multiplicity="*" />
@@ -304,6 +329,18 @@
             </Principal>
             <Dependent Role="invoice_payment">
               <PropertyRef Name="student" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Machines_Machines">
+          <End Role="NESSchools" Type="Self.NESSchools" Multiplicity="1" />
+          <End Role="Machines" Type="Self.Machines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NESSchools">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="Machines">
+              <PropertyRef Name="MachineSchool" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -483,6 +520,7 @@
           <EntitySet Name="invoice_item" EntityType="Self.invoice_item" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="invoice_payment" EntityType="Self.invoice_payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Machines" EntityType="Self.Machines" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NESSchools" EntityType="Self.NESSchools" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PackageClothes" EntityType="Self.PackageClothes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="payment_details" EntityType="Self.payment_details" Schema="dbo" store:Type="Tables" />
@@ -520,9 +558,17 @@
             <End Role="invoice_payment" EntitySet="invoice_payment" />
             <End Role="invoice_payment1" EntitySet="invoice_payment" />
           </AssociationSet>
+          <AssociationSet Name="FK_invoice_payment_Machines" Association="Self.FK_invoice_payment_Machines">
+            <End Role="Machines" EntitySet="Machines" />
+            <End Role="invoice_payment" EntitySet="invoice_payment" />
+          </AssociationSet>
           <AssociationSet Name="FK_invoice_payment_student" Association="Self.FK_invoice_payment_student">
             <End Role="StudentsMain" EntitySet="StudentsMain" />
             <End Role="invoice_payment" EntitySet="invoice_payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Machines_Machines" Association="Self.FK_Machines_Machines">
+            <End Role="NESSchools" EntitySet="NESSchools" />
+            <End Role="Machines" EntitySet="Machines" />
           </AssociationSet>
           <AssociationSet Name="FK_payment_details_school" Association="Self.FK_payment_details_school">
             <End Role="NESSchools" EntitySet="NESSchools" />
@@ -599,6 +645,7 @@
           <Property Name="SchoolEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Accounts" Relationship="Student_Affairs_DatabaseModel.FK_Accounts_NESSchools" FromRole="NESSchool" ToRole="Account" />
           <Property Name="SchoolArabicName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Machines" Relationship="Student_Affairs_DatabaseModel.FK_Machines_Machines" FromRole="NESSchool" ToRole="Machine" />
         </EntityType>
         <EntityType Name="StudentAccount">
           <Key>
@@ -971,6 +1018,15 @@
           <FunctionImport Name="getUniformByInvoice" ReturnType="Collection(Student_Affairs_DatabaseModel.getUniformByInvoice_Result)">
           <Parameter Name="invoice" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Machines" EntityType="Student_Affairs_DatabaseModel.Machine" />
+          <AssociationSet Name="FK_invoice_payment_Machines" Association="Student_Affairs_DatabaseModel.FK_invoice_payment_Machines">
+            <End Role="Machine" EntitySet="Machines" />
+            <End Role="invoice_payment" EntitySet="invoice_payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Machines_Machines" Association="Student_Affairs_DatabaseModel.FK_Machines_Machines">
+            <End Role="NESSchool" EntitySet="NESSchools" />
+            <End Role="Machine" EntitySet="Machines" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Log">
           <Key>
@@ -1031,6 +1087,10 @@
           <Property Name="depositer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="type" Type="Int16" Nullable="false" />
           <Property Name="SeqID" Type="Int32" />
+          <Property Name="STAN" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="BATCH" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="machine" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Machine1" Relationship="Student_Affairs_DatabaseModel.FK_invoice_payment_Machines" FromRole="invoice_payment" ToRole="Machine" />
         </EntityType>
         <EntityType Name="payment_details">
           <Key>
@@ -1180,6 +1240,8 @@
           <NavigationProperty Name="StudentClothes" Relationship="Student_Affairs_DatabaseModel.fk_clothes_student" FromRole="Cloth" ToRole="StudentClothe" />
           <Property Name="ClothesinPackagePrice" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ClothesColor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FactoryPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="FactoryPackagePrice" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <Association Name="fk_clothes_student">
           <End Type="Student_Affairs_DatabaseModel.Cloth" Role="Cloth" Multiplicity="1" />
@@ -1325,6 +1387,40 @@
           <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="StdArabicFamilyName" Nullable="true" MaxLength="100" />
         </ComplexType>
+        <EntityType Name="Machine">
+          <Key>
+            <PropertyRef Name="MachineID" />
+          </Key>
+          <Property Name="MachineID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MachineName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="MachineSchool" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="invoice_payment" Relationship="Student_Affairs_DatabaseModel.FK_invoice_payment_Machines" FromRole="Machine" ToRole="invoice_payment" />
+          <NavigationProperty Name="NESSchool" Relationship="Student_Affairs_DatabaseModel.FK_Machines_Machines" FromRole="Machine" ToRole="NESSchool" />
+        </EntityType>
+        <Association Name="FK_invoice_payment_Machines">
+          <End Type="Student_Affairs_DatabaseModel.Machine" Role="Machine" Multiplicity="0..1" />
+          <End Type="Student_Affairs_DatabaseModel.invoice_payment" Role="invoice_payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Machine">
+              <PropertyRef Name="MachineID" />
+            </Principal>
+            <Dependent Role="invoice_payment">
+              <PropertyRef Name="machine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Machines_Machines">
+          <End Type="Student_Affairs_DatabaseModel.NESSchool" Role="NESSchool" Multiplicity="1" />
+          <End Type="Student_Affairs_DatabaseModel.Machine" Role="Machine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NESSchool">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="Machine">
+              <PropertyRef Name="MachineSchool" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1494,6 +1590,9 @@
           <EntitySetMapping Name="invoice_payment">
             <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.invoice_payment">
               <MappingFragment StoreEntitySet="invoice_payment">
+                <ScalarProperty Name="machine" ColumnName="machine" />
+                <ScalarProperty Name="BATCH" ColumnName="BATCH" />
+                <ScalarProperty Name="STAN" ColumnName="STAN" />
                 <ScalarProperty Name="SeqID" ColumnName="SeqID" />
                 <ScalarProperty Name="type" ColumnName="type" />
                 <ScalarProperty Name="depositer" ColumnName="depositer" />
@@ -1642,6 +1741,8 @@
           <EntitySetMapping Name="Clothes">
             <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Cloth">
               <MappingFragment StoreEntitySet="Clothes">
+                <ScalarProperty Name="FactoryPackagePrice" ColumnName="FactoryPackagePrice" />
+                <ScalarProperty Name="FactoryPrice" ColumnName="FactoryPrice" />
                 <ScalarProperty Name="ClothesColor" ColumnName="ClothesColor" />
                 <ScalarProperty Name="ClothesinPackagePrice" ColumnName="ClothesinPackagePrice" />
                 <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
@@ -1795,6 +1896,15 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Machines">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Machine">
+              <MappingFragment StoreEntitySet="Machines">
+                <ScalarProperty Name="MachineSchool" ColumnName="MachineSchool" />
+                <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+                <ScalarProperty Name="MachineID" ColumnName="MachineID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

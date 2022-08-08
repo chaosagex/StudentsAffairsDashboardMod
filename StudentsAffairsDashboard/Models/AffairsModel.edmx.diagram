@@ -34,6 +34,9 @@
         <AssociationConnector Association="Student_Affairs_DatabaseModel.fk_clothes_student" />
         <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_Accounts_NESSchools" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.PackageClothe" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Machine" Width="1.5" PointX="3" PointY="18.5" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_invoice_payment_Machines" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_Machines_Machines" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

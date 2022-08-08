@@ -12,23 +12,20 @@ namespace StudentsAffairsDashboard.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Cloth
+    public partial class Machine
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Cloth()
+        public Machine()
         {
-            this.StudentClothes = new HashSet<StudentClothe>();
+            this.invoice_payment = new HashSet<invoice_payment>();
         }
     
-        public int ClothesID { get; set; }
-        public string ClothesName { get; set; }
-        public string ClothesPrice { get; set; }
-        public string ClothesinPackagePrice { get; set; }
-        public string ClothesColor { get; set; }
-        public Nullable<decimal> FactoryPrice { get; set; }
-        public Nullable<decimal> FactoryPackagePrice { get; set; }
+        public string MachineID { get; set; }
+        public string MachineName { get; set; }
+        public int MachineSchool { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StudentClothe> StudentClothes { get; set; }
+        public virtual ICollection<invoice_payment> invoice_payment { get; set; }
+        public virtual NESSchool NESSchool { get; set; }
     }
 }

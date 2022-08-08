@@ -20,6 +20,7 @@ namespace StudentsAffairsDashboard.Models
             this.StudentsMains = new HashSet<StudentsMain>();
             this.payment_details = new HashSet<payment_details>();
             this.Accounts = new HashSet<Account>();
+            this.Machines = new HashSet<Machine>();
         }
     
         public int SchoolID { get; set; }
@@ -37,5 +38,7 @@ namespace StudentsAffairsDashboard.Models
         public virtual ICollection<payment_details> payment_details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Account> Accounts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Machine> Machines { get; set; }
     }
 }

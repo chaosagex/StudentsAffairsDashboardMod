@@ -60,6 +60,7 @@ namespace StudentsAffairsDashboard.Reports
             ReportViewer3.LocalReport.ReportPath = Server.MapPath("soldReport.rdlc");
             //string schoolID = Session["currentSchool"].ToString();
             string schoolID = "1001";
+            string type = Request.QueryString["Type"];
             var fromD = fromDate.SelectedDate;
             var toD = toDate.SelectedDate;
             DataTable dt = GetData(schoolID, fromD, toD);
@@ -73,9 +74,9 @@ namespace StudentsAffairsDashboard.Reports
             ReportViewer3.LocalReport.EnableExternalImages = true;
 
             string imagePath = new Uri(Server.MapPath($"~/Logos/{schoolID}.png")).AbsoluteUri;
-
-            ReportParameter parameter = new ReportParameter("School", imagePath);
-            ReportViewer3.LocalReport.SetParameters(parameter);
+            ReportParameter[] Rptparams = new ReportParameter[] { new ReportParameter("School", imagePath),
+                                                              new ReportParameter("Type", type)};
+            ReportViewer3.LocalReport.SetParameters(Rptparams);
             ReportViewer3.LocalReport.Refresh();
         }
 

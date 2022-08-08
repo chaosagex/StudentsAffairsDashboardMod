@@ -13275,6 +13275,8 @@ namespace StudentsAffairsDashboard.Reports {
             
             private global::System.Data.DataColumn columnSchoolArabicName;
             
+            private global::System.Data.DataColumn columnFactoryPrice;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public getSoldDataTable() {
@@ -13358,6 +13360,14 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn FactoryPriceColumn {
+                get {
+                    return this.columnFactoryPrice;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -13393,7 +13403,7 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public getSoldRow AddgetSoldRow(string ClothesName, string PackageStatus, string ClothesPrice, string ClothesinPackagePrice, int Tot, string SchoolArabicName) {
+            public getSoldRow AddgetSoldRow(string ClothesName, string PackageStatus, string ClothesPrice, string ClothesinPackagePrice, int Tot, string SchoolArabicName, decimal FactoryPrice) {
                 getSoldRow rowgetSoldRow = ((getSoldRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ClothesName,
@@ -13401,7 +13411,8 @@ namespace StudentsAffairsDashboard.Reports {
                         ClothesPrice,
                         ClothesinPackagePrice,
                         Tot,
-                        SchoolArabicName};
+                        SchoolArabicName,
+                        FactoryPrice};
                 rowgetSoldRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowgetSoldRow);
                 return rowgetSoldRow;
@@ -13430,6 +13441,7 @@ namespace StudentsAffairsDashboard.Reports {
                 this.columnClothesinPackagePrice = base.Columns["ClothesinPackagePrice"];
                 this.columnTot = base.Columns["Tot"];
                 this.columnSchoolArabicName = base.Columns["SchoolArabicName"];
+                this.columnFactoryPrice = base.Columns["FactoryPrice"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13447,6 +13459,8 @@ namespace StudentsAffairsDashboard.Reports {
                 base.Columns.Add(this.columnTot);
                 this.columnSchoolArabicName = new global::System.Data.DataColumn("SchoolArabicName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSchoolArabicName);
+                this.columnFactoryPrice = new global::System.Data.DataColumn("FactoryPrice", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFactoryPrice);
                 this.columnClothesName.MaxLength = 100;
                 this.columnPackageStatus.MaxLength = 100;
                 this.columnClothesPrice.MaxLength = 100;
@@ -19863,6 +19877,22 @@ namespace StudentsAffairsDashboard.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public decimal FactoryPrice {
+                get {
+                    try {
+                        return ((decimal)(this[this.tablegetSold.FactoryPriceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FactoryPrice\' in table \'getSold\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablegetSold.FactoryPriceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsClothesNameNull() {
                 return this.IsNull(this.tablegetSold.ClothesNameColumn);
             }
@@ -19931,6 +19961,18 @@ namespace StudentsAffairsDashboard.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetSchoolArabicNameNull() {
                 this[this.tablegetSold.SchoolArabicNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsFactoryPriceNull() {
+                return this.IsNull(this.tablegetSold.FactoryPriceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetFactoryPriceNull() {
+                this[this.tablegetSold.FactoryPriceColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -29689,6 +29731,7 @@ WHERE        (StudentClothes.ReceivingStatus = 'False') AND (StudentClothes.Rece
             tableMapping.ColumnMappings.Add("ClothesinPackagePrice", "ClothesinPackagePrice");
             tableMapping.ColumnMappings.Add("Tot", "Tot");
             tableMapping.ColumnMappings.Add("SchoolArabicName", "SchoolArabicName");
+            tableMapping.ColumnMappings.Add("FactoryPrice", "FactoryPrice");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -29706,7 +29749,8 @@ WHERE        (StudentClothes.ReceivingStatus = 'False') AND (StudentClothes.Rece
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT        Clothes.ClothesPrice, Clothes.ClothesinPackagePrice, Clothes.ClothesName, SUM(CAST(StudentClothes.ReceivingQuantity AS int)) AS Tot, StudentClothes.PackageStatus, NESSchools.SchoolArabicName
+            this._commandCollection[0].CommandText = @"SELECT        Clothes.ClothesName, SUM(CAST(StudentClothes.ReceivingQuantity AS int)) AS Tot, StudentClothes.PackageStatus, NESSchools.SchoolArabicName, Clothes.FactoryPrice, Clothes.ClothesPrice, 
+                         Clothes.ClothesinPackagePrice
 FROM            NESSchools INNER JOIN
                          payment_details ON NESSchools.SchoolID = payment_details.school FULL OUTER JOIN
                          StudentClothes INNER JOIN
@@ -29714,7 +29758,7 @@ FROM            NESSchools INNER JOIN
                          invoice_payment ON invoice_payment.id = StudentClothes.InvoiceID FULL OUTER JOIN
                          invoice_item ON invoice_payment.id = invoice_item.invoice ON payment_details.id = invoice_item.payment_item
 WHERE        (CAST(StudentClothes.ReceivingQuantity AS int) > 0)
-GROUP BY Clothes.ClothesPrice, Clothes.ClothesinPackagePrice, Clothes.ClothesName, StudentClothes.PackageStatus, NESSchools.SchoolArabicName";
+GROUP BY Clothes.ClothesName, StudentClothes.PackageStatus, NESSchools.SchoolArabicName, Clothes.FactoryPrice, Clothes.ClothesPrice, Clothes.ClothesinPackagePrice";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
