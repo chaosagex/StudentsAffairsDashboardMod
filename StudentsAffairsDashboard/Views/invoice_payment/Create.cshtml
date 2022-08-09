@@ -316,6 +316,8 @@
         var y = document.getElementById("POS");
   if (payment==1) {
       x.style.display = "none";
+      document.getElementById("BAT").setAttribute("required", "");
+      document.getElementById("STA").setAttribute("required", "");
       y.style.display = "block";
       document.getElementById("rc").value = "";
       document.getElementById("dd").value = "";
@@ -323,6 +325,9 @@
   } else {
       x.style.display = "block";
       y.style.display = "none";
+      document.getElementById("rc").setAttribute("required", "");
+      document.getElementById("dd").setAttribute("required", "");
+      document.getElementById("dep").setAttribute("required", "");
       document.getElementById("BAT").value = "";
       document.getElementById("STA").value = "";
   }
