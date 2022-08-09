@@ -29,7 +29,9 @@ namespace StudentsAffairsDashboard.Controllers
         public async Task<ActionResult> IndexStudents()
         {
             int school = int.Parse(Session["currentSchool"].ToString());
-            var students = db.StudentsMains.Include(i => i.NESSchool).Include(i => i.StudentGradesHistories).Where(i => i.StdSchoolID == school);
+            if(school==1000)
+                return View(db.StudentsMains.Include(i => i.NESSchool).Include(i => i.StudentGradesHistories).Include(l=>l.invoice_payment).ToListAsync());
+            var students = db.StudentsMains.Include(i => i.NESSchool).Include(i => i.StudentGradesHistories).Include(l => l.invoice_payment).Where(i => i.StdSchoolID == school);
             return View(await students.ToListAsync());
         }
         public ActionResult AllInvoices()
@@ -83,15 +85,17 @@ namespace StudentsAffairsDashboard.Controllers
                 }
                 else
                 {
-                    return CreateView((int)st);
+                    return CreateView((int)st,"");
                     
                 }
                 
             }
 
         }
-        public ActionResult CreateView(int st)
+        public ActionResult CreateView(int st,string error)
         {
+            if(error!="")
+                ViewBag.Error = error;
             int school = Int32.Parse(Session["currentSchool"].ToString());
             StudentsMain stud = db.StudentsMains.Include(s => s.StudentGradesHistories).Include(s => s.Class).FirstOrDefault(s => s.StdCode == st);
             StudentGradesHistory history = stud.StudentGradesHistories.OrderBy(a => a.StudyYear).LastOrDefault();
@@ -116,8 +120,7 @@ namespace StudentsAffairsDashboard.Controllers
             List<payment_details> itemsPaid=new List<payment_details>();
             foreach(invoice_payment inv in invs)
             {
-                var ioo = inv.payment_details.First().year;
-                if (inv.payment_details.First().year.Substring(0,4) == year)
+                if (inv.payment_details.FirstOrDefault().year.Substring(0,4) == year)
                 {
                     foreach (payment_details p in inv.payment_details)
                         itemsPaid.Add(p);
@@ -163,13 +166,14 @@ namespace StudentsAffairsDashboard.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(invoice_payment invoice_payment)
         {
-
+            string error = "";
             if (Request.IsAjaxRequest())
             {
                 ModelState.Clear();
-                return CreateView(invoice_payment.student);
+                return CreateView(invoice_payment.student,"");
             }
-
+            if (invoice_payment.paid == 0)
+                error += "Paid can't be 0\n";
             if (ModelState.IsValid && invoice_payment.paid != 0)
             {
                 decimal Total = 0;
@@ -203,6 +207,10 @@ namespace StudentsAffairsDashboard.Controllers
                         throw new Exception("you can not pay more than you owe");
                     if (invoice_payment.type == 2)
                         invoice_payment.machine = null;
+                    int school = invoice_payment.payment_details.FirstOrDefault().school;
+                    var rawQuery = db.Database.SqlQuery<int>($"SELECT NEXT VALUE FOR dbo.SeqIn{school};");
+                    int nextVal = rawQuery.Single();
+                    invoice_payment.SeqID = nextVal;
                     db.invoice_payment.Add(invoice_payment);
                     await db.SaveChangesAsync();
                     if (invoice_payment.remaining == 0)
@@ -216,7 +224,7 @@ namespace StudentsAffairsDashboard.Controllers
                         await db.SaveChangesAsync();
                     }
 
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(IndexStudents));
                 }
                 catch (Exception e)
                 {
@@ -227,7 +235,7 @@ namespace StudentsAffairsDashboard.Controllers
 
 
             ModelState.Clear();
-            return CreateView(invoice_payment.student);
+            return CreateView(invoice_payment.student,error);
         }
 
         // GET: invoice_payment/Edit/5

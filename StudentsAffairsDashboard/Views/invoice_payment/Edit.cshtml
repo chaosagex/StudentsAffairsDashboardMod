@@ -174,20 +174,7 @@ else if (Model.payment_details[i].type == 4)
     @Html.ActionLink("Back to List", "Index")
 </div>
 <script type="text/javascript">
-    function updateStudent() {
-        var data = $("#create").serialize();
-        $.ajax({
-            type: 'POST',
-            url: '/invoice_payment/Create',
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
-            data: data,
-            success: function (result) {
-                document.open();
-                document.write(result);
-                document.close();
-            }
-        })
-    }
+   
     function updateFirst() {
 
         var cb = document.getElementById("first_installment");

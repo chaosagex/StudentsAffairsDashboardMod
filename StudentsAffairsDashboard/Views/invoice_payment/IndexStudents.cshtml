@@ -1,4 +1,5 @@
-﻿@model IEnumerable<StudentsAffairsDashboard.Models.StudentsMain>
+﻿@using StudentsAffairsDashboard.Models
+@model IEnumerable<StudentsAffairsDashboard.Models.StudentsMain>
 
 <!-- Main content -->
 <section class="content">
@@ -15,9 +16,7 @@
                         <th style="width: 10%">ID</th>
                         <th style="width: 25%">Full Name</th>
                         <th>Make Payment</th>
-                        <th>Payment Status</th>
-                        <th>Receiving Status</th>
-                        <th>Uniform Status</th>
+                        <th style="width: 15%">Payment Status</th>
                         <th>Print</th>
                         @if (Session["UserName"].ToString().Contains("Admin NES"))
                         {
@@ -46,18 +45,26 @@
                             </td>
                             <td style="text-align: center; vertical-align: middle;">
 
-                                @if (item.StudentClothes.Where(a => a.StudentsMain.StdCode == item.StdCode).ToList().Count != 0 && item.StudentClothes.Where(a => a.StudentsMain.StdCode == item.StdCode).ToList().All(a => a.PaymentStatus == "True"))
+                                @if (item.invoice_payment.ToList().Count != 0)
                                 {
+                                    
+                                        foreach(invoice_payment ip in item.invoice_payment)
+                                        {
 
-                                    <span class="badge badge-success">Paid</span>
+                                            foreach(payment_details pd in ip.payment_details)
+                                            {
+                                                <span class="badge badge-success">@pd.name</span>
+                                            }
+                                        }
+                                    
                                 }
                                 else
                                 {
-                                    <span class="badge badge-danger">NOT-Paid</span>
+                                    <span class="badge badge-danger">No Payments</span>
                                 }
 
                             </td>
-                            <td style="text-align: center; vertical-align: middle;">
+                            @*<td style="text-align: center; vertical-align: middle;">
                                 @if (item.StudentClothes.Where(a => a.StudentsMain.StdCode == item.StdCode).ToList().Count != 0 && item.StudentClothes.Where(a => a.StudentsMain.StdCode == item.StdCode).ToList().All(a => a.ReceivingStatus == "True"))
                                 {
                                     <span class="badge badge-success">Received</span>
@@ -66,10 +73,10 @@
                                 {
                                     <span class="badge badge-danger">NOT-Received</span>
                                 }
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
+                            </td>*@
+                            @*<td style="text-align: center; vertical-align: middle;">
                                 <a href="javascript:;" class="badge badge-primary details"><i class="glyphicon glyphicon-trash"></i>Show Uniform Status</a>
-                            </td>
+                            </td>*@
                             <td style="text-align: center; vertical-align: middle;">
                                 <a href="javascript:;" class="badge badge-secondary details2"><i class="glyphicon glyphicon-trash"></i>Show Invoices Status</a>
                             </td>
@@ -89,10 +96,8 @@
                         <th hidden></th>
                         <th style="width: 10%">ID</th>
                         <th style="width: 25%">Full Name</th>
-                        <th>Uniform</th>
-                        <th>Payment Status</th>
-                        <th>Receiving Status</th>
-                        <th>Uniform Status</th>
+                        <th>Make Payment</th>
+                        <th style="width: 15%">Payment Status</th>
                         <th>Print</th>
                         @if (Session["UserName"].ToString().Contains("Admin NES"))
                         {
