@@ -350,7 +350,7 @@ namespace StudentsAffairsDashboard.Controllers
                 StudentGradesHistory studentGradesHistory = new StudentGradesHistory();
                 studentGradesHistory.GradeID = Int32.Parse(StdGradeID);
                 studentGradesHistory.StdCode = studentsMain.StdCode;
-                studentGradesHistory.StudyYear = studentsMain.StdJoinYear.ToString().Substring(4, 4);
+                studentGradesHistory.StudyYear = studentsMain.StdJoinYear.ToString().Substring(6, 4);
                 studentGradesHistory.KindBatch = "Normal";
                 db.StudentGradesHistories.Add(studentGradesHistory);
                 db.SaveChanges();

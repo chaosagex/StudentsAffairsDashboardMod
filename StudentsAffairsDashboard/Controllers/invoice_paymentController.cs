@@ -16,32 +16,30 @@ namespace StudentsAffairsDashboard.Controllers
     public class invoice_paymentController : Controller
     {
         private StudentAffairsDatabaseEntities db = new StudentAffairsDatabaseEntities();
-        private const int startID = 1031;//1038
         private const int uniformType = 5;
+        //private const int school = int.Parse(Session["currentSchool"].ToString());
 
         // GET: invoice_payment
         public async Task<ActionResult> Index()
         {
-            
-            var invoice_payment = db.invoice_payment.Include(i => i.invoice_payment2).Include(i => i.StudentsMain);
+        int school = int.Parse(Session["currentSchool"].ToString());
+        var invoice_payment = db.invoice_payment.Include(i => i.invoice_payment2).Include(i => i.StudentsMain).Include(i => i.payment_details).Where(i=>i.payment_details.FirstOrDefault().school==school);
             return View(await invoice_payment.ToListAsync());
+        }
+        public async Task<ActionResult> IndexStudents()
+        {
+            int school = int.Parse(Session["currentSchool"].ToString());
+            if(school==1000)
+                return View(db.StudentsMains.Include(i => i.NESSchool).Include(i => i.StudentGradesHistories).Include(l=>l.invoice_payment).ToListAsync());
+            var students = db.StudentsMains.Include(i => i.NESSchool).Include(i => i.StudentGradesHistories).Include(l => l.invoice_payment).Where(i => i.StdSchoolID == school);
+            return View(await students.ToListAsync());
         }
         public ActionResult AllInvoices()
         {
             var invoice_payment = db.invoice_payment.Include(i => i.invoice_payment2).Include(i => i.StudentsMain);
             return View(invoice_payment.ToList());
         }
-        public ActionResult Report()
-        {
-            ReportViewer x = new ReportViewer();
-            x.ProcessingMode = ProcessingMode.Local;
-            x.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reports\Report1.rdlc";
-            ReportDataSource source = new ReportDataSource("Invoices",(from invoice_payment in db.invoice_payment select invoice_payment));
-            x.LocalReport.DataSources.Clear();
-            x.LocalReport.DataSources.Add(source);
-
-            return View(x);
-        }
+        
         public ActionResult AllInvoices(List<invoice_payment> inv)
         {
             return View(inv);
@@ -75,38 +73,65 @@ namespace StudentsAffairsDashboard.Controllers
             return PartialView(invoice_payment);
         }
         // GET: invoice_payment/Create
-        public ActionResult Create()
+        public ActionResult Create(int? st)
         {
-            if (Session["currentSchool"]==null)
-                return CreateView(startID);
+            if (Session["currentSchool"] == null)
+                return HttpNotFound();
             else
             {
-                int cur = Int32.Parse(Session["currentSchool"].ToString());
-                int st = db.StudentsMains.FirstOrDefault(s => s.StdSchoolID == cur).StdCode;
-                return CreateView(st);
+                if (st == null)
+                {
+                    return RedirectToAction("IndexStudents");
+                }
+                else
+                {
+                    return CreateView((int)st,"");
+                    
+                }
+                
             }
 
         }
-        public ActionResult CreateView(int st)
+        public ActionResult CreateView(int st,string error)
         {
-            StudentsMain stud = db.StudentsMains.Include(s => s.StudentGradesHistories).FirstOrDefault(s => s.StdCode == st);
+            if(error!="")
+                ViewBag.Error = error;
+            int school = Int32.Parse(Session["currentSchool"].ToString());
+            StudentsMain stud = db.StudentsMains.Include(s => s.StudentGradesHistories).Include(s => s.Class).FirstOrDefault(s => s.StdCode == st);
+            StudentGradesHistory history = stud.StudentGradesHistories.OrderBy(a => a.StudyYear).LastOrDefault();
             if (stud == null)
                 throw new Exception("no student with given code");
-            int school = stud.StdSchoolID;
             short studentType = 0;
-            if (stud.StudentGradesHistories.LastOrDefault().KindBatch == "Normal")
+            if (history.KindBatch == "Normal")
                 studentType = 1;
-            else if (stud.StudentGradesHistories.LastOrDefault().KindBatch == "Gold")
+            else if (history.KindBatch == "Gold")
                 studentType = 2;
+            else if (history.KindBatch == "Special")
+                studentType = 3;
+            else if (history.KindBatch == "Discount")
+                studentType = 4;
             else
                 throw new Exception("Student Type isn't known");
-            short studentGrade = (short)stud.StudentGradesHistories.LastOrDefault().GradeID;
-            List<StudentsMain> Students = db.StudentsMains.Where(a => a.NESSchool.SchoolID == school).ToList();
+            int studentGrade = history.GradeID;
 
 
-            string year = stud.StudentGradesHistories.LastOrDefault().StudyYear;
+            string year = history.StudyYear;
+            var invs = db.invoice_payment.Include(p => p.payment_details).Where(s=>s.student==st).ToList();
+            List<payment_details> itemsPaid=new List<payment_details>();
+            foreach(invoice_payment inv in invs)
+            {
+                if (inv.payment_details.FirstOrDefault().year.Substring(0,4) == year)
+                {
+                    foreach (payment_details p in inv.payment_details)
+                        itemsPaid.Add(p);
+                }
+            }
             //get items you pay for except uniform
             var items = db.payment_details.Where(a => a.type != uniformType).Where(a => a.student_type == studentType).Where(a => a.year.Substring(0, 4) == year).Where(a => a.school == school).Where(a => a.Grade == studentGrade).ToList();
+            foreach(var item in itemsPaid)
+            {
+                items.Remove(item);
+            }
             invoice_payment invoice = new invoice_payment();
             var x = db.getPreviousPayment(st).FirstOrDefault();
             if (x != null)
@@ -121,56 +146,17 @@ namespace StudentsAffairsDashboard.Controllers
             if (x != null)
                 invoice.remaining = prev.remaining;
             ViewData.Model = invoice;
-
-            ViewBag.student = new SelectList(Students, "StdCode", "StdEnglishFristName", st);
+            ViewBag.StdName = stud.StdEnglishFristName + " " + stud.StdEnglishMiddleName + " " + stud.StdEnglishLastName + " " + stud.StdEnglishFamilyName;
+            ViewBag.StdSchool = stud.NESSchool.SchoolName;
+            ViewBag.StdGrade = history.Grade.GradeName;
+            ViewBag.StdGradeID = studentGrade;
+            ViewBag.StdClass = stud.Class.ClassName;
+            ViewBag.StdCode = st;
+            ViewBag.machine = new SelectList(db.Machines.Where(m=>m.MachineSchool==school), "MachineID", "MachineID");
+            
             return View();
         }
-        //public ActionResult UniformView(invoice_payment invoice)
-        //{
-        //    int st = invoice.student;
-        //    StudentsMain stud = db.StudentsMains.Include(s => s.StudentGradesHistories).FirstOrDefault(s => s.StdCode == st);
-        //    if (stud == null)
-        //        throw new Exception("no student with given code");
-        //    int school = stud.StdSchoolID;
-        //    short studentType = 0;
-        //    if (stud.StudentGradesHistories.LastOrDefault().KindBatch == "Normal")
-        //        studentType = 1;
-        //    else if (stud.StudentGradesHistories.LastOrDefault().KindBatch == "Gold")
-        //        studentType = 2;
-        //    else
-        //        throw new Exception("Student Type isn't known");
-        //    short studentGrade = (short)stud.StudentGradesHistories.LastOrDefault().GradeID;
-        //    List<StudentsMain> Students = db.StudentsMains.Where(a => a.NESSchool.SchoolID == school).ToList();
-
-
-        //    string year = stud.StudentGradesHistories.LastOrDefault().StudyYear;
-        //    //get items you pay for except uniform
-        //    var items = db.payment_details.Where(a => a.type != uniformType).Where(a => a.student_type == studentType).Where(a => a.year.Substring(0, 4) == year).Where(a => a.school == school).Where(a => a.Grade == studentGrade).ToList();
-        //    var x = db.getPreviousPayment(st).FirstOrDefault();
-        //    if (x != null)
-        //        invoice.previous_payment = x.id;
-        //    invoice_payment prev = db.invoice_payment.Find(invoice.previous_payment);
-        //    invoice.date = DateTime.Now;
-        //    invoice.payment_details = items;
-        //    invoice.invoice_payment2 = prev;
-        //    if (x != null)
-        //        invoice.Notes = prev.Notes;
-        //    invoice.student = st;
-        //    if (x != null)
-        //        invoice.remaining = prev.remaining;
-        //    payment_details item = invoice.payment_details.First();
-        //    item.school = stud.StdSchoolID;
-        //    item.Grade = (short)studentGrade;
-        //    item.year = year;
-        //    item.student_type = studentType;
-        //    db.payment_details.Add(item);
-        //    db.SaveChanges();
-        //    ViewData.Model = invoice;
-
-        //    ViewBag.student = new SelectList(Students, "StdCode", "StdEnglishFristName", st);
-
-        //    return View();
-        //}
+        
 
 
         // POST: invoice_payment/Create
@@ -180,13 +166,14 @@ namespace StudentsAffairsDashboard.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(invoice_payment invoice_payment)
         {
-
+            string error = "";
             if (Request.IsAjaxRequest())
             {
                 ModelState.Clear();
-                return CreateView(invoice_payment.student);
+                return CreateView(invoice_payment.student,"");
             }
-
+            if (invoice_payment.paid == 0)
+                error += "Paid can't be 0\n";
             if (ModelState.IsValid && invoice_payment.paid != 0)
             {
                 decimal Total = 0;
@@ -218,6 +205,12 @@ namespace StudentsAffairsDashboard.Controllers
                 {
                     if (invoice_payment.remaining < 0)
                         throw new Exception("you can not pay more than you owe");
+                    if (invoice_payment.type == 2)
+                        invoice_payment.machine = null;
+                    int school = invoice_payment.payment_details.FirstOrDefault().school;
+                    var rawQuery = db.Database.SqlQuery<int>($"SELECT NEXT VALUE FOR dbo.SeqIn{school};");
+                    int nextVal = rawQuery.Single();
+                    invoice_payment.SeqID = nextVal;
                     db.invoice_payment.Add(invoice_payment);
                     await db.SaveChangesAsync();
                     if (invoice_payment.remaining == 0)
@@ -231,7 +224,7 @@ namespace StudentsAffairsDashboard.Controllers
                         await db.SaveChangesAsync();
                     }
 
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(IndexStudents));
                 }
                 catch (Exception e)
                 {
@@ -242,7 +235,7 @@ namespace StudentsAffairsDashboard.Controllers
 
 
             ModelState.Clear();
-            return CreateView(invoice_payment.student);
+            return CreateView(invoice_payment.student,error);
         }
 
         // GET: invoice_payment/Edit/5
@@ -308,7 +301,7 @@ namespace StudentsAffairsDashboard.Controllers
             foreach (payment_details item in invoice_payment.payment_details)
                 item.selected = true;
 
-
+            ViewBag.machine = new SelectList(db.Machines, "MachineID", "MachineID", invoice_payment.machine);
             ViewBag.student = new SelectList(Students, "StdCode", "StdArabicFristName", invoice_payment.student);
             return View(invoice_payment);
         }
@@ -373,6 +366,8 @@ namespace StudentsAffairsDashboard.Controllers
 
                         invoice_payment.Notes = invoice_payment.Notes + invoice_payment.id + newNotes;
                     }
+                    if (invoice_payment.type == 2)
+                        invoice_payment.machine = null;
                     db.Entry(invoice_payment).State = EntityState.Modified;
                     await db.SaveChangesAsync();
 

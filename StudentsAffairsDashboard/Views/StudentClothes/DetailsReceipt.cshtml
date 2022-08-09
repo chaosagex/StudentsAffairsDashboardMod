@@ -66,13 +66,20 @@
                 <div class="col-2  text-center" style="width: 115px; height: 20px;">
                     @foreach (var itemm in item.payment_details)
                     {
-                        <h6><span class="badge">@itemm.name</span></h6>
+                        if (itemm.type == 5)
+                        {
+                            <h6><span class="badge">@itemm.name</span></h6>
+                        }
                     }
                 </div>
                 <div class="col-2  text-center" style="width: 115px; height: 20px;">
-                    @foreach (var itemm in item.payment_details)
+                    @if (item.payment_details.FirstOrDefault().type == 5)
                     {
                         <a href="~/Reports/Report.aspx?invoice=@item.id" class="badge badge-primary"><i class="glyphicon glyphicon-trash"></i>Print Receipt</a>
+                    }
+                    else
+                    {
+                        <a href="~/Reports/Payment.aspx?invoice=@item.id" class="badge badge-primary"><i class="glyphicon glyphicon-trash"></i>Print Receipt</a>
                     }
                 </div>
                 <div class="col-2  text-center" style="width: 115px; height: 20px;">

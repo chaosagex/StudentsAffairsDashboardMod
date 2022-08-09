@@ -28,11 +28,19 @@ namespace StudentsAffairsDashboard.Models
         public string depositer { get; set; }
         public short type { get; set; }
         public Nullable<int> SeqID { get; set; }
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "You need to put 6 Numbers")]
+        [StringLength(6, MinimumLength = 6, ErrorMessage = "You need to put 6 Numbers")]
+        public string STAN { get; set; }
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "You need to put 6 Numbers")]
+        [StringLength(6, MinimumLength = 6, ErrorMessage = "You need to put 6 Numbers")]
+        public string BATCH { get; set; }
+        public string machine { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<invoice_payment> invoice_payment1 { get; set; }
         public virtual invoice_payment invoice_payment2 { get; set; }
         public virtual StudentsMain StudentsMain { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual List<payment_details> payment_details { get; set; }
+        public virtual Machine Machine1 { get; set; }
     }
 }

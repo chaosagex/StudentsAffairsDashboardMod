@@ -26,6 +26,8 @@
     <Property Name="ClothesPrice" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="ClothesinPackagePrice" Type="varchar" MaxLength="100" />
     <Property Name="ClothesColor" Type="nvarchar" MaxLength="100" />
+    <Property Name="FactoryPrice" Type="money" />
+    <Property Name="FactoryPackagePrice" Type="money" />
   </EntityType>
   <EntityType Name="Grade">
     <Key>
@@ -59,6 +61,9 @@
     <Property Name="depositer" Type="nvarchar" MaxLength="100" />
     <Property Name="type" Type="smallint" Nullable="false" />
     <Property Name="SeqID" Type="int" />
+    <Property Name="STAN" Type="varchar" MaxLength="6" />
+    <Property Name="BATCH" Type="varchar" MaxLength="6" />
+    <Property Name="machine" Type="varchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="Logs">
     <Key>
@@ -68,6 +73,14 @@
     <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Times" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="LogContent" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Machines">
+    <Key>
+      <PropertyRef Name="MachineID" />
+    </Key>
+    <Property Name="MachineID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="MachineName" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="MachineSchool" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="NESSchools">
     <Key>
@@ -341,6 +354,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_invoice_payment_Machines">
+    <End Role="Machines" Type="Self.Machines" Multiplicity="0..1" />
+    <End Role="invoice_payment" Type="Self.invoice_payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Machines">
+        <PropertyRef Name="MachineID" />
+      </Principal>
+      <Dependent Role="invoice_payment">
+        <PropertyRef Name="machine" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_invoice_payment_student">
     <End Role="StudentsMain" Type="Self.StudentsMain" Multiplicity="1" />
     <End Role="invoice_payment" Type="Self.invoice_payment" Multiplicity="*" />
@@ -350,6 +375,18 @@
       </Principal>
       <Dependent Role="invoice_payment">
         <PropertyRef Name="student" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Machines_Machines">
+    <End Role="NESSchools" Type="Self.NESSchools" Multiplicity="1" />
+    <End Role="Machines" Type="Self.Machines" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NESSchools">
+        <PropertyRef Name="SchoolID" />
+      </Principal>
+      <Dependent Role="Machines">
+        <PropertyRef Name="MachineSchool" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -529,6 +566,7 @@
     <EntitySet Name="invoice_item" EntityType="Self.invoice_item" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="invoice_payment" EntityType="Self.invoice_payment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Machines" EntityType="Self.Machines" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NESSchools" EntityType="Self.NESSchools" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PackageClothes" EntityType="Self.PackageClothes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="payment_details" EntityType="Self.payment_details" Schema="dbo" store:Type="Tables" />
@@ -567,9 +605,17 @@
       <End Role="invoice_payment" EntitySet="invoice_payment" />
       <End Role="invoice_payment1" EntitySet="invoice_payment" />
     </AssociationSet>
+    <AssociationSet Name="FK_invoice_payment_Machines" Association="Self.FK_invoice_payment_Machines">
+      <End Role="Machines" EntitySet="Machines" />
+      <End Role="invoice_payment" EntitySet="invoice_payment" />
+    </AssociationSet>
     <AssociationSet Name="FK_invoice_payment_student" Association="Self.FK_invoice_payment_student">
       <End Role="StudentsMain" EntitySet="StudentsMain" />
       <End Role="invoice_payment" EntitySet="invoice_payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Machines_Machines" Association="Self.FK_Machines_Machines">
+      <End Role="NESSchools" EntitySet="NESSchools" />
+      <End Role="Machines" EntitySet="Machines" />
     </AssociationSet>
     <AssociationSet Name="FK_payment_details_school" Association="Self.FK_payment_details_school">
       <End Role="NESSchools" EntitySet="NESSchools" />

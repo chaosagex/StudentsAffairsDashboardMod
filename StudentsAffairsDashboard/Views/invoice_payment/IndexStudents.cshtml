@@ -1,0 +1,257 @@
+﻿@using StudentsAffairsDashboard.Models
+@model IEnumerable<StudentsAffairsDashboard.Models.StudentsMain>
+
+<!-- Main content -->
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Uniform</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th hidden></th>
+                        <th style="width: 10%">ID</th>
+                        <th style="width: 25%">Full Name</th>
+                        <th>Make Payment</th>
+                        <th style="width: 15%">Payment Status</th>
+                        <th>Print</th>
+                        @if (Session["UserName"].ToString().Contains("Admin NES"))
+                        {
+                            <th>Delete All Uniform</th>
+                        }
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td hidden>@Html.DisplayFor(modelItem => item.StdCode)</td>
+                            <td style="text-align: center; vertical-align: middle;">@Html.DisplayFor(modelItem => item.StdNID)</td>
+                            <td style="vertical-align: middle;">
+                                <a>
+                                    @Html.DisplayFor(modelItem => item.StdEnglishFristName) @Html.DisplayFor(modelItem => item.StdEnglishMiddleName) @Html.DisplayFor(modelItem => item.StdEnglishLastName) @Html.DisplayFor(modelItem => item.StdEnglishFamilyName)
+                                </a>
+                                <br />
+                                <small>
+                                    NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault().Replace(" ", "-")  @Html.DisplayFor(modelItem => item.Class.ClassName).ToString().Replace(" ", "-") (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
+                                </small>
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                @Html.ActionLink("Make Payment", "Create", new { st = item.StdCode }, new { @class = "btn btn-primary btn-sm" })
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+
+                                @if (item.invoice_payment.ToList().Count != 0)
+                                {
+                                    
+                                        foreach(invoice_payment ip in item.invoice_payment)
+                                        {
+
+                                            foreach(payment_details pd in ip.payment_details)
+                                            {
+                                                <span class="badge badge-success">@pd.name</span>
+                                            }
+                                        }
+                                    
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">No Payments</span>
+                                }
+
+                            </td>
+                            @*<td style="text-align: center; vertical-align: middle;">
+                                @if (item.StudentClothes.Where(a => a.StudentsMain.StdCode == item.StdCode).ToList().Count != 0 && item.StudentClothes.Where(a => a.StudentsMain.StdCode == item.StdCode).ToList().All(a => a.ReceivingStatus == "True"))
+                                {
+                                    <span class="badge badge-success">Received</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">NOT-Received</span>
+                                }
+                            </td>*@
+                            @*<td style="text-align: center; vertical-align: middle;">
+                                <a href="javascript:;" class="badge badge-primary details"><i class="glyphicon glyphicon-trash"></i>Show Uniform Status</a>
+                            </td>*@
+                            <td style="text-align: center; vertical-align: middle;">
+                                <a href="javascript:;" class="badge badge-secondary details2"><i class="glyphicon glyphicon-trash"></i>Show Invoices Status</a>
+                            </td>
+                            @if (Session["UserName"].ToString().Contains("Admin NES"))
+                            {
+                                <td style="text-align: center; vertical-align: middle;">
+
+                                    <a href="#" class="btn btn-danger btn-sm" onclick="ConfirmDelete(@item.StdCode)"><i class="glyphicon glyphicon-trash"></i>Delete</a>
+                                    
+                                </td>
+                            }
+                            </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th hidden></th>
+                        <th style="width: 10%">ID</th>
+                        <th style="width: 25%">Full Name</th>
+                        <th>Make Payment</th>
+                        <th style="width: 15%">Payment Status</th>
+                        <th>Print</th>
+                        @if (Session["UserName"].ToString().Contains("Admin NES"))
+                        {
+                            <th>Delete All Uniform</th>
+                        }
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</section>
+
+<div class="modal fade" id="partialModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Uniform Data For Student</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="partialModal2">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Invoices Data For Student</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="modal-danger">
+    @using (Html.BeginForm("Delete", "StudentClothes", FormMethod.Post))
+    {
+        <div class="modal-dialog">
+            <div class="modal-content bg-danger">
+                <div class="modal-header">
+                    <h4 class="modal-title">Danger Modal</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are You Sure To Delete This Student (Uniform)</p>
+                    @*hidden field for storing current employeeId*@
+                    <input type="hidden" id="hiddenIdD" name="hiddenIdD" />
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Delete</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    }
+</div>
+@section scripts{
+    <script>
+        var ConfirmDelete = function (EmployeeId) {
+            $("#hiddenIdD").val(EmployeeId);
+            $("#modal-danger").modal('show');
+        }
+        var ConfirmDelete2 = function (EmployeeId, EmployeeId2) {
+            $("#hiddenId").val(EmployeeId);
+            $("#invoiceId").val(EmployeeId2);
+            $("#modal-danger").modal('show');
+        }
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["excel", "pdf", "print"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+
+        $("#example1 .details").click(function () {
+            var customerId = $(this).closest("tr").find("td").eq(0).html();
+            $.ajax({
+                type: "POST",
+                url: "/StudentClothes/Details",
+                data: '{customerId: "' + customerId + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $("#partialModal").find(".modal-body").html(response);
+                    $("#partialModal").modal('show');
+                },
+                failure: function (response) {
+                    console.log(response.responseText);
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        });
+        $("#example1 .details2").click(function () {
+            var customerId2 = $(this).closest("tr").find("td").eq(0).html();
+            $.ajax({
+                type: "POST",
+                url: "/StudentClothes/DetailsReceipt",
+                data: '{customerId: "' + customerId2 + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $("#partialModal2").find(".modal-body").html(response);
+                    $("#partialModal2").modal('show');
+                },
+                failure: function (response) {
+                    console.log(response.responseText);
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        });
+        
+    </script>
+}
+
+
+
+
+
+
+
