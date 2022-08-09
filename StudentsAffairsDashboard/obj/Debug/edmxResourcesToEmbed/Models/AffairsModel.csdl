@@ -18,6 +18,7 @@
     <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ClassName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="StudentsMains" Relationship="Self.fk_class_main" FromRole="Class" ToRole="StudentsMain" />
+    <NavigationProperty Name="StudentGradesHistories" Relationship="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_Class" FromRole="Class" ToRole="StudentGradesHistory" />
   </EntityType>
   <EntityType Name="Grade">
     <Key>
@@ -26,6 +27,7 @@
     <Property Name="GradeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="GradeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="StudentGradesHistories" Relationship="Self.fk_grade_history" FromRole="Grade" ToRole="StudentGradesHistory" />
+    <NavigationProperty Name="payment_details" Relationship="Student_Affairs_DatabaseModel.FK_payment_details_Grade" FromRole="Grade" ToRole="payment_details" />
   </EntityType>
   <EntityType Name="NESSchool">
     <Key>
@@ -42,6 +44,9 @@
     <Property Name="SchoolEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Accounts" Relationship="Student_Affairs_DatabaseModel.FK_Accounts_NESSchools" FromRole="NESSchool" ToRole="Account" />
     <Property Name="SchoolArabicName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Machines" Relationship="Student_Affairs_DatabaseModel.FK_Machines_Machines" FromRole="NESSchool" ToRole="Machine" />
+    <NavigationProperty Name="StudentGradesHistories" Relationship="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_NESSchools" FromRole="NESSchool" ToRole="StudentGradesHistory" />
+    <NavigationProperty Name="StudentGradesHistories1" Relationship="Student_Affairs_DatabaseModel.FK_StudentGradesHistoryListener_NESSchools" FromRole="NESSchool" ToRole="StudentGradesHistory" />
   </EntityType>
   <EntityType Name="StudentAccount">
     <Key>
@@ -64,6 +69,15 @@
     <NavigationProperty Name="Grade" Relationship="Self.fk_grade_history" FromRole="StudentGradesHistory" ToRole="Grade" />
     <NavigationProperty Name="StudentsMain" Relationship="Self.fk_stu_history" FromRole="StudentGradesHistory" ToRole="StudentsMain" />
     <Property Name="KindBatch" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="School" Type="Int32" />
+    <Property Name="Class" Type="Int32" />
+    <Property Name="Discount" Type="Int32" />
+    <Property Name="ListenerSchool" Type="Int32" />
+    <Property Name="StudentStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Class1" Relationship="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_Class" FromRole="StudentGradesHistory" ToRole="Class" />
+    <NavigationProperty Name="Discount1" Relationship="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_Discounts" FromRole="StudentGradesHistory" ToRole="Discount" />
+    <NavigationProperty Name="NESSchool" Relationship="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_NESSchools" FromRole="StudentGradesHistory" ToRole="NESSchool" />
+    <NavigationProperty Name="NESSchool1" Relationship="Student_Affairs_DatabaseModel.FK_StudentGradesHistoryListener_NESSchools" FromRole="StudentGradesHistory" ToRole="NESSchool" />
   </EntityType>
   <EntityType Name="StudentsMain">
     <Key>
@@ -415,6 +429,36 @@
       <Parameter Name="invoice" Mode="In" Type="Int32" />
     </FunctionImport>
     <EntitySet Name="StudentsMainCustoms" EntityType="Student_Affairs_DatabaseModel.StudentsMainCustom" />
+    <EntitySet Name="Discounts" EntityType="Student_Affairs_DatabaseModel.Discount" />
+    <EntitySet Name="Machines" EntityType="Student_Affairs_DatabaseModel.Machine" />
+    <AssociationSet Name="FK_StudentGradesHistory_Class" Association="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_Class">
+      <End Role="Class" EntitySet="Classes" />
+      <End Role="StudentGradesHistory" EntitySet="StudentGradesHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentGradesHistory_Discounts" Association="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_Discounts">
+      <End Role="Discount" EntitySet="Discounts" />
+      <End Role="StudentGradesHistory" EntitySet="StudentGradesHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_payment_details_Grade" Association="Student_Affairs_DatabaseModel.FK_payment_details_Grade">
+      <End Role="Grade" EntitySet="Grades" />
+      <End Role="payment_details" EntitySet="payment_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_invoice_payment_Machines" Association="Student_Affairs_DatabaseModel.FK_invoice_payment_Machines">
+      <End Role="Machine" EntitySet="Machines" />
+      <End Role="invoice_payment" EntitySet="invoice_payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Machines_Machines" Association="Student_Affairs_DatabaseModel.FK_Machines_Machines">
+      <End Role="NESSchool" EntitySet="NESSchools" />
+      <End Role="Machine" EntitySet="Machines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentGradesHistory_NESSchools" Association="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_NESSchools">
+      <End Role="NESSchool" EntitySet="NESSchools" />
+      <End Role="StudentGradesHistory" EntitySet="StudentGradesHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentGradesHistoryListener_NESSchools" Association="Student_Affairs_DatabaseModel.FK_StudentGradesHistoryListener_NESSchools">
+      <End Role="NESSchool" EntitySet="NESSchools" />
+      <End Role="StudentGradesHistory" EntitySet="StudentGradesHistories" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Log">
     <Key>
@@ -475,6 +519,10 @@
     <Property Name="depositer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="type" Type="Int16" Nullable="false" />
     <Property Name="SeqID" Type="Int32" />
+    <Property Name="STAN" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="BATCH" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="machine" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Machine1" Relationship="Student_Affairs_DatabaseModel.FK_invoice_payment_Machines" FromRole="invoice_payment" ToRole="Machine" />
   </EntityType>
   <EntityType Name="payment_details">
     <Key>
@@ -490,6 +538,7 @@
     <Property Name="Grade" Type="Int32" />
     <NavigationProperty Name="NESSchool" Relationship="Student_Affairs_DatabaseModel.FK_payment_details_school" FromRole="payment_details" ToRole="NESSchool" />
     <NavigationProperty Name="invoice_payment" Relationship="Student_Affairs_DatabaseModel.invoice_item" FromRole="payment_details" ToRole="invoice_payment" />
+    <NavigationProperty Name="Grade1" Relationship="Student_Affairs_DatabaseModel.FK_payment_details_Grade" FromRole="payment_details" ToRole="Grade" />
   </EntityType>
   <Association Name="FK_invoice_payment_invoice_payment">
     <End Type="Student_Affairs_DatabaseModel.invoice_payment" Role="invoice_payment" Multiplicity="0..1" />
@@ -624,6 +673,7 @@
     <NavigationProperty Name="StudentClothes" Relationship="Student_Affairs_DatabaseModel.fk_clothes_student" FromRole="Cloth" ToRole="StudentClothe" />
     <Property Name="ClothesinPackagePrice" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="ClothesColor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="FactoryPrice" Type="Decimal" Precision="19" Scale="4" />
   </EntityType>
   <Association Name="fk_clothes_student">
     <End Type="Student_Affairs_DatabaseModel.Cloth" Role="Cloth" Multiplicity="1" />
@@ -820,4 +870,107 @@
     <Property Name="StdLegalGuardianship" Type="Boolean" />
     <Property Name="StdParentsSeparated" Type="Boolean" />
   </EntityType>
+  <EntityType Name="Discount">
+    <Key>
+      <PropertyRef Name="DiscountID" />
+    </Key>
+    <Property Name="DiscountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DiscountPercent" Type="Double" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="StudentGradesHistories" Relationship="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_Discounts" FromRole="Discount" ToRole="StudentGradesHistory" />
+  </EntityType>
+  <EntityType Name="Machine">
+    <Key>
+      <PropertyRef Name="MachineID" />
+    </Key>
+    <Property Name="MachineID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="MachineName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="MachineSchool" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="invoice_payment" Relationship="Student_Affairs_DatabaseModel.FK_invoice_payment_Machines" FromRole="Machine" ToRole="invoice_payment" />
+    <NavigationProperty Name="NESSchool" Relationship="Student_Affairs_DatabaseModel.FK_Machines_Machines" FromRole="Machine" ToRole="NESSchool" />
+  </EntityType>
+  <Association Name="FK_StudentGradesHistory_Class">
+    <End Type="Student_Affairs_DatabaseModel.Class" Role="Class" Multiplicity="0..1" />
+    <End Type="Student_Affairs_DatabaseModel.StudentGradesHistory" Role="StudentGradesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="ClassID" />
+      </Principal>
+      <Dependent Role="StudentGradesHistory">
+        <PropertyRef Name="Class" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentGradesHistory_Discounts">
+    <End Type="Student_Affairs_DatabaseModel.Discount" Role="Discount" Multiplicity="0..1" />
+    <End Type="Student_Affairs_DatabaseModel.StudentGradesHistory" Role="StudentGradesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Discount">
+        <PropertyRef Name="DiscountID" />
+      </Principal>
+      <Dependent Role="StudentGradesHistory">
+        <PropertyRef Name="Discount" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_payment_details_Grade">
+    <End Type="Student_Affairs_DatabaseModel.Grade" Role="Grade" Multiplicity="0..1" />
+    <End Type="Student_Affairs_DatabaseModel.payment_details" Role="payment_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grade">
+        <PropertyRef Name="GradeID" />
+      </Principal>
+      <Dependent Role="payment_details">
+        <PropertyRef Name="Grade" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_invoice_payment_Machines">
+    <End Type="Student_Affairs_DatabaseModel.Machine" Role="Machine" Multiplicity="0..1" />
+    <End Type="Student_Affairs_DatabaseModel.invoice_payment" Role="invoice_payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Machine">
+        <PropertyRef Name="MachineID" />
+      </Principal>
+      <Dependent Role="invoice_payment">
+        <PropertyRef Name="machine" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Machines_Machines">
+    <End Type="Student_Affairs_DatabaseModel.NESSchool" Role="NESSchool" Multiplicity="1" />
+    <End Type="Student_Affairs_DatabaseModel.Machine" Role="Machine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NESSchool">
+        <PropertyRef Name="SchoolID" />
+      </Principal>
+      <Dependent Role="Machine">
+        <PropertyRef Name="MachineSchool" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentGradesHistory_NESSchools">
+    <End Type="Student_Affairs_DatabaseModel.NESSchool" Role="NESSchool" Multiplicity="0..1" />
+    <End Type="Student_Affairs_DatabaseModel.StudentGradesHistory" Role="StudentGradesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NESSchool">
+        <PropertyRef Name="SchoolID" />
+      </Principal>
+      <Dependent Role="StudentGradesHistory">
+        <PropertyRef Name="School" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentGradesHistoryListener_NESSchools">
+    <End Type="Student_Affairs_DatabaseModel.NESSchool" Role="NESSchool" Multiplicity="0..1" />
+    <End Type="Student_Affairs_DatabaseModel.StudentGradesHistory" Role="StudentGradesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NESSchool">
+        <PropertyRef Name="SchoolID" />
+      </Principal>
+      <Dependent Role="StudentGradesHistory">
+        <PropertyRef Name="ListenerSchool" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

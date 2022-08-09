@@ -26,7 +26,6 @@ namespace StudentsAffairsDashboard.Models
         public string ClothesinPackagePrice { get; set; }
         public string ClothesColor { get; set; }
         public Nullable<decimal> FactoryPrice { get; set; }
-        public Nullable<decimal> FactoryPackagePrice { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentClothe> StudentClothes { get; set; }

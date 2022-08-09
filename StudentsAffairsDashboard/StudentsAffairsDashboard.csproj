@@ -244,6 +244,9 @@
     <Compile Include="Models\Log.cs">
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Machine.cs">
+      <DependentUpon>AffairsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\NESSchool.cs">
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
