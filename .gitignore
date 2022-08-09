@@ -242,3 +242,4 @@ ModelManifest.xml
 .fake/
 *.config
 web.config
+StudentsAffairsDashboard/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
