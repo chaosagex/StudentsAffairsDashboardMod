@@ -162,6 +162,7 @@
     <Compile Include="Controllers\StudentAccountsController.cs" />
     <Compile Include="Controllers\StudentClothesController.cs" />
     <Compile Include="Controllers\StudentGradesHistoriesController.cs" />
+    <Compile Include="Controllers\StudentsMainCustomsController.cs" />
     <Compile Include="Controllers\StudentsMainsController.cs" />
     <Compile Include="Controllers\StudentSubjectEnrollsController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
@@ -243,9 +244,6 @@
     <Compile Include="Models\Log.cs">
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Machine.cs">
-      <DependentUpon>AffairsModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\NESSchool.cs">
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
@@ -283,20 +281,6 @@
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reports\Payment.aspx.cs">
-      <DependentUpon>Payment.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reports\Payment.aspx.designer.cs">
-      <DependentUpon>Payment.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\soldReport.aspx.cs">
-      <DependentUpon>soldReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reports\soldReport.aspx.designer.cs">
-      <DependentUpon>soldReport.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Reports\genericReport.aspx.cs">
       <DependentUpon>genericReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -497,8 +481,6 @@
     <Content Include="Plugins\fontawesome-free\webfonts\fa-brands-400.svg" />
     <Content Include="Plugins\fontawesome-free\webfonts\fa-regular-400.svg" />
     <Content Include="Plugins\fontawesome-free\webfonts\fa-solid-900.svg" />
-    <Content Include="Reports\Payment.aspx" />
-    <Content Include="Reports\soldReport.aspx" />
     <Content Include="Reports\genericReport.aspx" />
     <Content Include="Reports\Report.aspx" />
     <Content Include="Scripts\AdminLTE\adminlte.js" />
@@ -678,7 +660,14 @@
       <DependentUpon>Student_Affairs_DatabaseDataSet.xsd</DependentUpon>
     </Content>
     <Content Include="Views\StudentsMains\CreateQuick.cshtml" />
-    <Content Include="Views\invoice_payment\IndexStudents.cshtml" />
+    <Content Include="Views\StudentsMainCustoms\Create.cshtml" />
+    <Content Include="Views\StudentsMainCustoms\Delete.cshtml" />
+    <Content Include="Views\StudentsMainCustoms\Details.cshtml" />
+    <Content Include="Views\StudentsMainCustoms\Edit.cshtml" />
+    <Content Include="Views\StudentsMainCustoms\Index.cshtml" />
+    <Content Include="Views\StudentsMains\CreateCustom.cshtml" />
+    <Content Include="Views\StudentsMains\CustomEdit.cshtml" />
+    <Content Include="Views\StudentsMains\FilterGC.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -716,9 +705,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reports\soldReport.rdlc" />
     <EmbeddedResource Include="Reports\genericReport.rdlc" />
-    <EmbeddedResource Include="Reports\Payment_Invoice.rdlc" />
     <EmbeddedResource Include="Reports\Uniform_Invoice.rdlc" />
   </ItemGroup>
   <PropertyGroup>

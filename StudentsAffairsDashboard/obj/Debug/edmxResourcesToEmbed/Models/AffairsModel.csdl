@@ -42,7 +42,6 @@
     <Property Name="SchoolEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Accounts" Relationship="Student_Affairs_DatabaseModel.FK_Accounts_NESSchools" FromRole="NESSchool" ToRole="Account" />
     <Property Name="SchoolArabicName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Machines" Relationship="Student_Affairs_DatabaseModel.FK_Machines_Machines" FromRole="NESSchool" ToRole="Machine" />
   </EntityType>
   <EntityType Name="StudentAccount">
     <Key>
@@ -415,15 +414,7 @@
     <FunctionImport Name="getUniformByInvoice" ReturnType="Collection(Student_Affairs_DatabaseModel.getUniformByInvoice_Result)">
       <Parameter Name="invoice" Mode="In" Type="Int32" />
     </FunctionImport>
-    <EntitySet Name="Machines" EntityType="Student_Affairs_DatabaseModel.Machine" />
-    <AssociationSet Name="FK_invoice_payment_Machines" Association="Student_Affairs_DatabaseModel.FK_invoice_payment_Machines">
-      <End Role="Machine" EntitySet="Machines" />
-      <End Role="invoice_payment" EntitySet="invoice_payment" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Machines_Machines" Association="Student_Affairs_DatabaseModel.FK_Machines_Machines">
-      <End Role="NESSchool" EntitySet="NESSchools" />
-      <End Role="Machine" EntitySet="Machines" />
-    </AssociationSet>
+    <EntitySet Name="StudentsMainCustoms" EntityType="Student_Affairs_DatabaseModel.StudentsMainCustom" />
   </EntityContainer>
   <EntityType Name="Log">
     <Key>
@@ -484,10 +475,6 @@
     <Property Name="depositer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="type" Type="Int16" Nullable="false" />
     <Property Name="SeqID" Type="Int32" />
-    <Property Name="STAN" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-    <Property Name="BATCH" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-    <Property Name="machine" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Machine1" Relationship="Student_Affairs_DatabaseModel.FK_invoice_payment_Machines" FromRole="invoice_payment" ToRole="Machine" />
   </EntityType>
   <EntityType Name="payment_details">
     <Key>
@@ -637,8 +624,6 @@
     <NavigationProperty Name="StudentClothes" Relationship="Student_Affairs_DatabaseModel.fk_clothes_student" FromRole="Cloth" ToRole="StudentClothe" />
     <Property Name="ClothesinPackagePrice" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="ClothesColor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="FactoryPrice" Type="Decimal" Precision="19" Scale="4" />
-    <Property Name="FactoryPackagePrice" Type="Decimal" Precision="19" Scale="4" />
   </EntityType>
   <Association Name="fk_clothes_student">
     <End Type="Student_Affairs_DatabaseModel.Cloth" Role="Cloth" Multiplicity="1" />
@@ -784,38 +769,55 @@
     <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
     <Property Type="String" Name="StdArabicFamilyName" Nullable="true" MaxLength="100" />
   </ComplexType>
-  <EntityType Name="Machine">
+  <EntityType Name="StudentsMainCustom">
     <Key>
-      <PropertyRef Name="MachineID" />
+      <PropertyRef Name="StdCodeCustom" />
     </Key>
-    <Property Name="MachineID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="MachineName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
-    <Property Name="MachineSchool" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="invoice_payment" Relationship="Student_Affairs_DatabaseModel.FK_invoice_payment_Machines" FromRole="Machine" ToRole="invoice_payment" />
-    <NavigationProperty Name="NESSchool" Relationship="Student_Affairs_DatabaseModel.FK_Machines_Machines" FromRole="Machine" ToRole="NESSchool" />
+    <Property Name="StdCodeCustom" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StdArabicFristName" Type="Boolean" />
+    <Property Name="StdArabicMiddleName" Type="Boolean" />
+    <Property Name="StdArabicLastName" Type="Boolean" />
+    <Property Name="StdArabicFamilyName" Type="Boolean" />
+    <Property Name="StdEnglishFristName" Type="Boolean" />
+    <Property Name="StdEnglishMiddleName" Type="Boolean" />
+    <Property Name="StdEnglishLastName" Type="Boolean" />
+    <Property Name="StdEnglishFamilyName" Type="Boolean" />
+    <Property Name="StdMotherArabicName" Type="Boolean" />
+    <Property Name="StdMotherEnglishName" Type="Boolean" />
+    <Property Name="StdFatherMobilePhone" Type="Boolean" />
+    <Property Name="StdMotherMobilePhone" Type="Boolean" />
+    <Property Name="StdFatherEmail" Type="Boolean" />
+    <Property Name="StdMotherEmail" Type="Boolean" />
+    <Property Name="StdFatherNationality" Type="Boolean" />
+    <Property Name="StdMotherNationality" Type="Boolean" />
+    <Property Name="StdFatherSpokenLanguage" Type="Boolean" />
+    <Property Name="StdMotherSpokenLanguage" Type="Boolean" />
+    <Property Name="StdFatherJob" Type="Boolean" />
+    <Property Name="StdMotherJob" Type="Boolean" />
+    <Property Name="StdFatherQualification" Type="Boolean" />
+    <Property Name="StdMotherQualification" Type="Boolean" />
+    <Property Name="StdStudentsAffairs1" Type="Boolean" />
+    <Property Name="StdStudentsAffairs2" Type="Boolean" />
+    <Property Name="StdBirthCode" Type="Boolean" />
+    <Property Name="StdAddressGov" Type="Boolean" />
+    <Property Name="StdEmergencyContact" Type="Boolean" />
+    <Property Name="StdEmergencyPhone" Type="Boolean" />
+    <Property Name="StdBOD" Type="Boolean" />
+    <Property Name="StdBirthPlace" Type="Boolean" />
+    <Property Name="StdGender" Type="Boolean" />
+    <Property Name="StdReligion" Type="Boolean" />
+    <Property Name="StdFatherNID" Type="Boolean" />
+    <Property Name="StdMotherNID" Type="Boolean" />
+    <Property Name="StdCity" Type="Boolean" />
+    <Property Name="StdAddress" Type="Boolean" />
+    <Property Name="StdNID" Type="Boolean" />
+    <Property Name="StdSchoolID" Type="Boolean" />
+    <Property Name="StdClassID" Type="Boolean" />
+    <Property Name="StdNationality" Type="Boolean" />
+    <Property Name="StdStatus" Type="Boolean" />
+    <Property Name="StdJoinYear" Type="Boolean" />
+    <Property Name="StdStaffSon" Type="Boolean" />
+    <Property Name="StdLegalGuardianship" Type="Boolean" />
+    <Property Name="StdParentsSeparated" Type="Boolean" />
   </EntityType>
-  <Association Name="FK_invoice_payment_Machines">
-    <End Type="Student_Affairs_DatabaseModel.Machine" Role="Machine" Multiplicity="0..1" />
-    <End Type="Student_Affairs_DatabaseModel.invoice_payment" Role="invoice_payment" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Machine">
-        <PropertyRef Name="MachineID" />
-      </Principal>
-      <Dependent Role="invoice_payment">
-        <PropertyRef Name="machine" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Machines_Machines">
-    <End Type="Student_Affairs_DatabaseModel.NESSchool" Role="NESSchool" Multiplicity="1" />
-    <End Type="Student_Affairs_DatabaseModel.Machine" Role="Machine" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="NESSchool">
-        <PropertyRef Name="SchoolID" />
-      </Principal>
-      <Dependent Role="Machine">
-        <PropertyRef Name="MachineSchool" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>

@@ -1,0 +1,298 @@
+﻿@model IEnumerable<StudentsAffairsDashboard.Models.StudentsMainCustom>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StdArabicFristName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdArabicMiddleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdArabicLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdArabicFamilyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdEnglishFristName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdEnglishMiddleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdEnglishLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdEnglishFamilyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdMotherArabicName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdMotherEnglishName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdFatherMobilePhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdMotherMobilePhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdFatherEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdMotherEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdFatherNationality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdMotherNationality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdFatherSpokenLanguage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdMotherSpokenLanguage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdFatherJob)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdMotherJob)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdFatherQualification)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdMotherQualification)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdStudentsAffairs1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdStudentsAffairs2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdBirthCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdAddressGov)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdEmergencyContact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdEmergencyPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdBOD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdBirthPlace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdGender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdReligion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdFatherNID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdMotherNID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdNID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdSchoolID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdClassID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdNationality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdJoinYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdStaffSon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdLegalGuardianship)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StdParentsSeparated)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdArabicFristName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdArabicMiddleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdArabicLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdArabicFamilyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdEnglishFristName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdEnglishMiddleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdEnglishLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdEnglishFamilyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdMotherArabicName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdMotherEnglishName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdFatherMobilePhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdMotherMobilePhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdFatherEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdMotherEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdFatherNationality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdMotherNationality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdFatherSpokenLanguage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdMotherSpokenLanguage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdFatherJob)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdMotherJob)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdFatherQualification)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdMotherQualification)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdStudentsAffairs1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdStudentsAffairs2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdBirthCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdAddressGov)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdEmergencyContact)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdEmergencyPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdBOD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdBirthPlace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdGender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdReligion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdFatherNID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdMotherNID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdNID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdSchoolID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdClassID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdNationality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdJoinYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdStaffSon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdLegalGuardianship)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdParentsSeparated)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.StdCodeCustom }) |
+                @Html.ActionLink("Details", "Details", new { id = item.StdCodeCustom }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.StdCodeCustom })
+            </td>
+        </tr>
+    }
+
+</table>

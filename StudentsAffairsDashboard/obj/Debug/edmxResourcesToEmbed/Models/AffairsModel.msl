@@ -164,9 +164,6 @@
     <EntitySetMapping Name="invoice_payment">
       <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.invoice_payment">
         <MappingFragment StoreEntitySet="invoice_payment">
-          <ScalarProperty Name="machine" ColumnName="machine" />
-          <ScalarProperty Name="BATCH" ColumnName="BATCH" />
-          <ScalarProperty Name="STAN" ColumnName="STAN" />
           <ScalarProperty Name="SeqID" ColumnName="SeqID" />
           <ScalarProperty Name="type" ColumnName="type" />
           <ScalarProperty Name="depositer" ColumnName="depositer" />
@@ -315,8 +312,6 @@
     <EntitySetMapping Name="Clothes">
       <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Cloth">
         <MappingFragment StoreEntitySet="Clothes">
-          <ScalarProperty Name="FactoryPackagePrice" ColumnName="FactoryPackagePrice" />
-          <ScalarProperty Name="FactoryPrice" ColumnName="FactoryPrice" />
           <ScalarProperty Name="ClothesColor" ColumnName="ClothesColor" />
           <ScalarProperty Name="ClothesinPackagePrice" ColumnName="ClothesinPackagePrice" />
           <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
@@ -470,12 +465,55 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <EntitySetMapping Name="Machines">
-      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Machine">
-        <MappingFragment StoreEntitySet="Machines">
-          <ScalarProperty Name="MachineSchool" ColumnName="MachineSchool" />
-          <ScalarProperty Name="MachineName" ColumnName="MachineName" />
-          <ScalarProperty Name="MachineID" ColumnName="MachineID" />
+    <EntitySetMapping Name="StudentsMainCustoms">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentsMainCustom">
+        <MappingFragment StoreEntitySet="StudentsMainCustom">
+          <ScalarProperty Name="StdParentsSeparated" ColumnName="StdParentsSeparated" />
+          <ScalarProperty Name="StdLegalGuardianship" ColumnName="StdLegalGuardianship" />
+          <ScalarProperty Name="StdStaffSon" ColumnName="StdStaffSon" />
+          <ScalarProperty Name="StdJoinYear" ColumnName="StdJoinYear" />
+          <ScalarProperty Name="StdStatus" ColumnName="StdStatus" />
+          <ScalarProperty Name="StdNationality" ColumnName="StdNationality" />
+          <ScalarProperty Name="StdClassID" ColumnName="StdClassID" />
+          <ScalarProperty Name="StdSchoolID" ColumnName="StdSchoolID" />
+          <ScalarProperty Name="StdNID" ColumnName="StdNID" />
+          <ScalarProperty Name="StdAddress" ColumnName="StdAddress" />
+          <ScalarProperty Name="StdCity" ColumnName="StdCity" />
+          <ScalarProperty Name="StdMotherNID" ColumnName="StdMotherNID" />
+          <ScalarProperty Name="StdFatherNID" ColumnName="StdFatherNID" />
+          <ScalarProperty Name="StdReligion" ColumnName="StdReligion" />
+          <ScalarProperty Name="StdGender" ColumnName="StdGender" />
+          <ScalarProperty Name="StdBirthPlace" ColumnName="StdBirthPlace" />
+          <ScalarProperty Name="StdBOD" ColumnName="StdBOD" />
+          <ScalarProperty Name="StdEmergencyPhone" ColumnName="StdEmergencyPhone" />
+          <ScalarProperty Name="StdEmergencyContact" ColumnName="StdEmergencyContact" />
+          <ScalarProperty Name="StdAddressGov" ColumnName="StdAddressGov" />
+          <ScalarProperty Name="StdBirthCode" ColumnName="StdBirthCode" />
+          <ScalarProperty Name="StdStudentsAffairs2" ColumnName="StdStudentsAffairs2" />
+          <ScalarProperty Name="StdStudentsAffairs1" ColumnName="StdStudentsAffairs1" />
+          <ScalarProperty Name="StdMotherQualification" ColumnName="StdMotherQualification" />
+          <ScalarProperty Name="StdFatherQualification" ColumnName="StdFatherQualification" />
+          <ScalarProperty Name="StdMotherJob" ColumnName="StdMotherJob" />
+          <ScalarProperty Name="StdFatherJob" ColumnName="StdFatherJob" />
+          <ScalarProperty Name="StdMotherSpokenLanguage" ColumnName="StdMotherSpokenLanguage" />
+          <ScalarProperty Name="StdFatherSpokenLanguage" ColumnName="StdFatherSpokenLanguage" />
+          <ScalarProperty Name="StdMotherNationality" ColumnName="StdMotherNationality" />
+          <ScalarProperty Name="StdFatherNationality" ColumnName="StdFatherNationality" />
+          <ScalarProperty Name="StdMotherEmail" ColumnName="StdMotherEmail" />
+          <ScalarProperty Name="StdFatherEmail" ColumnName="StdFatherEmail" />
+          <ScalarProperty Name="StdMotherMobilePhone" ColumnName="StdMotherMobilePhone" />
+          <ScalarProperty Name="StdFatherMobilePhone" ColumnName="StdFatherMobilePhone" />
+          <ScalarProperty Name="StdMotherEnglishName" ColumnName="StdMotherEnglishName" />
+          <ScalarProperty Name="StdMotherArabicName" ColumnName="StdMotherArabicName" />
+          <ScalarProperty Name="StdEnglishFamilyName" ColumnName="StdEnglishFamilyName" />
+          <ScalarProperty Name="StdEnglishLastName" ColumnName="StdEnglishLastName" />
+          <ScalarProperty Name="StdEnglishMiddleName" ColumnName="StdEnglishMiddleName" />
+          <ScalarProperty Name="StdEnglishFristName" ColumnName="StdEnglishFristName" />
+          <ScalarProperty Name="StdArabicFamilyName" ColumnName="StdArabicFamilyName" />
+          <ScalarProperty Name="StdArabicLastName" ColumnName="StdArabicLastName" />
+          <ScalarProperty Name="StdArabicMiddleName" ColumnName="StdArabicMiddleName" />
+          <ScalarProperty Name="StdArabicFristName" ColumnName="StdArabicFristName" />
+          <ScalarProperty Name="StdCodeCustom" ColumnName="StdCodeCustom" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

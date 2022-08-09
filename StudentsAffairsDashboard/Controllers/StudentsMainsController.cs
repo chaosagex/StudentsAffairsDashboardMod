@@ -18,7 +18,7 @@ namespace StudentsAffairsDashboard.Controllers
 
         // GET: StudentsMains
         public ActionResult Index()
-        {            
+        {
 
             int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
             if (Session["CurrentSchool"] == null)
@@ -57,7 +57,7 @@ namespace StudentsAffairsDashboard.Controllers
             //ViewBag.GradeID = new SelectList(GradesResult, "GradeID", "GradeName");
 
             //return View(studentsMains.ToList());
-            
+
         }
 
         // GET: StudentsMains/Details/5
@@ -75,16 +75,193 @@ namespace StudentsAffairsDashboard.Controllers
             return View(studentsMain);
         }
 
-        // GET: StudentsMains/Create
+        // GET: StudentsMains/CustomEdit
         public ActionResult Create()
         {
             ViewBag.StdClassID = new SelectList(db.Classes, "ClassID", "ClassName");
             ViewBag.StdGradeID = new SelectList(db.Grades, "GradeID", "GradeName");
             ViewBag.StdSchoolID = new SelectList(db.NESSchools, "SchoolID", "SchoolName");
-            ViewBag.StdCode = new SelectList(db.StudentAccounts, "StdCode", "StdEmail");            
+            ViewBag.StdCode = new SelectList(db.StudentAccounts, "StdCode", "StdEmail");
+            return View();
+        }
+        public ActionResult CreateCustom()
+        {
+            var ListClasses = db.Classes.ToList();
+            ListClasses.Add(new Class() { ClassID = -1, ClassName = "All" });
+            var ClassesResult = ListClasses.OrderBy(d => d.ClassID).ToList();
+            ViewBag.StdClassID = new SelectList(ClassesResult, "ClassID", "ClassName");
+
+            var ListGrades = db.Grades.ToList();
+            ListGrades.Add(new Grade() { GradeID = -1, GradeName = "All" });
+            var GradesResult = ListGrades.OrderBy(d => d.GradeID).ToList();
+            ViewBag.StdGradeID = new SelectList(GradesResult, "GradeID", "GradeName");
+            int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
+            ViewBag.StdSchoolID = db.NESSchools.Where(a => a.SchoolID == SchoolIDsession).Select(a => a.SchoolName).FirstOrDefault();
             return View();
         }
 
+        
+
+        public ActionResult Filter(string StdGradeID , string StdClassID)
+        {
+            int Gid = Int32.Parse(StdGradeID);
+            int Sid = Int32.Parse(StdClassID);
+            List< StudentsMain> studentsMain = new List<StudentsMain>();
+            int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
+            if (Session["CurrentSchool"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else
+            {
+
+                if (SchoolIDsession == 1000)
+                {
+                    if (Gid == -1 && Sid == -1)
+                    {
+                        studentsMain = db.StudentsMains.ToList();
+
+                    }
+                    else if (Gid == -1 && Sid != -1)
+                    {
+                        studentsMain = db.StudentsMains.Where(a => a.StdClassID == Sid).ToList();
+                    }
+                    else if (Gid != -1 && Sid != -1)
+                    {
+                        List<StudentsMain> studentsMain2 = db.StudentsMains.Where(a => a.StdClassID == Sid).ToList();
+                        int SCC = 0;
+                        foreach (var item in studentsMain2)
+                        {
+
+                            SCC = item.StudentGradesHistories.Where(a => a.GradeID == Gid).OrderBy(a => a.GradeID).Select(a => a.StdCode).LastOrDefault();
+                            if (SCC != 0)
+                            {
+                                studentsMain.Add(item);
+                            }
+                        }
+                    }
+                    else if (Gid != -1 && Sid == -1)
+                    {
+                        List<StudentsMain> studentsMain2 = db.StudentsMains.ToList();
+                        int SCC = 0;
+                        foreach (var item in studentsMain2)
+                        {
+
+                            SCC = item.StudentGradesHistories.Where(a => a.GradeID == Gid).OrderBy(a => a.GradeID).Select(a => a.StdCode).LastOrDefault();
+                            if (SCC != 0)
+                            {
+                                studentsMain.Add(item);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (Gid == -1 && Sid == -1)
+                    {
+                        studentsMain = db.StudentsMains.Where(a => a.StdSchoolID == SchoolIDsession).ToList();
+
+                    }
+                    else if (Gid == -1 && Sid != -1)
+                    {
+                        studentsMain = db.StudentsMains.Where(a => a.StdClassID == Sid).Where(a => a.StdSchoolID == SchoolIDsession).ToList();
+                    }
+                    else if (Gid != -1 && Sid != -1)
+                    {
+                        List<StudentsMain> studentsMain2 = db.StudentsMains.Where(a => a.StdClassID == Sid).Where(a => a.StdSchoolID == SchoolIDsession).ToList();
+                        int SCC = 0;
+                        foreach (var item in studentsMain2)
+                        {
+
+                            SCC = item.StudentGradesHistories.Where(a => a.GradeID == Gid).OrderBy(a => a.GradeID).Select(a => a.StdCode).LastOrDefault();
+                            if (SCC != 0)
+                            {
+                                studentsMain.Add(item);
+                            }
+                        }
+                    }
+                    else if (Gid != -1 && Sid == -1)
+                    {
+                        List<StudentsMain> studentsMain2 = db.StudentsMains.Where(a => a.StdSchoolID == SchoolIDsession).ToList();
+                        int SCC = 0;
+                        foreach (var item in studentsMain2)
+                        {
+
+                            SCC = item.StudentGradesHistories.Where(a => a.GradeID == Gid).OrderBy(a => a.GradeID).Select(a => a.StdCode).LastOrDefault();
+                            if (SCC != 0)
+                            {
+                                studentsMain.Add(item);
+                            }
+                        }
+                    }
+                }
+
+            }
+            
+
+
+            if (studentsMain == null)
+            {
+                return HttpNotFound();
+            }           
+
+            return PartialView("FilterGC", studentsMain);
+        }
+        public ActionResult CustEdit(string searchText)
+        {
+            int id = Int32.Parse(searchText);
+            StudentsMain studentsMain = db.StudentsMains.Find(id);
+
+            if (studentsMain == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.StdClassID = new SelectList(db.Classes, "ClassID", "ClassName", studentsMain.StdClassID);
+            ViewBag.StdSchoolID = new SelectList(db.NESSchools, "SchoolID", "SchoolName", studentsMain.StdSchoolID);
+            StudentGradesHistory studentsMain2 = db.StudentGradesHistories.Where(a => a.StdCode == id).OrderByDescending(a => a.GradeID).FirstOrDefault();
+            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName", studentsMain2.GradeID);
+            ViewBag.StdCode = new SelectList(db.StudentAccounts, "StdCode", "StdEmail", studentsMain.StdCode);
+            ViewBag.Show = db.StudentsMainCustoms.Where(a=>a.StdCodeCustom == 1).ToArray();
+            ViewBag.Requ = db.StudentsMainCustoms.Where(a => a.StdCodeCustom == 2).ToArray();
+
+            return PartialView("CustomEdit", studentsMain);
+        }
+
+        // POST: StudentsMains/CustomEdit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CustomEdit(StudentsMain studentsMain)
+        {
+
+            ViewBag.StdClassID = new SelectList(db.Classes, "ClassID", "ClassName", studentsMain.StdClassID);
+            ViewBag.StdSchoolID = new SelectList(db.NESSchools, "SchoolID", "SchoolName", studentsMain.StdSchoolID);
+            StudentGradesHistory studentsMain2 = db.StudentGradesHistories.Where(a => a.StdCode == studentsMain.StdCode).OrderByDescending(a => a.GradeID).FirstOrDefault();
+            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName", studentsMain2.GradeID);
+            ViewBag.StdCode = new SelectList(db.StudentAccounts, "StdCode", "StdEmail", studentsMain.StdCode);
+            ViewBag.Show = db.StudentsMainCustoms.Where(a => a.StdCodeCustom == 1).ToArray();
+            ViewBag.Requ = db.StudentsMainCustoms.Where(a => a.StdCodeCustom == 2).ToArray();
+            string Gid = studentsMain2.GradeID.ToString();
+            string Sid = studentsMain.StdClassID.ToString();
+            if (ModelState.IsValid)
+            {                   
+                db.Entry(studentsMain).State = EntityState.Modified;
+                db.SaveChanges();
+                
+                LogsController logs = new LogsController();
+                DateTime now = DateTime.Now;
+                Log log = new Log();
+                log.UserName = Session["UserName"].ToString();
+                log.Times = now.ToString();
+                log.LogContent = "Edit : Account (" + Session["UserName"].ToString() + ") Edit Student Custom Data With ID: (" + studentsMain.StdCode + ")";
+                bool checklog = logs.Create(log);
+                ViewData.Model = studentsMain;
+                return View();
+            }
+            return View();
+        }
         public ActionResult CreateQuick()
         {
             ViewBag.StdGradeID = new SelectList(db.Grades, "GradeID", "GradeName");
@@ -93,16 +270,16 @@ namespace StudentsAffairsDashboard.Controllers
         }
         public ActionResult Update(int? id)
         {
-            var studentsGrades = db.StudentGradesHistories.Include(s => s.Grade).Include(s => s.StudentsMain).Where(a=>a.StdCode == id);
+            var studentsGrades = db.StudentGradesHistories.Include(s => s.Grade).Include(s => s.StudentsMain).Where(a => a.StdCode == id);
             ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
-            ViewBag.StdCode = new SelectList(db.StudentsMains, "StdCode", "StdEnglishFristName",id);
+            ViewBag.StdCode = new SelectList(db.StudentsMains, "StdCode", "StdEnglishFristName", id);
             return View(studentsGrades.ToList());
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update(string StdCode, string GradeID, string StudyYear,string KindBatch)
+        public ActionResult Update(string StdCode, string GradeID, string StudyYear, string KindBatch)
         {
             StudentGradesHistory studentGradesHistory = new StudentGradesHistory();
             studentGradesHistory.GradeID = Int32.Parse(GradeID);
@@ -126,20 +303,19 @@ namespace StudentsAffairsDashboard.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StdCode,StdArabicFristName,StdArabicMiddleName,StdArabicLastName,StdArabicFamilyName,StdEnglishFristName,StdEnglishMiddleName,StdEnglishLastName,StdEnglishFamilyName,StdMotherArabicName,StdMotherEnglishName,StdFatherMobilePhone,StdMotherMobilePhone,StdFatherEmail,StdMotherEmail,StdFatherNationality,StdMotherNationality,StdFatherSpokenLanguage,StdMotherSpokenLanguage,StdFatherJob,StdMotherJob,StdFatherQualification,StdMotherQualification,StdStudentsAffairs1,StdStudentsAffairs2,StdBirthCode,StdAddressGov,StdEmergencyContact,StdEmergencyPhone,StdBOD,StdBirthPlace,StdGender,StdReligion,StdFatherNID,StdMotherNID,StdCity,StdAddress,StdNID,StdSchoolID,StdClassID,StdNationality,StdStatus,StdJoinYear,StdStaffSon,StdLegalGuardianship,StdParentsSeparated")] StudentsMain studentsMain, string StdGradeID)
+        public ActionResult Create([Bind(Include = "StdCode,StdArabicFristName,StdArabicMiddleName,StdArabicLastName,StdArabicFamilyName,StdEnglishFristName,StdEnglishMiddleName,StdEnglishLastName,StdEnglishFamilyName,StdMotherArabicName,StdMotherEnglishName,StdFatherMobilePhone,StdMotherMobilePhone,StdFatherEmail,StdMotherEmail,StdFatherNationality,StdMotherNationality,StdFatherSpokenLanguage,StdMotherSpokenLanguage,StdFatherJob,StdMotherJob,StdFatherQualification,StdMotherQualification,StdStudentsAffairs1,StdStudentsAffairs2,StdBirthCode,StdAddressGov,StdEmergencyContact,StdEmergencyPhone,StdBOD,StdBirthPlace,StdGender,StdReligion,StdFatherNID,StdMotherNID,StdCity,StdAddress,StdNID,StdSchoolID,StdClassID,StdNationality,StdStatus,StdJoinYear,StdStaffSon,StdLegalGuardianship,StdParentsSeparated")] StudentsMain studentsMain, string GradeID)
         {
-            
+
             if (ModelState.IsValid)
             {
-                
-                
+
                 db.StudentsMains.Add(studentsMain);
                 db.SaveChanges();
 
                 StudentGradesHistory studentGradesHistory = new StudentGradesHistory();
-                studentGradesHistory.GradeID = Int32.Parse(StdGradeID);
+                studentGradesHistory.GradeID = Int32.Parse(GradeID);
                 studentGradesHistory.StdCode = studentsMain.StdCode;
-                studentGradesHistory.StudyYear = studentsMain.StdJoinYear.ToString().Substring(4,4);
+                studentGradesHistory.StudyYear = studentsMain.StdJoinYear.ToString().Substring(4, 4);
                 db.StudentGradesHistories.Add(studentGradesHistory);
                 db.SaveChanges();
                 LogsController logs = new LogsController();
@@ -157,7 +333,7 @@ namespace StudentsAffairsDashboard.Controllers
             ViewBag.StdCode = new SelectList(db.StudentAccounts, "StdCode", "StdEmail", studentsMain.StdCode);
             return View(studentsMain);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateQuick([Bind(Include = "StdCode,StdArabicFristName,StdArabicMiddleName,StdArabicLastName,StdArabicFamilyName,StdEnglishFristName,StdEnglishMiddleName,StdEnglishLastName,StdEnglishFamilyName,StdNID,StdJoinYear")] StudentsMain studentsMain, string StdGradeID)
@@ -167,7 +343,7 @@ namespace StudentsAffairsDashboard.Controllers
             studentsMain.StdClassID = 1;
             if (ModelState.IsValid)
             {
-               
+
                 db.StudentsMains.Add(studentsMain);
                 db.SaveChanges();
 
@@ -202,10 +378,10 @@ namespace StudentsAffairsDashboard.Controllers
             {
                 return HttpNotFound();
             }
-            
+
             ViewBag.StdClassID = new SelectList(db.Classes, "ClassID", "ClassName", studentsMain.StdClassID);
             ViewBag.StdSchoolID = new SelectList(db.NESSchools, "SchoolID", "SchoolName", studentsMain.StdSchoolID);
-            StudentGradesHistory studentsMain2 = db.StudentGradesHistories.Where(a=>a.StdCode == id).OrderByDescending(a=>a.GradeID).FirstOrDefault();
+            StudentGradesHistory studentsMain2 = db.StudentGradesHistories.Where(a => a.StdCode == id).OrderByDescending(a => a.GradeID).FirstOrDefault();
             //DateTime dt = (DateTime)studentsMain.StdBOD;
 
             //ViewBag.StdBOD = dt.ToString("dd/MM/yyyy");
@@ -296,7 +472,7 @@ namespace StudentsAffairsDashboard.Controllers
             foreach (StudentGradesHistory item in studentsG)
             {
                 db.StudentGradesHistories.Remove(item);
-                
+
             }
             db.SaveChanges();
             var studentsGG = db.StudentClothes.Where(a => a.StdCode == StdCode);
@@ -318,8 +494,8 @@ namespace StudentsAffairsDashboard.Controllers
             bool checklog = logs.Create(log);
             int SchoolIDsession = Int32.Parse(Session["CurrentSchool"].ToString());
             var studentsMains = db.StudentsMains.Include(s => s.Class).Include(s => s.NESSchool).Include(s => s.StudentAccount).Where(a => a.StdSchoolID == SchoolIDsession); ;
-            
-            return View("Index",studentsMains.ToList());
+
+            return View("Index", studentsMains.ToList());
         }
         protected override void Dispose(bool disposing)
         {

@@ -73,9 +73,6 @@
           <Property Name="depositer" Type="nvarchar" MaxLength="100" />
           <Property Name="type" Type="smallint" Nullable="false" />
           <Property Name="SeqID" Type="int" />
-          <Property Name="STAN" Type="varchar" MaxLength="6" />
-          <Property Name="BATCH" Type="varchar" MaxLength="6" />
-          <Property Name="machine" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Logs">
           <Key>
@@ -85,14 +82,6 @@
           <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Times" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="LogContent" Type="varchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Machines">
-          <Key>
-            <PropertyRef Name="MachineID" />
-          </Key>
-          <Property Name="MachineID" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="MachineName" Type="nchar" MaxLength="50" Nullable="false" />
-          <Property Name="MachineSchool" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="NESSchools">
           <Key>
@@ -371,18 +360,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_invoice_payment_Machines">
-          <End Role="Machines" Type="Self.Machines" Multiplicity="0..1" />
-          <End Role="invoice_payment" Type="Self.invoice_payment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Machines">
-              <PropertyRef Name="MachineID" />
-            </Principal>
-            <Dependent Role="invoice_payment">
-              <PropertyRef Name="machine" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_invoice_payment_student">
           <End Role="StudentsMain" Type="Self.StudentsMain" Multiplicity="1" />
           <End Role="invoice_payment" Type="Self.invoice_payment" Multiplicity="*" />
@@ -644,7 +621,6 @@
           <EntitySet Name="invoice_item" EntityType="Self.invoice_item" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="invoice_payment" EntityType="Self.invoice_payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Machines" EntityType="Self.Machines" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NESSchools" EntityType="Self.NESSchools" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PackageClothes" EntityType="Self.PackageClothes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="payment_details" EntityType="Self.payment_details" Schema="dbo" store:Type="Tables" />
@@ -682,10 +658,6 @@
           <AssociationSet Name="FK_invoice_payment_invoice_payment" Association="Self.FK_invoice_payment_invoice_payment">
             <End Role="invoice_payment" EntitySet="invoice_payment" />
             <End Role="invoice_payment1" EntitySet="invoice_payment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_invoice_payment_Machines" Association="Self.FK_invoice_payment_Machines">
-            <End Role="Machines" EntitySet="Machines" />
-            <End Role="invoice_payment" EntitySet="invoice_payment" />
           </AssociationSet>
           <AssociationSet Name="FK_invoice_payment_student" Association="Self.FK_invoice_payment_student">
             <End Role="StudentsMain" EntitySet="StudentsMain" />
@@ -1267,10 +1239,6 @@
           <Property Name="depositer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="type" Type="Int16" Nullable="false" />
           <Property Name="SeqID" Type="Int32" />
-          <Property Name="STAN" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="BATCH" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="machine" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Machine1" Relationship="Student_Affairs_DatabaseModel.FK_invoice_payment_Machines" FromRole="invoice_payment" ToRole="Machine" />
         </EntityType>
         <EntityType Name="payment_details">
           <Key>
@@ -1421,8 +1389,6 @@
           <NavigationProperty Name="StudentClothes" Relationship="Student_Affairs_DatabaseModel.fk_clothes_student" FromRole="Cloth" ToRole="StudentClothe" />
           <Property Name="ClothesinPackagePrice" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ClothesColor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="FactoryPrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="FactoryPackagePrice" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <Association Name="fk_clothes_student">
           <End Type="Student_Affairs_DatabaseModel.Cloth" Role="Cloth" Multiplicity="1" />
@@ -1568,15 +1534,56 @@
           <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="StdArabicFamilyName" Nullable="true" MaxLength="100" />
         </ComplexType>
-        <EntityType Name="Machine">
+        <EntityType Name="StudentsMainCustom">
           <Key>
-            <PropertyRef Name="MachineID" />
+            <PropertyRef Name="StdCodeCustom" />
           </Key>
-          <Property Name="MachineID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="MachineName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="MachineSchool" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="invoice_payment" Relationship="Student_Affairs_DatabaseModel.FK_invoice_payment_Machines" FromRole="Machine" ToRole="invoice_payment" />
-          <NavigationProperty Name="NESSchool" Relationship="Student_Affairs_DatabaseModel.FK_Machines_Machines" FromRole="Machine" ToRole="NESSchool" />
+          <Property Name="StdCodeCustom" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StdArabicFristName" Type="Boolean" />
+          <Property Name="StdArabicMiddleName" Type="Boolean" />
+          <Property Name="StdArabicLastName" Type="Boolean" />
+          <Property Name="StdArabicFamilyName" Type="Boolean" />
+          <Property Name="StdEnglishFristName" Type="Boolean" />
+          <Property Name="StdEnglishMiddleName" Type="Boolean" />
+          <Property Name="StdEnglishLastName" Type="Boolean" />
+          <Property Name="StdEnglishFamilyName" Type="Boolean" />
+          <Property Name="StdMotherArabicName" Type="Boolean" />
+          <Property Name="StdMotherEnglishName" Type="Boolean" />
+          <Property Name="StdFatherMobilePhone" Type="Boolean" />
+          <Property Name="StdMotherMobilePhone" Type="Boolean" />
+          <Property Name="StdFatherEmail" Type="Boolean" />
+          <Property Name="StdMotherEmail" Type="Boolean" />
+          <Property Name="StdFatherNationality" Type="Boolean" />
+          <Property Name="StdMotherNationality" Type="Boolean" />
+          <Property Name="StdFatherSpokenLanguage" Type="Boolean" />
+          <Property Name="StdMotherSpokenLanguage" Type="Boolean" />
+          <Property Name="StdFatherJob" Type="Boolean" />
+          <Property Name="StdMotherJob" Type="Boolean" />
+          <Property Name="StdFatherQualification" Type="Boolean" />
+          <Property Name="StdMotherQualification" Type="Boolean" />
+          <Property Name="StdStudentsAffairs1" Type="Boolean" />
+          <Property Name="StdStudentsAffairs2" Type="Boolean" />
+          <Property Name="StdBirthCode" Type="Boolean" />
+          <Property Name="StdAddressGov" Type="Boolean" />
+          <Property Name="StdEmergencyContact" Type="Boolean" />
+          <Property Name="StdEmergencyPhone" Type="Boolean" />
+          <Property Name="StdBOD" Type="Boolean" />
+          <Property Name="StdBirthPlace" Type="Boolean" />
+          <Property Name="StdGender" Type="Boolean" />
+          <Property Name="StdReligion" Type="Boolean" />
+          <Property Name="StdFatherNID" Type="Boolean" />
+          <Property Name="StdMotherNID" Type="Boolean" />
+          <Property Name="StdCity" Type="Boolean" />
+          <Property Name="StdAddress" Type="Boolean" />
+          <Property Name="StdNID" Type="Boolean" />
+          <Property Name="StdSchoolID" Type="Boolean" />
+          <Property Name="StdClassID" Type="Boolean" />
+          <Property Name="StdNationality" Type="Boolean" />
+          <Property Name="StdStatus" Type="Boolean" />
+          <Property Name="StdJoinYear" Type="Boolean" />
+          <Property Name="StdStaffSon" Type="Boolean" />
+          <Property Name="StdLegalGuardianship" Type="Boolean" />
+          <Property Name="StdParentsSeparated" Type="Boolean" />
         </EntityType>
         <Association Name="FK_invoice_payment_Machines">
           <End Type="Student_Affairs_DatabaseModel.Machine" Role="Machine" Multiplicity="0..1" />
@@ -1896,9 +1903,6 @@
           <EntitySetMapping Name="invoice_payment">
             <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.invoice_payment">
               <MappingFragment StoreEntitySet="invoice_payment">
-                <ScalarProperty Name="machine" ColumnName="machine" />
-                <ScalarProperty Name="BATCH" ColumnName="BATCH" />
-                <ScalarProperty Name="STAN" ColumnName="STAN" />
                 <ScalarProperty Name="SeqID" ColumnName="SeqID" />
                 <ScalarProperty Name="type" ColumnName="type" />
                 <ScalarProperty Name="depositer" ColumnName="depositer" />
@@ -2201,12 +2205,55 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="Machines">
-            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Machine">
-              <MappingFragment StoreEntitySet="Machines">
-                <ScalarProperty Name="MachineSchool" ColumnName="MachineSchool" />
-                <ScalarProperty Name="MachineName" ColumnName="MachineName" />
-                <ScalarProperty Name="MachineID" ColumnName="MachineID" />
+          <EntitySetMapping Name="StudentsMainCustoms">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentsMainCustom">
+              <MappingFragment StoreEntitySet="StudentsMainCustom">
+                <ScalarProperty Name="StdParentsSeparated" ColumnName="StdParentsSeparated" />
+                <ScalarProperty Name="StdLegalGuardianship" ColumnName="StdLegalGuardianship" />
+                <ScalarProperty Name="StdStaffSon" ColumnName="StdStaffSon" />
+                <ScalarProperty Name="StdJoinYear" ColumnName="StdJoinYear" />
+                <ScalarProperty Name="StdStatus" ColumnName="StdStatus" />
+                <ScalarProperty Name="StdNationality" ColumnName="StdNationality" />
+                <ScalarProperty Name="StdClassID" ColumnName="StdClassID" />
+                <ScalarProperty Name="StdSchoolID" ColumnName="StdSchoolID" />
+                <ScalarProperty Name="StdNID" ColumnName="StdNID" />
+                <ScalarProperty Name="StdAddress" ColumnName="StdAddress" />
+                <ScalarProperty Name="StdCity" ColumnName="StdCity" />
+                <ScalarProperty Name="StdMotherNID" ColumnName="StdMotherNID" />
+                <ScalarProperty Name="StdFatherNID" ColumnName="StdFatherNID" />
+                <ScalarProperty Name="StdReligion" ColumnName="StdReligion" />
+                <ScalarProperty Name="StdGender" ColumnName="StdGender" />
+                <ScalarProperty Name="StdBirthPlace" ColumnName="StdBirthPlace" />
+                <ScalarProperty Name="StdBOD" ColumnName="StdBOD" />
+                <ScalarProperty Name="StdEmergencyPhone" ColumnName="StdEmergencyPhone" />
+                <ScalarProperty Name="StdEmergencyContact" ColumnName="StdEmergencyContact" />
+                <ScalarProperty Name="StdAddressGov" ColumnName="StdAddressGov" />
+                <ScalarProperty Name="StdBirthCode" ColumnName="StdBirthCode" />
+                <ScalarProperty Name="StdStudentsAffairs2" ColumnName="StdStudentsAffairs2" />
+                <ScalarProperty Name="StdStudentsAffairs1" ColumnName="StdStudentsAffairs1" />
+                <ScalarProperty Name="StdMotherQualification" ColumnName="StdMotherQualification" />
+                <ScalarProperty Name="StdFatherQualification" ColumnName="StdFatherQualification" />
+                <ScalarProperty Name="StdMotherJob" ColumnName="StdMotherJob" />
+                <ScalarProperty Name="StdFatherJob" ColumnName="StdFatherJob" />
+                <ScalarProperty Name="StdMotherSpokenLanguage" ColumnName="StdMotherSpokenLanguage" />
+                <ScalarProperty Name="StdFatherSpokenLanguage" ColumnName="StdFatherSpokenLanguage" />
+                <ScalarProperty Name="StdMotherNationality" ColumnName="StdMotherNationality" />
+                <ScalarProperty Name="StdFatherNationality" ColumnName="StdFatherNationality" />
+                <ScalarProperty Name="StdMotherEmail" ColumnName="StdMotherEmail" />
+                <ScalarProperty Name="StdFatherEmail" ColumnName="StdFatherEmail" />
+                <ScalarProperty Name="StdMotherMobilePhone" ColumnName="StdMotherMobilePhone" />
+                <ScalarProperty Name="StdFatherMobilePhone" ColumnName="StdFatherMobilePhone" />
+                <ScalarProperty Name="StdMotherEnglishName" ColumnName="StdMotherEnglishName" />
+                <ScalarProperty Name="StdMotherArabicName" ColumnName="StdMotherArabicName" />
+                <ScalarProperty Name="StdEnglishFamilyName" ColumnName="StdEnglishFamilyName" />
+                <ScalarProperty Name="StdEnglishLastName" ColumnName="StdEnglishLastName" />
+                <ScalarProperty Name="StdEnglishMiddleName" ColumnName="StdEnglishMiddleName" />
+                <ScalarProperty Name="StdEnglishFristName" ColumnName="StdEnglishFristName" />
+                <ScalarProperty Name="StdArabicFamilyName" ColumnName="StdArabicFamilyName" />
+                <ScalarProperty Name="StdArabicLastName" ColumnName="StdArabicLastName" />
+                <ScalarProperty Name="StdArabicMiddleName" ColumnName="StdArabicMiddleName" />
+                <ScalarProperty Name="StdArabicFristName" ColumnName="StdArabicFristName" />
+                <ScalarProperty Name="StdCodeCustom" ColumnName="StdCodeCustom" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
