@@ -18,6 +18,7 @@ namespace StudentsAffairsDashboard.Models
         public Grade()
         {
             this.StudentGradesHistories = new HashSet<StudentGradesHistory>();
+            this.payment_details = new HashSet<payment_details>();
         }
     
         public int GradeID { get; set; }
@@ -25,5 +26,7 @@ namespace StudentsAffairsDashboard.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentGradesHistory> StudentGradesHistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<payment_details> payment_details { get; set; }
     }
 }

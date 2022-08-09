@@ -193,6 +193,9 @@
     <Compile Include="Models\Cloth.cs">
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Discount.cs">
+      <DependentUpon>AffairsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\getInvoiceById_Result.cs">
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
@@ -239,6 +242,9 @@
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Log.cs">
+      <DependentUpon>AffairsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Machine.cs">
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NESSchool.cs">

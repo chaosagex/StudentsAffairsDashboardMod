@@ -12,20 +12,18 @@ namespace StudentsAffairsDashboard.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Class
+    public partial class Discount
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Class()
+        public Discount()
         {
-            this.StudentsMains = new HashSet<StudentsMain>();
             this.StudentGradesHistories = new HashSet<StudentGradesHistory>();
         }
     
-        public int ClassID { get; set; }
-        public string ClassName { get; set; }
+        public int DiscountID { get; set; }
+        public double DiscountPercent { get; set; }
+        public string Name { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StudentsMain> StudentsMains { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudentGradesHistory> StudentGradesHistories { get; set; }
     }

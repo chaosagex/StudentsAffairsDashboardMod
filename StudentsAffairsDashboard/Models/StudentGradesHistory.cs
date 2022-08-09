@@ -19,8 +19,17 @@ namespace StudentsAffairsDashboard.Models
         public int GradeID { get; set; }
         public string StudyYear { get; set; }
         public string KindBatch { get; set; }
+        public Nullable<int> School { get; set; }
+        public Nullable<int> Class { get; set; }
+        public Nullable<int> Discount { get; set; }
+        public Nullable<int> ListenerSchool { get; set; }
+        public string StudentStatus { get; set; }
     
         public virtual Grade Grade { get; set; }
         public virtual StudentsMain StudentsMain { get; set; }
+        public virtual Class Class1 { get; set; }
+        public virtual Discount Discount1 { get; set; }
+        public virtual NESSchool NESSchool { get; set; }
+        public virtual NESSchool NESSchool1 { get; set; }
     }
 }

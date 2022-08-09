@@ -9,7 +9,7 @@
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Class" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Grade" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.NESSchool" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.StudentAccount" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.StudentAccount" Width="1.5" PointX="6.5" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.StudentGradesHistory" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.StudentsMain" Width="1.875" PointX="3" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.StudentSubjectEnroll" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
@@ -35,6 +35,15 @@
         <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_Accounts_NESSchools" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.PackageClothe" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.StudentsMainCustom" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Discount" Width="1.5" PointX="3" PointY="21.875" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Machine" Width="1.5" PointX="3" PointY="18.75" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_Class" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_Discounts" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_payment_details_Grade" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_invoice_payment_Machines" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_Machines_Machines" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_NESSchools" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_StudentGradesHistoryListener_NESSchools" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

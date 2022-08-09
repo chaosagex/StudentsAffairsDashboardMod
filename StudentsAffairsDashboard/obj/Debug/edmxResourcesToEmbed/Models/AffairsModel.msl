@@ -55,6 +55,11 @@
     <EntitySetMapping Name="StudentGradesHistories">
       <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentGradesHistory">
         <MappingFragment StoreEntitySet="StudentGradesHistory">
+          <ScalarProperty Name="StudentStatus" ColumnName="StudentStatus" />
+          <ScalarProperty Name="ListenerSchool" ColumnName="ListenerSchool" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="School" ColumnName="School" />
           <ScalarProperty Name="KindBatch" ColumnName="KindBatch" />
           <ScalarProperty Name="SGID" ColumnName="SGID" />
           <ScalarProperty Name="StdCode" ColumnName="StdCode" />
@@ -164,6 +169,9 @@
     <EntitySetMapping Name="invoice_payment">
       <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.invoice_payment">
         <MappingFragment StoreEntitySet="invoice_payment">
+          <ScalarProperty Name="machine" ColumnName="machine" />
+          <ScalarProperty Name="BATCH" ColumnName="BATCH" />
+          <ScalarProperty Name="STAN" ColumnName="STAN" />
           <ScalarProperty Name="SeqID" ColumnName="SeqID" />
           <ScalarProperty Name="type" ColumnName="type" />
           <ScalarProperty Name="depositer" ColumnName="depositer" />
@@ -312,6 +320,7 @@
     <EntitySetMapping Name="Clothes">
       <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Cloth">
         <MappingFragment StoreEntitySet="Clothes">
+          <ScalarProperty Name="FactoryPrice" ColumnName="FactoryPrice" />
           <ScalarProperty Name="ClothesColor" ColumnName="ClothesColor" />
           <ScalarProperty Name="ClothesinPackagePrice" ColumnName="ClothesinPackagePrice" />
           <ScalarProperty Name="ClothesPrice" ColumnName="ClothesPrice" />
@@ -514,6 +523,24 @@
           <ScalarProperty Name="StdArabicMiddleName" ColumnName="StdArabicMiddleName" />
           <ScalarProperty Name="StdArabicFristName" ColumnName="StdArabicFristName" />
           <ScalarProperty Name="StdCodeCustom" ColumnName="StdCodeCustom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Discounts">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Discount">
+        <MappingFragment StoreEntitySet="Discounts">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+          <ScalarProperty Name="DiscountID" ColumnName="DiscountID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Machines">
+      <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Machine">
+        <MappingFragment StoreEntitySet="Machines">
+          <ScalarProperty Name="MachineSchool" ColumnName="MachineSchool" />
+          <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+          <ScalarProperty Name="MachineID" ColumnName="MachineID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -27,7 +27,14 @@
     <Property Name="ClothesinPackagePrice" Type="varchar" MaxLength="100" />
     <Property Name="ClothesColor" Type="nvarchar" MaxLength="100" />
     <Property Name="FactoryPrice" Type="money" />
-    <Property Name="FactoryPackagePrice" Type="money" />
+  </EntityType>
+  <EntityType Name="Discounts">
+    <Key>
+      <PropertyRef Name="DiscountID" />
+    </Key>
+    <Property Name="DiscountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DiscountPercent" Type="float" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="Grade">
     <Key>
@@ -149,6 +156,11 @@
     <Property Name="GradeID" Type="int" Nullable="false" />
     <Property Name="StudyYear" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="KindBatch" Type="varchar" MaxLength="100" />
+    <Property Name="School" Type="int" />
+    <Property Name="Class" Type="int" />
+    <Property Name="Discount" Type="int" />
+    <Property Name="ListenerSchool" Type="int" />
+    <Property Name="StudentStatus" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="StudentsMain">
     <Key>
@@ -390,6 +402,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_payment_details_Grade">
+    <End Role="Grade" Type="Self.Grade" Multiplicity="0..1" />
+    <End Role="payment_details" Type="Self.payment_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grade">
+        <PropertyRef Name="GradeID" />
+      </Principal>
+      <Dependent Role="payment_details">
+        <PropertyRef Name="Grade" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_payment_details_school">
     <End Role="NESSchools" Type="Self.NESSchools" Multiplicity="1" />
     <End Role="payment_details" Type="Self.payment_details" Multiplicity="*" />
@@ -447,6 +471,54 @@
       </Principal>
       <Dependent Role="StudentGradesHistory">
         <PropertyRef Name="StdCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentGradesHistory_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+    <End Role="StudentGradesHistory" Type="Self.StudentGradesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="ClassID" />
+      </Principal>
+      <Dependent Role="StudentGradesHistory">
+        <PropertyRef Name="Class" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentGradesHistory_Discounts">
+    <End Role="Discounts" Type="Self.Discounts" Multiplicity="0..1" />
+    <End Role="StudentGradesHistory" Type="Self.StudentGradesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Discounts">
+        <PropertyRef Name="DiscountID" />
+      </Principal>
+      <Dependent Role="StudentGradesHistory">
+        <PropertyRef Name="Discount" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentGradesHistory_NESSchools">
+    <End Role="NESSchools" Type="Self.NESSchools" Multiplicity="0..1" />
+    <End Role="StudentGradesHistory" Type="Self.StudentGradesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NESSchools">
+        <PropertyRef Name="SchoolID" />
+      </Principal>
+      <Dependent Role="StudentGradesHistory">
+        <PropertyRef Name="School" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentGradesHistoryListener_NESSchools">
+    <End Role="NESSchools" Type="Self.NESSchools" Multiplicity="0..1" />
+    <End Role="StudentGradesHistory" Type="Self.StudentGradesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NESSchools">
+        <PropertyRef Name="SchoolID" />
+      </Principal>
+      <Dependent Role="StudentGradesHistory">
+        <PropertyRef Name="ListenerSchool" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -562,6 +634,7 @@
     <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Clothes" EntityType="Self.Clothes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Discounts" EntityType="Self.Discounts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Grade" EntityType="Self.Grade" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="invoice_item" EntityType="Self.invoice_item" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="invoice_payment" EntityType="Self.invoice_payment" Schema="dbo" store:Type="Tables" />
@@ -617,6 +690,10 @@
       <End Role="NESSchools" EntitySet="NESSchools" />
       <End Role="Machines" EntitySet="Machines" />
     </AssociationSet>
+    <AssociationSet Name="FK_payment_details_Grade" Association="Self.FK_payment_details_Grade">
+      <End Role="Grade" EntitySet="Grade" />
+      <End Role="payment_details" EntitySet="payment_details" />
+    </AssociationSet>
     <AssociationSet Name="FK_payment_details_school" Association="Self.FK_payment_details_school">
       <End Role="NESSchools" EntitySet="NESSchools" />
       <End Role="payment_details" EntitySet="payment_details" />
@@ -635,6 +712,22 @@
     </AssociationSet>
     <AssociationSet Name="fk_stu_history" Association="Self.fk_stu_history">
       <End Role="StudentsMain" EntitySet="StudentsMain" />
+      <End Role="StudentGradesHistory" EntitySet="StudentGradesHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentGradesHistory_Class" Association="Self.FK_StudentGradesHistory_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="StudentGradesHistory" EntitySet="StudentGradesHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentGradesHistory_Discounts" Association="Self.FK_StudentGradesHistory_Discounts">
+      <End Role="Discounts" EntitySet="Discounts" />
+      <End Role="StudentGradesHistory" EntitySet="StudentGradesHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentGradesHistory_NESSchools" Association="Self.FK_StudentGradesHistory_NESSchools">
+      <End Role="NESSchools" EntitySet="NESSchools" />
+      <End Role="StudentGradesHistory" EntitySet="StudentGradesHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentGradesHistoryListener_NESSchools" Association="Self.FK_StudentGradesHistoryListener_NESSchools">
+      <End Role="NESSchools" EntitySet="NESSchools" />
       <End Role="StudentGradesHistory" EntitySet="StudentGradesHistory" />
     </AssociationSet>
     <AssociationSet Name="fk_subject_Enroll" Association="Self.fk_subject_Enroll">
