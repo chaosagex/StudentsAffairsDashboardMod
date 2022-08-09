@@ -1,0 +1,131 @@
+﻿@model StudentsAffairsDashboard.Models.StudentsMain
+@{
+    ViewBag.Title = "CreateCustom";
+}
+<div class="row p-2">
+    <div class="col-4 p-2">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="form-horizontal">
+                        <div class="card-header">
+                            <h3 class="card-title">Filter @Html.Display("StdSchoolID") Student Data</h3>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="row px-3">
+                                <div class="col-6" style="padding-bottom: 20px;">
+                                    @Html.Label("Grade", htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownList("StdGradeID", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessage("", "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-6" style="padding-bottom: 20px;">
+                                    @Html.LabelFor(model => model.StdClassID, "Class", htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownList("StdClassID", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.StdClassID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group float-right">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="button" onclick="Confirm()" value="Search Of Students" class="btn btn-primary" >Show  List</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12" id="StudentData">
+                
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-8 p-2" id="searchResults">
+
+    </div>
+
+</div>
+<div class="col-6">
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</div>
+
+@section Scripts {
+    <script>
+        var Confirm = function () {
+            var StdGradeID = $("#StdGradeID").val();
+            var StdClassID = $("#StdClassID").val();
+            var Link1 = "@Url.Action("Filter", "StudentsMains")"
+            $.ajax({
+                type: "POST",
+                url: Link1 ,
+                data: '{StdGradeID: "' + StdGradeID + '", StdClassID: "' + StdClassID + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $('#StudentData').html(response);
+                },
+                failure: function (response) {
+                    console.log(response.responseText);
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+
+        }
+        var ConfirmEdit = function (EmployeeId) {
+            var Link2 = "@Url.Action("CustEdit", "StudentsMains")"
+            $.ajax({
+                type: "POST",
+                url: Link2,
+                data: '{searchText: "' + EmployeeId + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $('#searchResults').html(response);
+                },
+                failure: function (response) {
+                    console.log(response.responseText);
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        }
+        var CustomEdit = function () {
+            var Link3 = "@Url.Action("CustomEdit", "StudentsMains")"
+            var valdata = $("#formStudent").serialize();
+            $.ajax({
+                type: "POST",
+                url: Link3,
+                data: valdata,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                success: function (response) {
+                    alert("SSS")
+                },
+                failure: function (response) {
+                    console.log(response.responseText);
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        }
+        $(document).ready(function () {
+            $('#StdBOD').datepicker({
+                dateFormat: "dd/mm/yyyy",
+                showStatus: true,
+                showWeeks: true,
+                currentText: 'Now',
+                autoSize: true,
+                gotoCurrent: true,
+                showAnim: 'blind',
+                highlightWeek: true
+            });
+        });
+    </script>
+
+
+    @Scripts.Render("~/bundles/jqueryval")
+}

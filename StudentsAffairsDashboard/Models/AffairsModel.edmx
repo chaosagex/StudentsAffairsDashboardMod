@@ -193,6 +193,57 @@
           <Property Name="StdLegalGuardianship" Type="varchar" MaxLength="100" />
           <Property Name="StdParentsSeparated" Type="bit" />
         </EntityType>
+        <EntityType Name="StudentsMainCustom">
+          <Key>
+            <PropertyRef Name="StdCodeCustom" />
+          </Key>
+          <Property Name="StdCodeCustom" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StdArabicFristName" Type="bit" />
+          <Property Name="StdArabicMiddleName" Type="bit" />
+          <Property Name="StdArabicLastName" Type="bit" />
+          <Property Name="StdArabicFamilyName" Type="bit" />
+          <Property Name="StdEnglishFristName" Type="bit" />
+          <Property Name="StdEnglishMiddleName" Type="bit" />
+          <Property Name="StdEnglishLastName" Type="bit" />
+          <Property Name="StdEnglishFamilyName" Type="bit" />
+          <Property Name="StdMotherArabicName" Type="bit" />
+          <Property Name="StdMotherEnglishName" Type="bit" />
+          <Property Name="StdFatherMobilePhone" Type="bit" />
+          <Property Name="StdMotherMobilePhone" Type="bit" />
+          <Property Name="StdFatherEmail" Type="bit" />
+          <Property Name="StdMotherEmail" Type="bit" />
+          <Property Name="StdFatherNationality" Type="bit" />
+          <Property Name="StdMotherNationality" Type="bit" />
+          <Property Name="StdFatherSpokenLanguage" Type="bit" />
+          <Property Name="StdMotherSpokenLanguage" Type="bit" />
+          <Property Name="StdFatherJob" Type="bit" />
+          <Property Name="StdMotherJob" Type="bit" />
+          <Property Name="StdFatherQualification" Type="bit" />
+          <Property Name="StdMotherQualification" Type="bit" />
+          <Property Name="StdStudentsAffairs1" Type="bit" />
+          <Property Name="StdStudentsAffairs2" Type="bit" />
+          <Property Name="StdBirthCode" Type="bit" />
+          <Property Name="StdAddressGov" Type="bit" />
+          <Property Name="StdEmergencyContact" Type="bit" />
+          <Property Name="StdEmergencyPhone" Type="bit" />
+          <Property Name="StdBOD" Type="bit" />
+          <Property Name="StdBirthPlace" Type="bit" />
+          <Property Name="StdGender" Type="bit" />
+          <Property Name="StdReligion" Type="bit" />
+          <Property Name="StdFatherNID" Type="bit" />
+          <Property Name="StdMotherNID" Type="bit" />
+          <Property Name="StdCity" Type="bit" />
+          <Property Name="StdAddress" Type="bit" />
+          <Property Name="StdNID" Type="bit" />
+          <Property Name="StdSchoolID" Type="bit" />
+          <Property Name="StdClassID" Type="bit" />
+          <Property Name="StdNationality" Type="bit" />
+          <Property Name="StdStatus" Type="bit" />
+          <Property Name="StdJoinYear" Type="bit" />
+          <Property Name="StdStaffSon" Type="bit" />
+          <Property Name="StdLegalGuardianship" Type="bit" />
+          <Property Name="StdParentsSeparated" Type="bit" />
+        </EntityType>
         <EntityType Name="StudentSubjectEnroll">
           <Key>
             <PropertyRef Name="SSID" />
@@ -490,6 +541,7 @@
           <EntitySet Name="StudentClothes" EntityType="Self.StudentClothes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentGradesHistory" EntityType="Self.StudentGradesHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentsMain" EntityType="Self.StudentsMain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentsMainCustom" EntityType="Self.StudentsMainCustom" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentSubjectEnroll" EntityType="Self.StudentSubjectEnroll" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Accounts_NESSchools" Association="Self.FK_Accounts_NESSchools">
@@ -971,6 +1023,7 @@
           <FunctionImport Name="getUniformByInvoice" ReturnType="Collection(Student_Affairs_DatabaseModel.getUniformByInvoice_Result)">
           <Parameter Name="invoice" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="StudentsMainCustoms" EntityType="Student_Affairs_DatabaseModel.StudentsMainCustom" />
         </EntityContainer>
         <EntityType Name="Log">
           <Key>
@@ -1325,6 +1378,57 @@
           <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="StdArabicFamilyName" Nullable="true" MaxLength="100" />
         </ComplexType>
+        <EntityType Name="StudentsMainCustom">
+          <Key>
+            <PropertyRef Name="StdCodeCustom" />
+          </Key>
+          <Property Name="StdCodeCustom" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StdArabicFristName" Type="Boolean" />
+          <Property Name="StdArabicMiddleName" Type="Boolean" />
+          <Property Name="StdArabicLastName" Type="Boolean" />
+          <Property Name="StdArabicFamilyName" Type="Boolean" />
+          <Property Name="StdEnglishFristName" Type="Boolean" />
+          <Property Name="StdEnglishMiddleName" Type="Boolean" />
+          <Property Name="StdEnglishLastName" Type="Boolean" />
+          <Property Name="StdEnglishFamilyName" Type="Boolean" />
+          <Property Name="StdMotherArabicName" Type="Boolean" />
+          <Property Name="StdMotherEnglishName" Type="Boolean" />
+          <Property Name="StdFatherMobilePhone" Type="Boolean" />
+          <Property Name="StdMotherMobilePhone" Type="Boolean" />
+          <Property Name="StdFatherEmail" Type="Boolean" />
+          <Property Name="StdMotherEmail" Type="Boolean" />
+          <Property Name="StdFatherNationality" Type="Boolean" />
+          <Property Name="StdMotherNationality" Type="Boolean" />
+          <Property Name="StdFatherSpokenLanguage" Type="Boolean" />
+          <Property Name="StdMotherSpokenLanguage" Type="Boolean" />
+          <Property Name="StdFatherJob" Type="Boolean" />
+          <Property Name="StdMotherJob" Type="Boolean" />
+          <Property Name="StdFatherQualification" Type="Boolean" />
+          <Property Name="StdMotherQualification" Type="Boolean" />
+          <Property Name="StdStudentsAffairs1" Type="Boolean" />
+          <Property Name="StdStudentsAffairs2" Type="Boolean" />
+          <Property Name="StdBirthCode" Type="Boolean" />
+          <Property Name="StdAddressGov" Type="Boolean" />
+          <Property Name="StdEmergencyContact" Type="Boolean" />
+          <Property Name="StdEmergencyPhone" Type="Boolean" />
+          <Property Name="StdBOD" Type="Boolean" />
+          <Property Name="StdBirthPlace" Type="Boolean" />
+          <Property Name="StdGender" Type="Boolean" />
+          <Property Name="StdReligion" Type="Boolean" />
+          <Property Name="StdFatherNID" Type="Boolean" />
+          <Property Name="StdMotherNID" Type="Boolean" />
+          <Property Name="StdCity" Type="Boolean" />
+          <Property Name="StdAddress" Type="Boolean" />
+          <Property Name="StdNID" Type="Boolean" />
+          <Property Name="StdSchoolID" Type="Boolean" />
+          <Property Name="StdClassID" Type="Boolean" />
+          <Property Name="StdNationality" Type="Boolean" />
+          <Property Name="StdStatus" Type="Boolean" />
+          <Property Name="StdJoinYear" Type="Boolean" />
+          <Property Name="StdStaffSon" Type="Boolean" />
+          <Property Name="StdLegalGuardianship" Type="Boolean" />
+          <Property Name="StdParentsSeparated" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1795,6 +1899,58 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="StudentsMainCustoms">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentsMainCustom">
+              <MappingFragment StoreEntitySet="StudentsMainCustom">
+                <ScalarProperty Name="StdParentsSeparated" ColumnName="StdParentsSeparated" />
+                <ScalarProperty Name="StdLegalGuardianship" ColumnName="StdLegalGuardianship" />
+                <ScalarProperty Name="StdStaffSon" ColumnName="StdStaffSon" />
+                <ScalarProperty Name="StdJoinYear" ColumnName="StdJoinYear" />
+                <ScalarProperty Name="StdStatus" ColumnName="StdStatus" />
+                <ScalarProperty Name="StdNationality" ColumnName="StdNationality" />
+                <ScalarProperty Name="StdClassID" ColumnName="StdClassID" />
+                <ScalarProperty Name="StdSchoolID" ColumnName="StdSchoolID" />
+                <ScalarProperty Name="StdNID" ColumnName="StdNID" />
+                <ScalarProperty Name="StdAddress" ColumnName="StdAddress" />
+                <ScalarProperty Name="StdCity" ColumnName="StdCity" />
+                <ScalarProperty Name="StdMotherNID" ColumnName="StdMotherNID" />
+                <ScalarProperty Name="StdFatherNID" ColumnName="StdFatherNID" />
+                <ScalarProperty Name="StdReligion" ColumnName="StdReligion" />
+                <ScalarProperty Name="StdGender" ColumnName="StdGender" />
+                <ScalarProperty Name="StdBirthPlace" ColumnName="StdBirthPlace" />
+                <ScalarProperty Name="StdBOD" ColumnName="StdBOD" />
+                <ScalarProperty Name="StdEmergencyPhone" ColumnName="StdEmergencyPhone" />
+                <ScalarProperty Name="StdEmergencyContact" ColumnName="StdEmergencyContact" />
+                <ScalarProperty Name="StdAddressGov" ColumnName="StdAddressGov" />
+                <ScalarProperty Name="StdBirthCode" ColumnName="StdBirthCode" />
+                <ScalarProperty Name="StdStudentsAffairs2" ColumnName="StdStudentsAffairs2" />
+                <ScalarProperty Name="StdStudentsAffairs1" ColumnName="StdStudentsAffairs1" />
+                <ScalarProperty Name="StdMotherQualification" ColumnName="StdMotherQualification" />
+                <ScalarProperty Name="StdFatherQualification" ColumnName="StdFatherQualification" />
+                <ScalarProperty Name="StdMotherJob" ColumnName="StdMotherJob" />
+                <ScalarProperty Name="StdFatherJob" ColumnName="StdFatherJob" />
+                <ScalarProperty Name="StdMotherSpokenLanguage" ColumnName="StdMotherSpokenLanguage" />
+                <ScalarProperty Name="StdFatherSpokenLanguage" ColumnName="StdFatherSpokenLanguage" />
+                <ScalarProperty Name="StdMotherNationality" ColumnName="StdMotherNationality" />
+                <ScalarProperty Name="StdFatherNationality" ColumnName="StdFatherNationality" />
+                <ScalarProperty Name="StdMotherEmail" ColumnName="StdMotherEmail" />
+                <ScalarProperty Name="StdFatherEmail" ColumnName="StdFatherEmail" />
+                <ScalarProperty Name="StdMotherMobilePhone" ColumnName="StdMotherMobilePhone" />
+                <ScalarProperty Name="StdFatherMobilePhone" ColumnName="StdFatherMobilePhone" />
+                <ScalarProperty Name="StdMotherEnglishName" ColumnName="StdMotherEnglishName" />
+                <ScalarProperty Name="StdMotherArabicName" ColumnName="StdMotherArabicName" />
+                <ScalarProperty Name="StdEnglishFamilyName" ColumnName="StdEnglishFamilyName" />
+                <ScalarProperty Name="StdEnglishLastName" ColumnName="StdEnglishLastName" />
+                <ScalarProperty Name="StdEnglishMiddleName" ColumnName="StdEnglishMiddleName" />
+                <ScalarProperty Name="StdEnglishFristName" ColumnName="StdEnglishFristName" />
+                <ScalarProperty Name="StdArabicFamilyName" ColumnName="StdArabicFamilyName" />
+                <ScalarProperty Name="StdArabicLastName" ColumnName="StdArabicLastName" />
+                <ScalarProperty Name="StdArabicMiddleName" ColumnName="StdArabicMiddleName" />
+                <ScalarProperty Name="StdArabicFristName" ColumnName="StdArabicFristName" />
+                <ScalarProperty Name="StdCodeCustom" ColumnName="StdCodeCustom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

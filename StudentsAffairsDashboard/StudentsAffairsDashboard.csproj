@@ -162,6 +162,7 @@
     <Compile Include="Controllers\StudentAccountsController.cs" />
     <Compile Include="Controllers\StudentClothesController.cs" />
     <Compile Include="Controllers\StudentGradesHistoriesController.cs" />
+    <Compile Include="Controllers\StudentsMainCustomsController.cs" />
     <Compile Include="Controllers\StudentsMainsController.cs" />
     <Compile Include="Controllers\StudentSubjectEnrollsController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
@@ -265,6 +266,9 @@
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StudentsMain.cs">
+      <DependentUpon>AffairsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StudentsMainCustom.cs">
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StudentSubjectEnroll.cs">
@@ -653,6 +657,14 @@
       <DependentUpon>Student_Affairs_DatabaseDataSet.xsd</DependentUpon>
     </Content>
     <Content Include="Views\StudentsMains\CreateQuick.cshtml" />
+    <Content Include="Views\StudentsMainCustoms\Create.cshtml" />
+    <Content Include="Views\StudentsMainCustoms\Delete.cshtml" />
+    <Content Include="Views\StudentsMainCustoms\Details.cshtml" />
+    <Content Include="Views\StudentsMainCustoms\Edit.cshtml" />
+    <Content Include="Views\StudentsMainCustoms\Index.cshtml" />
+    <Content Include="Views\StudentsMains\CreateCustom.cshtml" />
+    <Content Include="Views\StudentsMains\CustomEdit.cshtml" />
+    <Content Include="Views\StudentsMains\FilterGC.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

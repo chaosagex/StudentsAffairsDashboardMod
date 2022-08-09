@@ -188,6 +188,57 @@
     <Property Name="StdLegalGuardianship" Type="varchar" MaxLength="100" />
     <Property Name="StdParentsSeparated" Type="bit" />
   </EntityType>
+  <EntityType Name="StudentsMainCustom">
+    <Key>
+      <PropertyRef Name="StdCodeCustom" />
+    </Key>
+    <Property Name="StdCodeCustom" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StdArabicFristName" Type="bit" />
+    <Property Name="StdArabicMiddleName" Type="bit" />
+    <Property Name="StdArabicLastName" Type="bit" />
+    <Property Name="StdArabicFamilyName" Type="bit" />
+    <Property Name="StdEnglishFristName" Type="bit" />
+    <Property Name="StdEnglishMiddleName" Type="bit" />
+    <Property Name="StdEnglishLastName" Type="bit" />
+    <Property Name="StdEnglishFamilyName" Type="bit" />
+    <Property Name="StdMotherArabicName" Type="bit" />
+    <Property Name="StdMotherEnglishName" Type="bit" />
+    <Property Name="StdFatherMobilePhone" Type="bit" />
+    <Property Name="StdMotherMobilePhone" Type="bit" />
+    <Property Name="StdFatherEmail" Type="bit" />
+    <Property Name="StdMotherEmail" Type="bit" />
+    <Property Name="StdFatherNationality" Type="bit" />
+    <Property Name="StdMotherNationality" Type="bit" />
+    <Property Name="StdFatherSpokenLanguage" Type="bit" />
+    <Property Name="StdMotherSpokenLanguage" Type="bit" />
+    <Property Name="StdFatherJob" Type="bit" />
+    <Property Name="StdMotherJob" Type="bit" />
+    <Property Name="StdFatherQualification" Type="bit" />
+    <Property Name="StdMotherQualification" Type="bit" />
+    <Property Name="StdStudentsAffairs1" Type="bit" />
+    <Property Name="StdStudentsAffairs2" Type="bit" />
+    <Property Name="StdBirthCode" Type="bit" />
+    <Property Name="StdAddressGov" Type="bit" />
+    <Property Name="StdEmergencyContact" Type="bit" />
+    <Property Name="StdEmergencyPhone" Type="bit" />
+    <Property Name="StdBOD" Type="bit" />
+    <Property Name="StdBirthPlace" Type="bit" />
+    <Property Name="StdGender" Type="bit" />
+    <Property Name="StdReligion" Type="bit" />
+    <Property Name="StdFatherNID" Type="bit" />
+    <Property Name="StdMotherNID" Type="bit" />
+    <Property Name="StdCity" Type="bit" />
+    <Property Name="StdAddress" Type="bit" />
+    <Property Name="StdNID" Type="bit" />
+    <Property Name="StdSchoolID" Type="bit" />
+    <Property Name="StdClassID" Type="bit" />
+    <Property Name="StdNationality" Type="bit" />
+    <Property Name="StdStatus" Type="bit" />
+    <Property Name="StdJoinYear" Type="bit" />
+    <Property Name="StdStaffSon" Type="bit" />
+    <Property Name="StdLegalGuardianship" Type="bit" />
+    <Property Name="StdParentsSeparated" Type="bit" />
+  </EntityType>
   <EntityType Name="StudentSubjectEnroll">
     <Key>
       <PropertyRef Name="SSID" />
@@ -485,6 +536,7 @@
     <EntitySet Name="StudentClothes" EntityType="Self.StudentClothes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StudentGradesHistory" EntityType="Self.StudentGradesHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StudentsMain" EntityType="Self.StudentsMain" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StudentsMainCustom" EntityType="Self.StudentsMainCustom" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StudentSubjectEnroll" EntityType="Self.StudentSubjectEnroll" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Accounts_NESSchools" Association="Self.FK_Accounts_NESSchools">

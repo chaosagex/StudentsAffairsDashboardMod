@@ -255,10 +255,6 @@ D:\repoisitiries\visual studio\New folder\New folder\StudentsAffairsDashboard\St
 D:\repoisitiries\visual studio\New folder\New folder\StudentsAffairsDashboard\StudentsAffairsDashboard\obj\Debug\StudentsAffairsDashboard.csproj.CopyComplete
 D:\repoisitiries\visual studio\New folder\New folder\StudentsAffairsDashboard\StudentsAffairsDashboard\obj\Debug\StudentsAffairsDashboard.dll
 D:\repoisitiries\visual studio\New folder\New folder\StudentsAffairsDashboard\StudentsAffairsDashboard\obj\Debug\StudentsAffairsDashboard.pdb
-C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\obj\Debug\StudentsAffairsDashboard.csproj.AssemblyReference.cache
-C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\obj\Debug\StudentsAffairsDashboard.csproj.CoreCompileInputs.cache
-C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\obj\Debug\StudentsAffairsDashboard.dll
-C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\obj\Debug\StudentsAffairsDashboard.pdb
 C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\SqlServerTypes\x64\msvcr120.dll
 C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\SqlServerTypes\x64\SqlServerSpatial140.dll
 C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\SqlServerTypes\x86\msvcr120.dll
@@ -275,6 +271,7 @@ C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\roslyn\System.Reflectio
 C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\roslyn\vbc.exe
 C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\roslyn\VBCSCompiler.exe
 C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\roslyn\VBCSCompiler.exe.config
+C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\StudentsAffairsDashboard.dll.config
 C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\StudentsAffairsDashboard.dll
 C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\StudentsAffairsDashboard.pdb
 C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\Antlr3.Runtime.dll
@@ -390,5 +387,8 @@ C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\pt\Microsoft.ReportView
 C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\ru\Microsoft.ReportViewer.WinForms.resources.dll
 C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
 C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
+C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\obj\Debug\StudentsAffairsDashboard.csproj.AssemblyReference.cache
+C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\obj\Debug\StudentsAffairsDashboard.csproj.CoreCompileInputs.cache
 C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\obj\Debug\StudentsAffairsDashboard.csproj.CopyComplete
-C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\bin\StudentsAffairsDashboard.dll.config
+C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\obj\Debug\StudentsAffairsDashboard.dll
+C:\CloneRepository\SMS V1.2\StudentsAffairsDashboard\obj\Debug\StudentsAffairsDashboard.pdb

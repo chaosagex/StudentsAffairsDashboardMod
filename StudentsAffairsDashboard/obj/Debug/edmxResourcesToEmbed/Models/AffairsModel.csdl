@@ -414,6 +414,7 @@
     <FunctionImport Name="getUniformByInvoice" ReturnType="Collection(Student_Affairs_DatabaseModel.getUniformByInvoice_Result)">
       <Parameter Name="invoice" Mode="In" Type="Int32" />
     </FunctionImport>
+    <EntitySet Name="StudentsMainCustoms" EntityType="Student_Affairs_DatabaseModel.StudentsMainCustom" />
   </EntityContainer>
   <EntityType Name="Log">
     <Key>
@@ -768,4 +769,55 @@
     <Property Type="String" Name="StdArabicLastName" Nullable="false" MaxLength="100" />
     <Property Type="String" Name="StdArabicFamilyName" Nullable="true" MaxLength="100" />
   </ComplexType>
+  <EntityType Name="StudentsMainCustom">
+    <Key>
+      <PropertyRef Name="StdCodeCustom" />
+    </Key>
+    <Property Name="StdCodeCustom" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StdArabicFristName" Type="Boolean" />
+    <Property Name="StdArabicMiddleName" Type="Boolean" />
+    <Property Name="StdArabicLastName" Type="Boolean" />
+    <Property Name="StdArabicFamilyName" Type="Boolean" />
+    <Property Name="StdEnglishFristName" Type="Boolean" />
+    <Property Name="StdEnglishMiddleName" Type="Boolean" />
+    <Property Name="StdEnglishLastName" Type="Boolean" />
+    <Property Name="StdEnglishFamilyName" Type="Boolean" />
+    <Property Name="StdMotherArabicName" Type="Boolean" />
+    <Property Name="StdMotherEnglishName" Type="Boolean" />
+    <Property Name="StdFatherMobilePhone" Type="Boolean" />
+    <Property Name="StdMotherMobilePhone" Type="Boolean" />
+    <Property Name="StdFatherEmail" Type="Boolean" />
+    <Property Name="StdMotherEmail" Type="Boolean" />
+    <Property Name="StdFatherNationality" Type="Boolean" />
+    <Property Name="StdMotherNationality" Type="Boolean" />
+    <Property Name="StdFatherSpokenLanguage" Type="Boolean" />
+    <Property Name="StdMotherSpokenLanguage" Type="Boolean" />
+    <Property Name="StdFatherJob" Type="Boolean" />
+    <Property Name="StdMotherJob" Type="Boolean" />
+    <Property Name="StdFatherQualification" Type="Boolean" />
+    <Property Name="StdMotherQualification" Type="Boolean" />
+    <Property Name="StdStudentsAffairs1" Type="Boolean" />
+    <Property Name="StdStudentsAffairs2" Type="Boolean" />
+    <Property Name="StdBirthCode" Type="Boolean" />
+    <Property Name="StdAddressGov" Type="Boolean" />
+    <Property Name="StdEmergencyContact" Type="Boolean" />
+    <Property Name="StdEmergencyPhone" Type="Boolean" />
+    <Property Name="StdBOD" Type="Boolean" />
+    <Property Name="StdBirthPlace" Type="Boolean" />
+    <Property Name="StdGender" Type="Boolean" />
+    <Property Name="StdReligion" Type="Boolean" />
+    <Property Name="StdFatherNID" Type="Boolean" />
+    <Property Name="StdMotherNID" Type="Boolean" />
+    <Property Name="StdCity" Type="Boolean" />
+    <Property Name="StdAddress" Type="Boolean" />
+    <Property Name="StdNID" Type="Boolean" />
+    <Property Name="StdSchoolID" Type="Boolean" />
+    <Property Name="StdClassID" Type="Boolean" />
+    <Property Name="StdNationality" Type="Boolean" />
+    <Property Name="StdStatus" Type="Boolean" />
+    <Property Name="StdJoinYear" Type="Boolean" />
+    <Property Name="StdStaffSon" Type="Boolean" />
+    <Property Name="StdLegalGuardianship" Type="Boolean" />
+    <Property Name="StdParentsSeparated" Type="Boolean" />
+  </EntityType>
 </Schema>

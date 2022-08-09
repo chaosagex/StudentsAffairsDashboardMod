@@ -1,0 +1,51 @@
+﻿@model IEnumerable<StudentsAffairsDashboard.Models.StudentsMain>
+
+<div class="card card-primary">
+    <div class="form-horizontal">
+        <div class="card-header">
+            <h3 class="card-title">Add Student Data</h3>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="row px-3"  style="height: 250px ; overflow-y : scroll" >
+                <table class="col-12">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center; vertical-align: middle;">
+                                #
+                            </th>
+                            <th style="text-align: right; vertical-align: middle;">
+                                Name
+                            </th>
+                            <th style="text-align: center; vertical-align: middle;">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="text-align: center; vertical-align: middle;">
+                                    @item.StdNID
+                                </td>
+                                <td style="height: 20px; text-align: right;">
+                                    <h6>@item.StdArabicFristName @item.StdArabicMiddleName @item.StdArabicLastName @item.StdArabicFamilyName</h6>
+                                </td>
+                                <td style="text-align: center; vertical-align: middle;">
+                                    <a href="#" id="ShowData" class="badge badge-primary" onclick="ConfirmEdit(@item.StdCode)">Show Data</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+  
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -22,7 +22,7 @@ namespace StudentsAffairsDashboard.Models
             this.StudentClothes = new HashSet<StudentClothe>();
             this.invoice_payment = new HashSet<invoice_payment>();
         }
-    
+
         public int StdCode { get; set; }
         [RegularExpression("^[\u0621-\u064A]+$", ErrorMessage = "???? ????? ????????")]
         public string StdArabicFristName { get; set; }
@@ -41,6 +41,7 @@ namespace StudentsAffairsDashboard.Models
         public string StdEnglishLastName { get; set; }
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Not Allow Spaces in Englis Name")]
         public string StdEnglishFamilyName { get; set; }
+
 
 
         public string StdMotherArabicName { get; set; }
@@ -82,7 +83,7 @@ namespace StudentsAffairsDashboard.Models
         public string StdStaffSon { get; set; }
         public string StdLegalGuardianship { get; set; }
         public Nullable<bool> StdParentsSeparated { get; set; }
-    
+
         public virtual Class Class { get; set; }
         public virtual NESSchool NESSchool { get; set; }
         public virtual StudentAccount StudentAccount { get; set; }
