@@ -37,6 +37,13 @@
         <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Machine" Width="1.5" PointX="3" PointY="18.5" />
         <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_invoice_payment_Machines" />
         <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_Machines_Machines" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.Discount" Width="1.5" PointX="11.375" PointY="0.875" />
+        <EntityTypeShape EntityType="Student_Affairs_DatabaseModel.StudentsMainCustom" Width="1.5" PointX="12.375" PointY="3.75" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_Class" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_Discounts" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_payment_details_Grade" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_NESSchools" />
+        <AssociationConnector Association="Student_Affairs_DatabaseModel.FK_StudentGradesHistoryListener_NESSchools" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

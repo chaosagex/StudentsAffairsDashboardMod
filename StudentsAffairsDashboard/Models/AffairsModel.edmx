@@ -32,7 +32,14 @@
           <Property Name="ClothesinPackagePrice" Type="varchar" MaxLength="100" />
           <Property Name="ClothesColor" Type="nvarchar" MaxLength="100" />
           <Property Name="FactoryPrice" Type="money" />
-          <Property Name="FactoryPackagePrice" Type="money" />
+        </EntityType>
+        <EntityType Name="Discounts">
+          <Key>
+            <PropertyRef Name="DiscountID" />
+          </Key>
+          <Property Name="DiscountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DiscountPercent" Type="float" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Grade">
           <Key>
@@ -154,6 +161,11 @@
           <Property Name="GradeID" Type="int" Nullable="false" />
           <Property Name="StudyYear" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="KindBatch" Type="varchar" MaxLength="100" />
+          <Property Name="School" Type="int" />
+          <Property Name="Class" Type="int" />
+          <Property Name="Discount" Type="int" />
+          <Property Name="ListenerSchool" Type="int" />
+          <Property Name="StudentStatus" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="StudentsMain">
           <Key>
@@ -204,6 +216,57 @@
           <Property Name="StdJoinYear" Type="date" />
           <Property Name="StdStaffSon" Type="varchar" MaxLength="100" />
           <Property Name="StdLegalGuardianship" Type="varchar" MaxLength="100" />
+          <Property Name="StdParentsSeparated" Type="bit" />
+        </EntityType>
+        <EntityType Name="StudentsMainCustom">
+          <Key>
+            <PropertyRef Name="StdCodeCustom" />
+          </Key>
+          <Property Name="StdCodeCustom" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StdArabicFristName" Type="bit" />
+          <Property Name="StdArabicMiddleName" Type="bit" />
+          <Property Name="StdArabicLastName" Type="bit" />
+          <Property Name="StdArabicFamilyName" Type="bit" />
+          <Property Name="StdEnglishFristName" Type="bit" />
+          <Property Name="StdEnglishMiddleName" Type="bit" />
+          <Property Name="StdEnglishLastName" Type="bit" />
+          <Property Name="StdEnglishFamilyName" Type="bit" />
+          <Property Name="StdMotherArabicName" Type="bit" />
+          <Property Name="StdMotherEnglishName" Type="bit" />
+          <Property Name="StdFatherMobilePhone" Type="bit" />
+          <Property Name="StdMotherMobilePhone" Type="bit" />
+          <Property Name="StdFatherEmail" Type="bit" />
+          <Property Name="StdMotherEmail" Type="bit" />
+          <Property Name="StdFatherNationality" Type="bit" />
+          <Property Name="StdMotherNationality" Type="bit" />
+          <Property Name="StdFatherSpokenLanguage" Type="bit" />
+          <Property Name="StdMotherSpokenLanguage" Type="bit" />
+          <Property Name="StdFatherJob" Type="bit" />
+          <Property Name="StdMotherJob" Type="bit" />
+          <Property Name="StdFatherQualification" Type="bit" />
+          <Property Name="StdMotherQualification" Type="bit" />
+          <Property Name="StdStudentsAffairs1" Type="bit" />
+          <Property Name="StdStudentsAffairs2" Type="bit" />
+          <Property Name="StdBirthCode" Type="bit" />
+          <Property Name="StdAddressGov" Type="bit" />
+          <Property Name="StdEmergencyContact" Type="bit" />
+          <Property Name="StdEmergencyPhone" Type="bit" />
+          <Property Name="StdBOD" Type="bit" />
+          <Property Name="StdBirthPlace" Type="bit" />
+          <Property Name="StdGender" Type="bit" />
+          <Property Name="StdReligion" Type="bit" />
+          <Property Name="StdFatherNID" Type="bit" />
+          <Property Name="StdMotherNID" Type="bit" />
+          <Property Name="StdCity" Type="bit" />
+          <Property Name="StdAddress" Type="bit" />
+          <Property Name="StdNID" Type="bit" />
+          <Property Name="StdSchoolID" Type="bit" />
+          <Property Name="StdClassID" Type="bit" />
+          <Property Name="StdNationality" Type="bit" />
+          <Property Name="StdStatus" Type="bit" />
+          <Property Name="StdJoinYear" Type="bit" />
+          <Property Name="StdStaffSon" Type="bit" />
+          <Property Name="StdLegalGuardianship" Type="bit" />
           <Property Name="StdParentsSeparated" Type="bit" />
         </EntityType>
         <EntityType Name="StudentSubjectEnroll">
@@ -344,6 +407,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_payment_details_Grade">
+          <End Role="Grade" Type="Self.Grade" Multiplicity="0..1" />
+          <End Role="payment_details" Type="Self.payment_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="payment_details">
+              <PropertyRef Name="Grade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_payment_details_school">
           <End Role="NESSchools" Type="Self.NESSchools" Multiplicity="1" />
           <End Role="payment_details" Type="Self.payment_details" Multiplicity="*" />
@@ -401,6 +476,54 @@
             </Principal>
             <Dependent Role="StudentGradesHistory">
               <PropertyRef Name="StdCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentGradesHistory_Class">
+          <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+          <End Role="StudentGradesHistory" Type="Self.StudentGradesHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="StudentGradesHistory">
+              <PropertyRef Name="Class" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentGradesHistory_Discounts">
+          <End Role="Discounts" Type="Self.Discounts" Multiplicity="0..1" />
+          <End Role="StudentGradesHistory" Type="Self.StudentGradesHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discounts">
+              <PropertyRef Name="DiscountID" />
+            </Principal>
+            <Dependent Role="StudentGradesHistory">
+              <PropertyRef Name="Discount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentGradesHistory_NESSchools">
+          <End Role="NESSchools" Type="Self.NESSchools" Multiplicity="0..1" />
+          <End Role="StudentGradesHistory" Type="Self.StudentGradesHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NESSchools">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="StudentGradesHistory">
+              <PropertyRef Name="School" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentGradesHistoryListener_NESSchools">
+          <End Role="NESSchools" Type="Self.NESSchools" Multiplicity="0..1" />
+          <End Role="StudentGradesHistory" Type="Self.StudentGradesHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NESSchools">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="StudentGradesHistory">
+              <PropertyRef Name="ListenerSchool" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -516,6 +639,7 @@
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clothes" EntityType="Self.Clothes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Discounts" EntityType="Self.Discounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Grade" EntityType="Self.Grade" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="invoice_item" EntityType="Self.invoice_item" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="invoice_payment" EntityType="Self.invoice_payment" Schema="dbo" store:Type="Tables" />
@@ -528,6 +652,7 @@
           <EntitySet Name="StudentClothes" EntityType="Self.StudentClothes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentGradesHistory" EntityType="Self.StudentGradesHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentsMain" EntityType="Self.StudentsMain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentsMainCustom" EntityType="Self.StudentsMainCustom" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentSubjectEnroll" EntityType="Self.StudentSubjectEnroll" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Accounts_NESSchools" Association="Self.FK_Accounts_NESSchools">
@@ -570,6 +695,10 @@
             <End Role="NESSchools" EntitySet="NESSchools" />
             <End Role="Machines" EntitySet="Machines" />
           </AssociationSet>
+          <AssociationSet Name="FK_payment_details_Grade" Association="Self.FK_payment_details_Grade">
+            <End Role="Grade" EntitySet="Grade" />
+            <End Role="payment_details" EntitySet="payment_details" />
+          </AssociationSet>
           <AssociationSet Name="FK_payment_details_school" Association="Self.FK_payment_details_school">
             <End Role="NESSchools" EntitySet="NESSchools" />
             <End Role="payment_details" EntitySet="payment_details" />
@@ -588,6 +717,22 @@
           </AssociationSet>
           <AssociationSet Name="fk_stu_history" Association="Self.fk_stu_history">
             <End Role="StudentsMain" EntitySet="StudentsMain" />
+            <End Role="StudentGradesHistory" EntitySet="StudentGradesHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentGradesHistory_Class" Association="Self.FK_StudentGradesHistory_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="StudentGradesHistory" EntitySet="StudentGradesHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentGradesHistory_Discounts" Association="Self.FK_StudentGradesHistory_Discounts">
+            <End Role="Discounts" EntitySet="Discounts" />
+            <End Role="StudentGradesHistory" EntitySet="StudentGradesHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentGradesHistory_NESSchools" Association="Self.FK_StudentGradesHistory_NESSchools">
+            <End Role="NESSchools" EntitySet="NESSchools" />
+            <End Role="StudentGradesHistory" EntitySet="StudentGradesHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentGradesHistoryListener_NESSchools" Association="Self.FK_StudentGradesHistoryListener_NESSchools">
+            <End Role="NESSchools" EntitySet="NESSchools" />
             <End Role="StudentGradesHistory" EntitySet="StudentGradesHistory" />
           </AssociationSet>
           <AssociationSet Name="fk_subject_Enroll" Association="Self.fk_subject_Enroll">
@@ -621,6 +766,7 @@
           <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClassName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="StudentsMains" Relationship="Self.fk_class_main" FromRole="Class" ToRole="StudentsMain" />
+          <NavigationProperty Name="StudentGradesHistories" Relationship="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_Class" FromRole="Class" ToRole="StudentGradesHistory" />
         </EntityType>
         <EntityType Name="Grade">
           <Key>
@@ -629,6 +775,7 @@
           <Property Name="GradeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GradeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="StudentGradesHistories" Relationship="Self.fk_grade_history" FromRole="Grade" ToRole="StudentGradesHistory" />
+          <NavigationProperty Name="payment_details" Relationship="Student_Affairs_DatabaseModel.FK_payment_details_Grade" FromRole="Grade" ToRole="payment_details" />
         </EntityType>
         <EntityType Name="NESSchool">
           <Key>
@@ -646,6 +793,8 @@
           <NavigationProperty Name="Accounts" Relationship="Student_Affairs_DatabaseModel.FK_Accounts_NESSchools" FromRole="NESSchool" ToRole="Account" />
           <Property Name="SchoolArabicName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Machines" Relationship="Student_Affairs_DatabaseModel.FK_Machines_Machines" FromRole="NESSchool" ToRole="Machine" />
+          <NavigationProperty Name="StudentGradesHistories" Relationship="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_NESSchools" FromRole="NESSchool" ToRole="StudentGradesHistory" />
+          <NavigationProperty Name="StudentGradesHistories1" Relationship="Student_Affairs_DatabaseModel.FK_StudentGradesHistoryListener_NESSchools" FromRole="NESSchool" ToRole="StudentGradesHistory" />
         </EntityType>
         <EntityType Name="StudentAccount">
           <Key>
@@ -668,6 +817,15 @@
           <NavigationProperty Name="Grade" Relationship="Self.fk_grade_history" FromRole="StudentGradesHistory" ToRole="Grade" />
           <NavigationProperty Name="StudentsMain" Relationship="Self.fk_stu_history" FromRole="StudentGradesHistory" ToRole="StudentsMain" />
           <Property Name="KindBatch" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="School" Type="Int32" />
+          <Property Name="Class" Type="Int32" />
+          <Property Name="Discount" Type="Int32" />
+          <Property Name="ListenerSchool" Type="Int32" />
+          <Property Name="StudentStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Class1" Relationship="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_Class" FromRole="StudentGradesHistory" ToRole="Class" />
+          <NavigationProperty Name="Discount1" Relationship="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_Discounts" FromRole="StudentGradesHistory" ToRole="Discount" />
+          <NavigationProperty Name="NESSchool" Relationship="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_NESSchools" FromRole="StudentGradesHistory" ToRole="NESSchool" />
+          <NavigationProperty Name="NESSchool1" Relationship="Student_Affairs_DatabaseModel.FK_StudentGradesHistoryListener_NESSchools" FromRole="StudentGradesHistory" ToRole="NESSchool" />
         </EntityType>
         <EntityType Name="StudentsMain">
           <Key>
@@ -1027,6 +1185,28 @@
             <End Role="NESSchool" EntitySet="NESSchools" />
             <End Role="Machine" EntitySet="Machines" />
           </AssociationSet>
+          <EntitySet Name="Discounts" EntityType="Student_Affairs_DatabaseModel.Discount" />
+          <EntitySet Name="StudentsMainCustoms" EntityType="Student_Affairs_DatabaseModel.StudentsMainCustom" />
+          <AssociationSet Name="FK_StudentGradesHistory_Class" Association="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_Class">
+            <End Role="Class" EntitySet="Classes" />
+            <End Role="StudentGradesHistory" EntitySet="StudentGradesHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentGradesHistory_Discounts" Association="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_Discounts">
+            <End Role="Discount" EntitySet="Discounts" />
+            <End Role="StudentGradesHistory" EntitySet="StudentGradesHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_payment_details_Grade" Association="Student_Affairs_DatabaseModel.FK_payment_details_Grade">
+            <End Role="Grade" EntitySet="Grades" />
+            <End Role="payment_details" EntitySet="payment_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentGradesHistory_NESSchools" Association="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_NESSchools">
+            <End Role="NESSchool" EntitySet="NESSchools" />
+            <End Role="StudentGradesHistory" EntitySet="StudentGradesHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentGradesHistoryListener_NESSchools" Association="Student_Affairs_DatabaseModel.FK_StudentGradesHistoryListener_NESSchools">
+            <End Role="NESSchool" EntitySet="NESSchools" />
+            <End Role="StudentGradesHistory" EntitySet="StudentGradesHistories" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Log">
           <Key>
@@ -1106,6 +1286,7 @@
           <Property Name="Grade" Type="Int32" />
           <NavigationProperty Name="NESSchool" Relationship="Student_Affairs_DatabaseModel.FK_payment_details_school" FromRole="payment_details" ToRole="NESSchool" />
           <NavigationProperty Name="invoice_payment" Relationship="Student_Affairs_DatabaseModel.invoice_item" FromRole="payment_details" ToRole="invoice_payment" />
+          <NavigationProperty Name="Grade1" Relationship="Student_Affairs_DatabaseModel.FK_payment_details_Grade" FromRole="payment_details" ToRole="Grade" />
         </EntityType>
         <Association Name="FK_invoice_payment_invoice_payment">
           <End Type="Student_Affairs_DatabaseModel.invoice_payment" Role="invoice_payment" Multiplicity="0..1" />
@@ -1421,6 +1602,126 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Discount">
+          <Key>
+            <PropertyRef Name="DiscountID" />
+          </Key>
+          <Property Name="DiscountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DiscountPercent" Type="Double" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="StudentGradesHistories" Relationship="Student_Affairs_DatabaseModel.FK_StudentGradesHistory_Discounts" FromRole="Discount" ToRole="StudentGradesHistory" />
+        </EntityType>
+        <EntityType Name="StudentsMainCustom">
+          <Key>
+            <PropertyRef Name="StdCodeCustom" />
+          </Key>
+          <Property Name="StdCodeCustom" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StdArabicFristName" Type="Boolean" />
+          <Property Name="StdArabicMiddleName" Type="Boolean" />
+          <Property Name="StdArabicLastName" Type="Boolean" />
+          <Property Name="StdArabicFamilyName" Type="Boolean" />
+          <Property Name="StdEnglishFristName" Type="Boolean" />
+          <Property Name="StdEnglishMiddleName" Type="Boolean" />
+          <Property Name="StdEnglishLastName" Type="Boolean" />
+          <Property Name="StdEnglishFamilyName" Type="Boolean" />
+          <Property Name="StdMotherArabicName" Type="Boolean" />
+          <Property Name="StdMotherEnglishName" Type="Boolean" />
+          <Property Name="StdFatherMobilePhone" Type="Boolean" />
+          <Property Name="StdMotherMobilePhone" Type="Boolean" />
+          <Property Name="StdFatherEmail" Type="Boolean" />
+          <Property Name="StdMotherEmail" Type="Boolean" />
+          <Property Name="StdFatherNationality" Type="Boolean" />
+          <Property Name="StdMotherNationality" Type="Boolean" />
+          <Property Name="StdFatherSpokenLanguage" Type="Boolean" />
+          <Property Name="StdMotherSpokenLanguage" Type="Boolean" />
+          <Property Name="StdFatherJob" Type="Boolean" />
+          <Property Name="StdMotherJob" Type="Boolean" />
+          <Property Name="StdFatherQualification" Type="Boolean" />
+          <Property Name="StdMotherQualification" Type="Boolean" />
+          <Property Name="StdStudentsAffairs1" Type="Boolean" />
+          <Property Name="StdStudentsAffairs2" Type="Boolean" />
+          <Property Name="StdBirthCode" Type="Boolean" />
+          <Property Name="StdAddressGov" Type="Boolean" />
+          <Property Name="StdEmergencyContact" Type="Boolean" />
+          <Property Name="StdEmergencyPhone" Type="Boolean" />
+          <Property Name="StdBOD" Type="Boolean" />
+          <Property Name="StdBirthPlace" Type="Boolean" />
+          <Property Name="StdGender" Type="Boolean" />
+          <Property Name="StdReligion" Type="Boolean" />
+          <Property Name="StdFatherNID" Type="Boolean" />
+          <Property Name="StdMotherNID" Type="Boolean" />
+          <Property Name="StdCity" Type="Boolean" />
+          <Property Name="StdAddress" Type="Boolean" />
+          <Property Name="StdNID" Type="Boolean" />
+          <Property Name="StdSchoolID" Type="Boolean" />
+          <Property Name="StdClassID" Type="Boolean" />
+          <Property Name="StdNationality" Type="Boolean" />
+          <Property Name="StdStatus" Type="Boolean" />
+          <Property Name="StdJoinYear" Type="Boolean" />
+          <Property Name="StdStaffSon" Type="Boolean" />
+          <Property Name="StdLegalGuardianship" Type="Boolean" />
+          <Property Name="StdParentsSeparated" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_StudentGradesHistory_Class">
+          <End Type="Student_Affairs_DatabaseModel.Class" Role="Class" Multiplicity="0..1" />
+          <End Type="Student_Affairs_DatabaseModel.StudentGradesHistory" Role="StudentGradesHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="StudentGradesHistory">
+              <PropertyRef Name="Class" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentGradesHistory_Discounts">
+          <End Type="Student_Affairs_DatabaseModel.Discount" Role="Discount" Multiplicity="0..1" />
+          <End Type="Student_Affairs_DatabaseModel.StudentGradesHistory" Role="StudentGradesHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discount">
+              <PropertyRef Name="DiscountID" />
+            </Principal>
+            <Dependent Role="StudentGradesHistory">
+              <PropertyRef Name="Discount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_payment_details_Grade">
+          <End Type="Student_Affairs_DatabaseModel.Grade" Role="Grade" Multiplicity="0..1" />
+          <End Type="Student_Affairs_DatabaseModel.payment_details" Role="payment_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="payment_details">
+              <PropertyRef Name="Grade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentGradesHistory_NESSchools">
+          <End Type="Student_Affairs_DatabaseModel.NESSchool" Role="NESSchool" Multiplicity="0..1" />
+          <End Type="Student_Affairs_DatabaseModel.StudentGradesHistory" Role="StudentGradesHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NESSchool">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="StudentGradesHistory">
+              <PropertyRef Name="School" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentGradesHistoryListener_NESSchools">
+          <End Type="Student_Affairs_DatabaseModel.NESSchool" Role="NESSchool" Multiplicity="0..1" />
+          <End Type="Student_Affairs_DatabaseModel.StudentGradesHistory" Role="StudentGradesHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NESSchool">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="StudentGradesHistory">
+              <PropertyRef Name="ListenerSchool" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1481,6 +1782,11 @@
           <EntitySetMapping Name="StudentGradesHistories">
             <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentGradesHistory">
               <MappingFragment StoreEntitySet="StudentGradesHistory">
+                <ScalarProperty Name="StudentStatus" ColumnName="StudentStatus" />
+                <ScalarProperty Name="ListenerSchool" ColumnName="ListenerSchool" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="School" ColumnName="School" />
                 <ScalarProperty Name="KindBatch" ColumnName="KindBatch" />
                 <ScalarProperty Name="SGID" ColumnName="SGID" />
                 <ScalarProperty Name="StdCode" ColumnName="StdCode" />
@@ -1741,7 +2047,6 @@
           <EntitySetMapping Name="Clothes">
             <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Cloth">
               <MappingFragment StoreEntitySet="Clothes">
-                <ScalarProperty Name="FactoryPackagePrice" ColumnName="FactoryPackagePrice" />
                 <ScalarProperty Name="FactoryPrice" ColumnName="FactoryPrice" />
                 <ScalarProperty Name="ClothesColor" ColumnName="ClothesColor" />
                 <ScalarProperty Name="ClothesinPackagePrice" ColumnName="ClothesinPackagePrice" />
@@ -1902,6 +2207,67 @@
                 <ScalarProperty Name="MachineSchool" ColumnName="MachineSchool" />
                 <ScalarProperty Name="MachineName" ColumnName="MachineName" />
                 <ScalarProperty Name="MachineID" ColumnName="MachineID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Discounts">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.Discount">
+              <MappingFragment StoreEntitySet="Discounts">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+                <ScalarProperty Name="DiscountID" ColumnName="DiscountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentsMainCustoms">
+            <EntityTypeMapping TypeName="Student_Affairs_DatabaseModel.StudentsMainCustom">
+              <MappingFragment StoreEntitySet="StudentsMainCustom">
+                <ScalarProperty Name="StdParentsSeparated" ColumnName="StdParentsSeparated" />
+                <ScalarProperty Name="StdLegalGuardianship" ColumnName="StdLegalGuardianship" />
+                <ScalarProperty Name="StdStaffSon" ColumnName="StdStaffSon" />
+                <ScalarProperty Name="StdJoinYear" ColumnName="StdJoinYear" />
+                <ScalarProperty Name="StdStatus" ColumnName="StdStatus" />
+                <ScalarProperty Name="StdNationality" ColumnName="StdNationality" />
+                <ScalarProperty Name="StdClassID" ColumnName="StdClassID" />
+                <ScalarProperty Name="StdSchoolID" ColumnName="StdSchoolID" />
+                <ScalarProperty Name="StdNID" ColumnName="StdNID" />
+                <ScalarProperty Name="StdAddress" ColumnName="StdAddress" />
+                <ScalarProperty Name="StdCity" ColumnName="StdCity" />
+                <ScalarProperty Name="StdMotherNID" ColumnName="StdMotherNID" />
+                <ScalarProperty Name="StdFatherNID" ColumnName="StdFatherNID" />
+                <ScalarProperty Name="StdReligion" ColumnName="StdReligion" />
+                <ScalarProperty Name="StdGender" ColumnName="StdGender" />
+                <ScalarProperty Name="StdBirthPlace" ColumnName="StdBirthPlace" />
+                <ScalarProperty Name="StdBOD" ColumnName="StdBOD" />
+                <ScalarProperty Name="StdEmergencyPhone" ColumnName="StdEmergencyPhone" />
+                <ScalarProperty Name="StdEmergencyContact" ColumnName="StdEmergencyContact" />
+                <ScalarProperty Name="StdAddressGov" ColumnName="StdAddressGov" />
+                <ScalarProperty Name="StdBirthCode" ColumnName="StdBirthCode" />
+                <ScalarProperty Name="StdStudentsAffairs2" ColumnName="StdStudentsAffairs2" />
+                <ScalarProperty Name="StdStudentsAffairs1" ColumnName="StdStudentsAffairs1" />
+                <ScalarProperty Name="StdMotherQualification" ColumnName="StdMotherQualification" />
+                <ScalarProperty Name="StdFatherQualification" ColumnName="StdFatherQualification" />
+                <ScalarProperty Name="StdMotherJob" ColumnName="StdMotherJob" />
+                <ScalarProperty Name="StdFatherJob" ColumnName="StdFatherJob" />
+                <ScalarProperty Name="StdMotherSpokenLanguage" ColumnName="StdMotherSpokenLanguage" />
+                <ScalarProperty Name="StdFatherSpokenLanguage" ColumnName="StdFatherSpokenLanguage" />
+                <ScalarProperty Name="StdMotherNationality" ColumnName="StdMotherNationality" />
+                <ScalarProperty Name="StdFatherNationality" ColumnName="StdFatherNationality" />
+                <ScalarProperty Name="StdMotherEmail" ColumnName="StdMotherEmail" />
+                <ScalarProperty Name="StdFatherEmail" ColumnName="StdFatherEmail" />
+                <ScalarProperty Name="StdMotherMobilePhone" ColumnName="StdMotherMobilePhone" />
+                <ScalarProperty Name="StdFatherMobilePhone" ColumnName="StdFatherMobilePhone" />
+                <ScalarProperty Name="StdMotherEnglishName" ColumnName="StdMotherEnglishName" />
+                <ScalarProperty Name="StdMotherArabicName" ColumnName="StdMotherArabicName" />
+                <ScalarProperty Name="StdEnglishFamilyName" ColumnName="StdEnglishFamilyName" />
+                <ScalarProperty Name="StdEnglishLastName" ColumnName="StdEnglishLastName" />
+                <ScalarProperty Name="StdEnglishMiddleName" ColumnName="StdEnglishMiddleName" />
+                <ScalarProperty Name="StdEnglishFristName" ColumnName="StdEnglishFristName" />
+                <ScalarProperty Name="StdArabicFamilyName" ColumnName="StdArabicFamilyName" />
+                <ScalarProperty Name="StdArabicLastName" ColumnName="StdArabicLastName" />
+                <ScalarProperty Name="StdArabicMiddleName" ColumnName="StdArabicMiddleName" />
+                <ScalarProperty Name="StdArabicFristName" ColumnName="StdArabicFristName" />
+                <ScalarProperty Name="StdCodeCustom" ColumnName="StdCodeCustom" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
