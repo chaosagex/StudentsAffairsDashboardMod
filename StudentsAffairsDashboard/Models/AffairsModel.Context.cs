@@ -45,8 +45,7 @@ namespace StudentsAffairsDashboard.Models
         public virtual DbSet<Machine> Machines { get; set; }
         public virtual DbSet<Discount> Discounts { get; set; }
         public virtual DbSet<StudentsMainCustom> StudentsMainCustoms { get; set; }
-        public virtual DbSet<Discount> Discounts { get; set; }
-        public virtual DbSet<Machine> Machines { get; set; }
+        
     
         public virtual int deleteInvoice(Nullable<int> invoiceID)
         {
