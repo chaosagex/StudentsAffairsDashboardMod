@@ -25,5 +25,6 @@ namespace StudentsAffairsDashboard.Models
         public virtual NESSchool NESSchool { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<invoice_payment> invoice_payment { get; set; }
+        public virtual Grade Grade1 { get; set; }
     }
 }
