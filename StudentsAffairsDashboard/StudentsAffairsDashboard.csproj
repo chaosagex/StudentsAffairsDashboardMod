@@ -664,6 +664,7 @@
       <DependentUpon>Student_Affairs_DatabaseDataSet.xsd</DependentUpon>
     </Content>
     <Content Include="Views\StudentsMains\CreateQuick.cshtml" />
+    <Content Include="Views\invoice_payment\IndexStudents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

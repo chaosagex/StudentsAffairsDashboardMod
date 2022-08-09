@@ -58,8 +58,8 @@ namespace StudentsAffairsDashboard.Reports
 
             ReportViewer3.ProcessingMode = ProcessingMode.Local;
             ReportViewer3.LocalReport.ReportPath = Server.MapPath("soldReport.rdlc");
-            //string schoolID = Session["currentSchool"].ToString();
-            string schoolID = "1001";
+            string schoolID = Session["currentSchool"].ToString();
+            //string schoolID = "1001";
             string type = Request.QueryString["Type"];
             var fromD = fromDate.SelectedDate;
             var toD = toDate.SelectedDate;

@@ -40,6 +40,7 @@ namespace StudentsAffairsDashboard.Controllers
         // GET: payment_details/Create
         public ActionResult Create()
         {
+            ViewBag.grade = new SelectList(db.Grades, "GradeID", "GradeName");
             ViewBag.school = new SelectList(db.NESSchools, "SchoolID", "SchoolName");
             return View();
         }
@@ -57,7 +58,7 @@ namespace StudentsAffairsDashboard.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.grade = new SelectList(db.Grades, "GradeID", "GradeName");
             ViewBag.school = new SelectList(db.NESSchools, "SchoolID", "SchoolName", payment_details.school);
             return View(payment_details);
         }
@@ -74,6 +75,7 @@ namespace StudentsAffairsDashboard.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.grade = new SelectList(db.Grades, "GradeID", "GradeName");
             ViewBag.school = new SelectList(db.NESSchools, "SchoolID", "SchoolName", payment_details.school);
             return View(payment_details);
         }
@@ -91,6 +93,7 @@ namespace StudentsAffairsDashboard.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewBag.grade = new SelectList(db.Grades, "GradeID", "GradeName");
             ViewBag.school = new SelectList(db.NESSchools, "SchoolID", "SchoolName", payment_details.school);
             return View(payment_details);
         }
