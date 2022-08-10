@@ -7,45 +7,54 @@
         </div>
         <br />
         <div class="form-group">
-            <div class="row px-3"  style="height: 250px ; overflow-y : scroll" >
-                <table class="col-12">
-                    <thead>
-                        <tr>
-                            <th style="text-align: center; vertical-align: middle;">
-                                #
-                            </th>
-                            <th style="text-align: right; vertical-align: middle;">
-                                Name
-                            </th>
-                            <th style="text-align: center; vertical-align: middle;">
-                                Action
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
+            <div class="row px-3"  style="height: 200px ; overflow-y : scroll" >
+                @*<table id="example1" class="table table-bordered table-striped col-12">*@
+                    <table class="col-12">
+                        <thead>
                             <tr>
-                                <td style="text-align: center; vertical-align: middle;">
-                                    @item.StdNID
-                                </td>
-                                <td style="height: 20px; text-align: right;">
-                                    <h6>@item.StdArabicFristName @item.StdArabicMiddleName @item.StdArabicLastName @item.StdArabicFamilyName</h6>
-                                </td>
-                                <td style="text-align: center; vertical-align: middle;">
-                                    <a href="#" id="ShowData" class="badge badge-primary" onclick="ConfirmEdit(@item.StdCode)">Show Data</a>
-                                </td>
+                                <th style="text-align: center; vertical-align: middle;">
+                                    الرقم القومي
+                                </th>
+                                <th style="text-align: right; vertical-align: middle;">
+                                    الاسم بالكامل
+                                </th>
+                                <th style="text-align: center; vertical-align: middle;">
+                                    عرض
+                                </th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        @item.StdNID
+                                    </td>
+                                    <td style="height: 20px; text-align: right;">
+                                        <h8>@item.StdArabicFristName @item.StdArabicMiddleName @item.StdArabicLastName @item.StdArabicFamilyName</h8>
+                                    </td>
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        <a href="#" id="ShowData" class="badge badge-primary" onclick="ConfirmEdit(@item.StdCode)">Show Data</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <th style="text-align: center; vertical-align: middle;">
+                                    الرقم القومي
+                                </th>
+                                <th style="text-align: right; vertical-align: middle;">
+                                    الاسم بالكامل
+                                </th>
+                                <th style="text-align: center; vertical-align: middle;">
+                                    عرض
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
 
-            </div>
+</div>
         </div>
     </div>
 </div>
-
-@section Scripts {
-  
-    @Scripts.Render("~/bundles/jqueryval")
-}

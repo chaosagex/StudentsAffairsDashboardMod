@@ -207,9 +207,10 @@
 
         $("#example1 .details").click(function () {
             var customerId = $(this).closest("tr").find("td").eq(0).html();
+			var Link = "@Url.Action("Details", "StudentClothes")"
             $.ajax({
                 type: "POST",
-                url: "/StudentClothes/Details",
+                url: Link,
                 data: '{customerId: "' + customerId + '" }',
                 contentType: "application/json; charset=utf-8",
                 dataType: "html",
@@ -227,9 +228,10 @@
         });
         $("#example1 .details2").click(function () {
             var customerId2 = $(this).closest("tr").find("td").eq(0).html();
+			var Link = "@Url.Action("DetailsReceipt", "StudentClothes")"
             $.ajax({
                 type: "POST",
-                url: "/StudentClothes/DetailsReceipt",
+                url: Link,
                 data: '{customerId: "' + customerId2 + '" }',
                 contentType: "application/json; charset=utf-8",
                 dataType: "html",

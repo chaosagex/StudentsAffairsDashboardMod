@@ -3291,19 +3291,21 @@
         $(document).ready(function () {
             $("#btnsubmit").click(function (e) {
                 var valdata = $("#Uniform").serialize();
-                alert(valdata);
+                //alert(valdata);
                 $("#btnsubmit").prop("disabled", true);
                 //to get alert popup
                 e.preventDefault();
+				var Link = "@Url.Action("EditCustom", "StudentsMainCustoms")"
                 $.ajax({
-                    url: "/StudentsMainCustoms/EditCustom",
+                    url: Link,
                     type: "POST",
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: {
                         searchText: valdata
                     },
                     success: function (response) {
-                        window.location.href = "/Home/Index"
+                        alert("Successfull Update Field Page")
+                        window.location.href = "@Url.Action("Index", "Home")"
                     },
                     error: function (response) {
                         alert(response)

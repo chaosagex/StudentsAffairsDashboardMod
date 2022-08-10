@@ -554,8 +554,9 @@
             $("#btnsubmit").prop("disabled", true);
             //to get alert popup
             e.preventDefault();
+			var Link = "@Url.Action("UpdateItems", "StudentClothes")"
             $.ajax({
-                url: "/StudentClothes/UpdateItems",
+                url: Link,
                 type: "POST",
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 data: {
@@ -564,10 +565,10 @@
                     packageName: PackageT
                 },
                 success: function (response) {
-                    window.location.href = "/StudentClothes/Index"
+                    window.location.href = "@Url.Action("Index", "StudentClothes")"
                 },
                 error: function (response) {
-                    window.location.href = "/StudentClothes/Create/"+StdCode
+                    window.location.href = "@Url.Action("Index", "StudentClothes", StdCode)"
                 }
             });
         });

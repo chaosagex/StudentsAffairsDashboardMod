@@ -178,8 +178,9 @@
                 $("#btnsubmit").prop("disabled",true);
                 //to get alert popup
                 e.preventDefault();
+				var Link = "@Url.Action("UpdateItemsReceived", "StudentClothes")"
                 $.ajax({
-                    url: "/StudentClothes/UpdateItemsReceived",
+                    url: Link,
                     type: "POST",
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: {
@@ -187,10 +188,10 @@
                         Code: StdCode
                     },
                     success: function (response) {
-                        window.location.href = "/StudentClothes/Receiving";
+                        window.location.href = "@Url.Action("Receiving", "StudentClothes")"
                     },
                     error: function (response) {
-                        window.location.href = "/StudentClothes/Received/" + StdCode
+                        window.location.href =  "@Url.Action("Received", "StudentClothes" , StdCode)"
                     }
                 });
             });

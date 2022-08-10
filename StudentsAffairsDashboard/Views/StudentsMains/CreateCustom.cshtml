@@ -26,16 +26,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group float-right">
-                            <div class="col-md-offset-2 col-md-10">
-                                <button type="button" onclick="Confirm()" value="Search Of Students" class="btn btn-primary" >Show  List</button>
+                        <div class="form-group p-1">
+                            <div class="col-2 col-10">
+                                <button type="button" onclick="Confirm()" class="btn btn-success pl-5 pr-5">Get List</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-12" id="StudentData">
-                
+
             </div>
 
         </div>
@@ -44,14 +44,33 @@
     <div class="col-8 p-2" id="searchResults">
 
     </div>
+    <div class="col-6">
+        @Html.ActionLink("Back to List", "Index", "Home", null, new { @class = "btn btn-secondary" })
+    </div>
+</div>
 
-</div>
-<div class="col-6">
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
-</div>
 
 @section Scripts {
+
+
+
     <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false, "paging": true,
+                "ordering": true,
+                "searching": true
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
         var Confirm = function () {
             var StdGradeID = $("#StdGradeID").val();
             var StdClassID = $("#StdClassID").val();
@@ -83,7 +102,9 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "html",
                 success: function (response) {
-                    $('#searchResults').html(response);
+                    $("#searchResults").html(response);
+                    $('#searchResults form').data('validator', null);
+                    $.validator.unobtrusive.parse('#searchResults form');
                 },
                 failure: function (response) {
                     console.log(response.responseText);
@@ -94,38 +115,41 @@
             });
         }
         var CustomEdit = function () {
-            var Link3 = "@Url.Action("CustomEdit", "StudentsMains")"
-            var valdata = $("#formStudent").serialize();
-            $.ajax({
-                type: "POST",
-                url: Link3,
-                data: valdata,
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                success: function (response) {
-                    alert("SSS")
-                },
-                failure: function (response) {
-                    console.log(response.responseText);
-                },
-                error: function (response) {
-                    console.log(response.responseText);
-                }
-            });
+            var IsValid = $("#formStudent").validate().form();
+            if (IsValid) {
+                var Link3 = "@Url.Action("CustomEdit", "StudentsMains")"
+                var valdata = $("#formStudent").serialize();
+                $.ajax({
+                    type: "POST",
+                    url: Link3,
+                    data: valdata,
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    success: function (response) {
+                        alert("Successfull Update")
+                    },
+                    failure: function (response) {
+                        alert("Failure Update")
+                    },
+                    error: function (response) {
+                        alert("Error Update")
+                    }
+                });
+            }
         }
-        $(document).ready(function () {
-            $('#StdBOD').datepicker({
-                dateFormat: "dd/mm/yyyy",
-                showStatus: true,
-                showWeeks: true,
-                currentText: 'Now',
-                autoSize: true,
-                gotoCurrent: true,
-                showAnim: 'blind',
-                highlightWeek: true
-            });
-        });
+        //$(document).ready(function () {
+        //    $('#StdBOD').datepicker({
+        //        dateFormat: "dd/mm/yyyy",
+        //        showStatus: true,
+        //        showWeeks: true,
+        //        currentText: 'Now',
+        //        autoSize: true,
+        //        gotoCurrent: true,
+        //        showAnim: 'blind',
+        //        highlightWeek: true
+        //    });
+        //});
     </script>
-
-
     @Scripts.Render("~/bundles/jqueryval")
+
+
 }

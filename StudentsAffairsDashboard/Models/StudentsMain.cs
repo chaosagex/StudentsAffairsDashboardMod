@@ -15,27 +15,27 @@ namespace StudentsAffairsDashboard.Models
         }
 
         public int StdCode { get; set; }
-        [RegularExpression("^[\u0621-\u064A]+$", ErrorMessage = "???? ????? ?????? ???????")]
+        [RegularExpression("^[\u0621-\u064A]+$", ErrorMessage = "Only Arabic letters and no spaces")]
         public string StdArabicFristName { get; set; }
-        [RegularExpression("^[\u0621-\u064A]+$", ErrorMessage = "???? ????? ?????? ???????")]
+        [RegularExpression("^[\u0621-\u064A]+$", ErrorMessage = "Only Arabic letters and no spaces")]
         public string StdArabicMiddleName { get; set; }
-        [RegularExpression("^[\u0621-\u064A]+$", ErrorMessage = "???? ????? ?????? ???????")]
+        [RegularExpression("^[\u0621-\u064A]+$", ErrorMessage = "Only Arabic letters and no spaces")]
         public string StdArabicLastName { get; set; }
-        [RegularExpression("^[\u0621-\u064A ]+$", ErrorMessage = "???? ????? ?????? ???????")]
+        [RegularExpression("^[\u0621-\u064A ]+$", ErrorMessage = "Only Arabic letters")]
         public string StdArabicFamilyName { get; set; }
 
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only English characters and no spaces")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only English letters and no spaces")]
         public string StdEnglishFristName { get; set; }
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only English characters and no spaces")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only English letters and no spaces")]
         public string StdEnglishMiddleName { get; set; }
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only English characters and no spaces")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only English letters and no spaces")]
         public string StdEnglishLastName { get; set; }
-        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Only English characters")]
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Only English letters")]
         public string StdEnglishFamilyName { get; set; }
 
-        [RegularExpression("^[\u0621-\u064A ]+$", ErrorMessage = "???? ????? ?????? ???????")]
+        [RegularExpression("^[\u0621-\u064A ]+$", ErrorMessage = "Only Arabic letters")]
         public string StdMotherArabicName { get; set; }
-        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Only English characters")]
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Only English letters")]
         public string StdMotherEnglishName { get; set; }
         [DataType(DataType.PhoneNumber)]
         public string StdFatherMobilePhone { get; set; }
