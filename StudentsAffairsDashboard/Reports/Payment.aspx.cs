@@ -16,6 +16,7 @@ namespace StudentsAffairsDashboard.Reports
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             ReportViewer4.Reset();
 
             ReportViewer4.ProcessingMode = ProcessingMode.Local;
@@ -23,7 +24,7 @@ namespace StudentsAffairsDashboard.Reports
 
             DataTable dt = GetData(Request.QueryString["invoice"]);
             ReportDataSource rds = new ReportDataSource("Payment", dt);
-
+            
             ReportViewer4.LocalReport.DataSources.Add(rds);
 
             ReportViewer4.SizeToReportContent = true;
@@ -32,9 +33,13 @@ namespace StudentsAffairsDashboard.Reports
             ReportViewer4.LocalReport.EnableExternalImages = true;
             string schoolID = Session["currentSchool"].ToString();
             string imagePath = new Uri(Server.MapPath($"~/Logos/{schoolID}.png")).AbsoluteUri;
-
-            ReportParameter parameter = new ReportParameter("School", imagePath);
-            ReportViewer4.LocalReport.SetParameters(parameter);
+            StudentAffairsDatabaseEntities db = new StudentAffairsDatabaseEntities();
+        invoice_payment inv = db.invoice_payment.Find(Int32.Parse(Request.QueryString["invoice"]));
+        ReportParameter[] Rptparams = new ReportParameter[] { new ReportParameter("School", schoolID),
+                                                                new ReportParameter("Paid", inv.paid.ToString()),
+                                                                new ReportParameter("Remaining", inv.remaining.ToString()),
+                                                              new ReportParameter("TotalCost", inv.total_cost.ToString())};
+            ReportViewer4.LocalReport.SetParameters(Rptparams);
             ReportViewer4.LocalReport.Refresh();
         }
 

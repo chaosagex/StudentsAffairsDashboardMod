@@ -17,6 +17,7 @@ namespace StudentsAffairsDashboard.Controllers
     {
         private StudentAffairsDatabaseEntities db = new StudentAffairsDatabaseEntities();
         private const int uniformType = 5;
+        private const bool TESTMODE = true;
         //private const int school = int.Parse(Session["currentSchool"].ToString());
 
         // GET: invoice_payment
@@ -26,13 +27,65 @@ namespace StudentsAffairsDashboard.Controllers
         var invoice_payment = db.invoice_payment.Include(i => i.invoice_payment2).Include(i => i.StudentsMain).Include(i => i.payment_details).Where(i=>i.payment_details.FirstOrDefault().school==school);
             return View(await invoice_payment.ToListAsync());
         }
-        public async Task<ActionResult> IndexStudents()
+        public  ActionResult IndexStudents()
         {
             int school = int.Parse(Session["currentSchool"].ToString());
-            if(school==1000)
-                return View(db.StudentsMains.Include(i => i.NESSchool).Include(i => i.StudentGradesHistories).Include(l=>l.invoice_payment).ToListAsync());
-            var students = db.StudentsMains.Include(i => i.NESSchool).Include(i => i.StudentGradesHistories).Include(l => l.invoice_payment).Where(i => i.StdSchoolID == school);
-            return View(await students.ToListAsync());
+            List<StudentMainsInvoiceViewModel> mod = new List<StudentMainsInvoiceViewModel>();
+                var sts = school == 1000? db.StudentsMains.Include(i => i.NESSchool).Include(i => i.StudentGradesHistories).Include(l => l.invoice_payment).ToList(): db.StudentsMains.Include(i => i.NESSchool).Include(i => i.StudentGradesHistories).Include(l => l.invoice_payment).Where(i => i.StdSchoolID == school).ToList() ;
+                foreach(var st in sts)
+                {
+                    StudentMainsInvoiceViewModel cur=new StudentMainsInvoiceViewModel();
+                    cur.student = st;
+                    decimal debt = 0;
+                StudentGradesHistory history = st.StudentGradesHistories.OrderBy(a => a.StudyYear).LastOrDefault();
+                short studentType = 0;
+                if (history.KindBatch == "Normal")
+                    studentType = 1;
+                else if (history.KindBatch == "Gold")
+                    studentType = 2;
+                else if (history.KindBatch == "Special")
+                    studentType = 3;
+                else if (history.KindBatch == "Discount")
+                    studentType = 4;
+                else
+                    throw new Exception("Student Type isn't known");
+                List<payment_details>items= db.payment_details.Where(a => a.type != uniformType).Where(a => a.student_type == studentType).Where(a => a.year.Substring(0, 4) == history.StudyYear).Where(a => a.school == school).Where(a => a.Grade == history.GradeID).ToList();
+                if (st.invoice_payment.Count == 0)
+                {
+                    foreach(var item in items)
+                    {
+                        debt+=item.amount;
+                    }
+                    cur.debt = debt;
+                    cur.left = items;
+                    cur.paid = new List<payment_details>();
+                }
+                else
+                {
+                    if(TESTMODE)
+                        history.StudyYear = DateTime.Now.Year.ToString();
+                    var thisYear = st.invoice_payment.Where(l => l.date.Year.ToString() == history.StudyYear);
+                    debt = thisYear.Last().remaining;
+                    List<payment_details> paid = new List<payment_details>();
+                    foreach(invoice_payment invoice in thisYear)
+                    {
+                        foreach(payment_details item in invoice.payment_details)
+                        {
+                            paid.Add(item);
+                            items.Remove(item);
+                        }
+                    }
+                    foreach(payment_details item in items)
+                    {
+                        debt += item.amount;
+                    }
+                    cur.debt = debt;
+                    cur.paid = paid;
+                    cur.left = items;
+                }
+                mod.Add(cur);
+                }
+                return View(mod);
         }
         public ActionResult AllInvoices()
         {
@@ -120,6 +173,8 @@ namespace StudentsAffairsDashboard.Controllers
             List<payment_details> itemsPaid=new List<payment_details>();
             foreach(invoice_payment inv in invs)
             {
+                if (inv.payment_details.FirstOrDefault() == null)
+                    continue;
                 if (inv.payment_details.FirstOrDefault().year.Substring(0,4) == year)
                 {
                     foreach (payment_details p in inv.payment_details)
@@ -128,15 +183,37 @@ namespace StudentsAffairsDashboard.Controllers
             }
             //get items you pay for except uniform
             var items = db.payment_details.Where(a => a.type != uniformType).Where(a => a.student_type == studentType).Where(a => a.year.Substring(0, 4) == year).Where(a => a.school == school).Where(a => a.Grade == studentGrade).ToList();
-            foreach(var item in itemsPaid)
+            if (items.Count == 0)
+            {
+                ViewBag.Done = "1";
+                ViewBag.DoneMsg = "لم يتم تسجيل مصروفات" + DateTime.Now.ToString();
+                ViewBag.StdName = stud.StdEnglishFristName + " " + stud.StdEnglishMiddleName + " " + stud.StdEnglishLastName + " " + stud.StdEnglishFamilyName;
+                ViewBag.StdSchool = stud.NESSchool.SchoolName;
+                ViewBag.StdGrade = history.Grade.GradeName;
+                ViewBag.StdGradeID = studentGrade;
+                ViewBag.StdClass = stud.Class.ClassName;
+                ViewBag.StdCode = st;
+                ViewBag.machine = new SelectList(db.Machines.Where(m => m.MachineSchool == school), "MachineID", "MachineID");
+                return View(new invoice_payment());
+            }
+            foreach (var item in itemsPaid)
             {
                 items.Remove(item);
             }
+            if (items.Count == 0)
+                ViewBag.NoItems = "No items available to Pay check remaing for Debt balance";
             invoice_payment invoice = new invoice_payment();
             var x = db.getPreviousPayment(st).FirstOrDefault();
             if (x != null)
                 invoice.previous_payment = x.id;
             invoice_payment prev = db.invoice_payment.Find(invoice.previous_payment);
+
+            if ( items.Count == 0 && x == null || items.Count == 0 && prev.remaining == 0)
+            {
+                ViewBag.Done = "1";
+                ViewBag.DoneMsg = "No Payments Required for this student" + DateTime.Now.ToString();
+            }
+                
             invoice.date = DateTime.Now;
             invoice.payment_details = items;
             invoice.invoice_payment2 = prev;
@@ -207,23 +284,23 @@ namespace StudentsAffairsDashboard.Controllers
                         throw new Exception("you can not pay more than you owe");
                     if (invoice_payment.type == 2)
                         invoice_payment.machine = null;
-                    int school = invoice_payment.payment_details.FirstOrDefault().school;
+                    StudentsMain stu = db.StudentsMains.Find(invoice_payment.student);
+                    int school = stu.StdSchoolID;
                     var rawQuery = db.Database.SqlQuery<int>($"SELECT NEXT VALUE FOR dbo.SeqIn{school};");
                     int nextVal = rawQuery.Single();
                     invoice_payment.SeqID = nextVal;
-                    db.invoice_payment.Add(invoice_payment);
-                    await db.SaveChangesAsync();
                     if (invoice_payment.remaining == 0)
                         invoice_payment.Notes = "";
                     else
                     {
-                        invoice_payment.Notes = invoice_payment.Notes + invoice_payment.id + newNotes;
+                        string serial =  db.NESSchools.Find(school).SchoolCambridge+"-"+invoice_payment.SeqID;
+                        invoice_payment.Notes = invoice_payment.Notes + serial + newNotes;
                         //foreach (payment_details pd in invoice_payment.payment_details)
                         //    db.deleteInvoiceItem(invoice_payment.id, pd.id);
-                        db.Entry(invoice_payment).State = EntityState.Modified;
-                        await db.SaveChangesAsync();
+                        
                     }
-
+                    db.invoice_payment.Add(invoice_payment);
+                    await db.SaveChangesAsync();
                     return RedirectToAction(nameof(IndexStudents));
                 }
                 catch (Exception e)
@@ -363,8 +440,9 @@ namespace StudentsAffairsDashboard.Controllers
                             invoice_payment pre = await db.invoice_payment.FindAsync(invoice_payment.previous_payment);
                             invoice_payment.Notes = pre.Notes;
                         }
-
-                        invoice_payment.Notes = invoice_payment.Notes + invoice_payment.id + newNotes;
+                        int school= invoice_payment.payment_details.FirstOrDefault().school;
+                        string serial = db.NESSchools.Find(school).SchoolCambridge + "-" + invoice_payment.SeqID;
+                        invoice_payment.Notes = invoice_payment.Notes + serial + newNotes;
                     }
                     if (invoice_payment.type == 2)
                         invoice_payment.machine = null;

@@ -271,6 +271,7 @@
     <Compile Include="Models\StudentGradesHistory.cs">
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StudentMainsInvoiceViewModel.cs" />
     <Compile Include="Models\StudentsMain.cs">
       <DependentUpon>AffairsModel.tt</DependentUpon>
     </Compile>
@@ -291,12 +292,26 @@
     <Compile Include="Reports\genericReport.aspx.designer.cs">
       <DependentUpon>genericReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Payment.aspx.cs">
+      <DependentUpon>Payment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Payment.aspx.designer.cs">
+      <DependentUpon>Payment.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Report.aspx.cs">
       <DependentUpon>Report.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Reports\Report.aspx.designer.cs">
       <DependentUpon>Report.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\soldReport.aspx.cs">
+      <DependentUpon>soldReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\soldReport.aspx.designer.cs">
+      <DependentUpon>soldReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Reports\Student_Affairs_DatabaseDataSet.Designer.cs">
@@ -485,7 +500,9 @@
     <Content Include="Plugins\fontawesome-free\webfonts\fa-regular-400.svg" />
     <Content Include="Plugins\fontawesome-free\webfonts\fa-solid-900.svg" />
     <Content Include="Reports\genericReport.aspx" />
+    <Content Include="Reports\Payment.aspx" />
     <Content Include="Reports\Report.aspx" />
+    <Content Include="Reports\soldReport.aspx" />
     <Content Include="Scripts\AdminLTE\adminlte.js" />
     <Content Include="Scripts\AdminLTE\adminlte.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -673,6 +690,7 @@
     <Content Include="Views\StudentsMains\CreateCustom.cshtml" />
     <Content Include="Views\StudentsMains\CustomEdit.cshtml" />
     <Content Include="Views\StudentsMains\FilterGC.cshtml" />
+    <Content Include="Views\invoice_payment\IndexStudents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -711,6 +729,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\genericReport.rdlc" />
+    <EmbeddedResource Include="Reports\Payment_Invoice.rdlc" />
+    <EmbeddedResource Include="Reports\soldReport.rdlc" />
     <EmbeddedResource Include="Reports\Uniform_Invoice.rdlc" />
   </ItemGroup>
   <PropertyGroup>
