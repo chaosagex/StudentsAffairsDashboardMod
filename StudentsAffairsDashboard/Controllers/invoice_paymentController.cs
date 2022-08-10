@@ -211,19 +211,18 @@ namespace StudentsAffairsDashboard.Controllers
                     var rawQuery = db.Database.SqlQuery<int>($"SELECT NEXT VALUE FOR dbo.SeqIn{school};");
                     int nextVal = rawQuery.Single();
                     invoice_payment.SeqID = nextVal;
-                    db.invoice_payment.Add(invoice_payment);
-                    await db.SaveChangesAsync();
                     if (invoice_payment.remaining == 0)
                         invoice_payment.Notes = "";
                     else
                     {
-                        invoice_payment.Notes = invoice_payment.Notes + invoice_payment.id + newNotes;
+                        string serial =  db.NESSchools.Find(school).SchoolCambridge+"-"+invoice_payment.SeqID;
+                        invoice_payment.Notes = invoice_payment.Notes + serial + newNotes;
                         //foreach (payment_details pd in invoice_payment.payment_details)
                         //    db.deleteInvoiceItem(invoice_payment.id, pd.id);
-                        db.Entry(invoice_payment).State = EntityState.Modified;
-                        await db.SaveChangesAsync();
+                        
                     }
-
+                    db.invoice_payment.Add(invoice_payment);
+                    await db.SaveChangesAsync();
                     return RedirectToAction(nameof(IndexStudents));
                 }
                 catch (Exception e)
@@ -363,8 +362,9 @@ namespace StudentsAffairsDashboard.Controllers
                             invoice_payment pre = await db.invoice_payment.FindAsync(invoice_payment.previous_payment);
                             invoice_payment.Notes = pre.Notes;
                         }
-
-                        invoice_payment.Notes = invoice_payment.Notes + invoice_payment.id + newNotes;
+                        int school= invoice_payment.payment_details.FirstOrDefault().school;
+                        string serial = db.NESSchools.Find(school).SchoolCambridge + "-" + invoice_payment.SeqID;
+                        invoice_payment.Notes = invoice_payment.Notes + serial + newNotes;
                     }
                     if (invoice_payment.type == 2)
                         invoice_payment.machine = null;

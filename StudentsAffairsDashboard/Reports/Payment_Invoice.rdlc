@@ -293,21 +293,21 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox187">
+                        <Textbox Name="Notes">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=First(Fields!Notes.Value)</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox187</rd:DefaultName>
+                          <rd:DefaultName>Notes</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -318,6 +318,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -677,7 +678,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1245,7 +1245,7 @@
             <DataSetName>Payment</DataSetName>
             <Top>1.87786cm</Top>
             <Left>0.45443cm</Left>
-            <Height>3.50271cm</Height>
+            <Height>3.50273cm</Height>
             <Width>15.74146cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
