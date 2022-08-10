@@ -291,6 +291,12 @@
     <Compile Include="Reports\genericReport.aspx.designer.cs">
       <DependentUpon>genericReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Payment.aspx.cs">
+      <DependentUpon>Payment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Payment.aspx.designer.cs">
+      <DependentUpon>Payment.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Report.aspx.cs">
       <DependentUpon>Report.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -485,6 +491,7 @@
     <Content Include="Plugins\fontawesome-free\webfonts\fa-regular-400.svg" />
     <Content Include="Plugins\fontawesome-free\webfonts\fa-solid-900.svg" />
     <Content Include="Reports\genericReport.aspx" />
+    <Content Include="Reports\Payment.aspx" />
     <Content Include="Reports\Report.aspx" />
     <Content Include="Scripts\AdminLTE\adminlte.js" />
     <Content Include="Scripts\AdminLTE\adminlte.min.js" />
@@ -709,6 +716,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\genericReport.rdlc" />
+    <EmbeddedResource Include="Reports\Payment_Invoice.rdlc" />
     <EmbeddedResource Include="Reports\Uniform_Invoice.rdlc" />
   </ItemGroup>
   <PropertyGroup>

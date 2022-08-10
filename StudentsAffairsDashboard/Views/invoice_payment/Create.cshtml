@@ -90,7 +90,7 @@
                                         @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                <span class="text-danger">@ViewBag.Error</span>
+                                
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.total_cost, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
@@ -104,6 +104,7 @@
                                     <div class="col-md-10">
                                         @Html.EditorFor(model => model.paid, new { htmlAttributes = new { @class = "form-control", id = "paid", onchange = "getRemaining()" } })
                                         @Html.ValidationMessageFor(model => model.paid, "", new { @class = "text-danger" })
+                                        <span class="text-danger">@ViewBag.Error</span>
                                     </div>
                                 </div>
 
@@ -159,14 +160,14 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.STAN, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-10">
-                                            @Html.EditorFor(model => model.STAN, new { htmlAttributes = new { @class = "form-control", id = "STA" } })
+                                            @Html.EditorFor(model => model.STAN, new { htmlAttributes = new { @class = "form-control", id = "STA", required = "required" } })
                                             @Html.ValidationMessageFor(model => model.STAN, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.BATCH, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-10">
-                                            @Html.EditorFor(model => model.BATCH, new { htmlAttributes = new { @class = "form-control", id = "BAT" } })
+                                            @Html.EditorFor(model => model.BATCH, new { htmlAttributes = new { @class = "form-control", id = "BAT", required = "required" } })
                                             @Html.ValidationMessageFor(model => model.BATCH, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -318,6 +319,9 @@
       x.style.display = "none";
       document.getElementById("BAT").setAttribute("required", "");
       document.getElementById("STA").setAttribute("required", "");
+      document.getElementById("rc").removeAttribute("required");
+      document.getElementById("dd").removeAttribute("required");
+      document.getElementById("dep").removeAttribute("required");
       y.style.display = "block";
       document.getElementById("rc").value = "";
       document.getElementById("dd").value = "";
@@ -325,6 +329,8 @@
   } else {
       x.style.display = "block";
       y.style.display = "none";
+      document.getElementById("BAT").removeAttribute("required");
+      document.getElementById("STA").removeAttribute("required");
       document.getElementById("rc").setAttribute("required", "");
       document.getElementById("dd").setAttribute("required", "");
       document.getElementById("dep").setAttribute("required", "");
