@@ -73,7 +73,7 @@
                     }
                 </div>
                 <div class="col-2  text-center" style="width: 115px; height: 20px;">
-                    @if (item.payment_details.FirstOrDefault().type == 5)
+                    @if (item.payment_details.FirstOrDefault()!=null && item.payment_details.FirstOrDefault().type == 5)
                     {
                         <a href="~/Reports/Report.aspx?invoice=@item.id" class="badge badge-primary"><i class="glyphicon glyphicon-trash"></i>Print Receipt</a>
                     }

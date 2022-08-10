@@ -1,5 +1,5 @@
 ﻿@using StudentsAffairsDashboard.Models
-@model IEnumerable<StudentsAffairsDashboard.Models.StudentsMain>
+@model IEnumerable<StudentsAffairsDashboard.Models.StudentMainsInvoiceViewModel>
 
 <!-- Main content -->
 <section class="content">
@@ -16,11 +16,12 @@
                         <th style="width: 10%">ID</th>
                         <th style="width: 25%">Full Name</th>
                         <th>Make Payment</th>
-                        <th style="width: 15%">Payment Status</th>
+                        <th>Debt</th>
+                        <th style="width: 25%">Items Status</th>
                         <th>Print</th>
                         @if (Session["UserName"].ToString().Contains("Admin NES"))
                         {
-                            <th>Delete All Uniform</th>
+                            <th>Delete All payments</th>
                         }
 
                     </tr>
@@ -29,54 +30,76 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td hidden>@Html.DisplayFor(modelItem => item.StdCode)</td>
-                            <td style="text-align: center; vertical-align: middle;">@Html.DisplayFor(modelItem => item.StdNID)</td>
+                            <td hidden>@Html.DisplayFor(modelItem => item.student.StdCode)</td>
+                            <td style="text-align: center; vertical-align: middle;">@Html.DisplayFor(modelItem => item.student.StdNID)</td>
                             <td style="vertical-align: middle;">
                                 <a>
-                                    @Html.DisplayFor(modelItem => item.StdEnglishFristName) @Html.DisplayFor(modelItem => item.StdEnglishMiddleName) @Html.DisplayFor(modelItem => item.StdEnglishLastName) @Html.DisplayFor(modelItem => item.StdEnglishFamilyName)
+                                    @Html.DisplayFor(modelItem => item.student.StdEnglishFristName) @Html.DisplayFor(modelItem => item.student.StdEnglishMiddleName) @Html.DisplayFor(modelItem => item.student.StdEnglishLastName) @Html.DisplayFor(modelItem => item.student.StdEnglishFamilyName)
                                 </a>
                                 <br />
                                 <small>
-                                    NES @Html.DisplayFor(modelItem => item.NESSchool.SchoolName) @item.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault().Replace(" ", "-")  @Html.DisplayFor(modelItem => item.Class.ClassName).ToString().Replace(" ", "-") (@item.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
+                                    NES @Html.DisplayFor(modelItem => item.student.NESSchool.SchoolName) @item.student.StudentGradesHistories.Select(a => a.Grade.GradeName).LastOrDefault().Replace(" ", "-")  @Html.DisplayFor(modelItem => item.student.Class.ClassName).ToString().Replace(" ", "-") (@item.student.StudentGradesHistories.Select(a => a.KindBatch).LastOrDefault())
                                 </small>
                             </td>
+
                             <td style="text-align: center; vertical-align: middle;">
-                                @Html.ActionLink("Make Payment", "Create", new { st = item.StdCode }, new { @class = "btn btn-primary btn-sm" })
+                                @Html.ActionLink("Make Payment", "Create", new { st = item.student.StdCode }, new { @class = "btn btn-primary btn-sm" })
                             </td>
                             <td style="text-align: center; vertical-align: middle;">
-
-                                @if (item.invoice_payment.ToList().Count != 0)
+                                @if (item.debt > 0)
                                 {
-                                    
-                                        foreach(invoice_payment ip in item.invoice_payment)
+                                    <span class="badge badge-danger">@item.debt</span>
+                                }
+                                else
+                                {
+                                    if (item.paid.Count == 0 && item.left.Count == 0)
+                                    {
+                                        <span class="badge badge-danger">No-Payment-Registered</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-success">No-debt</span>
+                                    }
+                                }
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                @if (item.paid.Count == 0 && item.left.Count == 0)
+                                {
+                                    <span class="badge badge-danger">No-Payment-Registered</span>
+                                }
+                                else
+                                {
+                                    if (item.paid.Count > 0)
+                                    {
+                                        foreach (payment_details pd in item.paid)
                                         {
-
-                                            foreach(payment_details pd in ip.payment_details)
-                                            {
-                                                <span class="badge badge-success">@pd.name</span>
-                                            }
+                                            <span class="badge badge-success">@pd.name.Replace(' ', '-')</span>
                                         }
-                                    
-                                }
-                                else
-                                {
-                                    <span class="badge badge-danger">No Payments</span>
+                                    }
+                                    if (item.left.Count > 0)
+                                    {
+                                        foreach (payment_details pd in item.left)
+                                        {
+                                            <span class="badge badge-danger">@pd.name.Replace(' ', '_')</span>
+                                        }
+                                    }
                                 }
 
                             </td>
+                            
                             @*<td style="text-align: center; vertical-align: middle;">
-                                @if (item.StudentClothes.Where(a => a.StudentsMain.StdCode == item.StdCode).ToList().Count != 0 && item.StudentClothes.Where(a => a.StudentsMain.StdCode == item.StdCode).ToList().All(a => a.ReceivingStatus == "True"))
-                                {
-                                    <span class="badge badge-success">Received</span>
-                                }
-                                else
-                                {
-                                    <span class="badge badge-danger">NOT-Received</span>
-                                }
-                            </td>*@
+                                    @if (item.student.StudentClothes.Where(a => a.StudentsMain.StdCode == item.student.StdCode).ToList().Count != 0 && item.student.StudentClothes.Where(a => a.StudentsMain.StdCode == item.student.StdCode).ToList().All(a => a.ReceivingStatus == "True"))
+                                    {
+                                        <span class="badge badge-success">Received</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">NOT-Received</span>
+                                    }
+                                </td>*@
                             @*<td style="text-align: center; vertical-align: middle;">
-                                <a href="javascript:;" class="badge badge-primary details"><i class="glyphicon glyphicon-trash"></i>Show Uniform Status</a>
-                            </td>*@
+                                    <a href="javascript:;" class="badge badge-primary details"><i class="glyphicon glyphicon-trash"></i>Show Uniform Status</a>
+                                </td>*@
                             <td style="text-align: center; vertical-align: middle;">
                                 <a href="javascript:;" class="badge badge-secondary details2"><i class="glyphicon glyphicon-trash"></i>Show Invoices Status</a>
                             </td>
@@ -84,24 +107,26 @@
                             {
                                 <td style="text-align: center; vertical-align: middle;">
 
-                                    <a href="#" class="btn btn-danger btn-sm" onclick="ConfirmDelete(@item.StdCode)"><i class="glyphicon glyphicon-trash"></i>Delete</a>
-                                    
+                                    <a href="#" class="btn btn-danger btn-sm" onclick="ConfirmDelete(@item.student.StdCode)"><i class="glyphicon glyphicon-trash"></i>Delete</a>
+
                                 </td>
                             }
-                            </tr>
+                        </tr>
                     }
                 </tbody>
                 <tfoot>
                     <tr>
+                        <
                         <th hidden></th>
                         <th style="width: 10%">ID</th>
                         <th style="width: 25%">Full Name</th>
                         <th>Make Payment</th>
-                        <th style="width: 15%">Payment Status</th>
+                        <th>Debt</th>
+                        <th style="width: 15%">Items Status</th>
                         <th>Print</th>
                         @if (Session["UserName"].ToString().Contains("Admin NES"))
                         {
-                            <th>Delete All Uniform</th>
+                            <th>Delete All payments</th>
                         }
                     </tr>
                 </tfoot>
@@ -245,7 +270,7 @@
                 }
             });
         });
-        
+
     </script>
 }
 
