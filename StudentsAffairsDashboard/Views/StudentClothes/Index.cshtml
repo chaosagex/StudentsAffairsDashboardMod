@@ -147,7 +147,7 @@
     <!-- /.modal-dialog -->
 </div>
 
-<div class="modal fade" id="modal-danger">
+<div class="modal fade" id="modal-danger1">
     @using (Html.BeginForm("Delete", "StudentClothes", FormMethod.Post))
     {
         <div class="modal-dialog">
@@ -177,7 +177,7 @@
     <script>
         var ConfirmDelete = function (EmployeeId) {
             $("#hiddenIdD").val(EmployeeId);
-            $("#modal-danger").modal('show');
+            $("#modal-danger1").modal('show');
         }
         var ConfirmDelete2 = function (EmployeeId, EmployeeId2) {
             $("#hiddenId").val(EmployeeId);

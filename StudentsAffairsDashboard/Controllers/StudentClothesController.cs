@@ -665,12 +665,34 @@ namespace StudentsAffairsDashboard.Controllers
             var StudentClotheD = db.invoice_payment.Include(p => p.payment_details).Include(p => p.invoice_payment2).Where(s=>s.student == id).ToList();
             foreach (var item in StudentClotheD)
             {
-                foreach (var ite in db.StudentClothes.Where(a => a.InvoiceID == item.id))
+                invoice_payment invoiceNOW = item;
+
+                if (invoiceNOW != null)
                 {
-                    db.StudentClothes.Remove(ite);
+                    List<payment_details> x = invoiceNOW.payment_details.ToList();
+                    foreach (var itemx in x)
+                    {
+                        db.payment_details.Remove(itemx);
+                    }
+                    db.SaveChanges();
+                    foreach (var ite in db.StudentClothes.Where(a => a.InvoiceID == invoiceNOW.id))
+                    {
+                        db.StudentClothes.Remove(ite);
+                    }
+                    invoice_payment prev = db.invoice_payment.Where(a => a.previous_payment == invoiceNOW.id).FirstOrDefault();
+                    if (prev != null)
+                    {
+                        prev.previous_payment = invoiceNOW.previous_payment;
+                        db.SaveChanges();
+                        db.invoice_payment.Remove(invoiceNOW);
+
+                    }
+                    else
+                    {
+                        db.invoice_payment.Remove(invoiceNOW);
+                    }
                 }
-                db.invoice_payment.Remove(item);
-                
+
             }            
             db.SaveChanges();
             LogsController logs = new LogsController();
@@ -718,7 +740,7 @@ namespace StudentsAffairsDashboard.Controllers
                     db.invoice_payment.Remove(invoiceNOW);
                 }                
             }
-            
+            db.SaveChanges();
             LogsController logs = new LogsController();
             DateTime now = DateTime.Now;
             Log log = new Log();

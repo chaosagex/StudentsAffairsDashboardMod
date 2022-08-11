@@ -568,7 +568,7 @@
                     window.location.href = "@Url.Action("Index", "StudentClothes")"
                 },
                 error: function (response) {
-                    window.location.href = "@Url.Action("Index", "StudentClothes", StdCode)"
+                    window.location.href = "@Url.Action("Index", "StudentClothes", ViewBag.StdCode)"
                 }
             });
         });
