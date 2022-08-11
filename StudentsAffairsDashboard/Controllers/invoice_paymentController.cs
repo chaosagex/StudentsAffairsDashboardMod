@@ -65,7 +65,7 @@ namespace StudentsAffairsDashboard.Controllers
                     if(TESTMODE)
                         history.StudyYear = DateTime.Now.Year.ToString();
                     var thisYear = st.invoice_payment.Where(l => l.date.Year.ToString() == history.StudyYear);
-                    debt = thisYear.Last().remaining;
+                    debt = thisYear.OrderBy(a=>a.SeqID).Last().remaining;
                     List<payment_details> paid = new List<payment_details>();
                     foreach(invoice_payment invoice in thisYear)
                     {
@@ -254,7 +254,6 @@ namespace StudentsAffairsDashboard.Controllers
             if (ModelState.IsValid && invoice_payment.paid != 0)
             {
                 decimal Total = 0;
-                string newNotes = "\r\n";
                 List<payment_details> pds = new List<payment_details>();
                 foreach (payment_details pd in invoice_payment.payment_details)
                 {
@@ -267,8 +266,6 @@ namespace StudentsAffairsDashboard.Controllers
                         }
                         pds.Add(db.payment_details.Find(pd.id));
                         Total += pd.amount;
-                        newNotes += pd.name;
-                        newNotes += "\r\n";
                     }
 
 
@@ -294,10 +291,12 @@ namespace StudentsAffairsDashboard.Controllers
                     else
                     {
                         string serial =  db.NESSchools.Find(school).SchoolCambridge+"-"+invoice_payment.SeqID;
-                        invoice_payment.Notes = invoice_payment.Notes + serial + newNotes;
+                        //101-17 :من1000.0000متبقي
+
+                        invoice_payment.Notes = invoice_payment.Notes + "\r\n" + serial + " متبقي " + invoice_payment.remaining + " من " + "\r\n";
                         //foreach (payment_details pd in invoice_payment.payment_details)
                         //    db.deleteInvoiceItem(invoice_payment.id, pd.id);
-                        
+
                     }
                     db.invoice_payment.Add(invoice_payment);
                     await db.SaveChangesAsync();
@@ -400,7 +399,7 @@ namespace StudentsAffairsDashboard.Controllers
                 try
                 {
                     decimal Total = 0;
-                    string newNotes = "\r\n";
+                    
                     List<payment_details> pds = new List<payment_details>();
                     foreach (payment_details pd in invoice_payment.payment_details)
                     {
@@ -413,8 +412,7 @@ namespace StudentsAffairsDashboard.Controllers
                             }
                             pds.Add(db.payment_details.Find(pd.id));
                             Total += pd.amount;
-                            newNotes += pd.name;
-                            newNotes += "\r\n";
+                            
                         }
 
 
@@ -442,7 +440,7 @@ namespace StudentsAffairsDashboard.Controllers
                         }
                         int school= invoice_payment.payment_details.FirstOrDefault().school;
                         string serial = db.NESSchools.Find(school).SchoolCambridge + "-" + invoice_payment.SeqID;
-                        invoice_payment.Notes = invoice_payment.Notes + serial + newNotes;
+                        invoice_payment.Notes = invoice_payment.Notes +"\r\n" + serial + " متبقي " + invoice_payment.remaining + " من "  + "\r\n";
                     }
                     if (invoice_payment.type == 2)
                         invoice_payment.machine = null;
