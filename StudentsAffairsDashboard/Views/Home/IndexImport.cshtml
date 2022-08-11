@@ -1,0 +1,64 @@
+﻿@model StudentsAffairsDashboard.Models.Account
+@{
+    ViewBag.Title = "IndexImport";
+}
+
+<h2>IndexImport</h2>
+
+
+
+<div class="col-lg-12">
+    <div class="card card-primary">
+        <div class="form-horizontal">
+            <div class="card-header">
+                <h3 class="card-title">Add Excel File Data</h3>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12" style="padding-bottom:20px">
+                        <div class="col-sm-2">
+                            <span>Select File  :</span>
+                        </div>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="file" name="importFile" id="importFile" />
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input class="btn btn-primary" id="btnUpload" type="button" value="Upload" style="margin-top: 12px;"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).on("click", "#btnUpload", function () {
+            var files = $("#importFile").get(0).files;
+
+            var formData = new FormData();
+            formData.append('importFile', files[0]);
+            var Link = "@Url.Action("ImportFile", "Home")"
+            $.ajax({
+                url: Link,
+                data: formData,
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data.Status === 1) {
+                        alert(data.Message);
+                    } else {
+                        alert("Failed to Import");
+                    }
+                }
+            });
+        });
+    </script>
+}     

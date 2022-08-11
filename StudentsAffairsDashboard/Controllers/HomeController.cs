@@ -1,10 +1,16 @@
 ﻿using StudentsAffairsDashboard.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using ExcelDataReader;
+using System.Reflection;
+using System.Data.SqlClient;
 
 namespace StudentsAffairsDashboard.Controllers
 {
@@ -189,6 +195,104 @@ namespace StudentsAffairsDashboard.Controllers
             }
         }
 
-       
+        //Excel Section
+        // GET: Excel  
+        public ActionResult IndexImport()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ImportFile(HttpPostedFileBase importFile)
+        {
+            if (importFile == null) return Json(new { Status = 0, Message = "No File Selected" });
+
+            try
+            {
+                var fileData = GetDataFromCSVFile(importFile.InputStream);
+
+                var dtEmployee = fileData.ToDataTable();
+                var tblEmployeeParameter = new SqlParameter("@ParSubjectsType", SqlDbType.Structured)
+                {
+                    TypeName = "dbo.Subjects",
+                    Value = dtEmployee
+                };
+                await db.Database.ExecuteSqlCommandAsync("EXEC UpdateDataFromExcel @ParSubjectsType", tblEmployeeParameter);
+                return Json(new { Status = 1, Message = "File Imported Successfully " });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = 0, Message = ex.Message });
+            }
+        }
+        private List<Subject> GetDataFromCSVFile(Stream stream)
+        {
+            var empList = new List<Subject>();
+            try
+            {
+                using (var reader = ExcelReaderFactory.CreateCsvReader(stream))
+                {
+                    var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration
+                    {
+                        ConfigureDataTable = _ => new ExcelDataTableConfiguration
+                        {
+                            UseHeaderRow = true // To set First Row As Column Names    
+                        }
+                    });
+
+                    if (dataSet.Tables.Count > 0)
+                    {
+                        var dataTable = dataSet.Tables[0];
+                        foreach (DataRow objDataRow in dataTable.Rows)
+                        {
+                            if (objDataRow.ItemArray.All(x => string.IsNullOrEmpty(x?.ToString()))) continue;
+                            empList.Add(new Subject()
+                            {
+                                SubjectID = Convert.ToInt32(objDataRow["SubjectID"].ToString()),
+                                SubjectCode = objDataRow["SubjectCode"].ToString(),
+                                SubjectName = objDataRow["SubjectName"].ToString(),
+                                SubjectFees = Convert.ToInt32(objDataRow["SubjectFees"].ToString()),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return empList;
+        }
+
+
+
+    }
+}
+public static class Extensions
+{
+    public static DataTable ToDataTable<T>(this List<T> items)
+    {
+        DataTable dataTable = new DataTable(typeof(T).Name);
+
+        //Get all the properties  
+        PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+        foreach (PropertyInfo prop in Props)
+        {
+            //Defining type of data column gives proper data table   
+            var type = (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>) ? Nullable.GetUnderlyingType(prop.PropertyType) : prop.PropertyType);
+            //Setting column names as Property names  
+            dataTable.Columns.Add(prop.Name, type);
+        }
+        foreach (T item in items)
+        {
+            var values = new object[Props.Length];
+            for (int i = 0; i < Props.Length; i++)
+            {
+                //inserting property values to datatable rows  
+                values[i] = Props[i].GetValue(item, null);
+            }
+            dataTable.Rows.Add(values);
+        }
+        return dataTable;
     }
 }
