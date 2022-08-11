@@ -34,13 +34,44 @@ namespace StudentsAffairsDashboard.Reports
             string schoolID = Session["currentSchool"].ToString();
             string imagePath = new Uri(Server.MapPath($"~/Logos/{schoolID}.png")).AbsoluteUri;
             StudentAffairsDatabaseEntities db = new StudentAffairsDatabaseEntities();
-        invoice_payment inv = db.invoice_payment.Find(Int32.Parse(Request.QueryString["invoice"]));
-        ReportParameter[] Rptparams = new ReportParameter[] { new ReportParameter("School", schoolID),
+            invoice_payment inv = db.invoice_payment.Find(Int32.Parse(Request.QueryString["invoice"]));
+
+            string refr= inv.type != 1 ? inv.reference_code : inv.STAN;
+            ReportParameter[] Rptparams = null;
+            if (inv.payment_details.Count > 0)
+            {
+                Rptparams = new ReportParameter[] { new ReportParameter("School", imagePath),
                                                                 new ReportParameter("Paid", inv.paid.ToString()),
                                                                 new ReportParameter("Remaining", inv.remaining.ToString()),
+                                                                new ReportParameter("seqID"),
+                                                                new ReportParameter("ref",refr),
+                                                                new ReportParameter("date", inv.date.ToString()),
+                                                                new ReportParameter("Note", inv.Notes),
+                                                                new ReportParameter("studCode"),
+                                                                new ReportParameter("studName"),
+                                                                new ReportParameter("grade"),
+                                                                new ReportParameter("SchoolName" ),
                                                               new ReportParameter("TotalCost", inv.total_cost.ToString())};
-            ReportViewer4.LocalReport.SetParameters(Rptparams);
-            ReportViewer4.LocalReport.Refresh();
+            }
+            else
+            {
+                Rptparams = new ReportParameter[] { new ReportParameter("School", imagePath),
+                                                                new ReportParameter("Paid", inv.paid.ToString()),
+                                                                new ReportParameter("Remaining", inv.remaining.ToString()),
+                                                                new ReportParameter("seqID", inv.StudentsMain.NESSchool.SchoolCambridge+"-"+inv.SeqID.ToString()),
+                                                                new ReportParameter("ref",refr),
+                                                                new ReportParameter("date", inv.date.ToString()),
+                                                                new ReportParameter("Note", inv.Notes),
+                                                                new ReportParameter("studCode", inv.student.ToString()),
+                                                                new ReportParameter("studName", inv.StudentsMain.StdArabicFristName+" "+inv.StudentsMain.StdArabicMiddleName+" "+inv.StudentsMain.StdArabicLastName+" "+inv.StudentsMain.StdArabicFamilyName),
+                                                                new ReportParameter("grade", inv.StudentsMain.StudentGradesHistories.OrderBy(o=>o.StudyYear).Last().Grade.GradeName),
+                                                                new ReportParameter("SchoolName", inv.StudentsMain.NESSchool.SchoolArabicName),
+                                                              new ReportParameter("TotalCost", inv.total_cost.ToString())};
+            }   
+                ReportViewer4.LocalReport.SetParameters(Rptparams);
+                ReportViewer4.LocalReport.Refresh();
+            
+            
         }
 
         private DataTable GetData(string invoice)
