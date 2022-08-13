@@ -230,32 +230,32 @@ namespace StudentsAffairsDashboard.Controllers
             var empList = new List<Subject>();
             try
             {
-                using (var reader = ExcelReaderFactory.CreateCsvReader(stream))
-                {
-                    var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration
-                    {
-                        ConfigureDataTable = _ => new ExcelDataTableConfiguration
-                        {
-                            UseHeaderRow = true // To set First Row As Column Names    
-                        }
-                    });
+                //using (var reader = ExcelReaderFactory.CreateCsvReader(stream))
+                //{
+                //    var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration
+                //    {
+                //        ConfigureDataTable = _ => new ExcelDataTableConfiguration
+                //        {
+                //            UseHeaderRow = true // To set First Row As Column Names    
+                //        }
+                //    });
 
-                    if (dataSet.Tables.Count > 0)
-                    {
-                        var dataTable = dataSet.Tables[0];
-                        foreach (DataRow objDataRow in dataTable.Rows)
-                        {
-                            if (objDataRow.ItemArray.All(x => string.IsNullOrEmpty(x?.ToString()))) continue;
-                            empList.Add(new Subject()
-                            {
-                                SubjectID = Convert.ToInt32(objDataRow["SubjectID"].ToString()),
-                                SubjectCode = objDataRow["SubjectCode"].ToString(),
-                                SubjectName = objDataRow["SubjectName"].ToString(),
-                                SubjectFees = Convert.ToInt32(objDataRow["SubjectFees"].ToString()),
-                            });
-                        }
-                    }
-                }
+                //    if (dataSet.Tables.Count > 0)
+                //    {
+                //        var dataTable = dataSet.Tables[0];
+                //        foreach (DataRow objDataRow in dataTable.Rows)
+                //        {
+                //            if (objDataRow.ItemArray.All(x => string.IsNullOrEmpty(x?.ToString()))) continue;
+                //            empList.Add(new Subject()
+                //            {
+                //                SubjectID = Convert.ToInt32(objDataRow["SubjectID"].ToString()),
+                //                SubjectCode = objDataRow["SubjectCode"].ToString(),
+                //                SubjectName = objDataRow["SubjectName"].ToString(),
+                //                SubjectFees = Convert.ToInt32(objDataRow["SubjectFees"].ToString()),
+                //            });
+                //        }
+                //    }
+                //}
             }
             catch (Exception)
             {
