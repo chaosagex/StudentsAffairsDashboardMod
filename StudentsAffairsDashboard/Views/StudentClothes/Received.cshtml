@@ -191,7 +191,7 @@
                         window.location.href = "@Url.Action("Receiving", "StudentClothes")"
                     },
                     error: function (response) {
-                        window.location.href =  "@Url.Action("Received", "StudentClothes" , StdCode)"
+                        window.location.href =  "@Url.Action("Received", "StudentClothes" , ViewBag.StdCode)"
                     }
                 });
             });

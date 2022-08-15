@@ -109,7 +109,7 @@
                                 foreach (var item in Model)
                                 {
                                     if (item.ClothesID == 1 || item.ClothesID == 2 || item.ClothesID == 3 || item.ClothesID == 4
-                                        || item.ClothesID == 5 || item.ClothesID == 6 || item.ClothesID == 7 || item.ClothesID == 8)
+                                        || item.ClothesID == 5 || item.ClothesID == 6 || item.ClothesID == 7 || item.ClothesID == 8 || item.ClothesID == 32 || item.ClothesID == 34 || item.ClothesID == 36)
                                     {
                                         <tr>
                                             <td data-th="Checks">
@@ -145,8 +145,8 @@
                             {
                                 foreach (var item in Model)
                                 {
-                                    if (item.ClothesID == 9 || item.ClothesID == 10 || item.ClothesID == 11 
-                                        || item.ClothesID == 12 || item.ClothesID == 13 || item.ClothesID == 14)
+                                    if (item.ClothesID == 9 || item.ClothesID == 10 || item.ClothesID == 11
+                                        || item.ClothesID == 12 || item.ClothesID == 13 || item.ClothesID == 14 || item.ClothesID == 42 || item.ClothesID == 45 || item.ClothesID == 44)
                                     {
                                         <tr>
                                             <td data-th="Checks">
@@ -521,7 +521,7 @@
         function CalcTotal() {
             total = parseFloat(PackageValue) | 0;
             total = Math.round(total);
-            for (var i = 1; i < 35; i++) {
+            for (var i = 1; i < 50; i++) {
                 if ($('#CheckBox_' + i).is(":checked")) {
                     total = total + parseFloat((parseInt($('#Price_' + i).val()) * parseInt($('#' + i).val())))
                     total = Math.round(total);
@@ -534,7 +534,7 @@
         function CalcTotal2() {
             total = parseFloat(PackageValue) | 0;
             total = Math.round(total);
-            for (var i = 1; i < 35; i++) {
+            for (var i = 1; i < 50; i++) {
                 if ($('#CheckBox_' + i).is(":checked")) {
                     $('#' + i).val(1)
                     //$('#' + i).prop("disabled", false);

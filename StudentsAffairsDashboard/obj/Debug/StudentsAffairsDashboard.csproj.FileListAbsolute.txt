@@ -521,3 +521,6 @@ D:\Devolop Work\Clone Repository\StudentsAffairsDashboard\bin\zh-CHT\Microsoft.R
 D:\Devolop Work\Clone Repository\StudentsAffairsDashboard\obj\Debug\StudentsAffairsDashboard.csproj.CopyComplete
 D:\Devolop Work\Clone Repository\StudentsAffairsDashboard\obj\Debug\StudentsAffairsDashboard.dll
 D:\Devolop Work\Clone Repository\StudentsAffairsDashboard\obj\Debug\StudentsAffairsDashboard.pdb
+D:\repoisitiries\visual studio\New folder\New folder\StudentsAffairsDashboard\StudentsAffairsDashboard\bin\ExcelDataReader.DataSet.dll
+D:\repoisitiries\visual studio\New folder\New folder\StudentsAffairsDashboard\StudentsAffairsDashboard\bin\ExcelDataReader.DataSet.pdb
+D:\repoisitiries\visual studio\New folder\New folder\StudentsAffairsDashboard\StudentsAffairsDashboard\bin\ExcelDataReader.DataSet.xml
